@@ -118,5 +118,1016 @@
       "Synthetic transactions are scripted, production-like operations run continuously to prove a flow works — failures surface before customers meet them.",
       "Regression testing runs at build or release time to catch broken functionality, not continuously in production."
     ]
+  },
+  {
+    "id": "D6-0007",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "medium",
+    "stem": "A regional bank has engaged an outside firm to perform an external penetration test of its online banking platform. The engagement kickoff call is complete and the testers are ready to begin. What should be completed FIRST before any testing activity starts?",
+    "options": [
+      "Begin passive reconnaissance to map the organization's external attack surface",
+      "Notify the security operations center so that test activity is not escalated",
+      "Obtain signed rules of engagement defining scope, authorized methods, and contacts",
+      "Run a vulnerability scan to identify likely entry points for the testers"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Reconnaissance is the first phase of the test itself, but no test activity is authorized until the rules of engagement are signed; starting early exposes both the bank and the testers to legal risk.",
+      "Whether the SOC is told depends on the engagement design (a double-blind test deliberately withholds notice), and that decision is itself recorded in the rules of engagement, which must come first.",
+      "Written, signed rules of engagement establish legal authorization, scope boundaries, permitted techniques, and emergency contacts; without them any testing activity, even reconnaissance, is unauthorized.",
+      "Scanning is an assessment technique performed during the engagement; running it before authorization is documented is unauthorized testing, not preparation."
+    ],
+    "reference": "NIST SP 800-115"
+  },
+  {
+    "id": "D6-0008",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "easy",
+    "stem": "A development manager wants security defects identified by examining the application's source code before the build is ever deployed to any running environment. Which testing approach BEST fits this requirement?",
+    "options": [
+      "Static application security testing of the codebase",
+      "Dynamic application security testing of the application",
+      "Fuzz testing of the application's input handling",
+      "Interface testing of the application's integrations"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Static application security testing analyzes source or compiled code without executing it, so defects can be found and fixed before the application is deployed anywhere.",
+      "DAST is easily confused with SAST because both find application flaws, but dynamic testing requires a running instance, which this requirement explicitly avoids.",
+      "Fuzzing also finds input-handling defects, but it works by feeding malformed input to executing software, so it cannot run before deployment to a runtime.",
+      "Interface testing validates data exchange between running components, so it likewise requires an executing environment rather than source code alone."
+    ]
+  },
+  {
+    "id": "D6-0009",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A custom-built service parses documents uploaded by anonymous internet users, and developers suspect that malformed files can crash it. Which technique is MOST likely to reveal exploitable input-handling flaws in this parser?",
+    "options": [
+      "Static analysis of the parser's source code repository",
+      "Fuzz testing that feeds mutated and malformed files to the running parser",
+      "Regression testing using the existing functional test suite",
+      "An unauthenticated network vulnerability scan of the host"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Static analysis can flag risky coding patterns, but it often misses how the compiled parser actually behaves on hostile input; it complements rather than replaces runtime testing here.",
+      "Fuzzing systematically supplies malformed and mutated input to running software while watching for crashes and hangs, making it the standard technique for exposing input-handling flaws in parsers.",
+      "Regression testing confirms previously working functionality still works after changes; it exercises expected inputs, not deliberately hostile ones.",
+      "A network vulnerability scanner matches known signatures on exposed services and will not meaningfully exercise the internal logic of a custom file parser."
+    ]
+  },
+  {
+    "id": "D6-0010",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A quality team's plan for a new benefits portal executes every documented user story successfully. The security lead objects that the plan proves the portal works as intended but not that it is safe when someone deliberately abuses it. Which addition BEST addresses the gap?",
+    "options": [
+      "Expanded use case testing of every documented user story",
+      "Unit testing of each module with higher coverage targets",
+      "Regression testing after each sprint's code changes",
+      "Misuse case testing based on attacker behavior scenarios"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Expanding use case testing still validates intended behavior; the gap is behavior under intentional misuse, which use cases by definition do not model.",
+      "Higher unit test coverage strengthens functional confidence in individual modules but does not model an attacker's end-to-end abuse of the application.",
+      "Regression testing guards against reintroducing old defects; it says nothing about how the portal responds to hostile actions never covered by the suite.",
+      "Misuse case testing deliberately models attacker behavior, such as parameter tampering and workflow bypass, verifying the application fails safely under abuse rather than only succeeding under intended use."
+    ]
+  },
+  {
+    "id": "D6-0011",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "An insurer wants a two-week application penetration test that realistically simulates a malicious customer who already holds a standard account, while spending as little of the window as possible on target discovery. Which approach BEST fits these constraints?",
+    "options": [
+      "A black-box test with no information provided to the testers",
+      "A gray-box test with credentials and limited design information provided",
+      "A white-box test with full source code and architecture documentation",
+      "A double-blind test in which the operations staff are not informed"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Black-box testing maximizes external realism but forces testers to spend the scarce engagement window on reconnaissance, and it does not represent an attacker who already holds an account.",
+      "Gray-box testing gives testers partial knowledge and a working account, mirroring a malicious authenticated customer while conserving the limited window for actual attack work rather than discovery.",
+      "White-box testing is the most thorough per hour of effort, but it models an omniscient reviewer rather than the specified threat of a customer with ordinary access.",
+      "Double-blind describes whether defenders are warned, not how much knowledge testers receive; it answers a different design question about evaluating detection and response."
+    ]
+  },
+  {
+    "id": "D6-0012",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "Security analysts cannot reconstruct an incident because timestamps in the firewall, directory, and application logs disagree by several minutes, making event ordering unreliable. Which improvement should the organization make FIRST?",
+    "options": [
+      "Synchronize every log source to a common authoritative time service",
+      "Increase logging verbosity on all of the affected systems",
+      "Deploy a security information and event management platform",
+      "Extend the retention period for all collected log data"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Reliable correlation depends on a consistent timeline, so synchronizing all sources to an authoritative time service such as NTP is the foundational fix that makes every subsequent analysis trustworthy.",
+      "More verbose logs add detail, but every additional record still carries an untrustworthy timestamp, so event ordering remains unreliable.",
+      "A SIEM correlates whatever timestamps it receives; feeding it unsynchronized clocks produces confidently wrong timelines rather than fixing the root cause.",
+      "Retention determines how long evidence remains available, not whether events can be sequenced accurately across sources."
+    ],
+    "reference": "NIST SP 800-92"
+  },
+  {
+    "id": "D6-0013",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "The board asks the CISO to demonstrate whether the organization's vulnerability management program is actually improving over time. Which measure is MOST meaningful to present?",
+    "options": [
+      "The total number of vulnerabilities detected by scanning each month",
+      "The number of vulnerability scans completed during each quarter",
+      "The trend in mean time to remediate critical findings against an agreed target",
+      "The count of attacks blocked by the perimeter firewall each month"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Raw detection counts rise and fall with scanning scope and new signature releases, so a higher or lower number says little about how the program is performing.",
+      "Scan counts measure activity rather than outcome; a program can scan constantly while remediation stagnates.",
+      "Trending mean time to remediate critical findings against an agreed target ties the metric to an outcome leadership cares about and shows direction over time, which is exactly what improvement means.",
+      "Blocked-attack counts reflect attacker activity and one control's workload, not how well the organization finds and fixes its own weaknesses."
+    ]
+  },
+  {
+    "id": "D6-0014",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "easy",
+    "stem": "Nightly backup jobs for a billing system have reported success for two years without exception. Which activity provides the BEST evidence that the organization could actually recover the system?",
+    "options": [
+      "Reviewing the nightly job completion logs for failures",
+      "Verifying cryptographic checksums of the stored backup files",
+      "Confirming that offsite replication of the backups completes",
+      "Performing periodic test restores and validating the recovered data"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Job completion logs show the backup process ran, a common source of false comfort; they cannot reveal whether the captured data is complete, consistent, or restorable.",
+      "Checksums confirm the stored files have not changed since being written, but not that they contain everything a working restore requires.",
+      "Successful replication proves copies exist in a second location, yet a corrupt or incomplete backup replicates just as faithfully as a good one.",
+      "Periodically restoring the system and validating the recovered data is the only direct proof of recoverability, which is why restore testing is a core element of security process data."
+    ]
+  },
+  {
+    "id": "D6-0015",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "medium",
+    "stem": "A penetration test of a hospital's patient portal is complete, and the CISO must brief the executive committee on the results. What should the executive summary emphasize MOST?",
+    "options": [
+      "The full technical detail of each exploited vulnerability and the payloads used",
+      "The overall risk to business and patient-safety objectives with prioritized remediation themes",
+      "The complete raw output of the testing tools to demonstrate the engagement's rigor",
+      "The specific staff members whose credentials were compromised during testing"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Exploit-level detail belongs in the technical body or appendix for remediation teams; executives need decision-relevant risk information, not payload mechanics.",
+      "Executive audiences act on business impact, so the summary should translate findings into risk to organizational objectives and a prioritized remediation direction they can fund and govern.",
+      "Raw tool output is supporting evidence for practitioners; putting it in an executive summary buries the message and demonstrates volume rather than insight.",
+      "Naming individuals shifts the briefing toward blame and privacy problems; systemic control weaknesses, not personal fault, are the appropriate executive focus."
+    ]
+  },
+  {
+    "id": "D6-0016",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "Midway through an authorized penetration test, the testers discover a web shell and command-and-control traffic on a target server that do not belong to their team. What should the testers do FIRST?",
+    "options": [
+      "Pause testing and escalate through the incident response contacts named in the rules of engagement",
+      "Remove the web shell immediately so that the unknown intruder loses access",
+      "Continue the engagement as planned and include the discovery in the final report",
+      "Use the web shell to gather more information about the unknown intruder"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Evidence of a real intrusion converts the engagement into a live incident; the rules of engagement name the contacts and halt procedure precisely so testing stops and incident response takes over immediately.",
+      "Deleting the web shell would destroy evidence and could tip off the intruder before responders have scoped the compromise.",
+      "Waiting for the final report leaves an active attacker operating for weeks; test findings can wait, but incidents cannot.",
+      "Interacting with the intruder's tooling exceeds the testers' authorization and risks contaminating evidence and escalating the attacker's behavior."
+    ],
+    "reference": "NIST SP 800-115"
+  },
+  {
+    "id": "D6-0017",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "easy",
+    "stem": "A software-as-a-service provider's enterprise customers increasingly refuse to rely on the provider's own statements about its security controls. Which approach BEST satisfies the customers' need for assurance?",
+    "options": [
+      "An internal audit performed by the provider's own audit department",
+      "A self-assessment questionnaire completed by each control owner",
+      "An independent audit performed by an external third-party firm",
+      "A second-party audit performed on site by one large customer"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Internal audit is independent of operations, but customers still see it as inside the company and will discount it for the same reason they reject self-attestation.",
+      "Control-owner self-assessment is the least independent form of review and is precisely the kind of evidence the customers no longer accept.",
+      "An audit by an independent external firm provides third-party assurance that no internal function can, which is why customer-facing trust obligations are typically met with external examinations.",
+      "A second-party audit gives one customer assurance, but it does not scale across the customer base and burdens the provider with repeated bespoke audits."
+    ]
+  },
+  {
+    "id": "D6-0018",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "medium",
+    "stem": "An internal audit of identity and access management is being staffed. The engineer who originally designed the IAM control set is proposed as the auditor because of superior knowledge of the environment. What is the BEST course of action?",
+    "options": [
+      "Accept the proposal because deep knowledge of the controls improves audit quality",
+      "Accept the proposal provided management formally approves the audit plan",
+      "Let the engineer perform the fieldwork but exclude them from writing the report",
+      "Assign an auditor who had no role in designing or operating the IAM controls"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Subject-matter expertise is valuable, but it cannot offset the self-review threat; a designer evaluating their own work has an inherent conflict of interest.",
+      "Management approval of the plan governs scope, not objectivity; sign-off does not remove the auditor's incentive to overlook their own design decisions.",
+      "Excluding the engineer from report writing still leaves the evidence gathering and evaluation, the heart of the audit, in the hands of the person effectively under review.",
+      "Audit credibility rests on independence and objectivity, so the work must go to someone with no role in designing or operating the controls; the engineer can still contribute as an interviewee or technical resource."
+    ]
+  },
+  {
+    "id": "D6-0019",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A new claims system passed all unit tests, but it exchanges eligibility data with an external partner over an API. The security manager is concerned that risk remains at the connection between the two organizations. Which testing BEST addresses this concern?",
+    "options": [
+      "Additional unit tests to raise code coverage within each system",
+      "Interface testing that exercises authentication, session, and error handling between the systems",
+      "Static analysis of each organization's source code repository",
+      "Load testing to confirm the API sustains peak transaction volume"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Unit tests validate logic inside each module and were already passed; they cannot exercise how two independently built systems behave against each other.",
+      "Interface testing targets exactly this seam, verifying that authentication, session handling, input validation, and error handling behave securely when the systems interact under normal and abnormal conditions.",
+      "Static analysis reviews each codebase in isolation and cannot observe runtime behavior across the organizational boundary.",
+      "Load testing measures capacity and availability under volume, which is a different risk from insecure behavior at the integration point."
+    ]
+  },
+  {
+    "id": "D6-0020",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "medium",
+    "stem": "The infrastructure team reports that every critical finding from last quarter's assessment has been remediated and has closed the associated change tickets. What is the BEST basis for the security team to close the findings?",
+    "options": [
+      "Retesting each affected system to confirm the fix actually eliminates the finding",
+      "The closed change tickets documenting that the remediation work was performed",
+      "Carrying the findings forward until the next annual assessment confirms them",
+      "A written attestation from each system owner that the fixes are in place"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Verification through retesting proves the remediation was effective, since fixes are frequently incomplete, misapplied, or later reversed; findings should close on evidence of outcome, not evidence of effort.",
+      "Change tickets show work was attempted and approved, a records-versus-reality confusion; they do not demonstrate the vulnerability is actually gone.",
+      "Waiting for the annual cycle leaves any failed fix exploitable for months and delays accurate risk reporting to management.",
+      "Owner attestation is a self-reported claim from the party that performed the work and cannot substitute for independent technical verification."
+    ]
+  },
+  {
+    "id": "D6-0021",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "hard",
+    "stem": "During a prior assessment, active vulnerability scans caused programmable logic controllers on a manufacturing network to fail, halting production. A new assessment of the same environment is being designed. Which strategy is BEST?",
+    "options": [
+      "Run the same authenticated scans, but only during a scheduled maintenance window",
+      "Exclude the operational technology network from the assessment scope entirely",
+      "Use passive traffic analysis in production and run active techniques against a representative lab replica",
+      "Install endpoint scanning agents on all controllers to avoid network-based scanning"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Rescheduling the same intrusive scans changes when the fragile devices are stressed, not whether they can tolerate it, so production controllers remain at risk of failure.",
+      "Descoping the OT network removes the operational hazard but leaves the organization blind to risk in its most safety-critical environment.",
+      "Passive traffic analysis assesses the live environment without touching fragile devices, while a representative lab replica safely absorbs active techniques; the pairing preserves coverage without endangering operations.",
+      "Traditional endpoint agents generally cannot be installed on PLCs and embedded controllers, so an agent-based design confuses IT scanning practice with OT constraints."
+    ],
+    "reference": "NIST SP 800-82"
+  },
+  {
+    "id": "D6-0022",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "Executive leadership does not want another list of vulnerabilities; they want to know whether the security operations center can detect and contain a realistic, determined adversary. Which engagement BEST answers that question?",
+    "options": [
+      "A full-scope vulnerability assessment across the enterprise environment",
+      "An announced penetration test of the external network perimeter",
+      "A tabletop exercise walking the SOC through an intrusion scenario",
+      "A covert, objective-based red team engagement known only to a trusted-agent group"
+    ],
+    "answer": 3,
+    "explanations": [
+      "A vulnerability assessment enumerates weaknesses breadth-first; it never exercises the defenders, so it cannot answer a question about detection and containment.",
+      "An announced perimeter penetration test measures exploitability, and forewarned analysts do not behave like defenders facing an unknown adversary.",
+      "A tabletop walks the team through a scenario on paper, which builds readiness but generates no real telemetry proving that detection actually works.",
+      "A covert, objective-driven red team engagement, disclosed only to a small trusted-agent group, emulates adversary tradecraft against the live defense so leadership sees how detection and response actually perform."
+    ]
+  },
+  {
+    "id": "D6-0023",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "A security review notes that server administrators hold sufficient privileges to alter or delete the local logs that record their own activity. Which control BEST preserves the evidentiary value of those logs?",
+    "options": [
+      "Enable more verbose logging on each of the administered servers",
+      "Forward events in near-real time to a central log store the administrators cannot modify",
+      "Require dual approval before administrators can access the servers",
+      "Encrypt the log files where they are stored on each server's local disk"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Verbose logging captures richer detail, but every additional record remains on a system the administrators control and can still be altered or purged.",
+      "Forwarding events immediately to a central store where administrators hold no modification rights removes the records from their span of control, preserving an independent, tamper-resistant account of their actions.",
+      "Dual approval is a preventive control on who reaches the servers; once an administrator is legitimately on a system, it does nothing to stop log tampering afterward.",
+      "Local encryption protects log confidentiality, but administrators with root control of the host can typically delete the files or disable logging regardless."
+    ]
+  },
+  {
+    "id": "D6-0024",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "hard",
+    "stem": "An assessment team proposes aggressive dynamic testing, including exploit payloads, against an e-commerce platform that processes revenue around the clock for customers worldwide. As the risk owner, which testing strategy is BEST?",
+    "options": [
+      "Run intrusive techniques against a production-matched staging environment and limit production to non-disruptive verification",
+      "Run the full intrusive test against production overnight when traffic is at its lowest",
+      "Cancel the dynamic testing and rely on static analysis of the platform's source code",
+      "Run the full test in production after confirming that recent backups restore successfully"
+    ],
+    "answer": 0,
+    "explanations": [
+      "This balances assurance and availability: intrusive techniques run where damage is acceptable, environment parity keeps the results meaningful, and production still receives verification the business can tolerate.",
+      "An overnight window reduces exposure, but a globally trading platform has no true quiet period, and exploit payloads can corrupt data or crash services regardless of traffic level.",
+      "Static analysis examines code rather than the deployed system's configuration and runtime behavior, so abandoning dynamic testing trades an availability risk for a coverage gap.",
+      "Restorable backups shorten recovery but do not prevent the outage, transaction loss, and customer impact that the intrusive test could cause in the first place."
+    ]
+  },
+  {
+    "id": "D6-0025",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "hard",
+    "stem": "An auditor must conclude whether access was revoked on time for roughly 40,000 terminations processed during the audit period, and testing every case is infeasible. Which evidence approach BEST supports a defensible conclusion about the whole population?",
+    "options": [
+      "Test the most recent twenty-five terminations because the data is easiest to obtain",
+      "Judgmentally select the terminations the auditor suspects are most likely to have failed",
+      "Draw a statistically sized random sample that supports a stated confidence level",
+      "Rely on the control owner's monthly reconciliation reports covering the full period"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Testing only the most recent cases is convenience sampling; the latest weeks may not represent the whole period, so nothing defensible can be concluded about the population.",
+      "Judgmental selection is legitimate for probing suspected problem areas, but its deliberate bias means the results cannot be projected across the full population.",
+      "A statistically sized random sample lets the auditor extrapolate the observed exception rate to all 40,000 cases with a stated confidence level, which is what a population-wide conclusion requires.",
+      "The control owner's own reconciliations are output of the very process under audit; relying on them substitutes self-reporting for independent evidence."
+    ]
+  },
+  {
+    "id": "D6-0026",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "medium",
+    "stem": "A cloud provider's marketing team wants to post evidence of the company's security control examinations on the public website for any prospect to download without a nondisclosure agreement. Which report is BEST suited to this purpose?",
+    "options": [
+      "The SOC 1 Type II report covering controls relevant to financial reporting",
+      "The SOC 3 general-use report on the trust services criteria",
+      "The SOC 2 Type II report containing the auditor's detailed test results",
+      "The SOC 2 Type I report, because it is shorter than the Type II version"
+    ],
+    "answer": 1,
+    "explanations": [
+      "SOC 1 addresses controls relevant to user entities' financial reporting and is a restricted-use report intended for those customers and their auditors, not the public.",
+      "SOC 3 is expressly designed as a general-use report: it conveys the auditor's opinion on the trust services criteria without sensitive detail, so it can be freely distributed to any audience.",
+      "SOC 2 reports are restricted-use because they contain detailed control descriptions and test results; posting one publicly would expose sensitive detail and violate the intended distribution.",
+      "A Type I report's limitation is that it covers control design at a point in time; it remains a restricted-use SOC 2 report regardless of its length."
+    ]
+  },
+  {
+    "id": "D6-0027",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A consumer-facing application ships new code every week, and the annual penetration test consistently misses flaws introduced between engagements. Which addition BEST closes the gap between formal tests?",
+    "options": [
+      "Increase the penetration testing frequency from annual to semiannual",
+      "Schedule quarterly unauthenticated vulnerability scans of the application",
+      "Deploy a web application firewall in front of the application in blocking mode",
+      "Launch a managed bug bounty program so researchers test the application continuously"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Semiannual testing still leaves dozens of release cycles unexamined between engagements; more frequent point-in-time tests cannot keep pace with weekly change.",
+      "Automated scans run more often but find mostly known, signature-based issues and miss the business logic flaws that skilled humans uncover.",
+      "A WAF is a compensating preventive control, not a form of testing; it may mask symptoms while the underlying flaws remain undiscovered in the code.",
+      "A managed bug bounty applies continuous, incentivized human testing to every release, directly addressing the exposure created by the gap between scheduled engagements."
+    ]
+  },
+  {
+    "id": "D6-0028",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "easy",
+    "stem": "An organization completes its annual disaster recovery failover exercise, and every system recovers within its recovery time objective. What is the MOST appropriate handling of the exercise results?",
+    "options": [
+      "Document the outcomes, gaps, and lessons learned and report them into management review",
+      "Record the exercise as passed and take no further action because all targets were met",
+      "Restrict the results to the technical staff who conducted the failover exercise",
+      "Hold the results until an external auditor requests evidence of disaster recovery testing"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Exercise results are security process data; documenting outcomes and lessons learned and feeding them into management review is how the organization demonstrates recovery capability and improves the plan.",
+      "Even a successful exercise surfaces timing data and friction points; declaring victory and discarding them wastes the primary value of testing.",
+      "Limiting results to the technical team denies management the evidence it needs for resourcing decisions and oversight of recovery capability.",
+      "Audit support is a secondary use of the data; withholding results until requested delays the plan updates and management visibility the data exists to drive."
+    ],
+    "reference": "ISO/IEC 27001"
+  },
+  {
+    "id": "D6-0029",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "easy",
+    "stem": "A development team reports that its entire automated test suite passes on every build. The security lead responds that passing tests reveal nothing about the parts of the application the suite never touches. Which analysis BEST addresses the lead's concern?",
+    "options": [
+      "Gap analysis comparing the security policy against a control framework",
+      "Trend analysis of defect counts across the last several releases",
+      "Test coverage analysis measuring how much of the code the suite exercises",
+      "Root cause analysis of the defects the suite has previously caught"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Gap analysis compares governance documents against a framework at the policy level and says nothing about which code paths the automated tests execute.",
+      "Defect trends describe the history of what testing has found, not the portion of the codebase that the tests fail to reach.",
+      "Test coverage analysis measures exactly the blind spot in question, the proportion of code the suite executes, revealing untested functions and branches where defects can hide despite a fully passing suite.",
+      "Root cause analysis explains why known defects occurred; it cannot illuminate code that the tests have never exercised."
+    ]
+  },
+  {
+    "id": "D6-0030",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "hard",
+    "stem": "A validated critical finding affects a legacy system whose vendor no longer issues patches. The system owner insists the finding be deleted from the assessment report because remediation is impossible. What is the BEST response?",
+    "options": [
+      "Remove the finding from the report because the owner has formally disputed its feasibility",
+      "Keep the finding and manage it through a formal exception with compensating controls and documented risk acceptance",
+      "Lower the finding's severity rating so that it no longer requires immediate remediation",
+      "Withhold the report from publication until the vendor can be persuaded to issue a patch"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Deleting a validated finding because it is inconvenient corrupts the integrity of the assessment record; infeasibility of patching changes the treatment of the risk, not its existence.",
+      "The report must reflect reality; unpatchable risk is handled through the exception process, where compensating controls are applied and management formally accepts the residual risk with visibility and accountability.",
+      "Severity reflects impact and exploitability, not remediation convenience; downgrading a rating to ease the owner's burden misstates the risk to decision-makers.",
+      "Holding the report hostage to a vendor decision that may never come delays every other stakeholder's view of the risk landscape."
+    ]
+  },
+  {
+    "id": "D6-0031",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "hard",
+    "stem": "A newly appointed CISO must design a testing and assessment strategy covering several hundred applications and systems with a fixed annual budget. Which design principle should MOST strongly drive the strategy?",
+    "options": [
+      "Apply an identical annual penetration test to every system to ensure consistency",
+      "Concentrate the entire budget on the internet-facing systems attackers can reach",
+      "Assess one business unit per year so every unit receives coverage over the cycle",
+      "Tier systems by criticality and exposure and set assessment depth and frequency per tier"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Uniform testing sounds equitable but spends scarce budget over-testing trivial systems and under-testing crown jewels; consistency of method is not the same as proportionality to risk.",
+      "External exposure is only one risk factor; insider threats, lateral movement, and critical internal systems mean an internet-only focus leaves major risk unexamined.",
+      "A rotation guarantees eventual coverage yet can leave the most critical systems unassessed for years while low-risk units consume a full annual cycle.",
+      "A risk-based tiering model directs the deepest and most frequent assessment to the systems whose compromise would hurt most, which is the core principle for designing assessment strategies under resource constraints."
+    ]
+  },
+  {
+    "id": "D6-0032",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "medium",
+    "stem": "A retailer that processes card payments runs monthly vulnerability scans of its cardholder data environment from inside the network using its own security team. During an assessment readiness review, the assessor flags the external scanning program as incomplete for PCI DSS purposes. What does the standard additionally require?",
+    "options": [
+      "Continuous penetration testing of the cardholder data environment by an internal red team",
+      "Annual external vulnerability scans performed by any licensed penetration testing firm",
+      "Quarterly external vulnerability scans performed by a PCI-approved scanning vendor (ASV)",
+      "Weekly authenticated scans of every internal server conducted by the security team"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses penetration testing with vulnerability scanning; PCI DSS requires penetration testing periodically, not continuously, and it does not substitute for the external ASV scan requirement.",
+      "This gets the cadence and the party wrong: the external scans must be quarterly and must be performed by an Approved Scanning Vendor, not just any testing firm on an annual basis.",
+      "PCI DSS specifically requires external vulnerability scans at least quarterly performed by an Approved Scanning Vendor, which is independent of whatever internal scanning the merchant's own team performs.",
+      "This confuses internal scan hygiene with the external requirement; increasing internal scan frequency does not satisfy the mandate for independent, externally sourced quarterly ASV scans."
+    ],
+    "reference": "PCI DSS v4.0"
+  },
+  {
+    "id": "D6-0033",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "medium",
+    "stem": "A security manager is planning vulnerability scans of workloads the company runs on an IaaS platform. An engineer proposes scanning everything reachable from the company's virtual network, including management endpoints operated by the cloud provider. What should the manager do FIRST?",
+    "options": [
+      "Review the provider's security testing policy and confine scanning to assets the company controls under the shared responsibility model",
+      "Obtain a signed rules-of-engagement document from the internal engineer who will run the scanning tool",
+      "Schedule the scans during a maintenance window so the provider's infrastructure is not disrupted by the traffic",
+      "Run the scans unauthenticated so the tool cannot make any configuration changes to provider-managed systems"
+    ],
+    "answer": 0,
+    "explanations": [
+      "In IaaS the customer may test only what it is responsible for; the provider's testing policy defines what scanning is permitted, and probing provider-operated infrastructure without authorization can breach the contract and the law.",
+      "This confuses internal scanning governance with third-party authorization; a rules-of-engagement document between employees does not grant any right to test systems the cloud provider owns.",
+      "This confuses operational courtesy with authorization; choosing a quiet time window does not make scanning provider-owned management systems permissible.",
+      "This confuses credential level with permission; an unauthenticated scan still sends probing traffic to systems the company is not authorized to test."
+    ]
+  },
+  {
+    "id": "D6-0034",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "easy",
+    "stem": "An organization has just finished writing its first incident response plan. The CISO wants to evaluate the plan before a real incident occurs but is concerned about disrupting business operations. Which exercise type is the BEST starting point?",
+    "options": [
+      "A full-scale simulation that activates the alternate processing site and recovery teams",
+      "A tabletop exercise that walks key staff through a realistic incident scenario using the written plan",
+      "A covert red team engagement to observe whether staff follow the plan under genuine pressure",
+      "An unannounced failover of production systems during normal business hours"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses the eventual goal with the starting point; full-scale simulations are appropriate only after discussion-based exercises have shaken out the plan's basic gaps, and they carry real operational risk.",
+      "A tabletop is a low-risk, discussion-based exercise that validates roles, decision points, and gaps in a brand-new plan without touching production systems, making it the logical first step in an exercise program.",
+      "This confuses testing detection and response maturity with validating a new plan; a covert engagement assumes an established capability and would waste effort against a plan that has never been walked through.",
+      "This describes a full-interruption style test, the riskiest exercise form; it is the last step in a maturing program, never the first evaluation of an untested plan."
+    ],
+    "reference": "NIST SP 800-84"
+  },
+  {
+    "id": "D6-0035",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "hard",
+    "stem": "During assessment planning for a new fraud-detection system, the test lead explains that the team will perform both verification and validation before go-live. Which statement BEST captures the distinction between the two activities?",
+    "options": [
+      "Verification confirms the system meets user needs, while validation confirms it conforms to its design specifications",
+      "Verification is performed by external auditors, while validation is always performed by the internal QA team",
+      "Verification applies to security controls, while validation applies only to functional business requirements",
+      "Verification confirms the system was built according to its specifications, while validation confirms it actually meets the stakeholders' operational needs"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This states the two terms exactly backwards, which is the classic confusion; conformance to specification is verification, and fitness for the users' real need is validation.",
+      "This confuses who performs the activity with what the activity is; both verification and validation can be done by internal or external parties, and the distinction lies in the question each answers.",
+      "This invents a security-versus-function split that does not exist; both verification and validation apply to security and functional properties alike.",
+      "Verification asks 'did we build the system right' against its specifications, while validation asks 'did we build the right system' against stakeholder needs; a system can pass verification yet fail validation if the specification itself missed the real requirement."
+    ]
+  },
+  {
+    "id": "D6-0036",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "easy",
+    "stem": "A security team performs regular authenticated scans from inside the corporate network and consistently reports low risk. The CISO wants to understand what an Internet-based attacker would actually see and be able to reach. Which testing approach BEST meets this goal?",
+    "options": [
+      "Unauthenticated scanning of the organization's public-facing systems performed from outside the network perimeter",
+      "Increasing the internal authenticated scans from monthly to weekly to catch issues sooner",
+      "Reviewing the firewall rule sets to infer which services should be exposed to the Internet",
+      "Running a static analysis tool against the source code of the public web applications"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Scanning from outside the perimeter without credentials replicates the attacker's actual vantage point, revealing exactly which services, ports, and flaws are exposed to the Internet rather than what an insider with credentials sees.",
+      "This confuses scan frequency with scan perspective; more frequent internal scans still measure the view from inside the network, not what an external attacker can reach.",
+      "This confuses reviewing intended configuration with testing actual exposure; rule review predicts what should be reachable but cannot confirm what really is, including misconfigurations and shadow assets.",
+      "This confuses code-level analysis with network exposure assessment; SAST finds flaws in source code but says nothing about which systems and services are reachable from the Internet."
+    ],
+    "reference": "NIST SP 800-115"
+  },
+  {
+    "id": "D6-0037",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "After the first company-wide phishing simulation, 22 percent of employees clicked the test link. The head of HR proposes formal disciplinary write-ups for everyone who clicked. As the security manager sponsoring the program, what is the BEST response?",
+    "options": [
+      "Agree with HR, because individual accountability is the fastest way to change user behavior",
+      "Repeat the simulation monthly with progressively harder lures until the click rate reaches zero",
+      "Use the aggregate results to target follow-up training and track click and reporting rates as a trend over time",
+      "Discontinue the simulations because they create employment-law exposure for the company"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses accountability with effectiveness; punishing simulation clicks destroys trust, discourages employees from reporting real phishing, and undermines the program's measurement value.",
+      "This confuses raising difficulty with improving outcomes; a zero click rate is unrealistic, and harder lures without remedial training simply manufacture failure rather than reduce risk.",
+      "A first simulation establishes a baseline; the risk-management use of that data is to direct awareness training where it is needed and to measure whether click rates fall and reporting rates rise on subsequent campaigns.",
+      "This confuses a poorly governed program with the technique itself; management-approved simulations used for education are a legitimate, widely accepted control test, not an inherent legal liability."
+    ]
+  },
+  {
+    "id": "D6-0038",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "easy",
+    "stem": "A hospital security team is concerned that staff may attach unauthorized wireless access points to the clinical network, creating an unmonitored path into sensitive systems. Which activity would BEST detect this condition?",
+    "options": [
+      "Reviewing the change management log for network changes that were approved during the quarter",
+      "Performing periodic wireless site surveys and comparing discovered access points against the authorized inventory",
+      "Requiring WPA3-Enterprise authentication on the corporate wireless network's official SSID",
+      "Scanning servers on the wired network for missing operating system patches"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses change control records with detection; a rogue access point is by definition installed outside the change process, so the approved-change log will never show it.",
+      "A wireless survey discovers every access point actually broadcasting in the environment, and reconciling those against the authorized list is precisely how rogue devices are identified.",
+      "This confuses hardening the sanctioned WLAN with detecting unsanctioned ones; strong authentication on the official SSID does nothing to reveal a separate rogue access point.",
+      "This confuses patch-level vulnerability scanning with rogue device detection; a wired patch scan measures software currency, not the presence of unauthorized wireless equipment."
+    ]
+  },
+  {
+    "id": "D6-0039",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A DAST scanner reports no significant findings for a banking web application. A week later, a manual penetration tester demonstrates that any authenticated customer can view other customers' statements simply by changing an account number in the URL. What does this outcome BEST illustrate?",
+    "options": [
+      "The scanner was misconfigured and should have been re-run using administrator credentials",
+      "DAST tools generate excessive false positives that manual testing is needed to filter out",
+      "The application should have been assessed with a SAST tool instead of a DAST tool",
+      "Automated scanners miss business-logic and authorization flaws, so skilled manual testing is a necessary complement"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses scan credential depth with capability; even a well-configured authenticated scan struggles with authorization logic because the tool cannot judge which data a given user should be allowed to see.",
+      "This inverts the problem; the scenario describes a false negative (a real flaw the tool missed), not a false positive, so filtering noise would not have surfaced this issue.",
+      "This confuses tool categories with tool limitations; SAST examines code rather than running behavior and is equally poor at recognizing that one customer's session should not retrieve another customer's records.",
+      "Insecure direct object reference is a business-logic authorization flaw that requires understanding intent, which automated tools lack; this is exactly why testing programs pair automated scanning with manual penetration testing."
+    ],
+    "reference": "NIST SP 800-115"
+  },
+  {
+    "id": "D6-0040",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "A medical-device manufacturer must review firmware code that controls infusion-pump dosing. Defects could be life-threatening, and regulators expect documented, repeatable review evidence with defect metrics. Which code review approach is MOST appropriate for this module?",
+    "options": [
+      "A formal Fagan-style inspection with defined participant roles, entry and exit criteria, and recorded defect data",
+      "Pair programming, so that a second developer continuously sees all code as it is being written",
+      "An over-the-shoulder walkthrough by the lead developer before each change is merged",
+      "An automated static analysis gate in the build pipeline configured to block on any warning"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Formal inspection is the most rigorous review technique, with planning, preparation, a moderated defect-logging meeting, and measurable exit criteria, producing exactly the documented, repeatable evidence a safety-critical, regulated context demands.",
+      "This confuses a continuous informal practice with a formal review; pair programming improves quality in the moment but produces no independent inspection records, defect metrics, or exit criteria a regulator can examine.",
+      "This confuses a lightweight review with a rigorous one; over-the-shoulder walkthroughs are informal, undocumented, and dependent on one person's attention, which is inadequate for life-safety code.",
+      "This confuses automated analysis with human inspection; static analysis is a valuable complement, but zero tool warnings cannot demonstrate that the dosing logic itself is correct or provide the deliberative review evidence expected."
+    ]
+  },
+  {
+    "id": "D6-0041",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A SOC manager finds that detection rules are rarely improved after red team engagements because the reports arrive weeks later and lack detail the defenders can act on. Which approach would BEST close this feedback gap?",
+    "options": [
+      "Commission longer red team engagements so that more attack techniques are documented in the final report",
+      "Replace adversarial exercises with quarterly vulnerability scans mapped against existing detection rules",
+      "Run purple team exercises in which attackers and defenders work together in real time to execute techniques and tune detections",
+      "Subscribe to a commercial threat intelligence feed and automatically import its indicators into the SIEM"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses engagement length with feedback quality; a longer covert exercise still delivers its knowledge weeks later in a static report, which is the exact failure mode described.",
+      "This confuses vulnerability discovery with detection validation; scans enumerate weaknesses but do not emulate adversary behavior, so they cannot show whether the SOC would detect an actual attack.",
+      "Purple teaming makes the offensive and defensive teams collaborate live, so every technique executed is immediately checked against telemetry and detection logic, converting the exercise directly into tuned rules and closed visibility gaps.",
+      "This confuses indicator ingestion with detection engineering; imported IOCs age quickly and are never validated against the environment, whereas the gap here is untested behavioral detection logic."
+    ]
+  },
+  {
+    "id": "D6-0042",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "An outside security researcher emails a company's support address describing a serious flaw in its customer portal and offers 90 days before publishing details. The company has no bug bounty program. What is the BEST initial response?",
+    "options": [
+      "Forward the message to legal counsel so a cease-and-desist letter can be sent to the researcher",
+      "Acknowledge the report, have the security team validate the finding, and coordinate a remediation and disclosure timeline with the researcher",
+      "Ignore the report because it did not arrive through an authorized testing channel",
+      "Immediately pay the researcher a reward to ensure the flaw is never published"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses hostile deterrence with risk management; threatening a good-faith researcher does not fix the flaw, deters future warnings, and often accelerates public disclosure.",
+      "Coordinated vulnerability disclosure treats the report as a free finding: verify it, fix it, and agree on timing with the researcher; this reduces the actual risk and preserves a constructive relationship even without a formal program.",
+      "This confuses program formality with risk reality; the vulnerability exists whether or not the company invited the research, and ignoring it leaves customers exposed until someone else exploits or publishes it.",
+      "This confuses a structured bounty program with an ad-hoc payoff; paying before validation rewards unverified claims, resembles paying a ransom, and does nothing to remediate the underlying flaw."
+    ]
+  },
+  {
+    "id": "D6-0043",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "A platform team wants to adopt chaos engineering to prove that customer-facing services survive component failures. The CISO supports the goal but is worried about self-inflicted outages. Which condition is MOST important before failure-injection experiments run in production?",
+    "options": [
+      "All experiments are executed only during the organization's annual disaster recovery exercise",
+      "The experiments are run from an external red team account so that the results remain unbiased",
+      "Every failure scenario has first been reproduced by unit tests in the development environment",
+      "Each experiment has a stated hypothesis, a limited blast radius, and predefined abort criteria to halt and restore service"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses chaos engineering with DR exercising; tying experiments to an annual event defeats their continuous purpose and does nothing to limit the damage any single experiment can cause.",
+      "This confuses adversary emulation with resilience testing; chaos engineering is not about attacker realism or assessor independence, and an external account adds no safeguard against an experiment cascading into an outage.",
+      "This confuses unit-level testing with systemic failure testing; unit tests cannot reproduce emergent, distributed failure modes, and prior lab work still does not bound the risk of the production experiment itself.",
+      "Disciplined chaos engineering is hypothesis-driven and containable: constraining the affected scope and defining automatic stop-and-recover conditions is what turns deliberate failure injection into a controlled test instead of a self-inflicted incident."
+    ]
+  },
+  {
+    "id": "D6-0044",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "An e-commerce company runs scripted synthetic transactions against its checkout every five minutes and all dashboards show green. Customers using a popular mobile browser nevertheless report intermittent checkout failures that monitoring never registers. Which change would BEST detect this class of problem?",
+    "options": [
+      "Deploy real user monitoring to capture the actual sessions, client environments, and errors that customers experience",
+      "Increase the synthetic transaction frequency from every five minutes to every minute",
+      "Add the affected mobile browser's user-agent string to the existing synthetic checkout scripts",
+      "Enable verbose logging on the checkout application servers and review the logs each morning"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Real user monitoring observes what genuinely happens to every customer, across all browsers, devices, and paths, so failures that occur only in real-world client conditions become visible instead of hiding between scripted probes.",
+      "This confuses probe frequency with probe coverage; running the same scripted path more often still exercises only that path and client profile, so the mobile-specific failures remain invisible.",
+      "This patches the one gap already known but keeps the fundamental limitation; synthetic scripts only ever test conditions someone thought to script, while the next unanticipated client-side variation will again go undetected.",
+      "This confuses server-side telemetry with end-user experience; failures occurring in the client's browser may never produce a distinctive server log entry, and next-day review is too slow for an availability problem."
+    ]
+  },
+  {
+    "id": "D6-0045",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "easy",
+    "stem": "A security manager is assembling the security process data section of the quarterly governance report required by the organization's ISMS. Which item belongs in this collection?",
+    "options": [
+      "Raw packet captures collected by the perimeter intrusion detection system during a recent alert",
+      "The source code of the scripts the team wrote to automate its vulnerability scanning",
+      "Records showing which employees completed the annual security awareness training",
+      "A list of CVE identifiers published this quarter for the company's firewall vendor"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses technical telemetry with process data; packet captures are investigation evidence for a specific event, not evidence that a management process operated over the period.",
+      "This confuses tooling artifacts with process evidence; the scripts show how scanning is done, but they demonstrate nothing about whether a security process actually operated as intended.",
+      "Training and awareness completion records are a classic example of security process data: they document that a recurring management-driven process ran and provide a measurable input for governance review.",
+      "This confuses external threat information with internal process evidence; vendor CVE lists describe the threat landscape rather than showing that any organizational security process was performed."
+    ]
+  },
+  {
+    "id": "D6-0046",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "A CISO wants senior leadership to be alerted before the organization's security posture degrades to an unacceptable level, rather than reading about problems after they materialize. Which instrument BEST serves this purpose?",
+    "options": [
+      "A key performance indicator showing the number of tickets the SOC closed during the previous month",
+      "A key risk indicator with defined thresholds that triggers escalation when leading measures approach tolerance limits",
+      "An annual maturity assessment scoring the program against an industry capability model",
+      "A post-incident report template that captures lessons learned from each major event"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses a KPI with a KRI; ticket closure volume measures past operational output and says nothing forward-looking about whether risk is approaching an unacceptable level.",
+      "A key risk indicator is explicitly a leading, threshold-based measure tied to risk appetite; when the metric trends toward its tolerance limit, escalation fires before the loss event, which is exactly the early-warning function requested.",
+      "This confuses periodic benchmarking with continuous early warning; a maturity score taken once a year cannot alert leadership between assessments as conditions deteriorate.",
+      "This confuses learning from incidents with anticipating them; post-incident reporting is by definition retrospective and only exists after the degradation has already caused harm."
+    ]
+  },
+  {
+    "id": "D6-0047",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "An ISO/IEC 27001-certified organization is preparing its scheduled management review of the ISMS. The coordinator asks which inputs must be assembled for senior management to review. Which set is MOST appropriate?",
+    "options": [
+      "Full packet captures, current firewall configurations, and the server hardening scripts in use",
+      "Only the nonconformities that the external certification auditor raised during the last surveillance cycle",
+      "The organization chart, the office floor plan, and the IT asset depreciation schedule for the year",
+      "Audit results, status of corrective actions, security KPI trends, feedback from interested parties, and risk assessment updates"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses operational technical artifacts with governance inputs; management review operates at the level of ISMS performance and risk, not raw configurations and captures that leadership cannot meaningfully evaluate.",
+      "This confuses one input with the whole set; external audit nonconformities matter, but a management review must also cover internal audit results, metric trends, corrective action status, and changes in risk and context.",
+      "This confuses general business records with ISMS performance data; none of these documents provides evidence about how the security management system is performing or where it needs resources.",
+      "These are the classic management review inputs: they give leadership a rounded picture of ISMS performance, outstanding issues, stakeholder concerns, and evolving risk so that resourcing and improvement decisions can be made."
+    ],
+    "reference": "ISO/IEC 27001"
+  },
+  {
+    "id": "D6-0048",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "medium",
+    "stem": "An annual audit repeatedly finds that server configurations drift out of the approved baseline within months of each remediation push, so the audit snapshot never reflects the environment's true state for long. Which strategy change would BEST address this problem?",
+    "options": [
+      "Implement automated continuous monitoring that checks configurations against the baseline and alerts on drift between audits",
+      "Increase the audit frequency to twice per year so that configuration drift is discovered sooner",
+      "Require system administrators to sign a quarterly attestation stating that baselines are being maintained",
+      "Reduce the scope of the configuration baseline so that fewer settings are able to drift out of compliance"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Continuous monitoring converts a point-in-time check into an ongoing one: drift is detected and corrected as it happens, which is the only strategy that addresses a condition that degrades continuously between snapshots.",
+      "This confuses more snapshots with continuous visibility; a semiannual audit is still a point-in-time picture, and the environment will drift just as readily in the months between the two audits.",
+      "This confuses self-reported assurance with independent evidence; attestations from the same administrators whose systems are drifting provide weak, easily optimistic assurance and detect nothing themselves.",
+      "This confuses passing the check with reducing the risk; shrinking the baseline games the compliance measure by lowering the standard rather than keeping systems securely configured."
+    ],
+    "reference": "NIST SP 800-137"
+  },
+  {
+    "id": "D6-0049",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "easy",
+    "stem": "A penetration test report contains working exploitation steps for unpatched flaws in the company's payment systems. The project manager wants to email it to the full IT distribution list so everyone can help fix things. What is the BEST course of action?",
+    "options": [
+      "Send the report as requested, because broad transparency accelerates remediation across teams",
+      "Distribute only the executive summary to the IT list and delete the technical appendix entirely",
+      "Classify the report, restrict access to those with a need to know, and give each remediation owner the extract relevant to their systems",
+      "Encrypt the report before sending and include the decryption password in the same email thread"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses transparency with sound handling; the report is effectively an attack manual for live systems, and broad distribution multiplies the chance it reaches someone who misuses or leaks it.",
+      "This confuses audience tailoring with destroying evidence; the executive summary serves leadership, but remediation teams still need the technical detail, which should be protected rather than deleted.",
+      "The report should be treated as highly sensitive information: classify it, limit it to need-to-know, and provide each fixing team only the findings it must act on, which enables remediation without exposing the full exploit set.",
+      "This confuses using encryption with achieving confidentiality; a password in the same thread protects nothing, and the underlying problem of an overly broad audience remains."
+    ]
+  },
+  {
+    "id": "D6-0050",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "hard",
+    "stem": "Quarterly application scans keep finding new SQL injection flaws in different modules. Each finding is patched within SLA, yet the number of new findings has not declined across four consecutive quarters. As the security manager analyzing this trend, what is the BEST recommendation?",
+    "options": [
+      "Shorten the remediation SLA so that each individual finding is closed even faster than today",
+      "Address the root cause by adding secure coding training and injection-focused checks into the development lifecycle",
+      "Switch to a different vulnerability scanner to confirm that the findings are not false positives",
+      "Reclassify SQL injection findings as accepted risk since they continue to recur despite consistent patching"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses treating symptoms faster with curing the disease; closing each instance sooner does nothing about the process that keeps producing new injectable code every quarter.",
+      "A steady inflow of the same defect class signals a systemic development-process failure; trend analysis exists precisely to reveal this, and the risk-management response is to fix the source through developer training, secure coding standards, and pipeline checks.",
+      "This misreads validated findings as tool noise; flaws that developers reproduce and successfully patch every quarter are clearly real, so changing scanners investigates a problem the data has already ruled out.",
+      "This misuses risk acceptance; acceptance is for risks that cannot be cost-effectively treated, not for a fixable systemic defect whose recurrence merely shows the wrong layer was being treated."
+    ]
+  },
+  {
+    "id": "D6-0051",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "medium",
+    "stem": "Developers complain that the security team's assessment findings are unusable: they receive raw scanner exports with severity scores but routinely cannot locate or reproduce the reported issues. What should the security team change about its reporting?",
+    "options": [
+      "Report only the CVSS base score for each item so that developers can prioritize objectively",
+      "Route every finding through the CISO's office so the reports arrive with greater organizational authority",
+      "Withhold findings until the security team has written and tested the corrective code change itself",
+      "Write each finding with evidence, the affected component, reproduction steps, business impact, and a recommended remediation"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses scoring with communicating; a severity number without location, evidence, and reproduction detail is precisely the context-free output the developers are already unable to act on.",
+      "This confuses authority with usability; escalating delivery through the CISO adds pressure but none of the technical detail developers need to find and fix the issues.",
+      "This confuses ownership of the fix with quality of the report; security teams advise while development owns remediation, and holding findings until fixes are authored delays risk reduction and blurs accountability.",
+      "Analysis of test output means turning raw tool data into actionable findings; each item needs enough evidence and reproduction detail to be located, enough impact context to be prioritized, and a concrete remediation path."
+    ]
+  },
+  {
+    "id": "D6-0052",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "medium",
+    "stem": "During report finalization, an IT director insists that an internal assessor delete a valid high-risk finding about the director's own systems, arguing that it will be fixed before anyone reads the report. What should the assessor do?",
+    "options": [
+      "Retain the finding in the report and document the director's planned remediation as a management response",
+      "Remove the finding from the report but keep a private personal copy in case the promised fix never happens",
+      "Downgrade the finding's severity to informational as a reasonable compromise with the director",
+      "Escalate the matter to law enforcement because suppressing an assessment finding is criminal obstruction"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Report integrity requires that validated findings stand; the accepted mechanism for the auditee's perspective is a documented management response with remediation plans, which preserves both the factual record and the director's commitment.",
+      "This confuses keeping personal insurance with maintaining reporting integrity; a shadow copy leaves the official record falsified and deprives management of the information the assessment exists to provide.",
+      "This confuses negotiation with objectivity; severity ratings must reflect assessed risk, and ratings adjusted to please auditees make the entire report's conclusions untrustworthy.",
+      "This confuses an internal governance conflict with a crime; the correct escalation path for pressure on an internal assessor is management or the audit committee, not law enforcement."
+    ]
+  },
+  {
+    "id": "D6-0053",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "medium",
+    "stem": "A company outsources payroll processing. Its financial statement auditors ask for independent assurance over the provider's controls that affect the accuracy of the payroll figures feeding the general ledger. Which report should the company request from the provider?",
+    "options": [
+      "A SOC 2 Type II report covering the security and availability trust services criteria",
+      "A SOC 3 report, because it can be shared freely with the external audit firm",
+      "A SOC 1 Type II report on controls relevant to user entities' internal control over financial reporting",
+      "An ISO/IEC 27001 certificate demonstrating that the provider operates a certified ISMS"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses the two SOC report families; SOC 2 addresses trust services criteria such as security and availability, not the financial-reporting control objectives that a financial statement auditor relies on.",
+      "This confuses distribution convenience with content; a SOC 3 is a general-use summary without the detailed controls and test results auditors need, and it belongs to the wrong report family for financial reporting anyway.",
+      "SOC 1 is designed exactly for this: it reports on a service organization's controls relevant to user entities' internal control over financial reporting, and the Type II form covers operating effectiveness over the audit period.",
+      "This confuses a security management certification with financial-reporting assurance; an ISMS certificate says nothing specific about the processing controls that determine whether payroll figures are accurate."
+    ]
+  },
+  {
+    "id": "D6-0054",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "hard",
+    "stem": "A newly formed internal audit function at a fintech reports both administratively and functionally to the CIO, who also owns most of the IT controls the team audits. The audit charter is being revised. What change is MOST important for the function's effectiveness?",
+    "options": [
+      "Require every auditor to earn an industry audit certification before performing any fieldwork",
+      "Establish functional reporting to the board's audit committee so findings cannot be filtered by the management being audited",
+      "Outsource all audit work to an external firm so that no internal reporting relationship exists at all",
+      "Rotate the auditors through IT operations roles each year so they deeply understand the controls they audit"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses competence with independence; certified auditors reporting to the owner of the audited controls still face pressure to soften findings, which no credential remedies.",
+      "Independence is the foundation of audit value; a functional line to the audit committee ensures scope, findings, and auditor careers are not controlled by the executives whose controls are under examination.",
+      "This confuses one sourcing option with the governance fix; outsourcing can supplement capability, but the structural problem is the reporting line, and an internal function with proper independence is entirely legitimate.",
+      "This confuses familiarity with objectivity; rotating auditors into the operations they audit creates a self-review threat when they later assess controls they helped operate, making independence worse rather than better."
+    ]
+  },
+  {
+    "id": "D6-0055",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "hard",
+    "stem": "An auditor must conclude whether terminated employees' access is actually revoked within 24 hours as policy requires. Management has supplied a written process description and the HR system's procedure manual. Which evidence-gathering technique gives the auditor the STRONGEST assurance?",
+    "options": [
+      "Interviewing the identity management team lead about how termination requests are handled in practice",
+      "Reviewing the documented offboarding procedure to confirm it requires access revocation within 24 hours",
+      "Obtaining a signed attestation from the CIO stating that the revocation control operates effectively",
+      "Independently selecting a sample of terminated employees and verifying their account status and revocation timestamps in the systems"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses inquiry with corroboration; interviews are the weakest form of audit evidence because they describe what people believe or claim happens, not what the records show actually happened.",
+      "This confuses control design with operating effectiveness; a well-written procedure proves the control should work, while the audit question is whether revocations actually occurred within the required window.",
+      "This confuses a management assertion with independent evidence; an executive attestation is the auditee vouching for itself and adds essentially no assurance beyond the claims already provided.",
+      "Re-performance and direct inspection of system records is the strongest evidence type: the auditor independently derives the conclusion from primary data, checking real termination dates against real revocation timestamps."
+    ]
+  },
+  {
+    "id": "D6-0056",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "hard",
+    "stem": "A hospital receives a clean SOC 2 Type II report from its cloud electronic health record vendor, and the compliance analyst proposes closing the vendor-assurance task. As the security manager, why would you keep the task open for further review?",
+    "options": [
+      "The report's complementary user entity controls must be mapped to confirm the hospital actually performs the controls the vendor's environment assumes",
+      "A Type II report evaluates only control design, so operating effectiveness remains unverified",
+      "SOC 2 reports are self-assessments prepared by the vendor and therefore carry no independent assurance",
+      "A clean SOC 2 opinion expires after 90 days and a bridge letter cannot extend its coverage"
+    ],
+    "answer": 0,
+    "explanations": [
+      "SOC reports list complementary user entity controls that the service organization assumes its customers operate; the vendor's clean opinion is conditional on those, so the hospital must verify it actually implements each CUEC on its side.",
+      "This confuses the report types; a Type I addresses design at a point in time, while a Type II specifically tests operating effectiveness over a period, so effectiveness was in fact covered.",
+      "This confuses an attestation with a self-assessment; SOC 2 examinations are performed and opined on by an independent CPA firm, so the report does carry third-party assurance.",
+      "This invents an expiry rule; SOC reports have no fixed 90-day validity, and bridge (gap) letters are the accepted mechanism for covering the period between the report's end date and the present."
+    ]
   }
 ]
