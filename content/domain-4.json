@@ -1128,5 +1128,1013 @@
       "The padlock attests only to the browser-to-edge segment. The edge-to-origin fetch crosses untrusted networks in cleartext, exposing session data and content, so that leg must be encrypted and the origin should authenticate the CDN.",
       "This misreads PCI DSS, which requires strong cryptography over open public networks. Edge termination itself is acceptable; it is the unencrypted origin pull that would breach the requirement."
     ]
+  },
+  {
+    "id": "D4-0057",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "easy",
+    "stem": "A regional branch office uses consumer-grade wireless access points. During an assessment, testers recover the Wi-Fi passphrase in a few hours without capturing any authentication handshakes, by brute-forcing an eight-digit setup PIN exposed by a push-button convenience feature. Which action BEST eliminates this attack path?",
+    "options": [
+      "Replace the passphrase with a much longer randomly generated one",
+      "Enable MAC address filtering so only known adapters can associate",
+      "Disable Wi-Fi Protected Setup (WPS) on every access point",
+      "Lower the transmit power so the signal does not reach the parking lot"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses passphrase strength with the actual flaw: WPS PIN recovery discloses the passphrase regardless of its length, so a stronger secret is recovered just as easily.",
+      "MAC filtering is often mistaken for an access control, but adapter addresses are visible in the air and trivially spoofed, and filtering does nothing to stop PIN brute-forcing.",
+      "The attack exploits the WPS external-registrar PIN, whose flawed design lets the eight-digit value be brute-forced in two short halves; disabling WPS removes the vulnerable mechanism entirely.",
+      "Reducing coverage is sometimes offered as a wireless defense, but an attacker within the remaining footprint can still run the PIN attack; RF shaping is not a substitute for removing the flaw."
+    ]
+  },
+  {
+    "id": "D4-0058",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "Users on a switched office VLAN report intermittent browser certificate warnings. Investigators find a workstation broadcasting gratuitous ARP replies that map the default gateway's IP address to its own MAC address, silently intercepting traffic. DHCP snooping is already enabled on the switches. Which additional switch feature MOST directly stops this attack?",
+    "options": [
+      "Dynamic ARP Inspection that validates ARP messages against the DHCP snooping binding table",
+      "BPDU Guard configured on all of the user-facing access ports",
+      "Port security limiting each access port to a single learned MAC address",
+      "Storm control rate-limiting broadcast traffic across the affected VLAN"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Forged gratuitous ARP is exactly what Dynamic ARP Inspection is built to catch: it checks each ARP message against the known IP-to-MAC bindings learned by DHCP snooping and drops spoofed mappings before hosts poison their caches.",
+      "BPDU Guard is a Layer 2 protection frequently grouped with ARP defenses, but it only shuts ports that receive spanning tree bridge messages; it never examines ARP content.",
+      "Port security counters CAM table flooding and unauthorized adapters, but the attacker here uses one legitimate, already-learned MAC address while lying inside the ARP payload, which port security does not read.",
+      "Storm control gets confused with ARP defense because gratuitous ARP is broadcast, yet it only throttles broadcast volume; a low-rate poisoning campaign passes untouched because content is never validated."
+    ]
+  },
+  {
+    "id": "D4-0059",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "A threat intelligence feed supplies a frequently updated list of malware command-and-control domains. The security operations team wants infected internal hosts to be automatically cut off from their controllers and simultaneously identified for cleanup. Which control BEST achieves both goals?",
+    "options": [
+      "Block the current IP addresses of the malicious domains at the perimeter firewall",
+      "Configure the internal DNS resolvers to sinkhole the listed domains to a monitored internal address",
+      "Enable DNSSEC validation on all of the internal DNS resolvers",
+      "Increase resolver query logging and have analysts review the logs each week"
+    ],
+    "answer": 1,
+    "explanations": [
+      "IP blocklists are commonly equated with domain blocking, but command-and-control infrastructure rotates addresses rapidly behind fast-flux and shared hosting, so firewall IP rules decay almost immediately.",
+      "A DNS sinkhole answers queries for the malicious domains with a controlled internal address, which both severs the command channel and causes every infected host to identify itself by connecting to the monitored sinkhole.",
+      "DNSSEC is often mistaken for a content filter, but it only proves an answer was signed by the legitimate zone owner; a criminal's own domain validates perfectly and resolves normally.",
+      "Logging alone is detection without containment, and weekly review leaves compromised hosts talking to their controllers for days; the requirement explicitly includes cutting off the channel."
+    ]
+  },
+  {
+    "id": "D4-0060",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "hard",
+    "stem": "A network architect must carry OSPF routing updates and multicast video between two data centers across the public Internet. A proof of concept using policy-based IPsec ESP tunnels fails because the multicast hello packets are never delivered. Which design BEST meets the routing and multicast requirements while preserving confidentiality?",
+    "options": [
+      "Switch the IPsec tunnels from ESP to AH so the routing protocol traffic is permitted",
+      "Loosen the IPsec policy selectors so the multicast address ranges match the ESP tunnel",
+      "Replace IPsec with a plain GRE tunnel, which encapsulates multicast and routing protocols",
+      "Encapsulate the traffic in GRE or a virtual tunnel interface and protect that tunnel with IPsec ESP"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses the ESP/AH choice with the multicast problem: AH changes integrity coverage, not encapsulation behavior, and it also removes the encryption the design requires.",
+      "Policy-based IPsec cannot fix this with broader selectors because multicast is not carried across such tunnels and there is no routable tunnel interface for a routing adjacency to form over.",
+      "GRE alone does encapsulate multicast and routing updates, which is why it tempts candidates, but it provides no confidentiality, so sensitive traffic would cross the Internet unencrypted.",
+      "Wrapping traffic in GRE or a route-based virtual tunnel interface presents a point-to-point link that carries multicast and OSPF adjacencies, while the outer IPsec ESP layer encrypts everything crossing the Internet."
+    ],
+    "reference": "NIST SP 800-77r1"
+  },
+  {
+    "id": "D4-0061",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "easy",
+    "stem": "After a VoIP rollout onto the existing converged LAN, call quality collapses into dropouts and delays whenever nightly backup jobs saturate the links. Management asks the security team which security property is threatened and what should be applied. What is the BEST answer?",
+    "options": [
+      "Confidentiality is threatened; encrypt all of the voice streams with SRTP",
+      "Availability is threatened; apply quality-of-service policies that prioritize latency-sensitive voice traffic",
+      "Integrity is threatened; enable MACsec encryption on the switch uplinks",
+      "Confidentiality is threatened; move the phones onto a separate voice VLAN"
+    ],
+    "answer": 1,
+    "explanations": [
+      "SRTP addresses eavesdropping on media streams; the reported problem is congestion-induced degradation, which encryption does nothing to relieve and can even slightly worsen.",
+      "Dropped and delayed calls are a loss of availability, one of the three core security properties, and QoS prioritization is the control that keeps real-time voice usable when bulk traffic contends for bandwidth.",
+      "MACsec protects frames from tampering and sniffing on a link; it is confused with a quality control here, but it cannot schedule voice packets ahead of backup traffic.",
+      "A voice VLAN aids management and can support QoS marking, but VLAN separation alone does not guarantee bandwidth or priority, and the property at stake is availability, not confidentiality."
+    ]
+  },
+  {
+    "id": "D4-0062",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "A company permits employee-owned laptops on the corporate wireless network. Several malware outbreaks are traced to personal devices that authenticated with valid user credentials but were months behind on patches and ran no endpoint protection. Which control BEST reduces this risk while preserving the BYOD program?",
+    "options": [
+      "Network access control that assesses device health at connection and quarantines noncompliant devices for remediation",
+      "WPA3-Enterprise authentication issuing unique per-user network credentials",
+      "Mandatory full mobile device management enrollment with corporate control of personal laptops",
+      "A policy prohibiting personally owned devices from all corporate networks"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Posture-checking NAC evaluates exactly what failed here — patch level and endpoint protection — before granting access, and steers failing devices into a remediation segment, keeping BYOD viable while containing unhealthy endpoints.",
+      "Stronger user authentication is a frequent wrong turn for this scenario: the infected devices already presented valid credentials, because the gap is device health, not user identity.",
+      "Full MDM control of personal laptops addresses health but overshoots the requirement, imposing ownership-level control and privacy intrusion that typically undermines BYOD acceptance when a connection-time posture check suffices.",
+      "An outright ban eliminates the threat but fails the stated business requirement to preserve the BYOD program; a risk manager looks for a control that enables the business safely."
+    ]
+  },
+  {
+    "id": "D4-0063",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "To speed up maintenance windows, a network engineer downloads switch operating system images from a fast third-party mirror site. The security architect is concerned that a tampered image could implant a persistent backdoor in the network fabric. Which practice BEST ensures the integrity and authenticity of images before installation?",
+    "options": [
+      "Compare each image's file size and version string against the vendor's release notes",
+      "Scan every downloaded image with the enterprise antivirus engine before staging it",
+      "Obtain images through the vendor's official channel and verify the vendor's digital signature or published hash before deployment",
+      "Maintain configuration backups so any affected switch can be quickly restored after an incident"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Size and version checks are superficial metadata comparisons; an attacker who modifies an image can preserve both, so this is often mistaken for integrity verification but proves nothing.",
+      "Antivirus scanning is signature-based detection of known malware for general-purpose systems; a bespoke implant inside a network operating system image is precisely what such engines fail to recognize.",
+      "Cryptographic verification against the vendor's signing key or published digest, on images sourced from the authentic channel, is the control that actually proves the file is the vendor's unmodified release.",
+      "Backups are a recovery control frequently confused with prevention; restoring a configuration does not detect a trojaned operating system and may simply reinstall the compromised state."
+    ]
+  },
+  {
+    "id": "D4-0064",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "hard",
+    "stem": "A penetration test demonstrates that any host on a data center VLAN can transmit crafted first-hop redundancy protocol advertisements with a higher priority, seize the virtual gateway role from the legitimate router pair, and intercept all outbound traffic. Which remediation BEST addresses this exposure?",
+    "options": [
+      "Enable DHCP snooping so hosts cannot be handed a rogue default gateway address",
+      "Deploy Dynamic ARP Inspection on the VLAN to stop the gateway impersonation",
+      "Configure static ARP entries for the gateway address on every attached server",
+      "Enable authentication on the redundancy protocol and filter its messages arriving from host-facing ports"
+    ],
+    "answer": 3,
+    "explanations": [
+      "DHCP snooping counters rogue DHCP servers that distribute a false gateway address; this attack never touches DHCP, because the attacker takes over the existing virtual gateway itself.",
+      "Dynamic ARP Inspection validates IP-to-MAC claims inside ARP packets, but a redundancy protocol takeover uses the protocol's own election messages, which DAI never examines.",
+      "Static ARP looks relevant because gateway interception is involved, yet the hijacker legitimately assumes the shared virtual IP and MAC through the election, so pinned ARP entries still point at the attacker.",
+      "Requiring authenticated redundancy protocol messages and dropping such messages from access ports means a host without the key can no longer join the election, closing the takeover path at both the protocol and network layers."
+    ]
+  },
+  {
+    "id": "D4-0065",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "An enterprise is replacing ISDN trunks with SIP trunking to an Internet telephony provider. The architect wants a purpose-built element at the voice perimeter to hide internal telephony topology, validate and normalize SIP signaling, and drop malformed messages before they reach the call manager. Which component BEST fits this role?",
+    "options": [
+      "A stateful perimeter firewall with the SIP and RTP port ranges opened through it",
+      "A session border controller that terminates and re-originates signaling and media at the edge",
+      "A VoIP-aware intrusion detection sensor attached to a switch monitoring port",
+      "End-to-end SRTP encryption between the internal phones and the provider"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Opening port ranges through a general-purpose firewall is the classic mistaken substitute: without deep SIP awareness it cannot normalize signaling or conceal topology, and static pinholes enlarge the attack surface.",
+      "A session border controller is the back-to-back user agent built for exactly these functions: it hides internal addressing, enforces protocol conformance on signaling, manages media pinholes dynamically, and shields the call manager.",
+      "A passive detection sensor observes and alerts but sits out of line; it cannot rewrite headers, conceal topology, or block malformed signaling before delivery.",
+      "SRTP protects the confidentiality of media streams; it is often offered as a perimeter answer, but encrypting audio does nothing to sanitize signaling or mask the internal call infrastructure."
+    ],
+    "reference": "NIST SP 800-58"
+  },
+  {
+    "id": "D4-0066",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "easy",
+    "stem": "Sales staff returning from a trade show report that their phones received unsolicited messages over Bluetooth, and one employee found an unfamiliar device paired to his wireless headset. What is the BEST immediate guidance for traveling staff?",
+    "options": [
+      "Set devices to non-discoverable, disable Bluetooth when it is not in use, and remove unrecognized pairings",
+      "Connect only to conference Wi-Fi networks that are protected with WPA3 encryption",
+      "Install the corporate VPN client and keep it enabled at all times while traveling",
+      "Rely on Bluetooth frequency hopping, which prevents nearby attackers from interfering"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Discoverable mode and stale pairings are the entry points for bluejacking and unauthorized connections; shrinking the radio's exposure window and pruning pairings directly removes the abused conditions.",
+      "This confuses the radio interfaces: WPA3 secures Wi-Fi association and traffic, while the reported attacks arrived over Bluetooth, a separate radio that Wi-Fi settings cannot protect.",
+      "A VPN protects IP traffic in transit to the enterprise; Bluetooth pairing abuse happens locally between radios before any IP tunnel is involved, so the VPN never sees it.",
+      "Frequency hopping is a coexistence mechanism that reduces interference, and it is commonly mistaken for a security feature; modern tools follow the hop sequence, so it stops neither pairing abuse nor eavesdropping."
+    ]
+  },
+  {
+    "id": "D4-0067",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "medium",
+    "stem": "Branch office routers include LTE modems that automatically provide Internet connectivity when the primary WAN circuit fails. A design review notes that during failover, branch traffic reaches the Internet directly through the cellular carrier, bypassing the centralized firewall, proxy, and monitoring stack. What is the BEST design change?",
+    "options": [
+      "Remove the LTE modems so that branch traffic can never bypass the security stack",
+      "Accept the exposure as-is because failover events are expected to be rare, brief, and difficult for attackers to time",
+      "Rely on the carrier-grade NAT applied by the cellular provider to shield the branch during failover",
+      "Force failover traffic through an encrypted tunnel back to the corporate security stack, or apply equivalent policy enforcement, before any Internet breakout"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Removing the backup path trades away the availability the business bought it for; secure design should preserve continuity while closing the control gap, not eliminate resilience.",
+      "Accepting an unmanaged, uninspected Internet path without compensating controls is not informed risk acceptance; the windows recur unpredictably and attackers do not schedule around them.",
+      "Carrier-grade NAT is address translation, not a security service: it performs no policy enforcement, content inspection, or logging, and outbound-initiated threats traverse it freely.",
+      "Routing failover traffic through a tunnel to the same inspection and policy stack — or an equivalent cloud-delivered enforcement point — keeps the security architecture intact on both the primary and backup paths."
+    ]
+  },
+  {
+    "id": "D4-0068",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "hard",
+    "stem": "An organization exchanges sensitive email with key partners, relying on opportunistic STARTTLS between mail servers. An assessment shows an on-path attacker could strip the STARTTLS capability from the SMTP handshake, silently downgrading delivery to cleartext. Which measure BEST prevents this downgrade for mail exchanged with partner domains?",
+    "options": [
+      "Publish a DMARC record with a reject policy for both of the domains",
+      "Deploy S/MIME certificates to every user at each partner organization so message bodies are encrypted end to end",
+      "Adopt MTA-STS or DANE policies so sending servers require authenticated TLS when delivering to the partner domains",
+      "Configure the mail servers to accept only TLS 1.3 cipher suites for SMTP sessions"
+    ],
+    "answer": 2,
+    "explanations": [
+      "DMARC authenticates the visible sender to fight spoofing and phishing; it is a common mix-up here because both are email controls, but it says nothing about whether transport encryption gets negotiated.",
+      "S/MIME encrypts message content end to end and would blunt disclosure, but issuing and exchanging certificates for every partner user is a heavyweight answer to a transport problem and still leaves headers and routing metadata exposed.",
+      "The downgrade works because opportunistic TLS quietly proceeds without encryption when the capability is stripped; a published MTA-STS or DANE policy tells sending servers that verified TLS is mandatory for the domain, so the session fails rather than falling back to cleartext.",
+      "Restricting protocol versions hardens sessions that already negotiate TLS, but the attack removes the encryption offer before any version is chosen, so a version floor never comes into play."
+    ],
+    "reference": "RFC 8461"
+  },
+  {
+    "id": "D4-0069",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "medium",
+    "stem": "A CISO has sponsored a program to segment a flat corporate network that has grown organically for a decade. The lead architect proposes immediately purchasing next-generation firewalls and drafting the VLAN plan. What should the program do FIRST?",
+    "options": [
+      "Run a competitive procurement to select the segmentation firewall platform",
+      "Discover and document the applications, data flows, and interdependencies that will define the security zones",
+      "Deploy microsegmentation agents to all servers to begin enforcing workload isolation",
+      "Author a default-deny policy between the proposed zones so enforcement can start on day one"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Choosing products before requirements is solution-first thinking; without knowing the flows to be separated, there is no basis for sizing, placement, or even confirming firewalls are the right enforcement point.",
+      "Zone boundaries and rule sets can only be designed around an accurate picture of who talks to whom; discovery of applications and dependencies is the prerequisite that prevents both outages and meaningless segments.",
+      "Jumping straight to enforcement technology repeats the same error at the host layer: agents with no flow model behind them either block legitimate traffic or run permissively forever.",
+      "A default-deny interzone policy is the eventual goal, but writing it before dependencies are mapped guarantees business-disrupting outages and a flood of emergency exceptions that erode the design."
+    ]
+  },
+  {
+    "id": "D4-0070",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "medium",
+    "stem": "A retailer's entire store network falls within its payment card compliance scope because point-of-sale terminals share a flat network with security cameras, guest Wi-Fi, and back-office PCs, driving assessment costs up sharply. Which approach BEST reduces compliance scope while protecting cardholder data?",
+    "options": [
+      "Isolate the cardholder data environment into tightly controlled segments and verify that other zones cannot communicate with it",
+      "Deploy IPsec encryption between all of the devices across the existing flat store network",
+      "Install intrusion detection sensors throughout the store networks to monitor for card data theft",
+      "Rebuild the point-of-sale terminals on hardened operating system images"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Segmentation that provably prevents out-of-scope systems from reaching the cardholder environment is the recognized way to shrink assessment scope, and it simultaneously reduces the attack paths to payment systems.",
+      "Encrypting traffic on a flat network is mistaken for isolation: every device can still reach the payment systems, so all of them remain connected to the cardholder environment and stay in scope.",
+      "Monitoring is a detective control that strengthens the environment but removes nothing from scope; every system that can reach cardholder data still must be assessed.",
+      "Hardening the terminals improves their individual posture, yet scope is determined by connectivity, so the cameras, guest Wi-Fi, and office PCs on the same network remain part of the assessment."
+    ]
+  },
+  {
+    "id": "D4-0071",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "hard",
+    "stem": "A secure web gateway enforces acceptable-use policy and TLS inspection for managed laptops. Analysts notice a rising share of web traffic leaving on UDP port 443 that the gateway passes uninspected, as updated browsers prefer HTTP/3. Until the gateway natively supports the new protocol, what is the BEST way to retain policy enforcement?",
+    "options": [
+      "Point the existing TLS inspection appliance at the UDP flows so they are decrypted like other web sessions",
+      "Steer the laptops to the enterprise DNS resolver so the encrypted traffic becomes visible again",
+      "Permit the UDP flows because the new protocol encrypts everything and is therefore inherently safe",
+      "Block outbound UDP port 443 at the egress so browsers fall back to inspectable TCP-based HTTPS"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This assumes QUIC can be intercepted like classic TLS over TCP, but the gateway in question cannot proxy the protocol; encryption of the transport layer is precisely why the flows are passing uninspected.",
+      "This conflates two visibility problems: resolver steering restores DNS query visibility lost to encrypted DNS, but HTTP/3 is the web transport itself, and controlling name resolution does not make those sessions inspectable.",
+      "Encryption benefits the user against eavesdroppers, but it does not satisfy the enterprise requirement; uninspected channels bypass acceptable-use policy, data loss controls, and threat detection alike.",
+      "Browsers are designed to fall back to HTTP/2 or HTTP/1.1 over TCP when QUIC is unavailable, so denying outbound UDP/443 restores full proxy enforcement with minimal user impact until native HTTP/3 inspection is available."
+    ]
+  },
+  {
+    "id": "D4-0072",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "The certificate on a company's remote-access VPN gateway expired a week ago. Rather than renewing it immediately, the help desk has been instructing users to click through the browser and client warnings so they can keep working. What should concern the security manager MOST?",
+    "options": [
+      "The expired certificate means the VPN sessions are no longer being encrypted in transit",
+      "Every remote user's password must be treated as compromised and reset before the certificate is renewed",
+      "Users are learning to bypass certificate warnings and would accept an attacker's forged certificate the same way",
+      "The expired certificate will appear as a repeat audit finding in the upcoming compliance review"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses validation with encryption: the TLS session still encrypts traffic under the expired certificate; what has failed is the client's ability to confirm it is talking to the genuine gateway.",
+      "There is no evidence of credential compromise yet; equating a warning bypass with a confirmed breach mislabels the risk, which is prospective interception rather than an established password exposure.",
+      "The lasting damage is behavioral: once staff learn that certificate warnings are noise to be clicked through, an adversary running a man-in-the-middle attack with a fraudulent certificate gets the same click, handing over credentials and session traffic.",
+      "An audit finding is a real but bureaucratic consequence; a risk manager ranks the erosion of the user trust model, which enables credential theft, far above the paperwork exposure."
+    ]
+  },
+  {
+    "id": "D4-0073",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "easy",
+    "stem": "A company is planning its first wireless network across three floors of a shared office tower, directly adjacent to a competitor's suite. Before selecting access point models and mounting locations, what should the project team do FIRST?",
+    "options": [
+      "Purchase high-power access points to guarantee coverage in every corner of the space",
+      "Conduct a wireless site survey to map coverage needs, interference sources, and signal spill beyond the leased space",
+      "Configure WPA3-Enterprise authentication on all of the SSIDs that will be broadcast",
+      "Install wireless intrusion prevention sensors throughout the three leased floors"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Maximizing power before understanding the RF environment is backwards: it worsens co-channel interference and pushes usable signal into neighboring suites, including the competitor's.",
+      "A site survey is the design prerequisite: it measures the RF environment, locates interference, and shows where signal will bleed past the leased boundary, informing placement, power, and channel decisions before hardware is chosen.",
+      "Strong authentication is essential later, but it is a configuration step; choosing security settings does not answer the placement, coverage, and interference questions that come first in a deployment.",
+      "Rogue detection sensors monitor an operating WLAN; deploying monitoring before the network is even designed inverts the sequence and leaves the design questions unanswered."
+    ]
+  },
+  {
+    "id": "D4-0074",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "During an incident review, a hospital discovers that malware moved between virtual machines running on the same hypervisor host without ever being seen by the data center's physical intrusion prevention system, because the traffic never left the host's virtual switch. Which change BEST closes this visibility gap?",
+    "options": [
+      "Introduce inspection at the virtualization layer, such as a virtual firewall or hypervisor-integrated controls governing VM-to-VM traffic",
+      "Upgrade the physical intrusion prevention appliance to a model with much higher throughput",
+      "Mirror the core switch uplinks to the intrusion detection system with a SPAN session",
+      "Route all inter-VM traffic out of the host and through the physical core so the existing appliances can inspect it"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Controls placed inside the virtualization layer see the east-west traffic where it actually flows, restoring inspection and enforcement for VM-to-VM communication without detouring it off the host.",
+      "This mistakes a capacity problem for a placement problem: no amount of appliance throughput helps when the traffic never traverses any link the appliance sits on.",
+      "Mirroring physical uplinks captures only traffic that leaves the host; intra-host VM traffic switches entirely in software, so the SPAN session records nothing new.",
+      "Hairpinning every east-west flow through the physical core is technically possible, but it multiplies core bandwidth demand and latency, and a misconfigured host quietly bypasses it, whereas virtualization-layer inspection follows the workloads."
+    ]
+  },
+  {
+    "id": "D4-0075",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "An audit of an IPv4-only monitored network finds that endpoints with dual-stack operating systems have been building automatic IPv6 transition tunnels, such as Teredo and 6to4, that reach the Internet encapsulated in ordinary IPv4 packets, invisible to the egress controls. What is the BEST response?",
+    "options": [
+      "Deploy RA Guard and DHCPv6 snooping on the access switches to stop rogue IPv6 announcements",
+      "Create a perimeter firewall rule that blocks outbound UDP port 3544, the default port used by Teredo",
+      "Disable the IPv6 protocol stack on every endpoint through a group policy pushed across the enterprise",
+      "Use endpoint management to disable transition tunnels, filter protocol 41 and Teredo at the egress, and extend monitoring to IPv6"
+    ],
+    "answer": 3,
+    "explanations": [
+      "RA Guard and DHCPv6 snooping defeat rogue routers and servers on the local link; these tunnels are initiated by the hosts themselves and ride outbound IPv4, so link-layer guards never see the problem.",
+      "Blocking Teredo's default port is an incomplete gesture: 6to4 uses IP protocol 41 rather than UDP, and Teredo clients can be pointed at alternate servers and ports, leaving the covert path open.",
+      "Wholesale disabling of IPv6 is the tempting reflex, but it breaks vendor-supported operating system behavior, must be perfectly maintained on every current and future device, and leaves the organization with no managed IPv6 capability.",
+      "Turning off the tunnel mechanisms through managed configuration, filtering the encapsulations at the egress, and bringing IPv6 under the same monitoring as IPv4 addresses the blind spot at the host, the boundary, and the visibility layer together."
+    ]
+  },
+  {
+    "id": "D4-0076",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "medium",
+    "stem": "A data loss prevention investigation finds a workstation sending a steady stream of outbound ICMP echo requests with large, high-entropy payloads to a single external host — a tunneling tool exfiltrating data. The traffic passed the perimeter because outbound ping is permitted to anywhere. Which network control change MOST directly prevents a recurrence?",
+    "options": [
+      "Block inbound ICMP echo requests from the Internet at the perimeter firewall",
+      "Add an intrusion detection signature that alerts on high-volume ping floods",
+      "Apply default-deny egress filtering that stops nonessential protocols such as outbound ICMP, and inspect what remains for anomalies",
+      "Rate-limit outbound ICMP at the perimeter so any tunneled transfer would take far longer to complete"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This reverses the traffic direction: the exfiltration channel is initiated outbound from inside, so filtering unsolicited inbound echo requests leaves the covert channel untouched.",
+      "A flood signature targets volumetric denial of service; a covert tunnel succeeds at modest, steady rates and would slip beneath a volume threshold designed for floods.",
+      "Egress default-deny embodies least privilege at the boundary: workstations have no business need to ping arbitrary Internet hosts, and removing the permitted path — with anomaly inspection on the exceptions — eliminates this whole class of covert channel.",
+      "Throttling is mitigation, not prevention, and it is often mistaken for a fix: a patient adversary simply exfiltrates more slowly, and the covert channel itself remains open."
+    ]
+  },
+  {
+    "id": "D4-0077",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "A manufacturing plant's PLCs accept Modbus/TCP commands from engineering workstations and HMIs. The protocol carries no authentication, so any device that can reach the control segment can issue write commands to the PLCs, which cannot be upgraded or modified. Which compensating control BEST reduces the risk of unauthorized commands?",
+    "options": [
+      "An industrial protocol-aware firewall between zones that permits only approved sources and explicitly allowed Modbus function codes and registers",
+      "Enabling TLS encryption on the Modbus service of each PLC to authenticate all connecting clients",
+      "Relying on the existing industrial DMZ that brokers all data exchange between the IT and OT networks",
+      "Installing antivirus agents on the engineering workstations and HMIs in the control segment"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Because the endpoint cannot be fixed, the network must supply the missing control: a deep-packet-inspection ICS firewall enforces which stations may talk to which PLCs and which specific function codes they may use, blocking unauthorized writes in transit.",
+      "This ignores the stated constraint: the PLCs cannot be modified, and legacy Modbus stacks have no TLS capability, so an endpoint cryptographic fix is unavailable — the very reason a compensating network control is needed.",
+      "The industrial DMZ governs traffic crossing between IT and OT; the threat described originates from devices already inside the control segment, which the IT/OT boundary never inspects.",
+      "Endpoint malware protection on workstations shrinks one infection vector but does nothing to restrict the protocol itself: any reachable device, compromised or merely misused, can still issue unauthenticated write commands."
+    ],
+    "reference": "NIST SP 800-82r3"
+  },
+  {
+    "id": "D4-0078",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "An audit of a Fibre Channel storage area network finds that any server attached to the fabric can discover and mount storage volumes belonging to other business units. Which combination of controls BEST enforces least privilege on the storage fabric?",
+    "options": [
+      "Mutual CHAP authentication configured between all of the initiators and targets",
+      "Fabric zoning combined with LUN masking so each initiator sees only its assigned targets and volumes",
+      "Encryption of the data at rest across all of the storage arrays",
+      "Placing the storage traffic in a dedicated VLAN separated from user traffic"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Mutual CHAP is the authentication mechanism for iSCSI on IP networks; candidates transplant it to Fibre Channel, which instead relies on zoning, masking, and FC-SP mechanisms for access control.",
+      "Zoning restricts which fabric ports and worldwide names can communicate, and LUN masking narrows which specific volumes an initiator may address — together delivering least privilege at both the fabric and the volume level.",
+      "At-rest encryption protects stolen or decommissioned media; it is confused with access control here, but a server that can mount a volume reads it through the array's normal decryption path.",
+      "VLANs are an Ethernet construct; a native Fibre Channel fabric is not segmented by VLANs, and even for IP storage a VLAN only separates broadcast domains without restricting which volumes a host may access."
+    ]
+  },
+  {
+    "id": "D4-0079",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "easy",
+    "stem": "A security team must let business partners use a legacy application protocol through the perimeter, but wants each command inside the protocol validated and specific dangerous operations blocked. The current stateful packet filter can only track ports and connection state. Which technology BEST meets the requirement?",
+    "options": [
+      "A circuit-level gateway relaying the partner sessions at the transport layer",
+      "A stateless packet filter configured with a strict access control list",
+      "A NAT gateway translating the partners' addresses at the network boundary",
+      "An application-level proxy that understands the protocol and filters individual commands"
+    ],
+    "answer": 3,
+    "explanations": [
+      "A circuit-level gateway validates and relays sessions without reading the application payload, so it is often confused with a full proxy but cannot distinguish a safe command from a dangerous one.",
+      "A stateless filter examines only header fields per packet — addresses, ports, and flags — offering even less insight than the existing stateful device and no view of protocol commands.",
+      "NAT rewrites addresses for connectivity and is repeatedly mistaken for a security function; it inspects nothing and blocks no operation within a permitted session.",
+      "Only an application-layer proxy terminates the session, parses the protocol's actual commands, and enforces policy on individual operations — precisely the payload-level control the stateful filter lacks."
+    ]
+  },
+  {
+    "id": "D4-0080",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "hard",
+    "stem": "To cut latency, an operations team enables TLS 1.3 early data (0-RTT) on the public API that processes customer payments. A security architect objects specifically for requests that change state. Which risk is the architect MOST likely raising?",
+    "options": [
+      "Early data eliminates forward secrecy for the entire resumed TLS session",
+      "Enabling 0-RTT allows attackers to downgrade connections to older TLS versions",
+      "Early data is replayable, so a captured 0-RTT request could cause a non-idempotent operation like a payment to execute more than once",
+      "0-RTT resumption skips certificate validation, letting an impostor server accept the requests"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This overstates a real nuance: 0-RTT early data lacks the full freshness guarantees, but the remainder of the session is protected under freshly derived keys, so forward secrecy for the whole session is not lost.",
+      "Downgrade is a separate threat that TLS 1.3 specifically counters with downgrade protection in its handshake; enabling 0-RTT does not reopen version negotiation.",
+      "The defining weakness of early data is replay: an attacker can capture the 0-RTT flight and resend it, and the server may process it again — which is why standards advise rejecting early data for state-changing, non-idempotent operations such as payments.",
+      "Resumption relies on keys established during a previously authenticated handshake; the concern with 0-RTT is replay of the data, not a bypass of server certificate validation."
+    ],
+    "reference": "RFC 8446"
+  },
+  {
+    "id": "D4-0081",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "hard",
+    "stem": "A bank's mobile application connects to its API over TLS, validating the server certificate against the device's public trust store. The threat model includes a compromised public certificate authority issuing a fraudulent certificate for the bank's domain to enable interception. Which control BEST mitigates this threat within the app?",
+    "options": [
+      "Purchase extended validation certificates for all of the bank's API endpoints",
+      "Pin the expected server certificate or public key in the application, with a managed process for rotation",
+      "Enable HTTP Strict Transport Security on the bank's API domain",
+      "Increase the RSA key length used by the API server certificates"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Extended validation reflects the vetting the legitimate owner underwent; a compromised CA can still issue a trusted certificate for the domain, and client software does not require EV, so validation still succeeds.",
+      "Pinning narrows trust from every CA in the device store to the specific certificate or key the bank controls, so a fraudulent certificate — even one issued by a trusted-but-compromised CA — fails the check; the residual challenge is disciplined rotation planning.",
+      "HSTS forces HTTPS and blocks user click-through on warnings, but a fraudulently issued certificate from a trusted CA produces no warning at all, so HSTS never engages against this threat.",
+      "Key length defends against cryptanalysis of the legitimate key; the attack here abuses the issuance and trust model, where a stronger key on the genuine certificate changes nothing."
+    ]
+  },
+  {
+    "id": "D4-0082",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "An architect must place a gateway between internal clients and an untrusted network. Requirements state that internal hosts must never connect directly to external systems, that dozens of different application protocols must be supported without building a protocol-specific inspection module for each, and that per-packet payload inspection latency is unacceptable. Which technology BEST satisfies these requirements?",
+    "options": [
+      "Application-level proxy",
+      "Stateful packet-filtering firewall",
+      "Circuit-level gateway",
+      "Next-generation firewall with deep packet inspection"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Candidates confuse the two proxy types: an application-level proxy also relays sessions, but it requires a protocol-specific module for each application and inspects payloads, which violates both the multi-protocol and latency requirements.",
+      "A stateful firewall tracks connections but forwards packets between the endpoints directly; it does not relay sessions on the client's behalf, so internal hosts would still connect straight to external systems.",
+      "A circuit-level gateway (such as a SOCKS proxy) relays TCP sessions at the session layer on behalf of internal clients after validating the handshake, hiding internal endpoints while remaining application-agnostic and avoiding payload inspection overhead.",
+      "NGFW deep packet inspection is precisely the payload examination the requirement rules out, and an NGFW in routed mode still lets endpoints communicate directly rather than through a relayed session."
+    ],
+    "reference": "NIST SP 800-41r1"
+  },
+  {
+    "id": "D4-0083",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "easy",
+    "stem": "A company's flat network has grown to 900 hosts on one subnet. Broadcast chatter is degrading performance, and any host can observe discovery traffic from every other host. Which change BEST addresses the problem?",
+    "options": [
+      "Replace remaining hubs with switches throughout the network",
+      "Divide the network into routed subnets using VLANs and a layer 3 device",
+      "Insert transparent bridges between the busiest network sections",
+      "Add repeaters to strengthen signals across the long cable runs"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses collision domains with broadcast domains: switches create a collision domain per port, but they still flood broadcast frames to every host in the VLAN, so the broadcast problem remains.",
+      "Broadcast traffic stops at layer 3 boundaries, so splitting the flat network into multiple VLANs joined by a router or layer 3 switch shrinks each broadcast domain, restoring performance and limiting what each host can observe.",
+      "Bridges operate at layer 2 and forward broadcast frames just as switches do, so segmenting with bridges leaves one large broadcast domain intact.",
+      "Repeaters are layer 1 devices that only regenerate the electrical signal; they neither reduce broadcasts nor limit visibility between hosts."
+    ]
+  },
+  {
+    "id": "D4-0084",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "easy",
+    "stem": "A firewall administrator using stateless access control lists has been forced to permanently permit inbound traffic across wide high-numbered port ranges so that replies to outbound sessions can return. A reviewer flags this exposure. Which capability BEST eliminates the need for those standing inbound rules?",
+    "options": [
+      "Stateful inspection that records outbound connections and dynamically permits only matching return traffic",
+      "ACL entries that match the TCP established flag on returning packets",
+      "An application-layer proxy deployed for every permitted protocol",
+      "Port address translation so replies are mapped to existing sessions"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A stateful firewall builds a state table from legitimate outbound connections and admits only packets that match an existing session, so the broad standing inbound port ranges can be removed entirely.",
+      "The established keyword only checks whether ACK or RST bits are set, which an attacker can forge in crafted packets, and it does not work for UDP at all; it is a weak imitation of true connection state.",
+      "Candidates confuse proxies with state tracking: proxies would also broker return traffic, but building and maintaining a protocol-specific proxy for every service is a far heavier solution than the state table the scenario calls for.",
+      "This confuses a translation side effect with a security control: PAT mappings do let replies return, but NAT exists for address management, offers no state validation of packet legitimacy, and does not apply to the non-translated internal rules at issue."
+    ]
+  },
+  {
+    "id": "D4-0085",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "easy",
+    "stem": "A nightly batch job transmits payroll files to a bank using FTP with a hardcoded account. A security assessment notes that both the credentials and the file contents cross the Internet in cleartext. Which remediation BEST resolves the finding?",
+    "options": [
+      "Migrate the job to TFTP, which presents a smaller attack surface",
+      "Require a complex FTP password that is rotated every month",
+      "Move the FTP service to a non-standard port to evade sniffing",
+      "Migrate the transfer to SFTP using key-based authentication"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confusion comes from the similar name: TFTP is even weaker than FTP, offering no authentication and no encryption, so credentials and data would remain fully exposed.",
+      "Password strength and rotation do not help when the credential itself traverses the network in cleartext; a sniffer captures the new password just as easily as the old one.",
+      "Changing ports is security through obscurity; passive interception tools capture traffic regardless of port, and the protocol still transmits everything unencrypted.",
+      "SFTP runs the file transfer inside an encrypted SSH session, protecting both authentication and file contents in transit, and key-based authentication removes the hardcoded cleartext password from the job."
+    ]
+  },
+  {
+    "id": "D4-0086",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "A hotel provides wired guest Internet access with all rooms on one subnet. Guests have reported attacks originating from other guests' devices on the same network. Every guest still needs Internet access, and the hotel wants minimal administrative overhead. Which switch configuration BEST addresses the risk?",
+    "options": [
+      "Configure private VLAN isolated ports so guest devices can reach only the upstream gateway",
+      "Enable DHCP snooping on all guest-facing switch ports",
+      "Create a separate routed VLAN for each guest room",
+      "Enable port security limiting each port to a single MAC address"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Private VLAN isolated ports (protected ports) block layer 2 communication between hosts in the same subnet while still permitting traffic to the promiscuous uplink, so guests keep Internet access but cannot attack one another, with almost no ongoing administration.",
+      "This confuses peer-isolation with DHCP integrity: snooping stops rogue DHCP servers from handing out addresses but does nothing to prevent one guest from directly attacking another guest's device.",
+      "Per-room VLANs could isolate guests, but hundreds of VLANs with routed interfaces is an administrative burden the scenario rules out, and careless inter-VLAN routing would simply reconnect the guests anyway.",
+      "This confuses device-count control with traffic isolation: a one-MAC limit prevents CAM abuse and port sharing but places no restriction on a guest sending traffic to a neighboring guest's address."
+    ]
+  },
+  {
+    "id": "D4-0087",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "A penetration test demonstrates that a laptop plugged into a user segment can form an OSPF adjacency with a core router and inject routes that redirect internal traffic through the attacker's machine. Which remediation BEST addresses the root cause?",
+    "options": [
+      "Deploy RPKI route origin authorizations for the organization's prefixes",
+      "Replace OSPF with static routes on every router in the enterprise",
+      "Enable cryptographic authentication on OSPF adjacencies and set user-facing interfaces to passive",
+      "Block IP protocol 89 at the Internet perimeter firewall"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses interior and exterior routing protections: RPKI validates BGP route origins between autonomous systems on the Internet and has no effect on interior OSPF adjacencies inside the campus.",
+      "Static routing would remove the attack surface but sacrifices dynamic failover and creates enormous operational burden in a large network; it is a disproportionate response when OSPF itself can be secured.",
+      "HMAC-based OSPF authentication ensures routers only form adjacencies with peers holding the shared key, and passive interfaces stop the router from speaking OSPF toward user segments at all, eliminating both the trust flaw and the exposure.",
+      "This confuses the threat location: the rogue adjacency forms on an internal user segment, so a rule at the Internet perimeter never sees the attack traffic."
+    ]
+  },
+  {
+    "id": "D4-0088",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "A regulator requires that a plant's safety-instrumented system network have no technical possibility of receiving inbound network connections from corporate systems, yet process historian data must flow continuously to corporate analytics. Which design BEST satisfies both requirements?",
+    "options": [
+      "An industrial DMZ with dual firewalls permitting only sessions initiated from the plant side",
+      "A unidirectional security gateway that replicates historian data to a corporate-side server",
+      "An air gap with operators carrying data out on encrypted removable media each shift",
+      "An IPsec tunnel from the historian to the analytics platform with mutual authentication"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses policy enforcement with physical impossibility: firewalls are software-enforced and any permitted TCP session still carries packets in both directions, so misconfiguration or compromise can create the inbound path the regulator prohibits.",
+      "A data diode enforces one-way flow in hardware at the physical layer, making inbound connections technically impossible while a replication server continuously mirrors historian data to the corporate side, meeting both the isolation and the availability requirements.",
+      "A true air gap meets the isolation requirement but fails the continuous-flow requirement, and routine removable media handling introduces its own well-documented malware introduction risk.",
+      "This confuses confidentiality with directionality: IPsec encrypts and authenticates the channel but the tunnel is fully bidirectional, so the prohibited inbound path still exists."
+    ],
+    "reference": "NIST SP 800-82r3"
+  },
+  {
+    "id": "D4-0089",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "A SOC must detect unusually large outbound transfers and periodic beaconing across 200 branch offices. Full packet capture at every site has been rejected as cost-prohibitive and raising privacy concerns. Which approach BEST meets the detection goal within those constraints?",
+    "options": [
+      "Deploy full-packet-capture appliances at each branch and retain thirty days of traffic",
+      "Install signature-based intrusion prevention sensors at every branch office",
+      "Review the headquarters firewall's denied-connection logs each morning",
+      "Export NetFlow/IPFIX records from existing branch routers to a central collector for behavioral analysis"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This directly contradicts the stated constraints: capture appliances at 200 sites carry exactly the cost and payload-privacy burden the organization already rejected.",
+      "This confuses signature detection with behavioral detection: signatures match known exploit patterns and will not flag an unusually large transfer or a regular beacon interval over otherwise legitimate protocols.",
+      "Denied-connection logs show only blocked traffic; exfiltration and beaconing ride over permitted outbound channels, so the relevant activity never appears in deny logs.",
+      "Flow records summarize who talked to whom, when, how often, and how much, without capturing payloads; existing routers can export them cheaply, and volume and periodicity analytics on that metadata directly reveal large transfers and beaconing."
+    ]
+  },
+  {
+    "id": "D4-0090",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "External auditors need three weeks of access to two internal web applications. Their firm prohibits installing other companies' VPN client software on its laptops, and your policy requires least-privilege access for third parties. Which remote access approach BEST fits the situation?",
+    "options": [
+      "A clientless TLS VPN portal with multifactor authentication publishing only the two applications",
+      "Ship the auditors corporate-managed laptops preloaded with the IPsec VPN client",
+      "Create local accounts on the applications and expose them directly to the Internet for the engagement",
+      "Issue the auditors a full-tunnel VPN client profile granting routed access to the internal network"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A browser-based TLS portal needs no installed client, satisfying the auditors' firm policy, while MFA and per-application publishing scope access to exactly the two systems required, matching least privilege for a short engagement.",
+      "Managed laptops are a strong control for long-term or high-risk access, but for a three-week, two-application engagement the cost, logistics, and asset management overhead are disproportionate to the risk being treated.",
+      "This confuses convenience with acceptable exposure: publishing internal applications directly to the Internet removes the access-control layer entirely and exposes the applications to the whole world, not just the auditors.",
+      "This fails both constraints at once: it requires installing client software the auditors' firm forbids, and network-level routed access grants far more than the two applications, violating least privilege."
+    ]
+  },
+  {
+    "id": "D4-0091",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "A software company engages offshore contract developers. The contract requires that source code never be stored on devices outside company control, while developers still need responsive access to development tools. Which approach BEST satisfies the contractual requirement?",
+    "options": [
+      "Ship developers company laptops protected with full-disk encryption",
+      "Build a site-to-site VPN and replicate the code repository to the outsourcer's network",
+      "Provide virtual desktops in the company data center so only screen output and input traverse the network",
+      "Install data loss prevention agents on the contractors' own workstations"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses protecting stored data with not storing it: encrypted laptops still hold the code on hardware operating outside the company's physical and administrative control, and a shipped laptop's custody is difficult to assure.",
+      "Repository replication copies the entire codebase onto infrastructure the company does not control, which is the exact outcome the contract prohibits, regardless of how well the VPN protects it in transit.",
+      "With VDI the code, build tools, and repositories remain on servers inside the company data center; contractors interact through a display protocol, so no source code is ever stored on the remote endpoint, directly satisfying the contract.",
+      "This confuses detection with prevention of storage: DLP agents on machines the company does not administer can be disabled or evaded, and even functioning agents monitor code that is already stored on an uncontrolled device."
+    ]
+  },
+  {
+    "id": "D4-0092",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "A CISO discovers that project teams routinely coordinate with external partners through personal consumer messaging apps, sharing client data with no retention, audit, or administrative control. The business depends on fast partner communication. What is the BEST course of action?",
+    "options": [
+      "Block the consumer messaging apps at the corporate firewall and refer violators for discipline",
+      "Deploy an approved enterprise collaboration platform with partner guest access and retention controls, then restrict the consumer apps",
+      "Publish an acceptable-use policy prohibiting business use of personal messaging apps",
+      "Route the consumer app traffic through a cloud access security broker for monitoring"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Blocking without an alternative punishes a legitimate business need and pushes the behavior onto mobile networks and personal devices where the organization has even less visibility.",
+      "The risk-based sequence is to enable the business securely first: a sanctioned platform with guest federation meets the partner-communication need while adding retention, audit, and administrative control, after which restricting the consumer apps becomes enforceable and reasonable.",
+      "This confuses directive controls with a complete treatment: policy alone leaves the business need unmet, so teams will keep using the apps and the organization gains no retention or control over the data already flowing.",
+      "This confuses visibility with control: a CASB has minimal insight into end-to-end encrypted personal apps, and monitoring, even where possible, provides no retention capability and does not stop client data from leaving governance."
+    ]
+  },
+  {
+    "id": "D4-0093",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "A cloud team has grown to 40 virtual networks joined by full-mesh peering. An audit finds that any workload can reach any other with no traffic inspection between environments, including between development and production. Which architectural change BEST remediates the finding?",
+    "options": [
+      "Enable flow logging on every virtual network and review the logs weekly",
+      "Deploy host-based firewalls on every compute instance in all 40 networks",
+      "Consolidate all workloads into a single large virtual network organized by subnets",
+      "Rebuild connectivity as a hub-and-spoke transit design that forces inter-network traffic through centralized inspection"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses visibility with enforcement: flow logs record which connections occurred but block nothing, so unrestricted reachability between environments remains.",
+      "Host firewalls add useful depth, but policy scattered across thousands of instances is inconsistent and hard to govern, and a compromised host can alter its own rules; the finding calls for an architectural boundary, not per-host controls.",
+      "This moves in the wrong direction: collapsing everything into one network removes even the isolation the separate networks provided, and subnets alone do not impose inspection between environments.",
+      "A hub-and-spoke transit design eliminates the unmanageable mesh, makes the central hub a natural choke point where firewalls inspect all inter-network flows, and lets spoke-to-spoke reachability be granted deliberately instead of existing by default."
+    ]
+  },
+  {
+    "id": "D4-0094",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "Users near a competitor's office are repeatedly dropped from the corporate WLAN. Analysis shows forged deauthentication frames spoofing the access points' addresses. The WLAN uses 802.1X with a strong EAP method. Which control MOST directly prevents these disconnections?",
+    "options": [
+      "Require protected management frames (802.11w) for all WLAN associations",
+      "Migrate to a stronger EAP method with longer client credentials",
+      "Filter the attacker's MAC address on all access points",
+      "Deploy wireless sensors to detect and locate deauthentication floods"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Protected management frames cryptographically authenticate deauthentication and disassociation frames, so clients discard the attacker's forgeries; the attack works today precisely because those management frames are unauthenticated regardless of data encryption strength.",
+      "This confuses authentication strength with management-plane protection: EAP secures the authentication exchange and keys for data frames, but deauthentication frames sit outside that protection and remain forgeable.",
+      "This confuses identity with addressing: the attacker is already spoofing the access points' own MAC addresses, and any filtered address can be changed trivially, so MAC filtering cannot stop the forgeries.",
+      "This confuses detection with prevention: sensors will alert on and help locate the flood, but users keep getting disconnected until the frames themselves are authenticated."
+    ]
+  },
+  {
+    "id": "D4-0095",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "Network devices across a campus send syslog to the SIEM over UDP port 514 through shared user networks. An assessment notes that log events can be read in transit, forged by any host, or silently lost. Which change BEST addresses all three issues?",
+    "options": [
+      "Schedule log forwarding during off-peak maintenance windows",
+      "Generate hashes of the stored log files nightly on the SIEM",
+      "Forward syslog over TLS with mutual certificate authentication on a reliable transport",
+      "Relocate the SIEM collector into the same VLAN as the network devices"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses congestion management with security: scheduling changes when logs travel but they remain cleartext, unauthenticated, and carried over best-effort UDP whenever they are sent.",
+      "This confuses at-rest integrity with in-transit protection: nightly hashes detect tampering after storage, but events already forged, read, or dropped on the wire are hashed as-is or never arrive at all.",
+      "TLS encryption stops eavesdropping, mutual certificate authentication prevents arbitrary hosts from injecting forged events, and TCP-based delivery detects and retransmits lost messages, resolving all three findings in one control.",
+      "This confuses reducing exposure with eliminating it: a shared VLAN still lets any device on that segment read or forge the cleartext UDP stream, and datagrams can still be silently dropped."
+    ],
+    "reference": "RFC 5425"
+  },
+  {
+    "id": "D4-0096",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "easy",
+    "stem": "An architecture review labels the SFTP gateway in the screened subnet a bastion host. A junior engineer asks what that designation requires of the system. Which statement BEST describes the obligation?",
+    "options": [
+      "It must run deception services designed to attract and study attackers",
+      "It must be hardened and stripped to a single purpose because it is directly exposed to untrusted traffic",
+      "It must have two network interfaces and route packets between the internal and external networks",
+      "It must be hidden behind address translation so external hosts cannot reach it"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses a bastion host with a honeypot: a honeypot deliberately invites attack for study, whereas a bastion host performs a real production function and is hardened to resist attack.",
+      "A bastion host sits where untrusted networks can reach it, so its operating system is minimized, unnecessary services and accounts are removed, and monitoring is increased, on the assumption it will be a primary target.",
+      "This confuses a bastion host with a dual-homed gateway: bastion status describes exposure and hardening, not interface count, and a bastion host frequently has a single interface and never routes.",
+      "This is contradictory: a bastion host exists precisely to be reachable for its published service; hiding it would defeat its function, and NAT is not what defines it."
+    ]
+  },
+  {
+    "id": "D4-0097",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "A retailer subscribes to an upstream volumetric DDoS scrubbing service, yet its web storefront was taken offline by an attack that held thousands of HTTP connections open with slow, incomplete requests while total bandwidth stayed low. What is the BEST addition to the defense?",
+    "options": [
+      "Purchase additional scrubbing bandwidth from the upstream provider",
+      "Rate-limit inbound ICMP and UDP traffic at the network edge",
+      "Subscribe to geolocation feeds and block the attacking countries",
+      "Add application-aware protection enforcing connection timeouts and slow-request limits"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses attack classes: the outage came from connection-state exhaustion at low bandwidth, so more volumetric capacity addresses a vector the attacker is not using.",
+      "This targets the wrong protocols entirely: the attack rides well-formed TCP sessions carrying slow HTTP requests, which ICMP and UDP rate limits never touch.",
+      "Low-and-slow attacks need few sources, and those sources are easily moved to proxies in permitted regions; geo-blocking also cuts off legitimate customers while barely inconveniencing the attacker.",
+      "Low-and-slow attacks exhaust server connection state rather than bandwidth, so the effective countermeasure is application-layer: a reverse proxy or WAF that times out idle transfers, caps concurrent connections per source, and requires requests to complete promptly."
+    ]
+  },
+  {
+    "id": "D4-0098",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "hard",
+    "stem": "To reduce certificate costs, an organization installed a single wildcard certificate for *.example.com, copying its private key onto 60 servers, several of which are operated by hosting partners. What is the MOST significant risk of this practice?",
+    "options": [
+      "Compromise of any one server exposes a private key that can impersonate every service under the domain",
+      "The wildcard certificate forces every site onto the same weak cipher suites, degrading the encryption strength",
+      "Browsers will present trust warnings because wildcard certificates come from lower-assurance authorities",
+      "The certificate cannot be revoked before its natural expiration if misuse is ever discovered"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Sixty copies of one key, some on infrastructure the organization does not operate, mean the attack surface of the weakest server becomes the attack surface of every *.example.com service: one theft enables domain-wide impersonation and interception.",
+      "This is a misconception about wildcard certificates: cipher suite selection is negotiated per server configuration, and a wildcard certificate supports exactly the same algorithms and strengths as a single-name certificate.",
+      "This confuses wildcard scope with assurance level: public CAs issue fully trusted wildcard certificates, and browsers treat them identically to single-name certificates with no warnings.",
+      "This is a misconception about revocation: wildcard certificates are revocable like any other; the practical concern is that revoking a key shared by 60 systems disrupts all of them at once, which is a consequence of the sprawl, not an inability to revoke."
+    ]
+  },
+  {
+    "id": "D4-0099",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "An Internet-wide scan report shows 14 of a company's servers with remote desktop directly reachable from the Internet, and authentication logs show continuous password-guessing attempts. Which remediation BEST reduces the risk?",
+    "options": [
+      "Move the remote desktop service to a non-standard port and enforce longer passwords",
+      "Remove direct exposure and require access through a VPN or remote desktop gateway with multifactor authentication",
+      "Configure account lockout after three failed authentication attempts",
+      "Deploy an intrusion detection sensor to alert on the password-guessing activity"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses obscurity with exposure reduction: scanners find services on any port within minutes, and stronger passwords still leave the service itself reachable for credential attacks and exploitation of protocol vulnerabilities.",
+      "Management protocols should never face the Internet directly; placing them behind an authenticated gateway or VPN with MFA removes the attack surface from public reach, defeats password spraying, and shields the service from remotely exploitable flaws.",
+      "This treats one symptom while creating another: lockout slows brute force but hands attackers an easy denial of service against legitimate accounts, and the exposed service remains vulnerable to exploitation regardless of authentication outcomes.",
+      "This confuses detection with remediation: alerts document the attacks already visible in the logs but do nothing to stop them or reduce the exposed surface."
+    ]
+  },
+  {
+    "id": "D4-0100",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "A trading firm buys Internet service from two different ISPs for resilience. A single fiber cut during road construction severs both connections simultaneously; investigation reveals both providers' circuits enter the building through the same conduit. What is the BEST corrective action?",
+    "options": [
+      "Contract with a third Internet service provider for additional capacity",
+      "Tune BGP timers and add bidirectional forwarding detection for faster failover",
+      "Require and validate physical path diversity, with circuits following separate routes and building entry points",
+      "Negotiate stricter availability service level agreements with financial penalties from both providers"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This repeats the original error: a third logical provider whose circuit rides the same conduit or shared right-of-way fails in the same backhoe incident; provider count is not the deficiency.",
+      "This confuses logical failover speed with physical availability: BGP and BFD can only shift traffic to a surviving path, and in this incident no physical path survived to fail over to.",
+      "The outage was caused by a shared physical single point of failure, so the fix is contractual and verified path diversity: separate conduits, separate building entrances, and confirmation that the carriers' upstream routes do not converge.",
+      "This confuses compensation with resilience: SLA penalties pay the firm after an outage but do nothing to prevent both circuits from being cut by the same excavator."
+    ]
+  },
+  {
+    "id": "D4-0101",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "During recurring attacks, a public web server's connection table fills with thousands of half-open TCP connections from spoofed source addresses while link bandwidth utilization stays low, making the site unreachable. Which control MOST directly counters this attack?",
+    "options": [
+      "Route inbound traffic through an upstream volumetric scrubbing service",
+      "Increase server memory to support a much larger connection table",
+      "Block inbound ICMP echo requests at the network perimeter",
+      "Enable SYN cookies or SYN proxying so state is committed only after the handshake completes"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses attack classes: scrubbing absorbs bandwidth-saturating floods, but this attack succeeds at low bandwidth by exhausting connection state, which upstream capacity does not protect.",
+      "This scales the symptom rather than fixing the flaw: the attacker can generate spoofed SYNs far faster than memory can be added, so a bigger table only delays exhaustion.",
+      "This confuses SYN floods with ICMP-based attacks such as ping floods or smurf: the observed traffic is TCP, so filtering echo requests leaves the attack untouched.",
+      "SYN cookies encode the connection information in the sequence number so the server allocates no state for half-open connections; a spoofed client that never completes the handshake consumes nothing, and legitimate clients connect normally."
+    ]
+  },
+  {
+    "id": "D4-0102",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "easy",
+    "stem": "An organization's Internet-facing SMTP gateway accepts messages from any external sender and forwards them to any external destination. Spammers have begun abusing it, and the company's mail servers now appear on public blocklists. What should be done FIRST?",
+    "options": [
+      "Reconfigure the gateway to relay mail only for authenticated users and the organization's own domains",
+      "Contact the blocklist operators and request removal of the company's addresses",
+      "Publish SPF records for the organization's sending domains",
+      "Enable TLS encryption on all SMTP connections handled by the gateway"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The root cause is an open relay; restricting relaying to authenticated senders and the organization's own domains stops the abuse itself, and every other step depends on this fix being in place.",
+      "This is a sequencing confusion: delisting before closing the relay is futile because continued spam flow puts the addresses straight back on the blocklists.",
+      "This confuses two email threats: SPF helps other receivers reject mail that spoofs the organization's domains, but it does not restrict who may relay through the organization's own gateway.",
+      "This confuses confidentiality with relay control: TLS encrypts the SMTP session in transit but a spammer can complete an encrypted session and abuse the open relay just the same."
+    ]
+  },
+  {
+    "id": "D4-0103",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "Auditors cannot attribute configuration changes on routers and switches because all network engineers share one local administrator account. The organization wants individual authentication, authorization of specific commands per role, and a full record of every command executed. Which solution BEST meets these requirements?",
+    "options": [
+      "Migrate device management to SNMPv3 with authentication and privacy",
+      "Deploy RADIUS with 802.1X authentication for the engineering staff",
+      "Centralized TACACS+ AAA with individual accounts, command authorization, and accounting",
+      "Create a unique local account for each engineer on every device"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses management protocols: SNMPv3 secures monitoring and programmatic configuration polling, but it does not govern interactive CLI sessions or provide per-command authorization and accounting for engineers.",
+      "This confuses AAA use cases: 802.1X with RADIUS controls network admission for endpoints, and RADIUS for device login combines authentication and authorization in one exchange, lacking the granular per-command authorization and full command accounting requested.",
+      "TACACS+ separates authentication, authorization, and accounting, allowing each engineer to log in individually, each command to be authorized against the engineer's role in real time, and every command to be centrally logged for audit attribution.",
+      "Unique local accounts restore attribution on a per-device basis but scale poorly, drift out of sync, and offer no centralized per-command authorization or consolidated accounting trail."
+    ]
+  },
+  {
+    "id": "D4-0104",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "hard",
+    "stem": "A security team observes that clients connecting to the company's web services often skip certificate revocation checks when the CA's OCSP responder is slow or unreachable, and that successful lookups reveal user browsing activity to the CA. Which change BEST improves revocation reliability and user privacy for these services?",
+    "options": [
+      "Publish larger certificate revocation lists on a more frequent schedule",
+      "Enable OCSP stapling with must-staple so servers present a signed, current revocation proof in the handshake",
+      "Pin the services' certificates inside the client applications",
+      "Move the services to self-signed certificates to remove the CA dependency"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses revocation mechanisms: CRLs suffer the same client-side fetch problem with added download size and publication latency, and modern clients rarely retrieve them at all, so reliability does not improve.",
+      "With stapling the server fetches the OCSP response itself and presents it inside the TLS handshake, so clients get timely revocation proof without contacting the CA, eliminating both the soft-fail path and the browsing-activity leak; must-staple prevents attackers from simply omitting the staple.",
+      "This confuses issuance fraud defense with revocation status: pinning rejects certificates from unexpected keys or authorities but conveys nothing about whether the legitimate pinned certificate has been revoked.",
+      "This destroys the trust model entirely: self-signed certificates trigger client trust failures and provide no revocation infrastructure at all, trading a soft-fail weakness for a hard loss of assurance."
+    ]
+  },
+  {
+    "id": "D4-0105",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "medium",
+    "stem": "A penetration tester connects a laptop to an active conference room network jack and, without authenticating, immediately captures periodic advertisements revealing the switch model, operating system version, management address, and VLAN details. Which hardening step BEST eliminates this information disclosure?",
+    "options": [
+      "Enable port security to restrict the MAC addresses permitted on the jack",
+      "Administratively disable all unused switch ports in public areas",
+      "Require SSH instead of Telnet for all switch management sessions",
+      "Disable discovery protocols such as CDP and LLDP on user-facing access ports"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses admission control with information leakage: port security limits which devices may send traffic, but the switch itself keeps broadcasting the discovery advertisements for any connected listener to capture.",
+      "This misses the scenario detail: the jack in question is active and in use, so disabling unused ports, while good hygiene, does not stop advertisements on ports that remain enabled.",
+      "This confuses management-session confidentiality with discovery traffic: SSH encrypts administrator logins, but CDP and LLDP frames are separate unauthenticated broadcasts that continue regardless.",
+      "CDP and LLDP exist to share device details with neighbors; on ports facing end users that information only aids attacker reconnaissance, so disabling the protocols there removes the disclosure while preserving them on infrastructure links where they serve operations."
+    ]
+  },
+  {
+    "id": "D4-0106",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "hard",
+    "stem": "A red team reports that its exploit passed the network intrusion prevention sensor by splitting the payload into overlapping IP fragments that the target operating system reassembled differently than the sensor expected. Which control BEST prevents this class of evasion?",
+    "options": [
+      "Have the boundary device fully reassemble and normalize fragmented traffic before inspection",
+      "Block every fragmented IP packet at the perimeter firewall",
+      "Shorten the sensor's signature update interval from daily to hourly",
+      "Replace the inline sensor with a passive monitoring deployment"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The evasion exploits the gap between the sensor's reassembly model and the target's; forcing complete reassembly and normalization at the boundary means every host behind it receives a single canonical packet stream, and overlapping-fragment tricks are dropped outright.",
+      "This overcorrects into an availability problem: fragmentation is legitimate behavior for some tunneled, VPN, and large-datagram traffic, so a blanket block breaks valid communications when normalization would suffice.",
+      "This confuses evasion with signature staleness: the sensor already had knowledge to detect the exploit; it was defeated by how the traffic was presented, which fresher signatures do not fix.",
+      "This moves backward: a passive deployment can only alert after the fact, giving up the blocking capability entirely while remaining just as vulnerable to reassembly ambiguity."
+    ]
   }
 ]
