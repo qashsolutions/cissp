@@ -1,1 +1,122 @@
-[]
+[
+  {
+    "id": "D4-0001",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "medium",
+    "stem": "After a workstation compromise, an attacker moved freely to servers across the same flat internal network. Which architectural change BEST limits this lateral movement in the future?",
+    "options": [
+      "Deploying a stronger firewall at the Internet edge",
+      "Enforcing longer passwords on all workstations",
+      "Segmenting the network and restricting traffic between zones",
+      "Increasing logging on the core switches"
+    ],
+    "answer": 2,
+    "explanations": [
+      "The perimeter firewall never sees east-west traffic between internal hosts, which is where the attacker moved.",
+      "Password strength does not change which systems a compromised workstation can reach over the network.",
+      "Zoning the network and filtering inter-zone traffic confines a compromise to its segment, directly limiting lateral movement.",
+      "More logging improves detection after the fact but places no barrier in the attacker's path."
+    ]
+  },
+  {
+    "id": "D4-0002",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "easy",
+    "stem": "In a three-tier web application exposed to the Internet, where should the database server be positioned?",
+    "options": [
+      "In an internal zone reachable only from the application tier",
+      "In the DMZ alongside the public web servers",
+      "On the public subnet behind a host firewall",
+      "On the same VLAN as user workstations"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The database belongs in the most protected zone, accepting connections solely from the application tier that legitimately needs it.",
+      "The DMZ is semi-trusted and Internet-adjacent; a web-server compromise there would sit directly beside the data.",
+      "Public placement exposes the database to the Internet with only a single local layer of defense.",
+      "User VLANs are a common phishing entry point; any compromised workstation would have direct network reach to the database."
+    ]
+  },
+  {
+    "id": "D4-0003",
+    "domain": 4,
+    "objective": "4.2",
+    "difficulty": "hard",
+    "stem": "Users on an office VLAN intermittently receive network settings from an unauthorized device, which routes their traffic through an attacker-controlled gateway. Which switch feature MOST directly prevents this?",
+    "options": [
+      "Port security limiting MAC addresses per port",
+      "DHCP snooping with trusted ports",
+      "Spanning Tree Protocol root guard",
+      "802.1X port-based network access control"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Port security caps how many MAC addresses a port may learn; the rogue device answers DHCP queries from its single, legitimate-looking address.",
+      "DHCP snooping classifies ports as trusted or untrusted and drops server-style DHCP offers arriving on untrusted ports — precisely the rogue-server case.",
+      "Root guard protects the spanning-tree topology from rogue root bridges; it does not inspect DHCP traffic.",
+      "802.1X keeps unauthenticated devices off the network, but an authenticated yet compromised host can still hand out rogue leases; snooping blocks the offers themselves."
+    ]
+  },
+  {
+    "id": "D4-0004",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "medium",
+    "stem": "Two branch offices must protect all traffic exchanged between their networks across the Internet, including concealing the original internal IP headers. Which configuration meets this requirement?",
+    "options": [
+      "IPsec ESP in transport mode between the gateways",
+      "IPsec AH in tunnel mode between the sites",
+      "TLS on each application crossing the link",
+      "IPsec ESP in tunnel mode between the site gateways"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Transport mode protects only the payload and leaves the original IP header exposed; between gateways it also cannot carry other hosts' traffic.",
+      "AH authenticates but does not encrypt, so the traffic and internal headers remain readable in transit.",
+      "Per-application TLS covers only the applications configured for it and does nothing to conceal internal addressing.",
+      "Tunnel-mode ESP encrypts the entire original packet — payload and internal headers — inside a new outer packet between the gateways."
+    ]
+  },
+  {
+    "id": "D4-0005",
+    "domain": 4,
+    "objective": "4.3",
+    "difficulty": "easy",
+    "stem": "Remote employees reach corporate systems through a VPN, while their other web traffic bypasses the tunnel and goes straight to the Internet. What is the PRIMARY security concern with this split-tunnel arrangement?",
+    "options": [
+      "Encryption strength drops when the tunnel is split",
+      "Split tunnels consume extra VPN bandwidth",
+      "The device can bridge Internet threats into the corporate network",
+      "Users lose access to internal resources"
+    ],
+    "answer": 2,
+    "explanations": [
+      "The tunnel's cryptography is unchanged; splitting affects routing, not cipher strength.",
+      "Split tunneling reduces VPN bandwidth use, since general browsing bypasses the concentrator.",
+      "Traffic to the open Internet bypasses corporate inspection, so a device compromised on that path becomes a bridge into the private network over its tunnel.",
+      "Internal resources remain reachable through the tunnel; carrying them is exactly what the tunnel does."
+    ]
+  },
+  {
+    "id": "D4-0006",
+    "domain": 4,
+    "objective": "4.1",
+    "difficulty": "hard",
+    "stem": "A utility connects its plant control network to the corporate IT network for production reporting, but engineering workstations must never be directly reachable from the business side. Which design BEST enforces this?",
+    "options": [
+      "A brokered intermediary zone that terminates all cross-boundary flows",
+      "Separate VLANs for IT and OT on the shared core switches",
+      "Host-based firewalls on each engineering workstation",
+      "Encryption of all traffic passing between IT and OT"
+    ],
+    "answer": 0,
+    "explanations": [
+      "An industrial DMZ terminates every cross-boundary connection at brokered services, so business systems reach the broker — never the engineering workstations themselves.",
+      "VLANs on shared fabric are logical separation only; a misconfiguration or VLAN-hopping technique reopens the path to the control network.",
+      "Endpoint firewalls depend on every workstation staying correctly configured; a single lapse re-exposes it, so they cannot serve as the enforced boundary.",
+      "Encrypting the traffic protects its confidentiality but does not restrict which systems can reach the workstations at all."
+    ]
+  }
+]

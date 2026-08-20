@@ -18,5 +18,107 @@
       "Removing the malware is eradication, which follows containment — acting first on removal leaves the spread unchecked while you search.",
       "Notification obligations are met after the incident is scoped and assessed against legal timelines; it is not the first action while damage is actively spreading."
     ]
+  },
+  {
+    "id": "D7-0002",
+    "domain": 7,
+    "objective": "7.2",
+    "difficulty": "medium",
+    "stem": "To avoid alerting on every single failed login, a security team configures monitoring to flag an account only after five failures within ten minutes. What is this preset threshold called?",
+    "options": [
+      "A service level agreement",
+      "A clipping level",
+      "A baseline deviation",
+      "A false positive rate"
+    ],
+    "answer": 1,
+    "explanations": [
+      "An SLA is a contractual performance commitment between parties, not an alerting threshold.",
+      "A clipping level is a predefined threshold below which activity is treated as noise — alerting begins only once the threshold is crossed.",
+      "Baseline deviation flags departure from a learned normal profile; the five-in-ten-minutes rule is a fixed threshold, not a learned baseline.",
+      "The false positive rate measures how often alerts are wrong; it is an outcome metric, not the configured trigger."
+    ]
+  },
+  {
+    "id": "D7-0003",
+    "domain": 7,
+    "objective": "7.10",
+    "difficulty": "easy",
+    "stem": "A business unit states it can afford to lose at most one hour of data for its order system. Which recovery parameter does this requirement define, and what does it drive?",
+    "options": [
+      "The recovery point objective, which drives backup and replication frequency",
+      "The recovery time objective, which drives how quickly service is restored",
+      "The maximum tolerable downtime, which drives recovery team staffing",
+      "The mean time between failures, which drives hardware replacement cycles"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Tolerable data loss is the recovery point objective; one hour of acceptable loss means data must be captured at least hourly.",
+      "The recovery time objective bounds how long restoration may take — a duration of outage, not an amount of lost data.",
+      "Maximum tolerable downtime is the total outage the business can survive, within which the RTO must fit; it is not about data loss.",
+      "Mean time between failures is a hardware reliability statistic, unrelated to how much data the business can lose."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D7-0004",
+    "domain": 7,
+    "objective": "7.12",
+    "difficulty": "medium",
+    "stem": "An organization exercises its disaster recovery plan by activating the alternate site and processing workloads there while production continues operating normally. Which test type is this?",
+    "options": [
+      "A full interruption test",
+      "A tabletop exercise",
+      "A parallel test",
+      "A checklist review of the plan"
+    ],
+    "answer": 2,
+    "explanations": [
+      "A full interruption test fails production over to the alternate site — the scenario explicitly keeps production running.",
+      "A tabletop is a discussion-based walkthrough of the plan; no systems process anything.",
+      "A parallel test activates the alternate site and processes workloads there while production continues unaffected — exactly what is described.",
+      "A checklist review verifies the plan's contents on paper without exercising any capability."
+    ]
+  },
+  {
+    "id": "D7-0005",
+    "domain": 7,
+    "objective": "7.4",
+    "difficulty": "easy",
+    "stem": "A bank requires that initiating a wire transfer and approving it be performed by two different employees using separate credentials. Which operations principle is this?",
+    "options": [
+      "Two-person integrity",
+      "Least privilege",
+      "Job rotation",
+      "Separation of duties"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Two-person integrity requires two people present to perform one task together, like opening a vault; here two distinct tasks are split between people.",
+      "Least privilege limits each person's rights to what their duties require; it does not itself force two people into the flow.",
+      "Job rotation periodically reassigns duties to surface fraud over time, not per transaction.",
+      "Splitting initiation and approval between different people so no one completes the sensitive transaction alone is separation of duties."
+    ]
+  },
+  {
+    "id": "D7-0006",
+    "domain": 7,
+    "objective": "7.1",
+    "difficulty": "hard",
+    "stem": "Before analyzing a seized disk, a forensic examiner duplicates it and records cryptographic hashes of both the original and the copy. What is the PRIMARY purpose of these steps?",
+    "options": [
+      "To recover deleted files from unallocated space",
+      "To prove the analyzed copy is an unaltered equivalent of the original",
+      "To establish who owned the files on the disk",
+      "To satisfy chain-of-custody requirements by themselves"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Imaging does enable later carving of unallocated space, but the hashes exist to prove fidelity, not to recover anything.",
+      "Matching hashes demonstrate the working copy is bit-for-bit identical to the seized original and that neither changed during analysis — the foundation of admissibility.",
+      "Attribution comes from examining content, metadata, and account artifacts, not from imaging hashes.",
+      "Chain of custody is the documented record of possession and transfers; hashes complement it by proving integrity but do not replace the documentation."
+    ],
+    "reference": "NIST SP 800-86"
   }
 ]

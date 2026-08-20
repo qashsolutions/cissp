@@ -19,5 +19,86 @@
       "A quick format removes file-table entries only; the underlying data remains and is trivially recoverable with common tools."
     ],
     "reference": "NIST SP 800-88r1"
+  },
+  {
+    "id": "D2-0002",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "easy",
+    "stem": "A newly created financial forecast must be classified before it can be distributed. Who is PRIMARILY responsible for assigning its classification level?",
+    "options": [
+      "The data custodian",
+      "The security administrator",
+      "The data owner",
+      "The compliance officer"
+    ],
+    "answer": 2,
+    "explanations": [
+      "The custodian implements the protections the owner mandates — backups, permissions, storage — but does not decide the classification.",
+      "The security administrator configures and enforces technical controls; assigning business value to information is not their call.",
+      "The data owner is accountable for the information and understands its business value, so classification decisions rest with them.",
+      "The compliance officer advises on regulatory obligations that influence classification but does not own the decision for a given asset."
+    ]
+  },
+  {
+    "id": "D2-0003",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "medium",
+    "stem": "A company's retention schedule requires deleting customer records after seven years. Litigation is filed that involves records now due for deletion. What MUST the organization do?",
+    "options": [
+      "Suspend deletion of the affected records under a legal hold",
+      "Proceed with deletion as the retention schedule requires",
+      "Anonymize the records so deletion can proceed safely",
+      "Delete the records but retain their cryptographic hashes"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A legal hold overrides normal retention: once litigation is filed or reasonably anticipated, potentially relevant records must be preserved intact.",
+      "Following the schedule once litigation exists destroys evidence — spoliation that courts can sanction severely.",
+      "Anonymizing alters potentially relevant evidence, which courts treat the same as destroying it.",
+      "A hash can prove a record once existed but cannot reproduce its contents; the evidence itself would still be gone."
+    ]
+  },
+  {
+    "id": "D2-0004",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "medium",
+    "stem": "An organization selects a control baseline for a new system, removes the controls that do not apply to its environment, and adjusts the parameters of the rest to fit its risk profile. What is this process called?",
+    "options": [
+      "Gap analysis",
+      "Scoping and tailoring",
+      "Control self-assessment",
+      "Certification and accreditation"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Gap analysis compares the current state against a desired state; it measures distance rather than adapting a baseline.",
+      "Scoping removes baseline controls that do not apply, and tailoring adjusts the remaining controls' parameters to the environment — exactly the process described.",
+      "Control self-assessment evaluates how well already-implemented controls operate; here the controls are still being selected.",
+      "Certification and accreditation formally evaluate a system and record management's acceptance of residual risk — later steps, not baseline adjustment."
+    ],
+    "reference": "NIST SP 800-53B"
+  },
+  {
+    "id": "D2-0005",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "easy",
+    "stem": "Before assigning protection controls to its servers, laptops, and cloud instances, a security team wants confidence that nothing will be missed. Which activity MUST come first?",
+    "options": [
+      "Deploying endpoint detection on all known devices",
+      "Encrypting data at rest across the estate",
+      "Conducting a penetration test of the network",
+      "Building and maintaining a complete asset inventory"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Endpoint tooling protects only the devices already known; the stated concern is assets that are missed entirely.",
+      "Encryption is one of the controls to be assigned — it cannot be applied to systems the team does not know exist.",
+      "A penetration test probes for exploitable weaknesses; it is not a systematic accounting of every asset.",
+      "Controls can only cover what is known: a complete, maintained inventory of hardware, software, and cloud instances is the prerequisite for everything else."
+    ]
   }
 ]

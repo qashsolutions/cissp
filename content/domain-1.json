@@ -59,5 +59,106 @@
       "A guideline is discretionary advice; the word MUST and mandatory compliance directly contradict that character.",
       "A procedure gives step-by-step instructions for performing a task, not a statement of a mandatory requirement."
     ]
+  },
+  {
+    "id": "D1-0004",
+    "domain": 1,
+    "objective": "1.1",
+    "difficulty": "medium",
+    "stem": "During an internal audit, a CISSP-certified analyst discovers that a colleague has been falsifying vulnerability scan results to hide missed remediation deadlines. What should the analyst do FIRST?",
+    "options": [
+      "Confront the colleague privately and ask them to stop",
+      "Report the findings through the organization's internal channels",
+      "File an ethics complaint with ISC2 against the colleague",
+      "Escalate directly to the external audit committee"
+    ],
+    "answer": 1,
+    "explanations": [
+      "A private confrontation gives the organization no protection and gives the colleague time to alter evidence; falsified audit artifacts must be formally reported.",
+      "The ISC2 Code of Ethics requires acting honorably and protecting the profession; the first duty is reporting the falsification through the organization's established channels so it can be investigated.",
+      "An ISC2 ethics complaint applies to certified members and comes after the organization is protected; it is not the first action, and the colleague may not even be certified.",
+      "Jumping straight to external parties bypasses established reporting and is reserved for cases where the internal channels are themselves compromised."
+    ]
+  },
+  {
+    "id": "D1-0005",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "easy",
+    "stem": "A US-based SaaS provider hosts and processes EU customer personal data strictly on the instructions of its European business clients. Under the GDPR, how is the provider classified?",
+    "options": [
+      "As a data processor",
+      "As a data controller",
+      "As a data subject",
+      "As a supervisory authority"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The provider handles personal data on its clients' instructions; a party that processes on behalf of another is a processor under the GDPR.",
+      "The controller determines the purposes and means of processing — here that is each European client, not the provider acting on instruction.",
+      "The data subject is the identifiable individual the data is about, not an organization handling the data.",
+      "A supervisory authority is a national regulator that enforces the GDPR; it plays no role in processing customer data."
+    ]
+  },
+  {
+    "id": "D1-0006",
+    "domain": 1,
+    "objective": "1.7",
+    "difficulty": "medium",
+    "stem": "An organization is beginning its business continuity program. Management wants to know which business processes and systems must be recovered first after a disruption. Which activity provides this answer?",
+    "options": [
+      "A quantitative risk assessment",
+      "A disaster recovery test",
+      "A business impact analysis",
+      "A threat and vulnerability assessment"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Quantitative risk assessment estimates loss magnitude and likelihood for specific risks; it does not rank business processes by recovery priority.",
+      "A disaster recovery test validates plans that already exist; recovery priorities must be established before there is anything to test.",
+      "The business impact analysis identifies critical processes, their dependencies, and tolerable downtime — exactly what determines recovery order.",
+      "A threat and vulnerability assessment finds weaknesses that could cause disruption; it does not measure the business criticality of what is disrupted."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D1-0007",
+    "domain": 1,
+    "objective": "1.11",
+    "difficulty": "medium",
+    "stem": "A manufacturer learns that a vulnerable open-source library may be embedded in firmware delivered by several of its third-party suppliers. Which practice gives the organization the BEST visibility into this exposure?",
+    "options": [
+      "Signing non-disclosure agreements with every supplier",
+      "Increasing the frequency of internal code reviews",
+      "Purchasing cyber insurance covering supply chain incidents",
+      "Requiring a software bill of materials from each supplier"
+    ],
+    "answer": 3,
+    "explanations": [
+      "NDAs protect the confidentiality of shared information; they reveal nothing about what components a supplier's software contains.",
+      "Internal code reviews examine the organization's own code; the exposure here sits inside third-party deliverables the reviews never see.",
+      "Insurance transfers some financial consequences but provides no visibility into which products embed the vulnerable library.",
+      "A software bill of materials enumerates the components inside each supplier's deliverable, showing exactly where the library ships."
+    ]
+  },
+  {
+    "id": "D1-0008",
+    "domain": 1,
+    "objective": "1.2",
+    "difficulty": "hard",
+    "stem": "An online contract platform must ensure that a customer who electronically signs an agreement cannot later credibly deny having signed it. Which security concept is the platform enforcing, and what typically provides it?",
+    "options": [
+      "Authenticity, provided by validating the customer's login credentials",
+      "Nonrepudiation, provided by digital signatures over the agreement",
+      "Integrity, provided by hashing the agreement after signature",
+      "Accountability, provided by recording the signing in an audit log"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Login validation shows who a session belonged to, but shared or stolen credentials leave room for plausible denial; authenticity alone does not bind the person to the document.",
+      "Nonrepudiation prevents a party from credibly denying an action; a digital signature made with the customer's private key cryptographically binds them to the exact agreement.",
+      "A hash proves the document has not changed since hashing; it says nothing about who committed to it.",
+      "Audit logs support accountability but are operator-maintained records a determined signer can dispute; they lack the cryptographic binding that defeats denial."
+    ]
   }
 ]

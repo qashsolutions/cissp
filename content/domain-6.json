@@ -1,1 +1,122 @@
-[]
+[
+  {
+    "id": "D6-0001",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "easy",
+    "stem": "A security team wants to find missing patches and misconfigurations across its servers using an assessment that logs into each system for accurate local results. Which activity is this?",
+    "options": [
+      "A penetration test",
+      "An unauthenticated network scan",
+      "A credentialed vulnerability scan",
+      "A social engineering assessment"
+    ],
+    "answer": 2,
+    "explanations": [
+      "A penetration test goes further — actively exploiting weaknesses to demonstrate impact — rather than enumerating patch and configuration state.",
+      "Scanning without credentials sees only the network-facing surface and misses local configuration and patch details.",
+      "Logging in with credentials lets the scanner read installed packages and configuration directly, giving accurate patch and misconfiguration findings.",
+      "Social engineering measures human susceptibility, not system configuration."
+    ]
+  },
+  {
+    "id": "D6-0002",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "medium",
+    "stem": "A customer asks a SaaS vendor for independent evidence that its security controls operated effectively over the past year — not merely that they were suitably designed at a point in time. Which report satisfies this?",
+    "options": [
+      "A SOC 2 Type II report",
+      "A SOC 2 Type I report",
+      "A SOC 1 audit report",
+      "The vendor's internal audit summary"
+    ],
+    "answer": 0,
+    "explanations": [
+      "In a SOC 2 Type II engagement an independent auditor tests the operating effectiveness of security controls across a review period — exactly evidence that they worked over the year.",
+      "Type I opines on control design at a single point in time, which is precisely what the customer said was not enough.",
+      "SOC 1 addresses controls relevant to financial reporting, not the security trust services criteria.",
+      "An internal summary lacks the independence the customer explicitly asked for."
+    ]
+  },
+  {
+    "id": "D6-0003",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "medium",
+    "stem": "An enterprise completes two acquisitions and must redesign its annual security assessment program to cover the expanded environment. What should be defined FIRST?",
+    "options": [
+      "The penetration testing toolset to standardize on",
+      "The scope and objectives of the assessment program",
+      "Remediation deadlines for the expected findings",
+      "The roster of auditors to be engaged"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Tool choices follow from what must be assessed; selecting them first puts mechanics before purpose.",
+      "An assessment strategy starts by defining what must be covered and why — systems, obligations, and goals — especially after acquisitions change the environment.",
+      "Deadlines for findings cannot be set before the program defines what will be examined.",
+      "Staffing follows scope: who is needed depends on what the program must cover."
+    ]
+  },
+  {
+    "id": "D6-0004",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "A security manager wants continuing evidence, between formal audits, that the account management process is operating as intended. Which collected data BEST provides it?",
+    "options": [
+      "Results of last year's external penetration test",
+      "Change tickets for this quarter's firewall modifications",
+      "Logs showing antivirus signatures updating on schedule",
+      "Account lifecycle reports reconciled against HR records"
+    ],
+    "answer": 3,
+    "explanations": [
+      "A yearly penetration test is a point-in-time technical probe; it says little about whether a business process operates correctly month to month.",
+      "Firewall change tickets evidence the change management process, not account management.",
+      "Signature update logs measure an endpoint hygiene task unrelated to account handling.",
+      "Reconciling account creations, changes, and terminations against HR events is exactly the ongoing process data that shows account management working between audits."
+    ]
+  },
+  {
+    "id": "D6-0005",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "easy",
+    "stem": "A vulnerability scan of two thousand hosts produced thousands of raw findings. Before reporting to management, what should the analyst do with this output?",
+    "options": [
+      "Validate the findings and rank them by business risk",
+      "Forward the complete raw output to the executives",
+      "Report only the count of critical-severity findings",
+      "Rerun the scan to confirm the totals match"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Analysis turns output into a report: confirm true positives, then order findings by what they mean to the business so leadership can act.",
+      "Thousands of unfiltered findings are noise to management and shift the analysis burden onto the audience.",
+      "A bare count hides unvalidated false positives and gives no sense of which systems or risks matter.",
+      "Repeating the scan reproduces the same raw data; it adds no interpretation."
+    ]
+  },
+  {
+    "id": "D6-0006",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "An operations team wants to detect failures of a customer-facing payment flow before real users notice, by continuously exercising it with scripted test purchases. Which testing technique is this?",
+    "options": [
+      "Real user monitoring",
+      "Fuzz testing",
+      "Synthetic transaction monitoring",
+      "Regression testing"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Real user monitoring passively measures actual customer traffic, so a failure is noticed only after real users have already hit it.",
+      "Fuzzing feeds malformed input to find robustness flaws; it is not a continuous availability check of a business flow.",
+      "Synthetic transactions are scripted, production-like operations run continuously to prove a flow works — failures surface before customers meet them.",
+      "Regression testing runs at build or release time to catch broken functionality, not continuously in production."
+    ]
+  }
+]

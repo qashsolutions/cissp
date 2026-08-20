@@ -38,5 +38,105 @@
       "An HMAC requires the same secret in every device; extracting the key from any one device lets an attacker forge updates for all of them.",
       "TLS protects data only in transit; a compromised mirror serves a tampered image over a perfectly valid TLS session."
     ]
+  },
+  {
+    "id": "D3-0003",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "easy",
+    "stem": "A military system must prevent users from reading documents classified above their clearance level. Which security model directly enforces this 'no read up' rule?",
+    "options": [
+      "Bell-LaPadula",
+      "Biba",
+      "Clark-Wilson",
+      "Brewer-Nash"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Bell-LaPadula is the confidentiality model whose simple security property forbids reading data above one's clearance — the 'no read up' rule.",
+      "Biba is the integrity mirror of Bell-LaPadula: it forbids reading down and writing up to protect data trustworthiness, not secrecy.",
+      "Clark-Wilson enforces integrity through well-formed transactions and separation of duties, not clearance-based reading rules.",
+      "Brewer-Nash, the Chinese Wall model, prevents conflicts of interest by restricting access based on a user's prior access history."
+    ]
+  },
+  {
+    "id": "D3-0004",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "medium",
+    "stem": "A privileged installer checks a file's permissions, and an attacker swaps the file for a symbolic link in the instant between that check and the privileged write. Which vulnerability class is being exploited?",
+    "options": [
+      "A buffer overflow in the installer",
+      "An insecure direct object reference",
+      "A time-of-check to time-of-use race condition",
+      "A privilege escalation via DLL injection"
+    ],
+    "answer": 2,
+    "explanations": [
+      "A buffer overflow corrupts memory through oversized input; nothing here involves the timing gap between validation and use.",
+      "Insecure direct object reference is a web authorization flaw where objects are reachable through guessable identifiers.",
+      "The attacker wins the race between the permission check and the privileged use of the file — the definition of a TOCTOU flaw.",
+      "DLL injection abuses library loading to run code inside another process; this scenario exploits filesystem timing instead."
+    ]
+  },
+  {
+    "id": "D3-0005",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "Researchers recover an encryption key from a smart card by passively measuring fluctuations in its power consumption during cryptographic operations. Which attack class does this represent?",
+    "options": [
+      "A chosen-plaintext attack",
+      "A side-channel attack",
+      "A brute-force attack",
+      "A fault-injection attack"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Chosen-plaintext attacks analyze the mathematical relationship between selected inputs and their ciphertexts; they do not use physical emissions.",
+      "Power analysis recovers secrets from a device's physical leakage — consumption, timing, emanations — the defining trait of a side-channel attack.",
+      "Brute force exhaustively tries keys against ciphertext; no measurement of the device is involved.",
+      "Fault injection actively disturbs the device with voltage glitches or clock manipulation to cause exploitable errors; here the card is only passively observed."
+    ]
+  },
+  {
+    "id": "D3-0006",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "easy",
+    "stem": "A data center wants to stop an unauthorized person from slipping through a secure entrance behind an employee's single badge swipe. Which physical control BEST addresses this?",
+    "options": [
+      "CCTV cameras covering the entrance",
+      "Additional badge readers on interior doors",
+      "Security awareness posters at the door",
+      "A mantrap with interlocking doors"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Cameras are detective: they record the tailgating for later review but do not physically stop it.",
+      "Interior readers face the same weakness — the intruder simply follows an employee through each successive door.",
+      "Posters are an administrative nudge; a determined tailgater is not stopped by signage.",
+      "A mantrap's interlocking doors admit one authenticated person at a time, making tailgating physically impossible."
+    ]
+  },
+  {
+    "id": "D3-0007",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "medium",
+    "stem": "A laptop fleet must release its disk encryption keys only when each machine boots with untampered firmware and boot loader. Which hardware capability provides this?",
+    "options": [
+      "A Trusted Platform Module measuring the boot chain",
+      "A hardware security module in the data center",
+      "Self-encrypting drives with drive-lock passwords",
+      "UEFI passwords protecting the firmware menu"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A TPM records boot-component measurements in its registers and can seal the disk key so it is released only when those measurements match a trusted state.",
+      "An HSM safeguards keys for servers and applications centrally; it cannot attest to an individual laptop's boot integrity.",
+      "A self-encrypting drive protects data at rest but unlocks on its password regardless of whether firmware or boot loader were tampered with.",
+      "A UEFI password stops casual settings changes; it neither measures the boot chain nor gates key release on its integrity."
+    ]
   }
 ]

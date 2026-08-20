@@ -38,5 +38,105 @@
       "MAC enforces access through central labels and clearances; it is classification-driven rather than job-function-driven and is a poor fit here.",
       "Rule-based control applies fixed condition rules such as time-of-day or source network to everyone; it does not bundle permissions by job function."
     ]
+  },
+  {
+    "id": "D5-0003",
+    "domain": 5,
+    "objective": "5.3",
+    "difficulty": "medium",
+    "stem": "Employees access a partner's cloud application by signing in with corporate credentials through SAML federation. During this flow, which party actually authenticates the user?",
+    "options": [
+      "The partner's application receiving the assertion",
+      "The company's identity provider",
+      "The SAML assertion exchanged in the flow",
+      "The user's web browser handling the redirects"
+    ],
+    "answer": 1,
+    "explanations": [
+      "The service provider consumes the assertion and grants access; it never checks the user's credentials itself — that delegation is the point of federation.",
+      "In SAML federation the identity provider verifies the user's credentials and then vouches for them; the partner merely trusts its signed assertion.",
+      "The assertion is the signed statement carrying the authentication result; a token conveys authentication but cannot perform it.",
+      "The browser only transports redirects and form posts between the parties; it authenticates nothing."
+    ]
+  },
+  {
+    "id": "D5-0004",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "easy",
+    "stem": "An employee who has moved through three departments still holds access granted in every previous role. Which control MOST directly corrects this accumulation?",
+    "options": [
+      "Multi-factor authentication on all accounts",
+      "Password rotation every ninety days",
+      "Periodic access reviews that recertify entitlements",
+      "Single sign-on across enterprise systems"
+    ],
+    "answer": 2,
+    "explanations": [
+      "MFA strengthens proof of identity but does nothing about rights that should no longer exist.",
+      "Rotating passwords is credential hygiene; the stale entitlements survive every rotation.",
+      "Recurring reviews force each entitlement to be re-justified by the current role, catching and revoking the access left over from previous ones.",
+      "SSO centralizes login convenience; the underlying permissions remain exactly as accumulated."
+    ]
+  },
+  {
+    "id": "D5-0005",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "hard",
+    "stem": "In a Kerberos environment, a user authenticates once in the morning and then opens sessions to several servers all day without re-entering a password. Which component makes this possible?",
+    "options": [
+      "The ticket-granting ticket issued by the key distribution center",
+      "The server's long-term secret key",
+      "The password cached on the workstation",
+      "A SAML assertion from the domain controller"
+    ],
+    "answer": 0,
+    "explanations": [
+      "After initial authentication the KDC issues a ticket-granting ticket; the client presents it to obtain service tickets all day without the password being entered again.",
+      "Each server's long-term key decrypts the service tickets presented to it; it enables the server's side of the exchange, not the user's single sign-on.",
+      "Kerberos is designed precisely to avoid replaying the password per service; the ticket-granting ticket stands in for it after the first exchange.",
+      "SAML assertions belong to web federation; Kerberos uses tickets, and domain controllers do not issue assertions in this flow."
+    ]
+  },
+  {
+    "id": "D5-0006",
+    "domain": 5,
+    "objective": "5.1",
+    "difficulty": "easy",
+    "stem": "When comparing biometric door-access systems, a vendor advertises the operating point where the false acceptance rate equals the false rejection rate. What is this metric called?",
+    "options": [
+      "The false acceptance rate",
+      "The throughput rate",
+      "The failure to enroll rate",
+      "The crossover error rate"
+    ],
+    "answer": 3,
+    "explanations": [
+      "The false acceptance rate is one side of the trade-off — how often impostors are admitted — not the balance point between the two errors.",
+      "Throughput measures how quickly users pass the sensor, a usability figure unrelated to error balance.",
+      "Failure to enroll counts users whose biometrics cannot be registered at all.",
+      "The crossover error rate is where false acceptances equal false rejections — the standard single figure for comparing biometric accuracy."
+    ]
+  },
+  {
+    "id": "D5-0007",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "medium",
+    "stem": "A global firm must let contract reviewers open documents only during business hours, only from managed devices, and only for their assigned region. Which authorization model expresses these conditions MOST naturally?",
+    "options": [
+      "Role-based access control",
+      "Attribute-based access control",
+      "Mandatory access control",
+      "Per-document access control lists"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Modeling every combination of time, device, and region as a role causes role explosion; RBAC has no native notion of request context.",
+      "ABAC evaluates attributes of the user, resource, and environment — hours, device state, region — at decision time, expressing these conditions directly.",
+      "MAC compares clearance labels to classification labels; it does not evaluate contextual conditions like time or device.",
+      "ACLs are static lists of identities per document; they cannot express dynamic conditions at all."
+    ]
   }
 ]
