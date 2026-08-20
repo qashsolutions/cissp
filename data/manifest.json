@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:25.899Z",
-  "total": 950,
+  "generatedAt": "2026-08-20T20:01:25.984Z",
+  "total": 1000,
   "domains": [
     {
       "n": 1,
@@ -63,7 +63,7 @@
       "name": "Software Development Security",
       "weight": 10,
       "target": 500,
-      "count": 5,
+      "count": 55,
       "file": "domain-8.json"
     }
   ]

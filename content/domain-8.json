@@ -99,5 +99,1013 @@
       "If the suite were skipped, the coverage figures themselves would collapse rather than stay high.",
       "Executing a line is not testing it: without assertions about security behavior — authorization, validation, error paths — covered code can remain completely unverified."
     ]
+  },
+  {
+    "id": "D8-0006",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "A financial services company is designing a new payment-processing microservice. The security architect wants to identify architectural weaknesses, such as missing authentication between services and unprotected data flows, before any code is written. Which activity BEST achieves this goal?",
+    "options": [
+      "Conduct threat modeling of the design using a structured methodology such as STRIDE",
+      "Perform dynamic application security testing against a staging deployment",
+      "Schedule a manual secure code review once the first release candidate is complete",
+      "Commission a penetration test as part of pre-production acceptance"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Threat modeling analyzes the architecture and data flows during the design phase, exposing structural weaknesses before implementation, when they are cheapest and easiest to correct.",
+      "DAST requires a running application, so it cannot occur before code is written; candidates confuse 'testing early' with design-phase analysis, but DAST is a test-phase activity.",
+      "Code review examines implemented source code, so it finds coding flaws after development has begun rather than architectural weaknesses in the design itself.",
+      "Penetration testing validates a near-final system late in the lifecycle; it confirms that flaws exist rather than preventing them from being designed in."
+    ],
+    "reference": "NIST SP 800-218"
+  },
+  {
+    "id": "D8-0007",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "During a major outage, a developer pushed a hotfix directly to production, bypassing the normal change approval workflow. The fix resolved the outage. What should the organization do FIRST?",
+    "options": [
+      "Roll back the hotfix until it can be processed through the standard change workflow",
+      "Invoke the emergency change procedure to document the fix and perform a post-implementation review",
+      "Refer the developer to human resources for violating the change management policy",
+      "Suspend all production deployments until staff are re-trained on the change process"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Rolling back a working fix would reintroduce the outage, sacrificing availability for procedure; emergency change processes exist so urgent fixes can be legitimized without reversal.",
+      "Emergency change procedures are designed for exactly this situation: the change is documented after the fact, reviewed for correctness and side effects, and captured in the configuration baseline, preserving both availability and control.",
+      "Disciplinary referral treats a process gap as an individual failing before the facts are reviewed; bringing the change itself under governance takes priority over personnel action.",
+      "Freezing all deployments is a disproportionate response that punishes the entire pipeline for one event and does nothing to bring the completed change under control."
+    ]
+  },
+  {
+    "id": "D8-0008",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "easy",
+    "stem": "An organization licenses a business-critical application from a small software vendor and is concerned the vendor may go out of business, leaving the application unmaintainable. Which contractual measure BEST addresses this risk?",
+    "options": [
+      "A service level agreement guaranteeing response times for defect fixes",
+      "A right-to-audit clause allowing inspection of the vendor's development practices",
+      "A source code escrow agreement with release triggers such as vendor insolvency",
+      "An extended maintenance contract prepaid for several additional years"
+    ],
+    "answer": 2,
+    "explanations": [
+      "An SLA governs performance while the vendor is operating; it is unenforceable once the vendor ceases to exist, which is precisely the risk in question.",
+      "A right-to-audit clause provides assurance about how the vendor builds software today; it gives the customer no ability to maintain the product after the vendor disappears.",
+      "Escrow places the source code with a neutral third party and releases it to the customer upon defined trigger events such as bankruptcy, enabling continued maintenance of the application without the vendor.",
+      "A prepaid maintenance contract becomes an unrecoverable cost in bankruptcy; contract length does not survive the vendor's dissolution."
+    ]
+  },
+  {
+    "id": "D8-0009",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "When a critical vulnerability was disclosed in a widely used open-source logging library, a company needed three weeks to determine which of its applications included the affected component. Which practice would MOST improve its response to similar disclosures?",
+    "options": [
+      "Running static analysis on proprietary source code in every build",
+      "Performing authenticated vulnerability scans of all production servers",
+      "Deploying a web application firewall rule set updated with new attack signatures",
+      "Generating a software bill of materials for every release through software composition analysis"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Static analysis examines code the organization writes itself; it does not inventory third-party components, so it cannot answer where a given library is used.",
+      "Host vulnerability scanners detect known issues on systems they can fingerprint, but they are unreliable at enumerating libraries embedded inside packaged applications.",
+      "A WAF rule may temporarily shield exposed applications, but it is a mitigation; it provides no way to identify which applications actually contain the component.",
+      "Software composition analysis records every third-party component and version in an SBOM at build time, so affected applications can be identified in minutes by querying the inventory rather than by manual investigation."
+    ]
+  },
+  {
+    "id": "D8-0010",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "A security team must evaluate a web application developed by a contractor who will not provide source code. The application is deployed in a test environment identical to production. Which assessment technique is MOST appropriate?",
+    "options": [
+      "Static application security testing to trace tainted data flows through the code",
+      "Software composition analysis to enumerate the application's third-party dependencies",
+      "Dynamic application security testing against the running test instance",
+      "A documentation review of the contractor's secure coding checklist and sign-offs"
+    ],
+    "answer": 2,
+    "explanations": [
+      "SAST requires access to source code, which the contractor has refused to provide; it cannot be applied in this engagement.",
+      "SCA inventories third-party components to flag known vulnerable libraries, but it needs build artifacts the contractor controls and does not test how the application itself behaves.",
+      "DAST exercises the running application from the outside without needing source code, making it the natural black-box technique when only a deployed instance is available for testing.",
+      "Reviewing checklists and sign-offs provides assurance about claimed process, not evidence about the actual behavior of the delivered software."
+    ]
+  },
+  {
+    "id": "D8-0011",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "easy",
+    "stem": "Auditors find that application developers hold standing administrative access to the production database so they can troubleshoot incidents quickly. What is the BEST way to address this finding?",
+    "options": [
+      "Require developers to sign an acceptable use agreement covering production data handling",
+      "Remove standing access and grant time-limited, logged access through a formal request during incidents",
+      "Enable full query logging on the production database to record all developer activity",
+      "Mask sensitive columns in production so developers see only obfuscated values"
+    ],
+    "answer": 1,
+    "explanations": [
+      "An agreement documents expectations but is an administrative control that leaves the excessive technical access, and its misuse potential, fully in place.",
+      "This enforces separation of environments and least privilege while preserving the operational need: access exists only when justified, is time-bound, and is fully auditable.",
+      "Logging is a detective control; it records misuse after the fact but does not reduce the standing privilege that created the risk.",
+      "Masking protects data confidentiality but leaves developers with administrative capability to alter schemas, data, and configurations in production."
+    ]
+  },
+  {
+    "id": "D8-0012",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "A threat assessment concludes that an attacker who phishes one developer's repository credentials could introduce malicious code into the main branch of a product that ships to thousands of customers. Which control MOST directly reduces this risk?",
+    "options": [
+      "Branch protection requiring an independent reviewer's approval before any merge to the main branch",
+      "Encrypting the repository contents at rest on the code hosting platform",
+      "Running a full malware scan of the repository on a nightly schedule",
+      "Requiring developers to rotate their repository passwords every 90 days"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Mandatory independent review means a single compromised account cannot unilaterally alter the shipped codebase; a second party must approve every change, directly countering the assessed threat.",
+      "Encryption at rest protects confidentiality against storage-level theft; an attacker using valid credentials operates through the platform, where content is transparently decrypted.",
+      "Malware scanners match known malicious signatures; a subtle source change such as a weakened validation routine would not match any signature, and detection would come only after the code is in the branch.",
+      "Rotation does not stop phishing, because the attacker uses the freshly stolen credential immediately; the question asks what limits the damage a compromised account can do."
+    ]
+  },
+  {
+    "id": "D8-0013",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "A code review of a discussion forum finds that text submitted in user comments is written into HTML pages exactly as entered. Which secure coding practice MOST directly prevents the resulting vulnerability?",
+    "options": [
+      "Using parameterized statements for all database access from the application",
+      "Enforcing TLS for every connection between browsers and the application",
+      "Hashing user-submitted content before it is stored in the database",
+      "Applying context-appropriate output encoding whenever user data is rendered"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Parameterized statements prevent SQL injection by separating queries from data; the flaw here is cross-site scripting in the browser, which occurs after data leaves the database untouched.",
+      "TLS protects data in transit between browser and server; it would deliver the injected script securely but does nothing to stop it from executing.",
+      "Hashing is one-way and would destroy the comment text; it is a technique for protecting stored secrets such as passwords, not for handling displayed content.",
+      "Encoding user data for the HTML, attribute, or JavaScript context in which it appears turns markup into inert text, neutralizing stored cross-site scripting at the point of output."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D8-0014",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "A security assessment of a privileged utility finds that it verifies a user's permission to a file path and then, a few instructions later, opens that path. Testers demonstrated privilege escalation by replacing the file with a symbolic link between the two steps. What is the BEST remediation?",
+    "options": [
+      "Redesign the code so the permission check and the file operation act atomically on the same file handle",
+      "Add strict input validation to reject file paths containing unexpected characters",
+      "Run the utility under an account holding the fewest privileges required for its function",
+      "Increase audit logging so any file substitution is recorded for later investigation"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The flaw is a time-of-check/time-of-use race condition; binding the check and the use to the same opened handle removes the window in which the target can be swapped.",
+      "Input validation addresses malformed data, but the demonstrated path is syntactically valid; the attack exploits timing between two legitimate operations, not the content of the input.",
+      "Least privilege reduces the impact if exploitation succeeds but leaves the race window open, and the utility is privileged by design, which is what makes the race worth exploiting.",
+      "Logging is detective; it may support forensics after the escalation but does not close the exploitable window between the check and the use."
+    ]
+  },
+  {
+    "id": "D8-0015",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A business-critical network service written in C has a history of memory corruption vulnerabilities. A rewrite in a memory-safe language is budgeted for next year. Which action BEST reduces exploitability in the interim?",
+    "options": [
+      "Obfuscate the compiled binary to make reverse engineering significantly harder",
+      "Rebuild the service with stack protection and run it with ASLR and non-executable memory enforced",
+      "Digitally sign the executable so that any tampering is detected at load time",
+      "Place the service behind a network firewall that permits traffic only to its service port"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Obfuscation slows analysis but is security through obscurity; the memory corruption bugs remain fully exploitable once discovered, and attackers routinely defeat obfuscation.",
+      "Compiler and platform mitigations such as stack canaries, ASLR, and non-executable memory do not remove the underlying bugs, but they materially raise the difficulty of turning memory corruption into reliable code execution, which is exactly what an interim measure should do.",
+      "Code signing proves the binary has not been altered at rest; exploiting a memory bug happens in the running process and never modifies the signed file.",
+      "The service must remain reachable on its own port to function, and that port is exactly where the vulnerable input parsing is exposed; filtering other ports does not reduce that attack surface."
+    ]
+  },
+  {
+    "id": "D8-0016",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "Testers of a customer-facing REST API discover that an authenticated user who changes the numeric account identifier in a request URL receives another customer's account details. The development team proposes fixing the flaw by replacing sequential identifiers with unguessable random values. What is the BEST guidance?",
+    "options": [
+      "Accept the proposal, because unguessable identifiers prevent enumeration of other accounts",
+      "Reject the proposal and instead strengthen authentication with multi-factor login",
+      "Require the API to verify on every request that the referenced object belongs to the authenticated user",
+      "Require the identifiers to be encrypted in transit so they cannot be intercepted and replayed"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Unguessable identifiers only add obscurity; any identifier that leaks through referrals, logs, or support tickets is still honored without an ownership check, so the access control flaw remains.",
+      "The attacker is already a legitimately authenticated user; strengthening authentication does not address the missing authorization decision about which objects that user may access.",
+      "The root cause is broken object-level authorization: the server trusts a client-supplied reference. Enforcing an ownership or entitlement check on every object access fixes the flaw regardless of identifier format.",
+      "TLS already protects identifiers in transit, and the attack requires no interception; the attacker simply edits the identifier in their own request."
+    ],
+    "reference": "OWASP API Security Top 10"
+  },
+  {
+    "id": "D8-0017",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "hard",
+    "stem": "A newly hired CISO must report to the board on how the organization's software security program compares with industry practice and where investment should be prioritized. Which approach BEST supports this reporting?",
+    "options": [
+      "Commission penetration tests of the most critical applications and present the findings",
+      "Aggregate vulnerability counts from scanners across all applications into a trend chart",
+      "Certify the development organization against ISO/IEC 27001 and report the outcome",
+      "Assess the program against a software security maturity model and benchmark the results"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Penetration tests measure the security of individual applications at a point in time; they do not evaluate the practices, governance, and coverage of the program as a whole.",
+      "Raw vulnerability counts are heavily influenced by tool tuning and portfolio size; they show symptoms rather than the maturity of the activities that prevent them.",
+      "ISO/IEC 27001 certifies an enterprise-wide information security management system; it does not measure software security practices at the depth or granularity a program comparison requires.",
+      "Maturity models such as OWASP SAMM and BSIMM evaluate program practices across governance, construction, verification, and operations, and provide industry benchmarking that directly supports prioritized investment decisions."
+    ]
+  },
+  {
+    "id": "D8-0018",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "A development team has completed security testing of a new system that will process regulated health information. Several low-severity findings remain unremediated. Who should decide whether the system may go live with the residual risk?",
+    "options": [
+      "The business owner accountable for the system, through a formal authorization decision",
+      "The chief information security officer, because the findings are security defects",
+      "The development manager, who best understands the technical impact of the findings",
+      "The external auditor who will later assess the system's regulatory compliance"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Residual risk is accepted by the accountable business owner acting as authorizing official, because that role owns the mission and its consequences; formal authorization documents the acceptance before operation.",
+      "The CISO advises on risk and may recommend against deployment, but security serves in an advisory role; accountability for accepting business risk rests with the system's owner.",
+      "The development manager has a conflict of interest in approving their own team's product and lacks accountability for the business consequences of the residual risk.",
+      "External auditors assess compliance independently after decisions are made; participating in the acceptance decision would compromise their independence."
+    ]
+  },
+  {
+    "id": "D8-0019",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "easy",
+    "stem": "A company is retiring a customer relationship management application at the end of its lifecycle. From a security perspective, which activity is MOST important during the disposal phase?",
+    "options": [
+      "Archiving the application's source code repository for future reference",
+      "Reassigning the development team promptly to the replacement project",
+      "Notifying all users of the retirement date and the migration plan",
+      "Sanitizing or migrating stored data in accordance with retention and disposal policy"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Archiving code can be useful, but source code rarely contains the sensitive customer data whose exposure is the principal disposal-phase risk.",
+      "Resource reassignment is a project management concern; it has no bearing on the security risks of decommissioning the system.",
+      "User communication supports business continuity, but it does not address the residual data that constitutes the primary security exposure when a system is retired.",
+      "Decommissioned systems and their media still hold regulated customer data; ensuring it is migrated where required and sanitized per policy prevents disclosure from disposed assets."
+    ],
+    "reference": "NIST SP 800-88r1"
+  },
+  {
+    "id": "D8-0020",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "As part of a corporate merger, an organization inherits dozens of custom business applications built by the acquired company, with little accompanying documentation. What should the security team do FIRST?",
+    "options": [
+      "Migrate the applications into the parent company's hardened hosting environment",
+      "Require every inherited application to pass a penetration test within 90 days",
+      "Inventory the applications and assess each one's criticality, data sensitivity, and exposure",
+      "Standardize the inherited codebases on the parent company's approved languages and frameworks"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Migrating without understanding the portfolio can propagate vulnerable or unnecessary applications into the trusted environment; hosting decisions should follow assessment.",
+      "Blanket testing spends scarce resources evenly across trivial and critical systems; without an inventory there is no basis for prioritizing which applications to test first.",
+      "Risk management begins with knowing what exists: an inventory with criticality, data sensitivity, and exposure ratings lets subsequent testing, remediation, and retirement be prioritized by risk.",
+      "Re-platforming is a long-term engineering effort aimed at maintainability; mandating it before understanding the portfolio does not address the immediate need to understand inherited risk."
+    ]
+  },
+  {
+    "id": "D8-0021",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "A development team is hardening a service that parses image files uploaded by anonymous internet users. The team wants to discover input-handling defects that cause crashes or memory corruption before attackers find them. Which testing technique is BEST suited to this goal?",
+    "options": [
+      "Unit testing with a comprehensive suite of valid sample images",
+      "Fuzz testing that feeds the parser large volumes of malformed and mutated inputs",
+      "Static analysis of the parser's source code against the coding standard",
+      "Regression testing to confirm previously fixed defects have not returned"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Unit tests built on valid inputs confirm intended functionality; the crashes of concern are triggered by malformed inputs that well-formed samples never exercise.",
+      "Fuzzing automatically generates vast numbers of malformed inputs and monitors the parser for crashes and hangs, making it the standard technique for exposing input-handling and memory-safety defects in file parsers.",
+      "Static analysis finds suspicious patterns without executing the code, but it produces many false positives and misses defects that only manifest under specific runtime input conditions.",
+      "Regression testing guards against reintroducing known defects; it cannot reveal previously unknown parsing flaws."
+    ]
+  },
+  {
+    "id": "D8-0022",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "An online retailer's application passed automated static and dynamic scans, yet a customer later obtained goods for free by applying the same discount voucher repeatedly within a single checkout. Which assessment method would MOST likely have discovered this flaw before release?",
+    "options": [
+      "Manual testing driven by abuse cases derived from the application's business rules",
+      "Re-running the dynamic scanner with an expanded plugin set and an authenticated crawl",
+      "Adding software composition analysis to identify vulnerable third-party libraries",
+      "Raising the static analyzer's sensitivity so it reports lower-confidence findings"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Voucher stacking is a business logic flaw: every individual request is technically valid, so only testers who understand the intended business rules and deliberately attempt to abuse them will detect it.",
+      "Dynamic scanners detect known technical vulnerability classes such as injection; they have no model of pricing rules and cannot recognize that a discount was applied more times than intended.",
+      "SCA finds known vulnerabilities in third-party components; the flaw here lives in the retailer's own business logic, not in a library.",
+      "Static analyzers match code patterns associated with technical defects; increased sensitivity yields more findings of the same kind, not an understanding of business intent."
+    ]
+  },
+  {
+    "id": "D8-0023",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "After reviewing recent supply chain attacks, a security architect is concerned that a compromise of the company's build server could insert malicious code into software delivered to customers without any change appearing in the source repository. Which set of controls BEST addresses this threat?",
+    "options": [
+      "Antivirus scanning of build outputs combined with mandatory code review of all source commits",
+      "Isolating and hardening the build infrastructure, signing artifacts, and verifying builds are reproducible from source",
+      "Multi-factor authentication for repository access combined with secret scanning of the codebase",
+      "Deploying the build server in a private subnet protected by a next-generation firewall"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Code review guards the repository, but the stated threat injects code during compilation, after review has occurred; antivirus is signature-based and unlikely to flag a bespoke malicious insertion.",
+      "Hardening and isolating the pipeline reduces the chance of compromise, artifact signing establishes provenance, and reproducible builds let independent rebuilds detect any divergence between reviewed source and shipped binaries, directly countering build-time injection.",
+      "Repository controls protect the source code; the scenario explicitly assumes the source remains untouched while the build process itself is subverted.",
+      "Network placement limits exposure but neither detects nor prevents malicious modification by an attacker who reaches the build server through permitted paths, such as a poisoned dependency or a compromised administrator workstation."
+    ]
+  },
+  {
+    "id": "D8-0024",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "A hospital runs a browser-based clinical application with a known, remotely exploitable input-handling vulnerability. The vendor has dissolved, no source code is available, and the system cannot be replaced for at least a year. Which compensating control BEST reduces the risk of exploitation?",
+    "options": [
+      "An intrusion detection sensor tuned to alert on attempts to exploit the flaw",
+      "A stricter patch management cycle for the server's underlying operating system",
+      "A web application firewall with virtual patching rules for the known vulnerability",
+      "Full-disk encryption on the server that hosts the clinical application"
+    ],
+    "answer": 2,
+    "explanations": [
+      "An IDS is detective: it can raise an alarm during or after exploitation but does not block the malicious input from reaching the vulnerable code.",
+      "Operating system patches cannot fix a defect inside the vendor's application code, and no application patches will ever be issued for this product.",
+      "Virtual patching inspects requests and blocks the input patterns that trigger the known flaw before they reach the application, mitigating a vulnerability that cannot be fixed in code, which is the classic compensating control for unpatchable software.",
+      "Disk encryption protects data at rest against physical theft of media; it is irrelevant to a network-borne attack against a running application."
+    ]
+  },
+  {
+    "id": "D8-0025",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A routine scan of a source code repository discovers that a database administrator password was committed eight months ago. The password is still valid, and dozens of developers and contractors have cloned the repository since then. What should the security team do FIRST?",
+    "options": [
+      "Delete the file containing the password from the repository's current branch",
+      "Rewrite the repository history so the commit containing the password is purged",
+      "Enable pre-commit secret scanning to block future credential commits",
+      "Rotate the exposed password and review database activity for signs of misuse"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Removing the file from the head of the branch leaves the credential fully recoverable from history and from every existing clone; it creates only an illusion of remediation.",
+      "History rewriting cleans the central repository but cannot recall the many clones already distributed; the credential must be presumed compromised regardless.",
+      "Preventive scanning is a sound follow-up, but it does nothing about the credential that has already been exposed for eight months.",
+      "Once committed, the credential must be treated as compromised: invalidating it immediately eliminates the exposure, and reviewing activity determines whether it was already abused. History cleanup and prevention follow afterward."
+    ]
+  },
+  {
+    "id": "D8-0026",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "A developer must validate a country-code field that should only ever contain one of the 249 two-letter ISO codes. Which validation approach BEST reflects secure coding guidance?",
+    "options": [
+      "Compare the input on the server against an explicit list of the permitted codes",
+      "Reject input on the server that matches a list of known dangerous character patterns",
+      "Validate the field in browser JavaScript before the form can be submitted",
+      "Accept the input and sanitize it by stripping special characters before use"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Allow-list validation accepts only values known to be legitimate; for a small closed set like ISO country codes it is precise, complete, and immune to novel bypass techniques.",
+      "Deny-lists enumerate known-bad patterns and are perpetually incomplete; attackers succeed with encodings and constructs the list's authors did not anticipate.",
+      "Client-side validation improves user experience but is trivially bypassed by anyone who submits requests directly; validation must be enforced on the server.",
+      "Sanitization transforms bad input into something acceptable, which is error-prone; when the set of valid values is fully known, unexpected input should simply be rejected."
+    ]
+  },
+  {
+    "id": "D8-0027",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "An internal review at an insurance company shows an analyst reconstructed a highly sensitive, access-restricted dataset by combining the results of many individually permitted database queries over several weeks. Which control BEST addresses this type of attack?",
+    "options": [
+      "Row-level encryption of the sensitive tables with keys held by the security team",
+      "Context-dependent access control that evaluates a user's accumulated query history",
+      "Normalizing the database schema to remove redundant copies of sensitive attributes",
+      "Requiring the analyst's manager to approve each database role assignment"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Encryption controls who can read specific data at all; the analyst never touched the restricted rows, since the sensitive result was assembled from data each query was allowed to return.",
+      "This is an aggregation attack: each query is individually authorized, but their accumulation crosses a sensitivity threshold. Context-dependent controls consider what a user has already retrieved and can deny queries whose combination would reveal restricted information.",
+      "Normalization is a database design discipline for eliminating redundancy and update anomalies; it does not restrict which combinations of authorized data a user can retrieve.",
+      "Role approval governs which permissions are granted; the attack used only permissions that would legitimately be approved for the analyst's job."
+    ]
+  },
+  {
+    "id": "D8-0028",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "A development team wants to adopt an open-source authentication library as a core dependency of a new product. Beyond confirming the license is acceptable, which evaluation is MOST important before adoption?",
+    "options": [
+      "Confirming the library is the most widely downloaded option in its category",
+      "Relying on its open-source nature, since publicly visible code has already been reviewed by the community",
+      "Reviewing the project's maintenance activity, responsiveness to reported vulnerabilities, and disclosure history",
+      "Checking that the library compiles cleanly with no warnings in the team's build environment"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Popularity indicates adoption, not security; widely downloaded packages are also the most attractive targets for supply chain attacks and can still be poorly maintained.",
+      "The many-eyes assumption is unreliable: availability of source does not mean qualified reviewers have actually examined it, as long-lived flaws in prominent projects have repeatedly shown.",
+      "For a security-critical dependency, the decisive factors are whether the project is actively maintained, how quickly maintainers triage and patch reported vulnerabilities, and what its track record shows; these determine the risk the product inherits over its life.",
+      "A clean compile signals basic code hygiene but says nothing about design flaws, vulnerability history, or whether future issues will ever be patched."
+    ]
+  },
+  {
+    "id": "D8-0029",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "hard",
+    "stem": "A manufacturing plant depends on a production-scheduling application whose vendor ended all support two years ago. Replacement requires an 18-month project the business has not yet funded, and the security team has flagged the unsupported software as a high risk. What is the MOST appropriate course of action?",
+    "options": [
+      "Insist the application be decommissioned immediately because unsupported software violates policy",
+      "Accept continued use without conditions because the application has caused no incidents to date",
+      "Transfer the risk by adding the application to the company's cyber insurance schedule",
+      "Isolate the system with compensating controls and obtain documented risk acceptance tied to a funded replacement timeline"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Immediate decommissioning would halt production; security exists to enable the business, and a control that stops the mission is rarely the risk-appropriate answer when compensating measures are available.",
+      "Absence of past incidents is not evidence of low risk; unsupported software accumulates unpatched vulnerabilities, so unconditional acceptance ignores a steadily growing exposure.",
+      "Insurance may offset financial loss after an incident but does not reduce the likelihood of compromise or the operational impact of downtime; it complements mitigation rather than replacing it.",
+      "This balances mission and risk: compensating controls such as network isolation reduce exposure now, while formal, time-bound risk acceptance makes an accountable owner acknowledge the risk and commits the organization to funded remediation."
+    ]
+  },
+  {
+    "id": "D8-0030",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "hard",
+    "stem": "During a pre-release security assessment, a tester discovers an undocumented URL that bypasses authentication and was added by a developer to speed up debugging. Management asks how to prevent similar features from reaching future releases. What is the BEST recommendation?",
+    "options": [
+      "Require peer code review with explicit checks for undocumented functionality before any release is approved",
+      "Depend on pre-release penetration testing to find any remaining maintenance hooks",
+      "Have every developer sign a policy acknowledging that debugging backdoors are prohibited",
+      "Restrict knowledge of production URLs so undocumented endpoints remain unknown to outsiders"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Maintenance hooks are visible in source; peer review that specifically looks for undocumented endpoints, hidden parameters, and debug switches catches them systematically at the point they are introduced, before release.",
+      "Penetration testing is a valuable backstop, but it samples the attack surface from the outside; a hook with an unguessable path can easily escape a time-boxed test, so it cannot serve as the primary control.",
+      "Policy sets expectations but is an administrative control with no detection mechanism; hooks are usually added for convenience despite policy, not out of ignorance of it.",
+      "Endpoint secrecy is security through obscurity; URLs leak through logs, proxies, and browser history, and the vulnerability remains present for anyone who finds it."
+    ]
+  },
+  {
+    "id": "D8-0031",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "A development team requests a full copy of the production customer database to reproduce a defect in the test environment. The test environment has weaker access controls and is used by contractors. What is the BEST way to satisfy the team's need while protecting the data?",
+    "options": [
+      "Encrypt the copied data at rest in the test environment using the same keys as production",
+      "Require the contractors to sign nondisclosure agreements before granting access to the test environment",
+      "Provide a masked or synthetically generated data set that preserves the format and referential integrity of the production data",
+      "Restore the production backup to test and delete it as soon as the defect is reproduced"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses encryption at rest with access protection: anyone authorized to query the test database still sees cleartext records, and reusing production keys in a weaker environment increases key exposure.",
+      "This confuses an administrative deterrent with an exposure-reducing control; an NDA creates legal recourse after a disclosure but does nothing to prevent contractors or attackers from reading real customer data.",
+      "Masked or synthetic data lets the team reproduce the defect with realistic structure and relationships while removing the sensitive values entirely, so a compromise of the weaker environment exposes nothing of value.",
+      "This confuses limiting the exposure window with eliminating exposure; while the copy exists the real data is at risk in a weaker environment, and remnants can persist in backups, logs, and contractor workstations."
+    ]
+  },
+  {
+    "id": "D8-0032",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "easy",
+    "stem": "An agile development group completes eight two-week sprints and then submits the finished product to the security team for a single pre-release review, which finds serious design flaws requiring extensive rework. What is the BEST way to prevent this from recurring?",
+    "options": [
+      "Integrate security activities such as threat review and secure design checks into every sprint's definition of done",
+      "Move the security review earlier, holding it after the fourth sprint instead of the last one",
+      "Extend the final security review so the team has more time to fix all findings before release",
+      "Require the security team to approve each user story before development work may begin"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Building security into each sprint's acceptance criteria makes flaws surface while the relevant work is still current and cheap to change, which is how security is integrated into an iterative SDLC rather than bolted on at the end.",
+      "This confuses relocating a phase gate with integrating security; a single mid-project review still lets four sprints of flawed work accumulate before and after the checkpoint.",
+      "This confuses giving remediation more time with reducing rework; late discovery is the problem, and a longer end-of-cycle review still finds design flaws after the design is fully built.",
+      "This confuses shift-left with making security a universal approval authority; gating every story on a small security team creates a bottleneck and is unnecessary for stories with no security relevance."
+    ],
+    "reference": "NIST SP 800-218"
+  },
+  {
+    "id": "D8-0033",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "Quarterly application scans keep finding the same cross-site scripting pattern across products built by different development teams. Each team fixes its own findings, but new code keeps reintroducing the flaw. What should the security manager do to address the MOST likely root cause?",
+    "options": [
+      "Increase automated scanning frequency from quarterly to weekly so the flaws are detected sooner",
+      "Deploy a web application firewall in front of all products to block cross-site scripting payloads",
+      "Create a central remediation team to fix cross-site scripting findings on behalf of the product teams",
+      "Publish an organizational secure coding standard with approved output-encoding libraries and train developers on it"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses detection cadence with prevention; finding the same defect faster does not change the developer practices that keep introducing it.",
+      "This confuses a compensating runtime control with a root-cause fix; a WAF filters some payloads but the insecure code remains and bypasses are common.",
+      "This confuses centralizing symptom cleanup with correcting the source; developers who never learn the secure pattern will continue producing vulnerable code faster than any central team can fix it.",
+      "The recurring pattern across independent teams indicates a shared knowledge and standards gap, so establishing a secure coding standard with vetted libraries and training corrects the root cause rather than the symptoms."
+    ]
+  },
+  {
+    "id": "D8-0034",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "hard",
+    "stem": "Business analysts have used a cloud low-code platform to build dozens of workflow applications that process customer data, entirely outside the IT department. The CISO learns of this only after one application emails spreadsheets of customer records to a personal account. What is the BEST course of action?",
+    "options": [
+      "Block the low-code platform at the proxy until every application it hosts is decommissioned",
+      "Govern the platform: inventory the applications, enforce guardrails such as connector allow-lists, and require review proportionate to data sensitivity",
+      "Require all future business applications to be rebuilt by the IT development team under the standard SDLC",
+      "Purchase the platform vendor's premium security add-on so data loss prevention is enforced automatically"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses eliminating a tool with managing its risk; abrupt blocking destroys business processes already in use and pushes citizen development to unmanaged personal accounts where visibility is even worse.",
+      "Citizen development delivers business value, so the risk manager's answer is to bring it under governance: know what exists, constrain dangerous capabilities at the platform level, and scale review effort to the data each application handles.",
+      "This confuses governance with reversal; forcing every workflow through central IT is rarely feasible with limited developer capacity and ignores that the platform can be operated safely with controls.",
+      "This confuses buying a control with establishing governance; without an inventory, ownership, and review process, a DLP add-on cannot be configured meaningfully or verified against the actual applications."
+    ]
+  },
+  {
+    "id": "D8-0035",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "An organization is starting development of a new network service that will parse untrusted input at high throughput. Its existing C-based services have suffered repeated buffer overflow vulnerabilities. Which decision would MOST effectively reduce this class of vulnerability in the new service?",
+    "options": [
+      "Select a memory-safe programming language for building the new service",
+      "Compile the service with stack canaries, address space layout randomization, and non-executable memory",
+      "Require fuzz testing of every build in the continuous integration pipeline",
+      "Mandate manual code review of all memory allocation and pointer arithmetic"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Because this is a greenfield project, choosing a memory-safe language eliminates the buffer overflow class by construction, which is more effective than detecting or mitigating instances of it after they are written.",
+      "This confuses exploit mitigations with vulnerability elimination; canaries, ASLR, and DEP raise the cost of exploiting overflows that still exist and are the fallback for legacy code, not the best choice when the language can be picked freely.",
+      "This confuses a detection technique with prevention; fuzzing finds some memory defects after they are introduced but provides no guarantee of coverage and leaves the defect class in place.",
+      "This confuses human inspection with a structural control; reviewers miss subtle pointer errors routinely, and the practice depends on sustained diligence rather than removing the hazard."
+    ]
+  },
+  {
+    "id": "D8-0036",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "A security assessment finds database passwords and API keys hard-coded in the source of many internal services, and configuration files containing credentials checked into version control. Which approach BEST remediates this at the organizational level?",
+    "options": [
+      "Encrypt the configuration files and keep the decryption key in an environment variable on each server",
+      "Have developers load credentials from local environment variables instead of committing them to source files",
+      "Deploy a centralized secrets management service that issues, rotates, and audits credentials, and scan repositories to remove embedded secrets",
+      "Rotate every discovered credential immediately and publish a policy forbidding hard-coded secrets"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses encrypting a file with managing a secret; the decryption key becomes the new unmanaged secret sitting on every server, so the problem is relocated rather than solved.",
+      "This confuses moving secrets out of source with managing them; scattered environment variables have no central rotation, revocation, or audit trail, and still leak through process listings and diagnostics.",
+      "A secrets management platform gives credentials a managed lifecycle with rotation, access control, and auditing, and combining it with repository scanning both cleans up the existing exposure and prevents reintroduction across all teams.",
+      "This confuses the immediate containment step with the systemic remediation; rotation and policy are necessary but without tooling that makes the secure path easy, hard-coding will recur."
+    ]
+  },
+  {
+    "id": "D8-0037",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "A web application stores its session identifier in a browser cookie. The security team wants to reduce the risk that script injected into a page can read the identifier and that it is ever sent over unencrypted connections. Which control BEST meets both goals?",
+    "options": [
+      "Digitally sign the cookie value so any tampering can be detected by the server",
+      "Set the HttpOnly and Secure attributes on the session cookie",
+      "Shorten the session timeout so stolen identifiers expire more quickly",
+      "Store the session identifier in HTML5 local storage instead of a cookie"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses integrity with confidentiality; signing detects modification of the cookie but does nothing to stop script from reading it or the browser from sending it over cleartext HTTP.",
+      "HttpOnly makes the cookie unreadable to client-side script, blunting token theft through script injection, and Secure restricts transmission to encrypted connections, which together satisfy both stated goals.",
+      "This confuses shrinking the exposure window with preventing exposure; an attacker can use a stolen identifier within seconds, long before a shortened timeout matters.",
+      "This confuses changing the storage location with protecting the token; local storage is fully accessible to any script on the page, so it removes the very protection HttpOnly would provide."
+    ]
+  },
+  {
+    "id": "D8-0038",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "Customers of an online banking application report transfers they did not initiate. Investigation shows the requests came from the victims' own authenticated browsers while they were viewing an unrelated website, and no malware or credential theft was involved. Which control MOST directly addresses this attack?",
+    "options": [
+      "Context-aware output encoding of all user-supplied content rendered by the application",
+      "Upgrading all connections to TLS 1.3 with HTTP Strict Transport Security enabled",
+      "Parameterized queries for all data-access code in the transfer functionality",
+      "Per-session anti-forgery tokens validated on every state-changing request"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses cross-site request forgery with cross-site scripting; output encoding stops injected script from rendering, but this attack rides the victim's authenticated session from another site without injecting anything into the banking pages.",
+      "This confuses transport security with request-origin assurance; TLS encrypts the forged request just as faithfully as a legitimate one, because the victim's browser sends it with valid session credentials.",
+      "This confuses request forgery with SQL injection; parameterized queries protect the database layer from malicious input, but the forged transfer request contains well-formed, legitimate-looking data.",
+      "The scenario describes cross-site request forgery, and unpredictable per-session tokens that must accompany every state-changing request defeat it because a third-party site cannot read or supply the correct token."
+    ]
+  },
+  {
+    "id": "D8-0039",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "A penetration test achieves remote code execution on a Java application by submitting a crafted serialized object to an endpoint that deserializes client-supplied data. Patching the specific gadget chain closes the finding, but the security architect wants a durable fix. What should the architect recommend?",
+    "options": [
+      "Stop deserializing native objects from untrusted sources and exchange data in a simple format validated against a schema",
+      "Maintain a blocklist of classes used in known gadget chains and reject them during deserialization",
+      "Apply TLS to the endpoint so serialized objects cannot be modified by attackers in transit",
+      "Run the application in a container so any exploitation is contained within the sandbox"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Native deserialization of untrusted data is unsafe by design, so replacing it with a data-only format checked against a schema removes the vulnerability class instead of chasing individual exploit chains.",
+      "This confuses enumerating known-bad inputs with removing the hazard; new gadget chains are discovered continually, so a blocklist guarantees a perpetual arms race the defender eventually loses.",
+      "This confuses transport integrity with input trust; the attacker is the client legitimately sending the payload, so encrypting the channel delivers the malicious object intact.",
+      "This confuses impact containment with prevention; containers share the host kernel and are not strong security boundaries, and the attacker still gains code execution inside the application's trust context."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D8-0040",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "During testing, analysts observe that a failed login attempt against a public web application returns a page containing a database stack trace, table names, and the version of the data-access framework. What is the BEST remediation?",
+    "options": [
+      "Suppress all error logging so that sensitive details are never written anywhere",
+      "Return the detailed stack trace only when the request originates from the internal network",
+      "Return a generic error message to users while recording full diagnostic detail in protected server-side logs",
+      "Encode the stack trace so it is not readable in the page source shown by the browser"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses what is displayed with what is logged; eliminating logging destroys the diagnostic and detection value of errors, when the actual problem is exposing detail to the client.",
+      "This confuses network position with authorization and still leaks internals to insiders and to attackers who gain a foothold or spoof internal origins; sensitive detail belongs in logs, not in any response.",
+      "Generic client-facing errors deny attackers reconnaissance data such as schema names and component versions, while complete details preserved in protected logs keep the information available for troubleshooting and investigation.",
+      "This confuses encoding with concealment; encoded content in a response is trivially decoded by the recipient, so the sensitive detail is still delivered to the attacker."
+    ]
+  },
+  {
+    "id": "D8-0041",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "easy",
+    "stem": "A critical vulnerability found during an application penetration test has been reported as fixed by the development team. Before closing the finding, what should the security team do FIRST?",
+    "options": [
+      "Update the risk register to show the vulnerability as fully remediated",
+      "Retest the application to confirm the fix is effective and has not introduced regressions",
+      "Obtain sign-off from the business owner accepting any residual risk",
+      "Schedule the next annual penetration test to revalidate the entire application"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses recording a status with establishing it; the register should be updated only after verification shows the vulnerability is actually gone, or it will document an untrue risk posture.",
+      "A developer's assertion is not evidence, so validation testing of the specific fix, including checking that it works and did not break or weaken related functionality, is the prerequisite for closing any critical finding.",
+      "This confuses residual-risk acceptance with remediation verification; the owner can only meaningfully accept what remains after the fix has been confirmed, so acceptance cannot come first.",
+      "This confuses periodic assurance with targeted retesting; waiting for the next annual test leaves a critical finding unverified for months when a focused retest is available now."
+    ]
+  },
+  {
+    "id": "D8-0042",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "hard",
+    "stem": "The board asks the CISO to demonstrate whether the secure development program is actually improving software security rather than merely generating activity. Which reporting approach BEST answers the board's question?",
+    "options": [
+      "The total number of vulnerabilities found by automated scanning tools in each quarterly period",
+      "The number of developers who completed secure coding training during the past year",
+      "The count of security testing tools integrated into the CI/CD pipeline this year",
+      "Trends in the rate of vulnerabilities escaping to production and mean time to remediate, normalized across releases"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses detection volume with security posture; a rising count can mean better testing of the same code and a falling count can mean weaker scanning, so the raw number is ambiguous as an outcome measure.",
+      "This confuses an activity metric with an outcome metric; training completions show effort was expended but say nothing about whether the resulting code is more secure.",
+      "This confuses tool deployment with effectiveness; integrated tools are inputs to the program, and counting them measures spending and coverage rather than any change in software risk.",
+      "Escape rate to production and remediation speed measure outcomes the board cares about, and trending them over comparable releases shows whether the program is genuinely reducing risk over time."
+    ]
+  },
+  {
+    "id": "D8-0043",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "In a multilevel-secure logistics database, users at a lower classification level discover that certain cargo records cannot be inserted because 'a record with this key already exists', revealing that a classified shipment is present at a higher level. Which database mechanism addresses this inference problem?",
+    "options": [
+      "Polyinstantiation, which permits different tuples with the same primary key at different classification levels",
+      "Referential integrity constraints enforced consistently across all classification levels",
+      "Database normalization to remove redundant and duplicated data from the schema",
+      "Cell suppression applied to published statistical summaries of the database"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Allowing the same key to exist as separate tuples at different levels lets the low-level insert succeed against a cover record, so the key collision that signaled the classified row's existence never occurs.",
+      "This confuses relational integrity with inference control; referential integrity keeps foreign keys consistent but is unrelated to hiding the existence of higher-classified rows, and enforcing it across levels can itself leak information.",
+      "This confuses schema design quality with security; normalization removes redundancy for consistency and storage efficiency and has no effect on what lower-cleared users can infer from key collisions.",
+      "This confuses statistical disclosure control with operational multilevel security; cell suppression hides small counts in aggregate reports, not the existence of individual rows during transactional inserts."
+    ]
+  },
+  {
+    "id": "D8-0044",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "hard",
+    "stem": "Shortly before launch of a commercial closed-source product, a software composition analysis report shows a statically linked library governed by a strong copyleft license. The library is well maintained and free of known vulnerabilities. What is the MOST significant risk the product team must address?",
+    "options": [
+      "The library may contain undisclosed vulnerabilities that scanners have not yet catalogued",
+      "The maintainers may abandon the library, leaving the product without a source of patches",
+      "The license may obligate release of the organization's proprietary source code or prevent distribution under its current commercial model",
+      "The library may transmit usage telemetry to its maintainers in violation of privacy policy"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses general open-source vulnerability risk with the specific finding; unknown flaws exist in any component, but the report's material fact is the copyleft license attached to a statically linked dependency.",
+      "This confuses supply-chain continuity risk with the immediate issue; abandonment is a future maintenance concern, whereas the license obligation attaches the moment the product is distributed.",
+      "Strong copyleft terms on statically linked code can require the distributor to publish derivative source or halt distribution, a legal and business-model risk that must be resolved through replacement, relicensing, or legal review before launch.",
+      "This confuses telemetry and data-egress concerns with licensing; nothing in the finding involves network behavior, and privacy review would not resolve the distribution obligations the license imposes."
+    ]
+  },
+  {
+    "id": "D8-0045",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "A cloud team provisions all environments from infrastructure-as-code templates. Audits repeatedly find storage buckets deployed with public access and databases without encryption, which the operations team corrects manually after each audit. What is the BEST way to prevent these misconfigurations?",
+    "options": [
+      "Increase the frequency of cloud configuration audits from quarterly to monthly",
+      "Add automated policy checks in the pipeline that scan the templates and block noncompliant deployments",
+      "Grant the operations team a standing change window so misconfigurations are corrected faster",
+      "Restrict console access so engineers cannot modify resources after they are deployed"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses finding problems sooner with preventing them; more frequent audits still allow insecure resources to be exposed between deployment and the next audit cycle.",
+      "Because the environments are generated from templates, validating those templates against security policy before deployment stops the misconfigurations at their source, and blocking noncompliant runs makes the control preventive rather than corrective.",
+      "This confuses accelerating remediation with prevention; faster manual correction still concedes a window of exposure and treats a recurring systemic defect as a series of one-off incidents.",
+      "This confuses drift prevention with the actual failure mode; the insecure settings originate in the templates themselves, so locking down post-deployment changes does not stop them from being provisioned."
+    ]
+  },
+  {
+    "id": "D8-0046",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "Developers pull container base images directly from public registries into production builds. A recent release shipped with a cryptominer embedded in a popular but tampered public image. Which control BEST prevents a recurrence?",
+    "options": [
+      "Run antivirus scans on the production hosts to detect cryptominers at runtime",
+      "Pin each Dockerfile to the 'latest' tag so images always include upstream fixes",
+      "Have developers review the source repositories of public images before pulling them",
+      "Require builds to use vetted, signed base images from an internal registry that scans and approves them"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses runtime detection with supply-chain prevention; host scanning may catch a miner after deployment, but the malicious image has already entered production and subtler payloads would go unnoticed.",
+      "This confuses staying current with staying safe; the 'latest' tag is mutable and unverifiable, so it actually increases exposure to a tampered upstream image rather than preventing it.",
+      "This confuses reviewing source with verifying the artifact; a published image is not provably built from the repository a developer reads, and manual review of every upstream layer does not scale.",
+      "A curated internal registry that admits only scanned, approved, and signed images inserts a control point between untrusted public sources and production builds, which directly closes the path the tampered image used."
+    ],
+    "reference": "NIST SP 800-190"
+  },
+  {
+    "id": "D8-0047",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "easy",
+    "stem": "A program office must build a large, novel system with significant technical unknowns, and the sponsor requires that risks be explicitly analyzed and prototypes evaluated before each expansion of project scope. Which development approach BEST matches this requirement?",
+    "options": [
+      "The spiral model, which repeats risk analysis and prototype evaluation in each cycle",
+      "The waterfall model, which completes each phase fully before the next phase begins",
+      "Rapid application development, which minimizes upfront planning to deliver working software quickly",
+      "The V-model, which pairs each development phase with a corresponding testing phase"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The spiral model was designed for exactly this situation: each loop begins with objectives and risk analysis, builds and evaluates a prototype, and commits to expanded scope only after the risks of that expansion are understood.",
+      "This confuses phase discipline with risk-driven iteration; waterfall assesses risk once during early planning and offers no built-in checkpoint to re-evaluate risk before each scope expansion.",
+      "This confuses iteration speed with risk management; RAD emphasizes fast prototyping for user feedback and deliberately reduces the upfront analysis the sponsor is demanding.",
+      "This confuses verification structure with risk analysis; the V-model maps tests to development stages to confirm the product is built right, but it contains no recurring risk-assessment gate."
+    ]
+  },
+  {
+    "id": "D8-0048",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "An application security team of three supports more than four hundred developers. Security reviews have become a bottleneck, and product teams increasingly ship without any security input. Budget for additional security hires is unavailable. What is the BEST way to scale security involvement?",
+    "options": [
+      "Require every release to wait in the queue for a full review by the application security team",
+      "Purchase an automated scanning suite and discontinue human security reviews entirely",
+      "Establish a security champions program that trains a developer in each team to handle routine security work with central support",
+      "Outsource all security reviews to an external consultancy engaged for each product release"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses enforcing the gate with fixing its capacity; mandating queued reviews with a 130:1 ratio either halts delivery or drives teams to route around the control, worsening the current behavior.",
+      "This confuses tooling with judgment; scanners find known technical patterns but miss design and business-logic flaws, so eliminating human review trades a bottleneck for a blind spot.",
+      "Embedding trained champions inside each team multiplies security capacity without new headcount, handles routine questions where the work happens, and lets the small central team focus on high-risk reviews and program direction.",
+      "This confuses buying capacity with building it; per-release consultants are costly under a constrained budget, lack product context, and leave no lasting security capability inside the teams."
+    ]
+  },
+  {
+    "id": "D8-0049",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "An independent researcher emails a company's general contact inbox describing a serious flaw in its customer portal. The message goes unanswered for three weeks, and the researcher then publishes the details publicly. Which action would BEST prevent a recurrence?",
+    "options": [
+      "Add a legal notice to the website prohibiting unauthorized security testing of its systems",
+      "Establish a vulnerability disclosure program with a published intake channel, triage commitments, and response timelines",
+      "Contract a private bug bounty platform that is limited to invited researchers only",
+      "Route the general contact inbox to the security operations center for continuous monitoring"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses deterrence with engagement; legal threats discourage well-intentioned reporting while doing nothing to stop malicious actors, making silent exploitation or surprise publication more likely.",
+      "A published disclosure program gives external researchers a reliable channel and sets mutual expectations for acknowledgment, triage, and remediation timelines, which is precisely what failed in this incident.",
+      "This confuses a managed bounty engagement with open intake; an invitation-only platform would not have been available to this outside researcher, so unsolicited reports would still have no defined path.",
+      "This confuses monitoring a mailbox with operating a process; without published expectations, triage ownership, and committed timelines, reports may be seen faster but can still stall without response."
+    ],
+    "reference": "ISO/IEC 29147"
+  },
+  {
+    "id": "D8-0050",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "A department wants to connect a third-party scheduling add-on to the corporate email and calendar platform. The add-on requests OAuth permissions to read and send mail for all users and to access all stored files. What should the security team do BEFORE approving the integration?",
+    "options": [
+      "Approve it, since the marketplace vendor was already vetted by the platform provider",
+      "Require the vendor to provide source code for internal static analysis before approval",
+      "Approve a 90-day trial and review the add-on's audit logs after the period ends",
+      "Evaluate whether the requested scopes exceed what the integration needs and constrain the grant to least privilege"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses marketplace listing with security assurance; platform vetting checks baseline criteria, not whether this add-on's data access is appropriate for this organization's risk tolerance.",
+      "This confuses source access with impact assessment; SaaS vendors rarely release code, and reading it would still not answer the governing question of what data the integration is being authorized to reach.",
+      "This confuses monitoring with prevention; during the trial the add-on holds tenant-wide mail and file access, so any excessive collection or compromise has already happened before the logs are reviewed.",
+      "The security impact of a third-party integration is defined largely by the access it is granted, so comparing requested scopes to functional need and granting only the minimum limits the blast radius if the vendor is compromised or misbehaves."
+    ]
+  },
+  {
+    "id": "D8-0051",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A web application lets customers upload profile images. A tester uploads a file named avatar.php containing script code, browses to its URL in the upload directory, and executes commands on the server. Which combination of controls BEST prevents this?",
+    "options": [
+      "Validate content and type on the server, store uploads outside the web root under generated names, and serve them through a handler that never executes them",
+      "Check the file extension in browser-side JavaScript before allowing the upload to proceed",
+      "Scan every uploaded file with antivirus software before saving it to the upload directory",
+      "Rename each upload to a random string while keeping its original extension and web-accessible location"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Layering server-side content validation with storage outside the executable web root and non-executing delivery removes every link in the attack chain: the malicious file is rejected, unreachable by direct URL, and never interpreted as code.",
+      "This confuses client-side convenience checks with security controls; an attacker submits the upload directly with a proxy or script, so browser-side validation is bypassed entirely.",
+      "This confuses malware detection with upload hardening; antivirus signatures routinely miss simple custom web shells, and the file still lands in a web-served directory where it executes.",
+      "This confuses obscuring the filename with removing executability; the extension and web-accessible location are what let the server run the file, and the new name is disclosed or guessed easily."
+    ]
+  },
+  {
+    "id": "D8-0052",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "hard",
+    "stem": "During rollout planning for newly purchased engineering software, a network review shows the product transmits usage analytics and document metadata to the vendor's cloud by default, and the purchase contract does not address this. What should the security team do FIRST?",
+    "options": [
+      "Block the vendor's cloud endpoints at the perimeter firewall and proceed with the deployment",
+      "Accept the transmissions because established vendors routinely anonymize telemetry data",
+      "Assess what data is sent against classification and contract requirements, then negotiate configuration or terms before deploying",
+      "Deploy now and record the telemetry issue in the risk register for the annual review"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses a technical block with an informed decision; severing vendor connectivity before understanding it can break licensing, updates, or support, and the organization still has not determined what data is at stake.",
+      "This confuses vendor reputation with verified behavior; document metadata can reveal project names, personnel, and sensitive activity, and unverified anonymization claims are not a basis for accepting data egress.",
+      "Assessing the security impact of acquired software means understanding its actual data flows first; comparing the transmissions to data classification rules and contract terms lets the organization negotiate opt-outs or amended terms from an informed position before exposure begins.",
+      "This confuses documenting a risk with managing it; deploying first creates ongoing unauthorized data egress, and parking the issue until an annual review is deferral disguised as governance."
+    ]
+  },
+  {
+    "id": "D8-0053",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "A file-download feature rejects request paths containing '../', yet a tester retrieves /etc/passwd by sending '%2e%2e%2f' sequences, which the framework decodes after the filter has already run. What is the BEST remediation?",
+    "options": [
+      "Extend the deny-list to cover common encodings such as %2e%2e%2f and double-encoded variants",
+      "Canonicalize and fully decode the requested path, then validate that the result resolves inside the permitted directory",
+      "Move the file store to a dedicated server so traversal cannot reach operating system files",
+      "Enforce HTTPS on the feature so encoded requests cannot be tampered with in transit"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses enumerating bad inputs with fixing the ordering flaw; attackers can layer alternate encodings, Unicode forms, and path tricks faster than a deny-list can grow, and the filter still runs before decoding.",
+      "The defect is that validation ran on a non-final representation, so reducing the path to its canonical, fully decoded form before checking it against the allowed directory closes this bypass and every other encoding variant at once.",
+      "This confuses relocating the target with fixing the flaw; the traversal still exposes everything on the new host, including its own configuration and credential files, and the vulnerable code remains in place.",
+      "This confuses transport protection with input validation; the encoded traversal is sent by the attacker as the legitimate client, and TLS delivers it to the vulnerable code unchanged."
+    ]
+  },
+  {
+    "id": "D8-0054",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "After releasing version 3 of its public API with strong authentication and rate limiting, a company discovers attackers harvesting customer data through version 1 endpoints that remain online for a few legacy customers and lack those controls. What is the BEST long-term resolution?",
+    "options": [
+      "Add the version 1 endpoints to the web application firewall's monitoring dashboard",
+      "Publish documentation instructing all remaining customers to migrate to version 3 promptly",
+      "Tighten the rate limits on version 3 to compensate for the exposure of version 1",
+      "Migrate the remaining consumers, formally retire version 1, and enforce gateway controls on it until retirement"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses visibility with remediation; watching an unauthenticated legacy endpoint documents the harvesting in real time but leaves the weak attack surface fully operational.",
+      "This confuses customer communication with lifecycle enforcement; voluntary migration guidance has no deadline or teeth, and attackers will keep using version 1 regardless of what the documentation says.",
+      "This confuses the versions; hardening the already-protected version 3 does nothing about the exposure, and punishes legitimate users of the secure interface for a weakness elsewhere.",
+      "Deprecated interfaces are attack surface that must be managed through the software lifecycle: drive the last consumers to the secure version, decommission the old one on a firm schedule, and impose gateway authentication and limits on it during the transition."
+    ]
+  },
+  {
+    "id": "D8-0055",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "hard",
+    "stem": "An organization is about to sign a contract for custom software to be developed by an external firm. The security manager is asked when and how software security should be addressed in the engagement. Which answer reflects the BEST practice?",
+    "options": [
+      "Define security requirements, acceptance testing rights, and vulnerability remediation obligations in the contract before development starts",
+      "Plan a thorough penetration test of the delivered product during the acceptance phase",
+      "Rely on the firm's ISO/IEC 27001 certification as evidence its deliverables will be secure",
+      "Request a source code escrow agreement so the code can be reviewed if problems arise later"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Security expectations for outsourced development are only enforceable if they are contractual, so specifying requirements, the right to test, and the vendor's duty to fix findings before signing gives the organization leverage throughout the engagement rather than after delivery.",
+      "This confuses end-stage verification with building security in; testing only at acceptance finds flaws when they are most expensive to fix, and without contractual terms the vendor has no obligation to remediate them.",
+      "This confuses an organizational management-system certification with product assurance; ISO/IEC 27001 attests to the firm's ISMS, not to the security of any particular application it builds.",
+      "This confuses business-continuity protection with security assurance; escrow addresses access to code if the vendor fails or exits, and does nothing to make the delivered software secure."
+    ]
   }
 ]
