@@ -1107,5 +1107,1016 @@
       "This confuses an organizational management-system certification with product assurance; ISO/IEC 27001 attests to the firm's ISMS, not to the security of any particular application it builds.",
       "This confuses business-continuity protection with security assurance; escrow addresses access to code if the vendor fails or exits, and does nothing to make the delivered software secure."
     ]
+  },
+  {
+    "id": "D8-0056",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "An internal audit finds that application developers compile builds on their own workstations and push them directly into the production environment. Which control BEST addresses the underlying risk this practice creates?",
+    "options": [
+      "Require developers to sign a policy acknowledging that they will deploy only code that has passed all required testing",
+      "Mandate peer review of every code change before it is committed to the main branch of the repository",
+      "Enforce separation of duties so that an independent release function deploys only artifacts produced by a controlled build pipeline",
+      "Grant developers production access only through a jump server that records every session for later review"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses an administrative acknowledgment with an enforced control; a signed policy relies entirely on voluntary compliance and does nothing to stop a developer, or an attacker using a developer's account, from pushing an untested or malicious build.",
+      "Peer review improves code quality before commit, but it does not separate the ability to write code from the ability to place it into production; a developer could still deploy a build that never went through the reviewed branch at all.",
+      "The core exposure is that one person can both create and deploy code, enabling unauthorized or malicious changes to bypass every gate. Separation of duties, with deployments performed by an independent function from pipeline-built artifacts, removes that single point of compromise.",
+      "A monitored jump server is a detective measure layered on top of access that should not exist; sessions are reviewed after the fact, so an improper deployment still reaches production before anyone notices."
+    ]
+  },
+  {
+    "id": "D8-0057",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A penetration tester tricks a victim into opening a login page that already carries a session identifier the tester chose. After the victim authenticates, the tester reuses that same identifier and is treated as the logged-in victim. Which coding practice BEST prevents this attack?",
+    "options": [
+      "Generate and issue a completely new session identifier at the moment a user successfully authenticates",
+      "Set the HttpOnly and Secure attributes on the cookie that carries the session identifier",
+      "Enforce an idle timeout that invalidates any session after a defined period of inactivity",
+      "Require a unique anti-forgery token to accompany every state-changing request in the session"
+    ],
+    "answer": 0,
+    "explanations": [
+      "This is session fixation: the attacker plants a known identifier before login and inherits the victim's authenticated session. Regenerating the session identifier upon successful authentication invalidates any pre-set value, so the identifier the attacker planted is worthless.",
+      "This confuses fixation with session theft. HttpOnly and Secure protect an identifier from being stolen by script or sniffed in cleartext, but here the attacker already knows the identifier because they supplied it, so cookie attributes do not help.",
+      "An idle timeout limits how long an abandoned session stays usable; it does not stop an attacker who uses the fixed session actively right after the victim logs in.",
+      "This confuses fixation with cross-site request forgery. Anti-forgery tokens stop a victim's browser being driven into unwanted requests; here the attacker holds a valid session directly and sends requests themselves."
+    ]
+  },
+  {
+    "id": "D8-0058",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "During a code review of a new customer portal, a reviewer finds that user passwords are stored as unsalted MD5 hashes. Which storage approach should the reviewer recommend instead?",
+    "options": [
+      "Encrypt the password column with AES-256 and protect the encryption key in a hardware security module",
+      "Hash each password with a unique salt using a deliberately slow, adaptive algorithm such as Argon2 or bcrypt",
+      "Replace MD5 with SHA-256, since MD5 has known collision weaknesses and SHA-256 does not",
+      "Base64-encode each password before hashing it so the original value is never processed directly"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses encryption with one-way protection. Encrypted passwords are reversible by anyone who obtains the key, and the system never needs to recover the plaintext, so a one-way, brute-force-resistant hash is the appropriate control.",
+      "Per-user salts defeat precomputed rainbow tables, and a deliberately slow, adaptive work-factor algorithm makes large-scale offline guessing economically impractical, which is exactly the threat when a password database is stolen.",
+      "This mistakes MD5's collision problem for the real issue. SHA-256 is still an extremely fast hash, so attackers can guess billions of candidates per second; speed, not collisions, is what makes stolen password hashes crackable.",
+      "This confuses encoding with cryptography. Base64 is a trivially reversible representation that adds no secrecy or work factor, so it contributes nothing to password protection."
+    ],
+    "reference": "NIST SP 800-63B"
+  },
+  {
+    "id": "D8-0059",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "A QA team runs a large automated functional test suite against a staging deployment every night. The application security lead wants vulnerability findings that pinpoint the vulnerable line of code and the runtime data flow that reaches it, gathered passively while those existing functional tests execute. Which technique BEST meets this need?",
+    "options": [
+      "Dynamic application security testing using an active scanner aimed at the staging environment",
+      "Static application security testing run against the full source repository on every build",
+      "Fuzz testing that feeds malformed input into every externally exposed interface",
+      "Interactive application security testing using an instrumentation agent inside the running application"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses DAST's runtime perspective with runtime instrumentation. A DAST scanner probes from outside as a black box, so it can show a vulnerable response but cannot identify the source line or internal data flow, and it generates its own traffic rather than riding existing tests.",
+      "This confuses code visibility with runtime context. SAST sees the source but never executes it, so it cannot confirm which flows are actually reachable at runtime and tends to produce findings without runtime evidence.",
+      "This confuses fault injection with instrumented observation. Fuzzing actively bombards interfaces with malformed input to trigger crashes; it does not passively observe functional tests or map internal data flows to code.",
+      "IAST instruments the application from within, so while the ordinary functional tests exercise the code it correlates runtime data flows with exact code locations, which is precisely the combination the lead described."
+    ]
+  },
+  {
+    "id": "D8-0060",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "An e-commerce checkout page loads a third-party analytics script directly from the vendor's content delivery network. The security team is concerned that a compromise at the vendor could silently turn the script into card-skimming code running in every customer's browser. Which measure BEST mitigates this risk?",
+    "options": [
+      "Confirm the script is always retrieved over TLS so it cannot be modified while in transit to the browser",
+      "Place a web application firewall in front of the checkout site to inspect and block malicious payloads",
+      "Pin a security-reviewed version of the script and add a Subresource Integrity hash so browsers refuse any altered file",
+      "Add contract language obligating the vendor to notify the organization promptly of any compromise"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses transit protection with source protection. TLS guarantees the file was not altered between the CDN and the browser, but if the vendor's own copy is poisoned, TLS faithfully delivers the malicious version.",
+      "This misunderstands where the script loads from. The WAF inspects traffic to the organization's own origin, but the browser fetches the third-party script directly from the vendor's CDN, so the malicious content never passes through the WAF.",
+      "Subresource Integrity ties the page to the exact reviewed file: the browser computes the fetched script's hash and refuses to execute it if it differs. A vendor-side compromise then breaks analytics rather than skimming cards, which is the right failure mode.",
+      "This is a useful administrative control but it only helps after a breach is discovered and disclosed; Magecart-style compromises typically run for months before the vendor knows, leaving customers exposed the entire time."
+    ]
+  },
+  {
+    "id": "D8-0061",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "A build server compiled malware into a product because the package manager fetched a package from the public registry that had the same name as an internal library but a higher version number. Which change BEST prevents this from happening again?",
+    "options": [
+      "Configure dependency resolution so internal package names are served only from the private registry, and register or scope those names on the public registry",
+      "Require developers to manually review the source code of every dependency before each build is allowed to run",
+      "Deploy antivirus scanning on the build server so malicious packages are detected when they are downloaded",
+      "Pin every dependency to an exact version in a committed lockfile so the build always uses known versions"
+    ],
+    "answer": 0,
+    "explanations": [
+      "This was a dependency confusion attack, which exploits resolvers that prefer the highest version across all configured registries. Forcing internal namespaces to resolve exclusively from the private registry, and claiming those names publicly, removes the substitution path itself.",
+      "This confuses human diligence with fixing the automated root cause. Resolution happens automatically inside the package manager at build time, and no manual review process can realistically inspect every transitive dependency on every build.",
+      "This mistakes a supply-chain logic flaw for a malware-signature problem. A freshly published malicious package has no signature, and its harm can be in install scripts or subtle code that antivirus engines do not flag.",
+      "Lockfiles freeze a known-good graph and do help, but the confusion recurs every time a new dependency is added or versions are updated, because the resolver still consults the public registry with the same flawed preference."
+    ]
+  },
+  {
+    "id": "D8-0062",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "Developers across the organization have started using an AI coding assistant, and executives ask the CISO how the risk of AI-generated code reaching production should be managed. Which approach is BEST?",
+    "options": [
+      "Prohibit AI coding assistants until vendors can certify that generated output is free of vulnerabilities",
+      "Rely on the assistant vendor's built-in safety filters, which are designed to suppress insecure suggestions",
+      "Require the assistant itself to review and approve the code it generated before developers commit it",
+      "Subject AI-generated code to the same review, testing, and composition-analysis gates as human-written code, under an acceptable-use policy"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses prohibition with risk management. No vendor can certify vulnerability-free output, so the ban becomes permanent, forfeits productivity benefits, and predictably drives unmonitored shadow use that is riskier than governed use.",
+      "This transfers responsibility to the vendor without evidence or recourse. Vendor filters reduce some insecure patterns but are not a substitute for the organization's own assurance over what it ships.",
+      "This lacks independence: having the generator assess its own output repeats the same blind spots that produced any flaw. Verification must come from a control independent of the thing being verified.",
+      "Risk lies in what enters the codebase, not in who or what typed it. Running AI-generated code through the identical assurance gates preserves a single verified quality bar, while the policy sets expectations for attribution, data handling, and appropriate use."
+    ]
+  },
+  {
+    "id": "D8-0063",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "After a widely reported incident in which a software vendor's update channel was hijacked to distribute malware, a security manager reassesses how the organization applies updates to a business-critical COTS application. Which practice BEST reduces the risk of installing a poisoned vendor update?",
+    "options": [
+      "Apply each vendor update immediately upon release to keep the window of unpatched vulnerability as short as possible",
+      "Verify each update's digital signature and published hash, then stage it in a test environment before promoting it to production",
+      "Disable the application's update mechanism permanently and continue operating the currently installed version",
+      "Rely on the vendor's most recent SOC 2 report as assurance that its software release process is operated securely"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses patch latency risk with supply-chain risk. Immediate, unverified installation is exactly what maximizes exposure to a hijacked update channel; the scenario calls for assurance steps before trust, not faster adoption.",
+      "Signature and hash verification confirms the artifact genuinely came from the vendor unaltered, and staged deployment gives an opportunity to observe anomalous behavior before the update touches production, directly countering a poisoned-update scenario.",
+      "This trades one risk for a worse one: an application frozen at its current version accumulates known, exploitable vulnerabilities indefinitely, which is rarely an acceptable position for a business-critical system.",
+      "This confuses a point-in-time attestation of process controls with verification of a specific artifact. A SOC 2 report describes the vendor's control environment historically; it cannot tell you whether the update you are about to install is authentic."
+    ],
+    "reference": "NIST SP 800-161"
+  },
+  {
+    "id": "D8-0064",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "A newly purchased engineering application fails at runtime unless users run it with local administrator rights on their workstations, and the business urgently needs the tool in service. What is the security team's BEST course of action?",
+    "options": [
+      "Work with the vendor to identify the specific file, registry, and service rights the application actually needs and grant only those, isolating the tool if that proves impossible",
+      "Grant the user accounts local administrator rights but add endpoint detection and response monitoring to identify any resulting abuse",
+      "Refuse to deploy the application until the vendor re-engineers it to run without any elevated privileges at all",
+      "Provide administrator rights only while the application is being installed and remove them once setup completes"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Most applications demanding admin rights actually need a handful of specific permissions. Profiling and granting exactly those preserves least privilege while meeting the business need, and containment (a dedicated VM or restricted host) is the fallback if the requirement is genuine.",
+      "This accepts a standing violation of least privilege and compensates with a detective control; EDR may notice abuse after malware already runs with full administrative power on the endpoint.",
+      "This confuses the ideal end state with a workable risk decision. Blocking an urgently needed tool indefinitely ignores the business impact, and the vendor may take a year or more to re-engineer, if it ever does.",
+      "This confuses install-time elevation with runtime privilege needs. The scenario states the application fails during normal use without admin rights, so removing elevation after installation would leave the tool inoperable."
+    ]
+  },
+  {
+    "id": "D8-0065",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "A payment module passes 100 percent of its documented test cases, yet an assessor discovers it does not implement a regulator-mandated strong customer authentication requirement because no specification or test for it was ever written. This gap is BEST described as a failure of:",
+    "options": [
+      "Verification, because the software was not built in conformance with its documented specifications",
+      "Unit testing, because the individual authentication components were not exercised thoroughly enough",
+      "Validation, because the delivered product does not satisfy its intended purpose and stakeholder requirements",
+      "Regression testing, because a previously working authentication capability was allowed to break"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This inverts the two concepts. Verification asks whether the product was built right, that is, conforms to its specification; here the product matches its (incomplete) specification perfectly, so verification actually succeeded.",
+      "This misreads the gap as a test-depth problem. No amount of additional unit testing would find the flaw, because the requirement was never specified, so there was nothing for the tests to check against.",
+      "Validation asks whether the right product was built, judged against genuine stakeholder and regulatory needs rather than the written specification. The module fails that test: it conforms to its documents but does not fulfill what the business actually required.",
+      "This confuses a missing requirement with a reintroduced defect. Regression testing guards features that once worked; the mandated authentication capability never existed in the product at any point."
+    ]
+  },
+  {
+    "id": "D8-0066",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "hard",
+    "stem": "The first full vulnerability scan of an application portfolio yields roughly 14,000 findings, far more than the development organization can remediate this year. As the application security manager, what is the BEST way to direct the remediation effort?",
+    "options": [
+      "Direct all teams to remediate every finding with a critical or high CVSS base score before addressing anything else",
+      "Rank findings by exploitability, actual exposure, and the business criticality of each application, and set risk-based remediation targets",
+      "Divide the findings evenly across the development teams so each carries a fair share of the remediation workload",
+      "Suppress the informational and low-severity findings and rescan the portfolio to establish an accurate baseline count"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses technical severity with risk. A CVSS base score ignores whether an exploit exists, whether the system is internet-facing, and what the application is worth to the business, so effort lands on scary-sounding but low-risk findings while a medium on a crown-jewel system waits.",
+      "With demand far exceeding capacity, the manager's job is to buy the most risk reduction per hour of work. Weighting exploitability, real-world exposure, and business criticality concentrates scarce effort where compromise would hurt most, with targets leadership can track.",
+      "This confuses workload fairness with risk management. Equal distribution treats a critical flaw in a payment system and a low finding in an internal utility as interchangeable units of work, which squanders limited capacity.",
+      "This is metric hygiene, not prioritization. Trimming noise makes the count smaller but still gives teams no basis for deciding which of the remaining thousands of findings to fix first."
+    ]
+  },
+  {
+    "id": "D8-0067",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "An architect is defining the logging requirements for a new loan-origination application. Which requirement would BEST support future security investigations while limiting the new risk the logs themselves introduce?",
+    "options": [
+      "Capture the full request and response payload of every transaction so investigators always have complete data available",
+      "Store the logs on each application server, protected by strict local file permissions from unauthorized access",
+      "Record only failed authentication attempts, since successful, authorized activity has no investigative value",
+      "Record security-relevant events with actor, timestamp, and outcome, exclude secrets and sensitive fields, and forward logs to a centralized tamper-resistant store"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses completeness with usefulness. Full payloads sweep passwords, tokens, and personal financial data into the logs, turning the log store into a high-value breach target and a compliance liability, which is precisely the self-inflicted risk to avoid.",
+      "This overlooks what happens when the server itself is compromised: an attacker with local control can alter or delete the evidence, and logs are lost if the host fails. Local-only storage undermines the integrity investigations depend on.",
+      "This is a common misconception; most insider misuse and account-takeover activity appears as successful, authorized actions. Investigations reconstruct who did what, which requires logging successful security-relevant events, not just failures.",
+      "This captures the who, what, when, and result investigators need, keeps secrets and regulated data out of the logs, and moves records off-host quickly so a compromised server cannot rewrite its own history."
+    ]
+  },
+  {
+    "id": "D8-0068",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "An online store's mobile app calculates the order total on the device and submits it to the server, which charges whatever amount arrives. Testers demonstrated paying one cent for a full cart by altering the total with an intercepting proxy. What is the BEST fix?",
+    "options": [
+      "Recalculate the order total on the server from authoritative catalog prices and treat any client-supplied amount as untrusted display data",
+      "Obfuscate the mobile application binary so attackers cannot reverse engineer the price calculation logic",
+      "Implement certificate pinning in the app so an intercepting proxy can no longer view or modify its traffic",
+      "Reject submitted totals that deviate significantly from the customer's historical average order value"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The client is under the user's physical control, so any value it computes can be forged. Recomputing the price server-side from data the customer cannot touch removes the vulnerability entirely rather than making tampering harder.",
+      "This confuses code secrecy with trust boundaries. The testers never reverse engineered anything; they simply edited the number in transit, and obfuscation does nothing to stop modification of the submitted value.",
+      "This raises the bar against interception but misses that the device owner is the attacker: they can strip or bypass pinning on hardware they control. The server must not trust the client regardless of how the channel is protected.",
+      "This confuses fraud-anomaly heuristics with input validation. A tampered total slightly below the true price sails past any statistical threshold, and legitimate unusual orders would be wrongly rejected."
+    ]
+  },
+  {
+    "id": "D8-0069",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "A code review reveals that a developer wrote a custom stream cipher to protect stored customer data, reasoning that an algorithm nobody has seen is harder to attack. What should the organization's secure coding standard require instead?",
+    "options": [
+      "Publishing the custom algorithm for open community review before it is approved for production use",
+      "Doubling the key length used by the custom cipher to make brute-force attacks computationally infeasible",
+      "Using vetted, widely reviewed cryptographic libraries that implement approved standard algorithms rather than any custom cryptography",
+      "Compressing the data with a proprietary scheme before encryption so patterns are hidden from analysis"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses openness with assurance. Publishing is necessary but nowhere near sufficient: a novel cipher would need years of sustained cryptanalysis before deserving trust, and the organization gains nothing by waiting when proven algorithms already exist.",
+      "This confuses key size with algorithm soundness. A structurally weak cipher can leak plaintext regardless of key length, because the attacks that break amateur designs exploit the algorithm, not exhaustive key search.",
+      "The developer's reasoning is security through obscurity, contradicting Kerckhoffs's principle that a system must stay secure even when everything but the key is known. Standard algorithms in vetted libraries have survived decades of public cryptanalysis and avoid the implementation flaws of homegrown code.",
+      "This confuses obfuscation with cryptographic strength. Compression changes the data's representation, not its confidentiality, and a proprietary scheme is itself just obscurity that a determined analyst will unravel."
+    ]
+  },
+  {
+    "id": "D8-0070",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "Months after an outsourced development engagement ended, a routine review finds that the contractor's accounts still hold write access to the organization's source repositories and CI/CD system. Beyond disabling the accounts, what is the BEST way to prevent this from recurring?",
+    "options": [
+      "Require all contractors to sign nondisclosure agreements that define their obligations after the engagement ends",
+      "Migrate the repositories to new internal URLs at the close of every engagement so former contractors cannot locate them",
+      "Audit the full repository commit history to confirm the contractor made no unauthorized changes after the engagement ended",
+      "Tie development-ecosystem accounts into the joiner-mover-leaver deprovisioning process and periodically recertify all repository and pipeline access"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses a legal obligation with a technical control. An NDA governs what a contractor may disclose but leaves the access itself fully functional, both for the contractor and for anyone who compromises those dormant credentials.",
+      "This is security through obscurity: authenticated accounts do not need to guess URLs, and relocating repositories disrupts every legitimate pipeline while leaving the orphaned credentials valid.",
+      "This is a necessary response step for the current incident, but it is detective and backward-looking; verifying past commits does nothing to ensure the next contractor's access is removed on schedule.",
+      "The root cause is that developer-ecosystem access sat outside the identity lifecycle, so contract end never triggered removal. Wiring those accounts into leaver deprovisioning closes the gap systematically, and periodic recertification catches anything the process still misses."
+    ]
+  },
+  {
+    "id": "D8-0071",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "Two weeks before a contractually committed launch date, the program director instructs the security team to cancel the planned penetration test of a new customer portal so the schedule can be met. What should the security manager do FIRST?",
+    "options": [
+      "Escalate to the board of directors that the program director is attempting to violate the organization's security policy",
+      "Document the risks of releasing the portal untested and present them to the accountable business owner for an informed risk decision",
+      "Proceed with the launch and quietly schedule the penetration test to run against the portal shortly after go-live",
+      "Refuse the instruction and invoke the security policy's authority to block any release that has skipped required testing"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This jumps the chain of governance before any informed-risk conversation has happened. Escalation may eventually be warranted, but going straight to the board frames a schedule trade-off as misconduct and skips the owner who is actually accountable for the decision.",
+      "Security's role is to ensure risk decisions are made knowingly by those accountable for the business outcome. Articulating what could go wrong, the potential impact, and the alternatives lets the owner accept, mitigate, or defer the launch with eyes open, and creates a record either way.",
+      "This confuses testing eventually with managing the decision. Launching with an unassessed attack surface exposes customers immediately, and doing it quietly means the residual risk was never authorized by anyone accountable.",
+      "This misstates security's authority: the function advises on and verifies risk, but the business owns it. Unilateral blocking positions security as an obstacle and bypasses the informed-acceptance process just as surely as silent compliance would."
+    ]
+  },
+  {
+    "id": "D8-0072",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "hard",
+    "stem": "A payments platform must release a substantial rewrite of its transaction-processing engine. Testing has been thorough, but the team acknowledges that some failure modes will appear only under real production traffic. Which deployment approach BEST limits the risk of the release?",
+    "options": [
+      "Release progressively to a small percentage of live traffic with automated health monitoring and an immediate rollback path before expanding further",
+      "Deploy to all users at once during the lowest-traffic overnight maintenance window to minimize how many transactions are affected",
+      "Keep extending the staging test campaign until the team is confident every remaining failure mode has been identified",
+      "Deploy fully to production with a rehearsed emergency change procedure standing by in case a failure occurs"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Since some defects are only observable under genuine traffic, the risk-management move is to bound the blast radius: a canary slice exposes real conditions to a small population, monitoring detects degradation quickly, and rollback contains harm before the change reaches everyone.",
+      "This confuses reducing exposure duration with reducing blast radius. The moment the overnight deployment goes live, every user is on the new engine, so a latent defect still hits the entire transaction flow, just at a quieter hour.",
+      "This contradicts the stated premise: the team already knows certain failure modes cannot manifest outside production. Extending staging indefinitely delays the release without ever closing that gap.",
+      "This confuses having a reaction plan with limiting exposure. An emergency procedure helps after full-population impact has begun; a progressive release aims to prevent the full-population impact in the first place."
+    ]
+  },
+  {
+    "id": "D8-0073",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "A marketing feature lets staff create email templates whose placeholder expressions are evaluated by the server-side template engine at send time. A researcher demonstrates that a crafted placeholder executes operating system commands on the mail server. Which remediation BEST addresses the root cause?",
+    "options": [
+      "Add an input filter that strips known dangerous keywords and characters from submitted template expressions",
+      "Run the template-rendering service under a low-privilege account so injected commands gain minimal access",
+      "Render user-authored templates with a sandboxed or logic-less template engine that cannot reach code execution, treating template content as untrusted input",
+      "Deploy a web application firewall rule set tuned to detect and block command-injection payload signatures"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This is deny-list thinking applied to server-side template injection, where researchers routinely publish bypasses using alternate syntax, encoding, and engine-specific gadget chains; filtering keywords leaves the dangerous evaluation capability in place.",
+      "This confuses impact reduction with root-cause remediation. Least privilege is worth doing, but attacker-controlled code still executes on the server, and privilege-escalation or data-access paths from that foothold remain.",
+      "The root cause is that user-supplied content is handed to a full-featured template engine able to reach interpreter internals. A sandboxed or logic-less engine removes the code-execution capability from the rendering path entirely, converting the flaw into inert text.",
+      "This confuses perimeter signature matching with fixing the flaw. Template-injection payloads are engine-specific and easily mutated to evade WAF signatures, and internal callers may bypass the WAF path altogether."
+    ]
+  },
+  {
+    "id": "D8-0074",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "easy",
+    "stem": "Before promoting a newly built application server into production, an engineer works through the deployment checklist. Which step BEST reduces the server's attack surface?",
+    "options": [
+      "Enable verbose logging across all services so any future attack is captured in maximum detail",
+      "Remove sample applications and default accounts, and disable every service and module the application does not require",
+      "Install the latest antivirus engine and signature updates before the server is exposed to traffic",
+      "Schedule the server for weekly authenticated vulnerability scans once it enters production"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses detection depth with exposure reduction. Verbose logging improves visibility into attacks but leaves every attackable component in place, and excessive logging can itself leak sensitive data.",
+      "Attack surface is the sum of points where an attacker can interact with the system. Stripping sample apps, default credentials, and unneeded services removes whole categories of well-known entry points before the server ever faces hostile traffic.",
+      "This confuses a detective/reactive malware control with hardening. Antivirus tries to catch malicious code after it arrives; it does not shrink the set of listening services and default content an attacker can target.",
+      "This confuses ongoing assessment with reduction. Scanning finds weaknesses in whatever surface exists; it does not remove any of it, and weekly cadence leaves gaps between discovery and action."
+    ]
+  },
+  {
+    "id": "D8-0075",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "hard",
+    "stem": "A data science team's proof-of-concept application, built without security involvement, has quietly become a system the sales force uses daily with live customer data. The CISO discovers this during an unrelated review. What is the BEST way to handle the situation?",
+    "options": [
+      "Shut the application down immediately and require it to restart a full development life cycle from the requirements phase",
+      "Permit continued use, since the application has operated for months without any security incident being reported",
+      "Direct the data science team to self-assess the application against the organization's secure coding standard",
+      "Assess the application's risk in its current state, apply controls proportionate to the data it handles, and bring it under formal SDLC governance"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This is absolutism rather than risk management. An immediate shutdown inflicts certain business harm before anyone knows whether the risk justifies it, and punishing the discovery teaches teams to hide the next shadow system.",
+      "This mistakes the absence of detected incidents for the absence of risk. A system built with no security involvement has never been examined, so nobody knows whether it is already compromised or leaking customer data.",
+      "This lacks independence and misses the scope of the problem: the team that skipped security cannot objectively grade its own work, and a coding-standard checklist ignores architecture, access control, and data-handling risks.",
+      "The application is already in production, so the realistic path is to evaluate its actual exposure, remediate or compensate based on the sensitivity of the customer data, and fold it into normal life-cycle governance so future changes receive proper oversight."
+    ]
+  },
+  {
+    "id": "D8-0076",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "A department head asks IT to install a free file-conversion utility, downloaded from a small independent developer's website, on fifty corporate workstations. Which action should the security team take FIRST?",
+    "options": [
+      "Evaluate the software's provenance and behavior, checking the publisher's signature and reputation and observing it in an isolated analysis environment, before approving deployment",
+      "Approve the installation, since the utility is free, widely downloaded, and requested by a department head",
+      "Purchase a commercial alternative instead, because commercially licensed software carries stronger assurance by default",
+      "Install the utility on a single production workstation and monitor its behavior for a week before the wider rollout"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Acquired software of unknown provenance must be assessed before it touches the estate. Verifying the publisher and code signature, researching reputation, and detonating the installer in an isolated sandbox reveal bundled adware, unexpected network calls, or tampering before fifty endpoints are exposed.",
+      "This confuses popularity and management sponsorship with assurance. Download counts say nothing about bundled unwanted software or a compromised distribution site, and the requester's seniority does not change the software's risk.",
+      "This confuses commercial licensing with security. Paid software can be just as flawed or over-privileged as freeware, and buying a substitute skips the assessment step that any acquisition, free or paid, should undergo.",
+      "This performs the behavioral evaluation in the wrong place: a production workstation has real credentials, data, and network reach, so if the utility is malicious the organization is compromised during the observation period."
+    ]
+  },
+  {
+    "id": "D8-0077",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "easy",
+    "stem": "Shortly after a public product-search API launches, scripted clients begin sending thousands of requests per second, degrading service for legitimate integration partners. Which control MOST directly addresses this abuse?",
+    "options": [
+      "Require registered API keys so that every calling application is uniquely identified in the request logs",
+      "Enforce per-client rate limits and usage quotas at the API gateway, returning throttling responses when thresholds are exceeded",
+      "Configure auto-scaling so that additional server capacity automatically absorbs the extra request volume",
+      "Publish an acceptable-use policy defining the request volumes that API consumers are permitted to send"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses identification with enforcement. Knowing who each caller is enables other controls but by itself does not slow anyone down; a scripted client with a valid key can still flood the service.",
+      "Rate limiting and quotas directly cap what any single client can consume, so abusive scripts are throttled at the gateway while well-behaved integrators retain their share of capacity, which is exactly the failure being described.",
+      "This confuses absorbing load with controlling it. Auto-scaling keeps the service up by spending more money, effectively rewarding the abuser with more capacity, and the underlying resource-exhaustion exposure remains.",
+      "This is an administrative control with no technical enforcement. Scripted abusers ignore published policies, and a policy only becomes meaningful when a mechanism like throttling backs it up."
+    ]
+  },
+  {
+    "id": "D8-0078",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "medium",
+    "stem": "Six months after a cross-site scripting flaw was fixed and the fix verified, a routine assessment finds the identical flaw reintroduced by a user-interface refactor. Which improvement to the testing program BEST prevents this class of recurrence?",
+    "options": [
+      "Commission an annual penetration test of the application by an external firm with web expertise",
+      "Require a senior developer to manually review every user-interface change before it can be merged",
+      "Add automated security regression tests to the CI suite that specifically assert previously fixed vulnerabilities remain fixed",
+      "Re-baseline the static analysis scanner after each release so that new findings stand out from old ones"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses periodic assessment with continuous protection. An annual test could leave a reintroduced flaw exploitable in production for up to a year before it is even discovered.",
+      "This leans on inconsistent human vigilance for a problem automation handles reliably. A reviewer scanning a large refactor can easily miss the reappearance of one specific encoding omission, and review capacity does not scale with change volume.",
+      "Every verified fix should leave behind a permanent automated test that fails the build if the vulnerability ever returns. That converts each remediation into a durable guardrail, catching reintroduction at the pull request instead of at the next assessment.",
+      "This confuses tidier reporting with prevention. Re-baselining helps triage new findings after release, but detection still happens downstream of the merge, and suppressed baselines can silently carry a reintroduced flaw forward."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D8-0079",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "During an outage investigation, engineers discover that the production binary of a core service matches no build in the artifact repository: someone patched it directly on the server months earlier, and the change appears nowhere in version control. Which discipline was MOST fundamentally lacking?",
+    "options": [
+      "Vulnerability management, because routine scanning of the server should have detected the modified binary",
+      "Incident management, because the original problem that prompted the direct fix was never handled as an incident",
+      "Privileged access management, because engineers should not hold accounts capable of altering production servers",
+      "Software configuration management, because every production change must be versioned, authorized, and reproducible from controlled sources"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This misunderstands what vulnerability scanners do: they match software against known-vulnerability signatures and configurations, not against a build-provenance baseline, so a locally patched binary is invisible to them.",
+      "This addresses how the triggering problem was recorded, not the core failure. Even a fully logged incident would still be wrong to resolve by editing a production binary outside version control and build processes.",
+      "Access was the enabler, not the fundamental gap, and some engineers legitimately need emergency production access. Without configuration management discipline, even properly authorized users produce untracked, irreproducible systems.",
+      "The defining failures here are exactly what software configuration management exists to prevent: an unauthorized change, no record in version control, and a production system that cannot be reproduced from controlled sources. Restoring CM discipline addresses all three."
+    ]
+  },
+  {
+    "id": "D8-0080",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "hard",
+    "stem": "An assessor asks a project team to demonstrate that every security requirement approved at the start of a development project was actually carried through design, implemented in code, and proven by testing. Which artifact BEST provides this evidence?",
+    "options": [
+      "The final penetration test report showing which vulnerabilities were discovered and how each was remediated",
+      "A requirements traceability matrix linking each security requirement to its design elements, implementing modules, and test cases with results",
+      "The threat model produced during architecture design, listing the threats the team considered and the mitigations chosen",
+      "The continuous integration logs proving that the automated test suite passed on the final release build"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses vulnerability discovery with requirement coverage. A penetration test reports the weaknesses a tester happened to find; it cannot show that a specific approved requirement was designed, built, and tested, and a clean report may simply mean the tester never probed that area.",
+      "A traceability matrix is the artifact built for exactly this question: it maps each requirement forward through design, code, and test, so an assessor can see at a glance that nothing was dropped and any untested requirement stands out as an empty row.",
+      "This confuses the origin of requirements with evidence of their fulfillment. A threat model explains why certain mitigations were chosen at design time, but it says nothing about whether they were ultimately implemented or verified.",
+      "This confuses proof that tests ran with proof of what the tests cover. Passing CI logs cannot show whether any test exercises a given security requirement; a requirement with no test at all still yields a green build."
+    ]
+  },
+  {
+    "id": "D8-0081",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A B2B invoicing platform accepts XML documents uploaded by trading partners. A penetration tester submits an invoice whose DOCTYPE declaration defines an external entity, and the parsed response returns the contents of a server configuration file. Which remediation BEST addresses the root cause?",
+    "options": [
+      "Deploy a web application firewall rule that rejects any upload containing the string \"DOCTYPE\"",
+      "Validate every uploaded invoice against the published XML schema after the document has been parsed",
+      "Configure the XML parser to disable document type definitions and external entity resolution",
+      "Require TLS with mutual authentication for all partner uploads so documents cannot be altered in transit"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This is deny-list filtering at a compensating layer; encoding tricks and parser quirks can smuggle a DOCTYPE past string matching, and the vulnerable parser behavior itself remains untouched.",
+      "Schema validation addresses document structure, and it typically runs after parsing — but entity expansion happens during parsing, so the file disclosure has already occurred by the time the schema check runs.",
+      "The disclosure is an XML external entity (XXE) attack; turning off DTD processing and external entity resolution in the parser removes the vulnerable behavior at its source rather than filtering around it.",
+      "Mutual TLS protects the document in transit, but the malicious file is submitted by the authenticated partner's own upload, so channel security does not change what the parser will process."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D8-0082",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "A marketing feature lets users submit a URL that the web server fetches to build a link preview. A security review warns that the server, hosted on a cloud instance, could be induced to request the cloud metadata service and expose the instance's role credentials. Which control BEST mitigates this risk?",
+    "options": [
+      "Validate submitted URLs against an allow-list of approved external destinations and block server egress to internal, private, and link-local address ranges",
+      "Require users to authenticate with multi-factor authentication before they are permitted to submit URLs to the link preview feature",
+      "Add the metadata service address 169.254.169.254 to a deny-list that is checked against the URL string the user submits",
+      "Enable detailed logging of every outbound request the preview service makes so the security operations team can investigate abuse"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Server-side request forgery is about where the server can be induced to connect; a destination allow-list combined with network-layer egress blocking of internal and link-local ranges constrains the fetch no matter how the URL is disguised.",
+      "Stronger user authentication is often assumed to solve abuse, but SSRF is exploitable by any authenticated user or hijacked account; the flaw is the server's unrestricted fetching, not who submits the URL.",
+      "String deny-lists are bypassed with redirects, DNS rebinding, alternate IP encodings, and lookalike hostnames; blocking one literal address leaves the whole attack class open.",
+      "Logging is a detective control; it may support investigation after credentials are stolen but does nothing to prevent the server from making the dangerous request in the first place."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D8-0083",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "An assessor reviewing a retail bank's customer API finds that it reflects any Origin request header value into Access-Control-Allow-Origin and also returns Access-Control-Allow-Credentials: true. What is the MOST significant consequence of this configuration?",
+    "options": [
+      "TLS certificate validation is disabled for cross-origin calls, letting attackers intercept API traffic on the network",
+      "Origin header values reflected into responses give attackers a way to inject SQL into backend database queries",
+      "Legitimate partner sites on other origins will be blocked by browsers, creating an availability problem for integrations",
+      "Any malicious website a logged-in customer visits can issue credentialed requests and read that customer's API responses in the browser"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses CORS with transport security; CORS headers govern relaxation of the browser same-origin policy and have no effect on TLS certificate validation or network interception.",
+      "Reflecting a header value into a response header is not query construction; SQL injection requires untrusted data reaching a query interpreter, which this misconfiguration does not involve.",
+      "The configuration errs on the side of being far too permissive, not too restrictive; every origin is allowed, so partner integrations are unaffected and availability is not the issue.",
+      "Reflecting arbitrary origins while allowing credentials effectively disables the same-origin policy for this API: the victim's browser attaches session cookies and the attacker's page is permitted to read the responses, enabling theft of account data."
+    ]
+  },
+  {
+    "id": "D8-0084",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "Testing shows that a web application's fund-transfer confirmation page can be loaded inside an invisible iframe on an attacker's site, where a disguised button tricks victims into clicking the real \"Confirm\" control. Which control MOST directly prevents this attack?",
+    "options": [
+      "Anti-forgery tokens embedded in every state-changing fund-transfer request",
+      "A frame-ancestors Content-Security-Policy directive that stops other sites from framing the page",
+      "Setting the HttpOnly attribute on the application's session cookie",
+      "Server-side revalidation of the transfer amount and destination account number"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This is a clickjacking (UI redress) attack, and CSRF tokens do not help: the victim's genuine browser session submits the real form carrying a valid token when they click the framed button.",
+      "Clickjacking works by overlaying the real page inside a hidden frame; forbidding framing through frame-ancestors (or the legacy X-Frame-Options header) removes the attacker's ability to embed the page at all.",
+      "HttpOnly protects the session cookie from being read by script; it does not stop the page from being framed or the user from being tricked into clicking within it.",
+      "Input validation checks data values; in clickjacking the submitted data is whatever the legitimate page sends, so validation passes while the user is deceived about what they clicked."
+    ]
+  },
+  {
+    "id": "D8-0085",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A tester logged in as a standard user manually browses to /admin/exportAllCustomers, a URL never shown in the standard user interface, and receives a full customer database export. Which flaw does this demonstrate?",
+    "options": [
+      "The application hides privileged links in the interface instead of enforcing server-side authorization on each administrative function",
+      "Session identifiers are insufficiently random, allowing a standard user to guess and take over an administrator's session",
+      "The export function fails to validate its input parameters before executing the underlying database query",
+      "Customer records are stored without field-level encryption, so any retrieval exposes them in cleartext"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Access control decided only by menu visibility is security through obscurity; every privileged endpoint must verify the caller's authorization on the server for each request, and that check is what is missing here.",
+      "This resembles session prediction, but the tester used their own valid low-privilege session; no session guessing occurred — only a missing authorization check on the administrative function.",
+      "Input validation governs the safety of supplied data values; the request here was well-formed, and the failure was permitting the caller to invoke the function at all.",
+      "Encryption at rest would not have helped: the application itself is an authorized path to the data, so a missing authorization check exposes records regardless of how they are stored."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D8-0086",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A mobile banking app displays only account nicknames and balances, but an intercepting proxy shows the backend API returns each customer's full profile — including tax identifier and date of birth — which the app discards before display. What should the security team recommend?",
+    "options": [
+      "Obfuscate the mobile application binary so attackers cannot easily discover the API endpoints it calls",
+      "Implement certificate pinning in the app so API responses cannot be intercepted by a proxy",
+      "Redesign the API so the server returns only the data elements each client function actually requires",
+      "Encrypt the sensitive JSON fields using a key embedded within the mobile application package"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Obfuscation only slows reverse engineering; the API is directly observable to any client holding valid credentials, so hiding endpoint names does not reduce the data actually transmitted.",
+      "Pinning hardens the transport channel against third-party interception, but the excessive data is delivered to every legitimate client; any account holder can inspect their own over-broad responses.",
+      "This is excessive data exposure: relying on the client to filter sensitive fields places enforcement in untrusted code, so minimizing the response on the server is the correct fix.",
+      "A key shipped inside the app package can be extracted by anyone with the binary, so client-held decryption keys provide no real confidentiality for the transmitted fields."
+    ],
+    "reference": "OWASP API Security Top 10"
+  },
+  {
+    "id": "D8-0087",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "A billing system written in C multiplies usage units by unit price into a 32-bit signed integer. A customer submitted an extremely large usage value, the computed total wrapped to a negative number, and the system issued an account credit. Which change MOST directly prevents this defect class?",
+    "options": [
+      "Widen the total field to a 64-bit signed integer so that much larger products can be represented",
+      "Range-check inputs against business-plausible limits and perform monetary calculations with overflow-checked arithmetic",
+      "Use parameterized statements for all inserts and updates issued by the billing engine",
+      "Enable stack canaries, ASLR, and non-executable memory protections on the billing servers"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Widening the type is tempting because it raises the wrap-around threshold, but the defect class remains: sufficiently large or maliciously chosen values still overflow, and absurd inputs are still accepted.",
+      "The flaw is an integer overflow driven by unvalidated input; enforcing business-plausible ranges and using checked or arbitrary-precision arithmetic makes the invalid computation impossible rather than merely less likely.",
+      "Parameterized statements defeat SQL injection by separating code from data; this bug involves no injected query syntax, only arithmetic on a legitimately supplied numeric field.",
+      "Those are memory-corruption exploit mitigations for issues like buffer overflows; a signed arithmetic wrap that produces a wrong business result never corrupts memory, so they do not apply."
+    ],
+    "reference": "CWE Top 25"
+  },
+  {
+    "id": "D8-0088",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "Investigating a breach, analysts find forged entries in the application's authentication log. The application writes the user-supplied username directly into the log, and the attacker submitted usernames containing newline characters followed by fabricated log lines to bury evidence of a brute-force attack. What is the BEST remediation?",
+    "options": [
+      "Forward all application logs to write-once storage so recorded entries cannot be modified after the fact",
+      "Tighten file system permissions so that only the logging service account can write to the log files",
+      "Stop recording user-supplied values such as usernames in the application's security logs altogether",
+      "Encode or sanitize user-supplied values — stripping control characters or using structured formats — before writing them to logs"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Write-once storage protects entries already recorded, but these forged lines were written through the legitimate logging path, so they would be faithfully preserved as if they were genuine.",
+      "The attacker never touched the log file directly; the application itself wrote the forged lines, so file permissions were respected throughout the attack and tightening them changes nothing.",
+      "Dropping usernames from authentication logs destroys the forensic value the log exists to provide; the problem is unneutralized content, not the presence of the field.",
+      "This is log injection: untrusted input must be treated as data within the logging context, so neutralizing control characters or emitting structured records prevents fabricated entries while preserving the audit trail."
+    ]
+  },
+  {
+    "id": "D8-0089",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A penetration tester demonstrates account takeover by predicting password-reset tokens, which the application derives from the request timestamp using a standard library pseudo-random function. Which change BEST eliminates the vulnerability?",
+    "options": [
+      "Generate single-use, short-lived reset tokens from a cryptographically secure random number generator with sufficient entropy",
+      "Hash each generated token with SHA-256 before including it in the emailed password-reset link",
+      "Increase the token length to 64 characters while keeping the existing generation routine unchanged",
+      "Ensure that password-reset links are only ever delivered over TLS-protected connections"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The tokens are guessable because their source is deterministic and seeded by a knowable value; a CSPRNG with adequate entropy, combined with single use and short expiry, makes prediction infeasible.",
+      "Hashing a predictable value yields a predictable hash: an attacker who can reproduce the input computes the identical SHA-256 output, so the guessing attack survives unchanged.",
+      "Length without entropy is illusory strength; 64 characters derived from the same predictable generator are just as reproducible by an attacker who models the timestamp seed.",
+      "TLS protects the link from network eavesdropping, but the tester never intercepted anything — the tokens were computed independently, which transport encryption cannot prevent."
+    ]
+  },
+  {
+    "id": "D8-0090",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A security researcher decompiles a retailer's published mobile app and extracts a single embedded API key that grants write access to the backend pricing service for every installation. The exposed key has already been rotated. What is the BEST architectural change to prevent recurrence?",
+    "options": [
+      "Apply commercial-grade obfuscation to the app binary so the replacement key is much harder to locate",
+      "Ship the key encrypted within the app package and have the app decrypt it in memory at startup",
+      "Replace the shared embedded key with per-user authenticated sessions and enforce privileged pricing operations on the server",
+      "Implement certificate pinning so the app's API traffic cannot be intercepted and the key cannot be captured in transit"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Obfuscation raises attacker effort but anything shipped in the client can eventually be recovered; a secret distributed to every installation cannot be protected by hiding it better.",
+      "The decryption key must also ship inside the app, so this only adds one extraction step; it repeats the same client-held-secret mistake in a layered form.",
+      "Anything in a published binary must be treated as public; deriving authority from each user's authenticated identity and keeping privileged logic server-side removes the shared client secret entirely.",
+      "Pinning protects the network channel from interception, but the researcher recovered the key from the binary at rest — a path that transport protections do not touch."
+    ]
+  },
+  {
+    "id": "D8-0091",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "In a containerized platform, the internal payments service accepts any request originating inside the cluster network without authentication because \"only trusted services run there.\" A compromise of one low-value service allowed testers to invoke payment operations directly. Which design change BEST corrects the underlying weakness?",
+    "options": [
+      "Move the microservices onto a more tightly segmented internal network with stricter firewall rules between zones",
+      "Require every service-to-service call to present a verified service identity — for example mutual TLS — and authorize each request regardless of network origin",
+      "Deploy a web application firewall at the internet edge to inspect all traffic entering the cluster",
+      "Encrypt all east-west traffic with TLS using a single wildcard certificate shared across the cluster's services"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Tighter segmentation shrinks the trusted zone but preserves the flawed assumption: any compromised workload inside the smaller segment still gains unauthenticated access to the payments service.",
+      "The root cause is implicit trust in network location; authenticating and authorizing every call by cryptographic service identity means a compromised neighbor gains no standing to invoke payment operations.",
+      "An edge WAF governs north-south traffic from the internet; the demonstrated attack traveled east-west between internal services and never crossed the perimeter device.",
+      "A shared certificate encrypts the traffic but gives every service the same identity, so confidentiality improves while authentication — the missing control — is still absent."
+    ],
+    "reference": "NIST SP 800-207"
+  },
+  {
+    "id": "D8-0092",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "hard",
+    "stem": "An architect is designing a document-signing platform expected to remain in service for more than fifteen years and asks how the design should account for the likelihood that currently approved signature algorithms will be deprecated during that lifetime. Which approach BEST addresses this concern at design time?",
+    "options": [
+      "Select the largest key sizes available today so the chosen algorithms will never require replacement during the platform's life",
+      "Develop a proprietary in-house signature algorithm, reasoning that attackers cannot analyze what has never been published",
+      "Plan to rewrite the cryptographic layer as a dedicated project whenever a deprecation announcement is eventually made",
+      "Isolate cryptographic operations behind a configurable provider interface and record algorithm identifiers with each signature so algorithms can be replaced without redesign"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Larger keys resist brute force within an algorithm but provide no protection when the algorithm itself is broken or deprecated, as post-quantum migration planning illustrates.",
+      "This violates the principle that security must not depend on design secrecy; unreviewed proprietary cryptography historically fails far faster than published, publicly vetted algorithms.",
+      "Deferring to a future rewrite assumes the change will be affordable then; without built-in abstraction, algorithms and formats end up hard-coded throughout, making migration invasive and slow.",
+      "This is cryptographic agility: abstracting the provider and tagging stored data with the algorithm used lets old signatures remain verifiable while new ones are issued under replacement algorithms through configuration-level change."
+    ],
+    "reference": "NIST SP 800-131A"
+  },
+  {
+    "id": "D8-0093",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "During requirements review for a new mobile feature, the product team proposes continuously collecting customers' precise location because the data \"may be useful for future features.\" The privacy officer objects. What should the development organization do?",
+    "options": [
+      "Limit collection to data needed for defined feature purposes and record retention limits as explicit requirements",
+      "Proceed with the collection but require the location history to be encrypted both at rest and in transit",
+      "Proceed with the collection but anonymize the stored location history after twelve months of retention",
+      "Proceed after adding blanket consent language to the license agreement covering all possible future uses"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Privacy by design begins with data minimization: data collected without a defined purpose creates breach, regulatory, and retention liability that no downstream control fully offsets, so the requirement itself must be narrowed.",
+      "This confuses protection with legitimacy; encrypting data the organization should not hold does not cure the collection problem, and the liability of holding it remains.",
+      "Delayed anonymization still means a year of holding unnecessary precise location data, and location traces are notoriously re-identifiable, so this mitigates little of the actual risk.",
+      "Broad consent is not a substitute for purpose limitation; many privacy regimes reject open-ended consent for undefined future uses, and the risk of holding unnecessary data is unchanged."
+    ]
+  },
+  {
+    "id": "D8-0094",
+    "domain": 8,
+    "objective": "8.1",
+    "difficulty": "medium",
+    "stem": "A medical-device firm will build firmware whose requirements are fixed by regulation, must produce documented verification evidence for each development stage, and will undergo a single formal certification before release. Which development approach BEST fits this project?",
+    "options": [
+      "Scrum, delivering the firmware in two-week sprints with a backlog reprioritized as requirements evolve",
+      "The spiral model, structuring the project as repeated risk-analysis-driven prototype iterations",
+      "A sequential V-model lifecycle in which each specification phase is paired with a corresponding verification and validation stage",
+      "DevOps continuous deployment, releasing firmware updates automatically several times per day"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Scrum's strength is accommodating changing requirements; here requirements are fixed by regulation, and sprint-based emergent design complicates producing stage-by-stage certification evidence.",
+      "The spiral model earns its overhead when uncertainty must be reduced iteratively; with stable, regulator-defined requirements, its repeated risk-analysis cycles add cost without corresponding benefit.",
+      "Fixed requirements, mandatory stage-gate documentation, and a one-time certification align with a sequential V-model, which explicitly maps every development phase to a verification activity that generates the required evidence.",
+      "Continuous deployment optimizes for frequent incremental change, which directly conflicts with certifying a fixed firmware baseline once before release."
+    ]
+  },
+  {
+    "id": "D8-0095",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "An insurer is selecting a firm for custom development of a claims system. The security manager wants evidence that a bidder's development process is defined, repeatable, and measured across the organization rather than dependent on a few skilled individuals. Which evaluation criterion BEST provides that evidence?",
+    "options": [
+      "The number of bidder staff holding individual secure-software certifications such as CSSLP",
+      "An independent appraisal of the bidder's process maturity, such as a current CMMI maturity level rating",
+      "A penetration test report showing few findings for one product the bidder previously delivered",
+      "The bidder's ISO/IEC 27001 certification covering its own information security management system"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Individual credentials indicate personal knowledge, not institutionalized process; certified staff can leave, which is exactly the person-dependency the manager wants to avoid.",
+      "Process maturity appraisals such as CMMI evaluate whether an organization's development practices are defined, managed, and quantitatively measured — organizational repeatability rather than individual skill.",
+      "A single product's point-in-time test result says little about whether the process that produced it is repeatable across different projects, teams, and years.",
+      "ISO/IEC 27001 certifies the management system protecting the bidder's own information assets; it is commonly confused with development capability but does not appraise how software is actually built."
+    ]
+  },
+  {
+    "id": "D8-0096",
+    "domain": 8,
+    "objective": "8.4",
+    "difficulty": "medium",
+    "stem": "A company purchases a human-resources application that can either maintain its own local username and password store or federate with the enterprise identity provider via SAML. From an access-risk perspective, which deployment choice is BEST?",
+    "options": [
+      "Use local accounts configured with strong password complexity, history, and lockout requirements",
+      "Use local accounts and have HR managers recertify the application's account list every quarter",
+      "Use local accounts synchronized nightly from the corporate directory by an automated batch job",
+      "Federate authentication to the enterprise identity provider so central MFA and automated joiner-mover-leaver deprovisioning govern access"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Password policy hardens individual credentials but leaves an isolated credential silo outside central MFA, monitoring, and automated deprovisioning — which are the larger access risks.",
+      "Quarterly recertification is a periodic detective control; a departed employee's local account could remain usable for up to three months between review cycles.",
+      "Nightly synchronization narrows the gap but still leaves a separate credential store, a same-day orphaned-access window, and a batch process that can fail silently.",
+      "Federation ties the application to the authoritative identity lifecycle: disablement in the identity provider immediately revokes access, and enterprise MFA and conditional access apply without app-specific administration."
+    ]
+  },
+  {
+    "id": "D8-0097",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "During resilience testing, engineers discover that when the central authorization service is unreachable, the document management application grants every access request instead of blocking users until the service recovers. Which secure design principle does this behavior violate?",
+    "options": [
+      "Fail securely, because an error condition should cause the system to default to denying access",
+      "Least privilege, because users should hold only the minimum rights their job roles require",
+      "Separation of duties, because no single component should both request and approve access",
+      "Defense in depth, because multiple overlapping layers of controls should protect the documents"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Failing securely means that on error or component failure the system defaults to a safe, denying state; granting all requests during an outage is the classic fail-open violation of this principle.",
+      "Least privilege concerns how much access is granted when the system works correctly; the flaw here is behavior in a failure state, not the sizing of normal permissions.",
+      "Separation of duties splits sensitive tasks between people or roles to prevent abuse; it does not describe how software should behave when a dependency is down.",
+      "Additional layers might mask the symptom, but the named defect — defaulting to allow on failure — is specifically a failure-mode design principle, not an absence of layering."
+    ]
+  },
+  {
+    "id": "D8-0098",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "medium",
+    "stem": "A reporting application connects to the finance database with an account granted SELECT on every table, including identifiable payroll data, although its reports use only aggregated totals. Auditors demand the exposure be reduced. Which database-level change BEST enforces the requirement?",
+    "options": [
+      "Enable transparent database encryption so that all of the finance data files are encrypted at rest",
+      "Grant the reporting account access only to views or stored procedures exposing the required aggregates, and revoke its direct table privileges",
+      "Turn on database activity monitoring to alert whenever the reporting account queries payroll tables",
+      "Modify the reporting application's queries so that they select only the aggregate columns from the tables"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Transparent encryption protects files from theft outside the DBMS but is invisible to any connected authorized account, so the reporting login can still read payroll rows freely.",
+      "Views and stored procedures act as a constrained interface: the account can obtain only the aggregated results it legitimately needs, and the excess privilege is removed at the enforcement point — the database itself.",
+      "Monitoring is detective; it reports misuse of the excessive privilege after the fact rather than removing the privilege, which is what the auditors require.",
+      "Restricting the queries relies on application code voluntarily behaving; a compromise of the app or its credentials can still select the full payroll tables because the broad grants remain."
+    ]
+  },
+  {
+    "id": "D8-0099",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "easy",
+    "stem": "A developer wraps the debit and credit steps of a funds transfer in a single database transaction so that if the credit step fails, the earlier debit is automatically rolled back. Which transaction property is the developer relying on?",
+    "options": [
+      "Durability, which guarantees that committed changes survive subsequent system failures",
+      "Isolation, which prevents concurrent transactions from interfering with one another",
+      "Atomicity, which ensures all steps of a transaction complete or none of them take effect",
+      "Consistency, which ensures transactions move the database between valid rule-compliant states"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Durability is about committed work persisting through crashes; the scenario concerns undoing an uncommitted partial transfer, which is not durability's role.",
+      "Isolation governs how simultaneous transactions see each other's intermediate states; no concurrency conflict appears in this single-transfer scenario.",
+      "All-or-nothing execution is atomicity: bundling debit and credit into one transaction means a failure anywhere rolls the whole unit back, preventing money from vanishing mid-transfer.",
+      "Consistency is the end condition — the database continues to satisfy its integrity rules — and rollback helps achieve it, but the all-or-nothing mechanism the developer invoked is atomicity."
+    ]
+  },
+  {
+    "id": "D8-0100",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "easy",
+    "stem": "A cloud function that resizes uploaded images runs under an execution role with read-write access to every storage bucket and database in the account, because that role \"already existed.\" What should the security team require?",
+    "options": [
+      "Relocate the function into a dedicated cloud account while continuing to use the existing role",
+      "Enable detailed logging of every API call that the function's execution role makes to cloud services",
+      "Scan each uploaded image for malware before the resizing function is allowed to process it",
+      "Assign the function a purpose-built role scoped to only the specific buckets and operations it needs"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Account isolation shrinks some blast radius but transplants the same excessive grants; within the new account the function still holds rights far beyond its task.",
+      "Logging records what the over-privileged role does; it is a detective measure that leaves the underlying excessive authority fully exploitable.",
+      "Malware scanning addresses hostile file content, a different threat; even with clean inputs, a bug or injection flaw in the function exposes everything its role can reach.",
+      "Least privilege applies to service identities as much as to humans; a narrowly scoped execution role means exploitation of the image-processing code yields access only to the resources the task genuinely requires."
+    ]
+  },
+  {
+    "id": "D8-0101",
+    "domain": 8,
+    "objective": "8.2",
+    "difficulty": "hard",
+    "stem": "While refactoring the payroll system, a developer discovers code that will corrupt payment records if a particular employee identifier ever disappears from the HR feed — apparently planted by a developer who left last year. The developer offers to simply delete the block and redeploy. What should the application security manager direct FIRST?",
+    "options": [
+      "Invoke the incident response process, preserving the code, repository history, and build records as evidence before any cleanup",
+      "Delete the malicious block immediately and redeploy so that the trigger condition can never fire",
+      "Add an automated test asserting the trigger condition is handled safely, then schedule the fix in the next sprint",
+      "Refer the matter to law enforcement and take no internal action until investigators respond"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A planted logic bomb is a security incident, not a defect: evidence must be preserved for forensics and potential legal action, and the response process must determine whether other implants or lingering access remain before the code quietly changes.",
+      "Immediate deletion feels safest but destroys evidentiary context and skips scoping; if the insider planted more than one implant, silently removing the discovered one leaves the rest in place.",
+      "Treating sabotage as an ordinary bug misclassifies the event; a test wrapped around malicious code neither preserves evidence nor investigates how the code got there or what else the author touched.",
+      "External referral may well follow, but waiting on law enforcement before any internal containment leaves a destructive trigger live in production; the organization's own response process acts first and engages authorities through it."
+    ],
+    "reference": "NIST SP 800-61r2"
+  },
+  {
+    "id": "D8-0102",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "hard",
+    "stem": "Customers of a helpdesk platform can set their own display names. Support managers routinely export ticket lists to CSV and open them in a spreadsheet program. A tester registers a display name beginning with \"=\" and demonstrates command execution on a manager's workstation when the export is opened. Which remediation BEST addresses the flaw?",
+    "options": [
+      "Scan all generated export files with antivirus software before offering them for download",
+      "Escape or prefix exported cell values that begin with characters such as =, +, -, or @ so spreadsheets treat them as text",
+      "Apply HTML entity encoding to customer display names before writing them into the exported file",
+      "Restrict the ticket export feature to a much smaller group of senior support managers"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Antivirus inspects for known malicious binaries and signatures; a text cell containing a formula string is well-formed data that scanners will not flag as malware.",
+      "This is CSV (formula) injection: the export is an output context where certain leading characters become executable formulas, so context-appropriate escaping at generation time neutralizes the payload while preserving the data.",
+      "HTML encoding protects a browser rendering context; a spreadsheet interprets entirely different metacharacters, so encoding for the wrong output context leaves the formula trigger intact.",
+      "Narrowing the audience changes who opens the poisoned file, not whether it is poisoned; the remaining authorized managers are exactly the victims the attack targets."
+    ]
+  },
+  {
+    "id": "D8-0103",
+    "domain": 8,
+    "objective": "8.5",
+    "difficulty": "medium",
+    "stem": "A phishing campaign distributes links to a company's genuine portal in the form https://portal.example.com/login?next=..., where the next parameter accepts any URL. After authenticating on the real site, victims are silently forwarded to a look-alike page that asks them to re-enter their credentials. Which fix BEST addresses the vulnerability?",
+    "options": [
+      "Add anti-forgery tokens to the portal's login form submission process",
+      "Run an awareness campaign teaching users to inspect the address bar carefully after every login",
+      "Validate the next parameter against an allow-list of internal relative paths or mapped identifiers before redirecting",
+      "Maintain a deny-list of known malicious domains and refuse any redirect that matches an entry"
+    ],
+    "answer": 2,
+    "explanations": [
+      "CSRF tokens prevent forged state-changing requests made without user intent; this open-redirect abuse rides the user's genuine login flow, which a token does not alter.",
+      "Awareness is a compensating human control; the software flaw remains, and the attack succeeds against any user who fails to notice — the redirect should simply never leave the trusted site.",
+      "The defect is an open redirect: constraining the post-login destination to validated internal paths or server-side mapped identifiers makes the parameter useless for forwarding victims off-site.",
+      "Deny-lists chase an infinite supply of attacker-registered domains; new look-alike hosts bypass the list the same day they are created."
+    ]
+  },
+  {
+    "id": "D8-0104",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "easy",
+    "stem": "Before a high-risk trading application is released, the QA lead proposes that the developers who wrote each module also perform its security testing, since they understand the code best. Why should the security manager object to this arrangement?",
+    "options": [
+      "Security testing must always be performed by an external third-party firm in order to be valid",
+      "Developers cannot test effectively because they lack access to the production data set",
+      "Manual testing by any human is inferior to automated scanning tools regardless of who runs it",
+      "Authors share the assumptions embedded in their code, so objective assessment requires testers independent of the developers"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This overstates the requirement: independence can come from a separate internal team; outsourcing is one way to achieve it, not a universal mandate for validity.",
+      "Testing should not rely on production data at all — masked or synthetic data is preferred — so data access is not the reason developer self-testing is inadequate.",
+      "Skilled manual testing finds logic and design flaws that automation misses; the concern here is independence and objectivity, not manual versus automated technique.",
+      "A developer testing their own module tends to exercise it the way it was designed to be used, inheriting the very blind spots that created the flaws; independent testers bring an adversarial perspective and organizational objectivity."
+    ]
+  },
+  {
+    "id": "D8-0105",
+    "domain": 8,
+    "objective": "8.3",
+    "difficulty": "hard",
+    "stem": "The CISO commissions a penetration test of a revenue-critical e-commerce platform, but the operations director objects that testing could disrupt production during the approaching holiday peak. What is the BEST way for the security manager to proceed?",
+    "options": [
+      "Establish documented rules of engagement with the system owner — scope, prohibited techniques, testing windows, emergency contacts — and run the riskiest cases against a production-equivalent staging environment",
+      "Postpone all penetration testing until the holiday peak has passed, accepting that the platform enters its highest-exposure period unassessed",
+      "Proceed with a full unannounced test against production, since only fully realistic conditions produce meaningful penetration test results",
+      "Substitute an automated vulnerability scan for the penetration test because scanning poses far less operational risk to production systems"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Sound assessment balances assurance and availability: negotiated rules of engagement, safe test windows, and a production-equivalent environment for dangerous cases deliver owner-approved coverage before peak exposure without gambling with revenue.",
+      "Simple postponement resolves the conflict by avoidance, leaving the platform untested precisely when attack likelihood and business impact are at their highest.",
+      "Unbounded realism against a revenue-critical system trades a controlled assessment for an unmanaged availability risk; professional testing is always governed by agreed rules of engagement.",
+      "A vulnerability scan identifies known weaknesses but does not exploit or chain them; it is commonly confused with penetration testing yet provides materially less assurance for a high-risk platform."
+    ]
   }
 ]
