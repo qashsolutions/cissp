@@ -1106,5 +1106,1011 @@
       "EDR addresses malware and endpoint compromise; it is often assumed to secure communications, but it does not encrypt data crossing a hostile network.",
       "Data in transit over untrusted networks is protected by channel encryption, and an always-on VPN wraps every portal session so nothing readable is exposed to the local wireless environment."
     ]
+  },
+  {
+    "id": "D2-0056",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "medium",
+    "stem": "A hospital's public health-information portal contains only material approved for public release, so the project team proposes labeling it 'Public' and applying minimal security controls. What is the MOST important point the security manager should raise about this classification decision?",
+    "options": [
+      "Public data still requires strong confidentiality controls because attackers could aggregate it with other public sources",
+      "The portal should be classified at the highest level in the scheme because it is directly exposed to the internet",
+      "Classification must also reflect integrity and availability impact, since tampered or unavailable health guidance could cause real harm",
+      "Only the legal department can approve a Public label because public-release decisions are regulatory matters"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses the aggregation problem with this scenario. Aggregation raises the confidentiality of combined datasets, but approved public-release content has no confidentiality requirement to elevate; the gap here is integrity and availability.",
+      "This confuses exposure with sensitivity. Internet-facing placement affects threat likelihood and control selection, not the classification level, which is driven by the impact of compromise.",
+      "Classification schemes address all security objectives, not just secrecy. Public health guidance has low confidentiality needs but high integrity and availability needs, because defaced or offline medical advice can injure the public and the organization's reputation, so controls must be selected for those impacts.",
+      "This confuses release authority with classification authority. The data owner classifies the information, consulting legal and communications functions as needed; legal review supports but does not replace the owner's decision."
+    ]
+  },
+  {
+    "id": "D2-0057",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "medium",
+    "stem": "After acquiring a competitor, a company discovers the acquired firm used a five-level classification scheme while its own scheme has three levels. Migrated documents are being labeled and handled inconsistently. What should the security manager recommend FIRST?",
+    "options": [
+      "Develop an approved equivalence mapping that translates each of the acquired firm's levels into the surviving corporate scheme",
+      "Reclassify every acquired document from scratch through individual review by its data owner",
+      "Retain both schemes and train staff to apply whichever scheme matches a document's company of origin",
+      "Apply the acquiring company's middle classification level to all migrated documents until each is reviewed"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A documented level-to-level mapping lets the combined workforce translate legacy labels consistently and immediately, restoring uniform handling; owners can then review exceptions over time rather than blocking integration.",
+      "This confuses reclassification review with scheme harmonization. Owner review of millions of documents is impractical as a first step; a mapping restores consistency now and reserves individual review for disputed items.",
+      "This confuses preserving legacy labels with preserving legacy schemes. Running two parallel schemes institutionalizes the inconsistency the manager is trying to eliminate and doubles training and handling complexity.",
+      "This confuses an interim default with safe handling. A blanket middle level over-protects some records and, more dangerously, under-protects the acquired firm's most sensitive material during the transition."
+    ]
+  },
+  {
+    "id": "D2-0058",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "easy",
+    "stem": "During a departmental reorganization, a security analyst discovers several large repositories of business records whose original owner left the company years ago; no one currently claims responsibility for them. What should be done FIRST?",
+    "options": [
+      "Archive the repositories to offline storage until someone requests access to the data",
+      "Have management formally assign a data owner who is accountable for the repositories",
+      "Delete the repositories because data without an owner serves no business purpose",
+      "Ask the security team to classify the repositories based on a sample of their content"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses deferral with resolution. Moving the data offline leaves classification, retention, and access decisions unmade and may itself violate availability or retention obligations.",
+      "Accountability precedes every other data decision. Until management designates an owner, no one has the authority to classify the records, set access rules, or apply retention, so assigning ownership is the necessary first step.",
+      "This confuses lack of an owner with lack of value or obligation. The records may be subject to retention requirements or legal relevance, and destroying them without an authorized decision could be indefensible.",
+      "This confuses the security function's advisory role with ownership. Security can facilitate and recommend, but classification decisions belong to an accountable business owner, who must exist first."
+    ]
+  },
+  {
+    "id": "D2-0059",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "hard",
+    "stem": "A data science team trains a machine-learning model on a highly confidential customer dataset, then proposes publishing the trained model file to a broadly accessible internal repository because 'the model is just math, not data.' How should the security manager respond?",
+    "options": [
+      "Approve the request, because the training process irreversibly transforms the customer records",
+      "Approve the request on the condition that the training data was pseudonymized before training began",
+      "Require the repository to apply encryption at rest before the model file is published there",
+      "Classify the model as a sensitive derived asset of its training data and restrict access to it accordingly"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses transformation with anonymization. Trained models can memorize records and leak them through model-inversion and membership-inference techniques, so training is not a reliable one-way destruction of the data.",
+      "This confuses pseudonymization with anonymization. Pseudonymized attributes can still be memorized by the model and re-linked to individuals, so the derived asset remains sensitive.",
+      "This confuses protecting storage with governing access. Encryption at rest defends against media theft, but the exposure here is that a broad internal audience can legitimately retrieve an asset derived from confidential data.",
+      "Assets derived from sensitive sources, including trained models, embeddings, and extracts, generally inherit sensitivity because the source information can often be partially recovered from them; the model should be inventoried, classified, and access-controlled like the data that produced it."
+    ]
+  },
+  {
+    "id": "D2-0060",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "hard",
+    "stem": "A manufacturer's competitive advantage rests on an unpatented process formula. Counsel warns that in any future litigation the firm must be able to demonstrate it took reasonable steps to protect the secret. Which action BEST supports both security and the legal standing of this asset?",
+    "options": [
+      "Classify the formula at the highest sensitivity level and enforce documented need-to-know access supported by nondisclosure agreements",
+      "Patent the process so that the law protects the formula regardless of how internal controls perform",
+      "Encrypt the formula's documentation but distribute the decryption key to all engineering staff to avoid disrupting work",
+      "Divide the formula into separately held fragments so that no single insider ever learns the complete process"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Trade-secret protection depends on demonstrable, consistently applied safeguards. Formal classification, restricted need-to-know access, and signed NDAs create both real protection and the documented evidence of reasonable measures that courts expect.",
+      "This confuses patent protection with trade-secret protection. Patenting requires public disclosure of the process and expires after a fixed term, which destroys the secrecy the company is relying on.",
+      "This confuses applying a technical control with applying it effectively. Encryption whose key is shared with an entire department fails need-to-know and would undercut a claim that access was meaningfully restricted.",
+      "This confuses split knowledge, a control for critical operations like key management, with an information-protection program. Fragmentation alone is operationally fragile and does not create the documented classification, access, and agreement framework counsel needs."
+    ]
+  },
+  {
+    "id": "D2-0061",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "easy",
+    "stem": "While cleaning out a storage cabinet, an operations technician finds a box of unlabeled backup tapes of unknown age and content. Under sound media-handling practice, how should the tapes be treated?",
+    "options": [
+      "As Public, because the absence of a label means no classification was ever assigned to them",
+      "As candidates for immediate degaussing, since unidentified media is a standing liability",
+      "As Internal-use, applying the organization's default level for ordinary business records",
+      "As the organization's highest classification until their content is identified and they are formally labeled"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses a missing label with an assessed low sensitivity. An absent label is a marking failure, not evidence about the data, and assuming Public invites mishandling of potentially sensitive content.",
+      "This confuses disposal with handling. Destroying media of unknown content could eliminate records still under retention requirements or legal relevance before anyone has authority to approve destruction.",
+      "This confuses a convenience default with safe handling. A mid-level default under-protects any highly sensitive content the tapes might hold, which is precisely the uncertainty that must be resolved first.",
+      "When sensitivity is unknown, the safe assumption is the most restrictive one. Treating unmarked media at the highest level prevents mishandling during the interval before the content is reviewed, classified, and properly labeled."
+    ]
+  },
+  {
+    "id": "D2-0062",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "medium",
+    "stem": "An organization requires staff to type the classification level into document footers, but its data loss prevention gateway cannot reliably act on this convention and regularly misses sensitive files. Which change would MOST improve automated policy enforcement?",
+    "options": [
+      "Expand the DLP keyword dictionaries so the gateway detects more footer text patterns",
+      "Apply classification as machine-readable metadata tags at creation so security tools can evaluate labels directly",
+      "Route all outbound documents through a manual review queue operated by the security team",
+      "Add a visible classification watermark across every page of sensitive documents"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses tuning content inspection with fixing the labeling model. Keyword matching on free text remains fragile against reformatting, typos, and file conversions, so detection stays probabilistic.",
+      "Structured metadata labels embedded at creation give DLP, email gateways, and rights-management tools a deterministic attribute to enforce against, converting classification from a human convention into an input that automation can act on reliably.",
+      "This confuses adding human effort with enabling automation. A manual review queue cannot scale to normal traffic volumes and reintroduces the inconsistency automation was meant to remove.",
+      "This confuses human-facing marking with machine-facing marking. Visible watermarks help people apply handling rules but are just rendered pixels or text to most enforcement tools."
+    ]
+  },
+  {
+    "id": "D2-0063",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "easy",
+    "stem": "Employees on an open-plan floor share networked printers, and audits keep finding uncollected payroll and medical printouts sitting in output trays. Which control BEST addresses this handling failure?",
+    "options": [
+      "Prohibit the printing of sensitive documents anywhere in the building",
+      "Install CCTV cameras covering the printer areas to deter opportunistic reading and theft",
+      "Deploy secure print release so jobs are held until the user authenticates at the device",
+      "Relocate the printers into the records office and have clerks hand-deliver all output"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses eliminating a business function with securing it. Payroll and benefits work legitimately requires printed output, and a blanket ban will simply drive unofficial workarounds.",
+      "This confuses a detective deterrent with a preventive fix. Cameras may identify who took a document after the fact but leave sensitive pages exposed in the tray in the meantime.",
+      "Holding jobs in a queue until the owner authenticates at the printer ensures sensitive output is only produced when its owner is physically present to collect it, directly eliminating the unattended-printout exposure with minimal workflow impact.",
+      "This confuses centralizing a process with controlling it. Clerk-mediated delivery creates delay and a new handling chain in which the documents are still exposed to people without a need to know."
+    ]
+  },
+  {
+    "id": "D2-0064",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "medium",
+    "stem": "Confidential pre-release product plans distributed to twelve senior executives keep appearing in press stories. Leadership wants future distributions to reveal which recipient's copy was disclosed. Which technique BEST meets this requirement?",
+    "options": [
+      "Embed a unique recipient-specific watermark or fingerprint in each individually distributed copy",
+      "Encrypt the documents with a single strong password shared among the executive team",
+      "Stamp a prominent 'Confidential - Do Not Distribute' banner on every page before sending",
+      "Compute a cryptographic hash of each document and retain the digests as evidence"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Per-recipient watermarking or fingerprinting makes every distributed copy uniquely identifiable, so a leaked version can be traced back to the specific recipient whose copy was disclosed, which is exactly the attribution capability leadership asked for.",
+      "This confuses confidentiality in storage and transit with leak attribution. A shared password protects the file from outsiders but produces identical copies, so a leak cannot be traced to any one holder.",
+      "This confuses communicating handling expectations with enforcing or tracing them. Banners inform honest recipients of their duties but do nothing to identify which insider passed a copy to the press.",
+      "This confuses integrity verification with source attribution. Hashes can prove a leaked copy matches the original, but identical copies produce identical digests, revealing nothing about which recipient leaked."
+    ]
+  },
+  {
+    "id": "D2-0065",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "medium",
+    "stem": "A routine scan reveals a network folder readable by all employees that contains thousands of HR files, including salary and disciplinary records, accumulated over several years. What should the security manager do FIRST?",
+    "options": [
+      "Launch a forensic investigation to determine which employees have viewed the exposed files",
+      "Notify the affected employees that their personnel records may have been exposed internally",
+      "Restrict the folder's permissions so that only authorized HR personnel retain access",
+      "Move the files into an encrypted archive and delete the original shared folder entirely"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses investigation with containment. Determining historical access matters, but every hour the folder stays open widens the exposure; access review follows once the leak is closed.",
+      "This confuses a later obligation with the immediate priority. Notification decisions require established facts and legal input, and announcing the exposure while it remains open could even invite further browsing.",
+      "The ongoing exposure must be stopped before anything else. Tightening the access control list to authorized HR staff contains the incident immediately, preserves the data in place for review, and does not disrupt legitimate HR operations.",
+      "This confuses applying a protective technology with proportionate containment. Relocating and deleting the share disrupts HR's working data and can complicate reconstructing what was exposed, when a permissions change achieves containment cleanly."
+    ]
+  },
+  {
+    "id": "D2-0066",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "medium",
+    "stem": "Over six months, three different project teams have accidentally exposed cloud storage buckets to the internet, and each incident was corrected individually after discovery. What is the BEST way to prevent recurrence across the organization?",
+    "options": [
+      "Require every team using cloud storage to complete annual cloud security awareness training",
+      "Enforce an organization-wide policy guardrail that blocks public bucket access unless a documented exception is approved",
+      "Schedule weekly configuration scans that alert the security team to any bucket open to the internet",
+      "Encrypt all bucket contents with provider-managed keys so an exposure cannot disclose readable data"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses influencing behavior with constraining it. Training reduces mistakes but cannot eliminate them across many teams, and this pattern of repeated misconfiguration calls for a technical preventive control.",
+      "A preventive guardrail applied at the organization level makes the secure state the default for every current and future team: public access simply cannot be enabled without an approved exception, which addresses the systemic cause rather than each symptom.",
+      "This confuses detection with prevention. Weekly scans shrink the exposure window but still allow up to a week of public access, and the goal stated is preventing recurrence, not finding it faster.",
+      "This confuses at-rest encryption with access control. When a bucket is made public, provider-managed encryption is transparently decrypted on read, so anonymous requesters still receive plaintext objects."
+    ]
+  },
+  {
+    "id": "D2-0067",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "medium",
+    "stem": "A facilities upgrade adds hundreds of networked HVAC controllers and badge readers that cannot run the company's endpoint protection or configuration management agents. How should these assets be provisioned MOST securely?",
+    "options": [
+      "Document a formal risk acceptance waiving the security requirements the devices cannot technically support",
+      "Delay the project until replacement models that support the standard endpoint agents can be procured",
+      "Connect them to the corporate LAN after changing default credentials and disabling unused services",
+      "Register them in the asset inventory and place them on a segmented network with monitored, restricted communications"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses risk acceptance with risk treatment. Acceptance without compensating controls leaves hundreds of weak devices on the network; acceptance is only defensible after reasonable mitigations are in place.",
+      "This confuses ideal-state procurement with practical risk management. Purpose-built facility controllers rarely support corporate agents at any price point, and delaying a facilities project indefinitely is not a proportionate response.",
+      "This confuses device hardening with architectural containment. Credential and service hardening is worthwhile but leaves unmanageable devices peer-to-peer with corporate systems on a flat network.",
+      "Assets that cannot host standard controls should be provisioned with compensating architectural controls: recorded in inventory so they are governed, isolated in their own segment, and limited to monitored, necessary traffic flows, which contains the risk their limitations create."
+    ]
+  },
+  {
+    "id": "D2-0068",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "easy",
+    "stem": "A newly hired analyst requests access to a restricted financial reporting dataset. The service desk asks who must approve the request before the storage team grants the permissions. Under standard data governance roles, who holds this authority?",
+    "options": [
+      "The data owner accountable for the financial reporting dataset",
+      "The data custodian who administers the storage platform holding the dataset",
+      "The chief information security officer, as the senior accountable security executive",
+      "The analyst's direct manager, who can confirm the business need for access"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Authorizing who may access a dataset is a core accountability of its data owner, who understands the data's sensitivity and business context; custodians then implement the access the owner has approved.",
+      "This confuses implementing access with authorizing it. The custodian operates the platform and executes approved changes but has no authority to decide who deserves access to the owner's data.",
+      "This confuses program-level accountability with dataset-level decisions. The CISO sets policy and oversees the control environment but does not adjudicate individual access requests for business datasets.",
+      "This confuses endorsing a request with approving it. The manager's confirmation of business need supports the request, but the grant decision rests with the owner of the data being accessed."
+    ]
+  },
+  {
+    "id": "D2-0069",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "hard",
+    "stem": "A company is migrating two decades of engineering documents from an on-premises repository to a SaaS collaboration platform. Access in the legacy system was governed by classification-based permission groups. During migration planning, what deserves the security manager's GREATEST attention?",
+    "options": [
+      "Confirming the SaaS provider holds current SOC 2 attestations and an ISO/IEC 27001 certification",
+      "Negotiating contractual liability caps covering any data lost or corrupted during the transfer",
+      "Verifying that classification labels and equivalent access restrictions are mapped and enforced in the target platform before cutover",
+      "Compressing and deduplicating the repository beforehand to reduce migration time and bandwidth"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses provider assurance with data-specific protection. Certifications speak to the provider's general control environment but say nothing about whether this company's classification model survives the move intact.",
+      "This confuses transferring financial risk with protecting the data. Liability clauses compensate after harm; they do not prevent sensitive documents from landing in the new platform without their access restrictions.",
+      "Protection must follow the data through the move. If labels and permission structures are not translated into equivalent SaaS controls and validated before users arrive, decades of restricted documents could become broadly readable the moment the platform goes live.",
+      "This confuses operational efficiency with the security objective. Reducing transfer volume is a project convenience and does nothing about the risk of classification and access controls failing to carry over."
+    ]
+  },
+  {
+    "id": "D2-0070",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "medium",
+    "stem": "Policy requires customer interaction records to be destroyed three years after account closure, but an audit finds destruction depends on quarterly manual clean-ups that are frequently skipped. What is the BEST remediation?",
+    "options": [
+      "Reassign the clean-up task to a dedicated records clerk with monthly completion deadlines",
+      "Extend the retention period in the policy so the accumulated backlog becomes compliant",
+      "Add the clean-up process to the internal audit plan so missed cycles are caught sooner",
+      "Implement automated lifecycle rules that delete eligible records at retention expiry, honoring any active preservation holds"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses reassigning a weak process with redesigning it. Destruction still depends on one person remembering to act, so the same failure mode persists with a different name attached.",
+      "This confuses changing the requirement with meeting it. Retention periods exist to serve legal and business needs; rewriting policy to excuse a process failure entrenches over-retention and its liabilities.",
+      "This confuses detection with correction. More frequent auditing finds the missed clean-ups faster but does not make destruction happen; the process itself remains manual and unreliable.",
+      "Enforcing retention through automated storage lifecycle rules removes dependence on human diligence, so destruction occurs consistently when records become eligible, while the hold check preserves anything under active legal preservation."
+    ]
+  },
+  {
+    "id": "D2-0071",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "medium",
+    "stem": "During a PCI DSS gap assessment, testers find that a payment application's debug logs record full card numbers, and these logs replicate to a log analytics platform queried by many engineering teams. What is the BEST corrective action?",
+    "options": [
+      "Restrict the analytics platform so that only the payments team can query the replicated logs",
+      "Modify the application to mask or truncate card numbers before log entries are ever written",
+      "Apply at-rest encryption to the log files on both the application servers and the analytics platform",
+      "Purge the existing analytics copies and shorten log retention on both platforms to thirty days"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses narrowing the audience with removing the exposure. Full card numbers would still be generated, stored, and replicated, keeping the logging pipeline inside the cardholder data environment and its compliance scope.",
+      "Eliminating the sensitive element at the point of creation is the durable fix: masked or truncated entries retain diagnostic value while ensuring no downstream copy, replica, or backup of the logs ever contains full card numbers.",
+      "This confuses protecting stored media with removing prohibited content. Encrypted logs still decrypt for every authorized query, so full card numbers keep flowing to engineering teams with no need to see them.",
+      "This confuses reducing the historical window with stopping the practice. Cleaning up old copies helps, but the application would go on writing fresh card numbers into new logs every day."
+    ],
+    "reference": "PCI DSS"
+  },
+  {
+    "id": "D2-0072",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "hard",
+    "stem": "Quarterly earnings figures are extremely sensitive before public announcement but become public information the moment they are released. Employees complain that files remain locked down long after each announcement. Which practice BEST aligns protection with this data's lifecycle?",
+    "options": [
+      "Assign a declassification trigger tied to the announcement event at the time the material is first classified",
+      "Classify earnings material at a moderate level that balances pre-release and post-release handling needs",
+      "Rely on the organization's annual reclassification review cycle to downgrade released material",
+      "Allow employees to treat released figures as public once they have seen them reported in the news"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Sensitivity here is event-driven, so the classification decision should capture that from the start: specifying the announcement as the declassification trigger keeps pre-release material tightly protected and downgrades it promptly and authoritatively once released.",
+      "This confuses averaging with lifecycle alignment. A middle level under-protects material whose premature disclosure could move markets and still over-restricts it after release; sensitivity changes over time and one static level cannot fit both phases.",
+      "This confuses periodic review with event-driven change. Annual cadence leaves each quarter's released figures over-classified for months, which is exactly the friction users are reporting.",
+      "This confuses observed publicity with authorized downgrade. Individual employees inferring a label change invites errors, especially confusing draft internal figures with released ones, and removes the owner from the decision."
+    ]
+  },
+  {
+    "id": "D2-0073",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "medium",
+    "stem": "A review finds that many employees who changed roles years ago still hold access to a sensitive research repository, even though every original grant was properly approved at the time. Which control BEST prevents this condition from recurring?",
+    "options": [
+      "Require phishing-resistant multifactor authentication for all access to the repository",
+      "Lower the repository's classification level so the residual access presents less risk",
+      "Institute periodic owner-led recertification of all access held to the repository",
+      "Revoke every existing permission and require all users to submit fresh access requests"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses authentication strength with authorization hygiene. Stronger MFA verifies identities more reliably, but the problem is that correctly identified people retain entitlements their current roles no longer justify.",
+      "This confuses adjusting the label with fixing the control failure. Classification reflects the data's sensitivity, which has not changed; relabeling to excuse stale access would corrupt the classification scheme itself.",
+      "Recurring access reviews in which the data owner reconfirms or revokes each entitlement systematically catch grants that role changes have made inappropriate, converting access from a permanent award into one that must remain justified over time.",
+      "This confuses a one-time purge with a sustained control. A reset clears today's stale access at real operational cost, but without a recurring review the same accumulation simply rebuilds."
+    ]
+  },
+  {
+    "id": "D2-0074",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "hard",
+    "stem": "An insurer must retain encrypted policy archives for thirty years. The security team plans to rotate and destroy the encryption keys every two years in line with its cryptoperiod standard. What critical issue should the security manager raise?",
+    "options": [
+      "Thirty-year retention exceeds the storage media's expected lifespan, so the archives should be kept unencrypted instead",
+      "Keys protecting archived data must remain recoverable, through escrow or re-encryption, for the entire retention period or the archives become unreadable",
+      "Key rotation is unnecessary for data at rest because cryptoperiods only apply to keys protecting data in transit",
+      "The archives should be protected with cryptographic hashes rather than encryption so that no long-term keys are needed"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses media longevity with key lifecycle, and the fix is wrong on both counts: media aging is addressed by periodic refresh, and removing encryption sacrifices confidentiality rather than resolving the key management gap.",
+      "Retention obligations extend to the means of reading the data. If keys are destroyed on a two-year cycle while archives must remain retrievable for thirty, the records are effectively crypto-shredded; the program must escrow old keys or re-encrypt archives under current keys at each rotation.",
+      "This confuses the scope of cryptoperiods. Key lifetime limits apply to keys protecting data at rest as well as in transit; the flaw in the plan is destroying keys still needed for retained data, not rotating them.",
+      "This confuses integrity protection with confidentiality. Hashes are one-way values that can detect tampering but cannot be reversed to recover content, and they leave the archived records themselves unprotected from disclosure."
+    ]
+  },
+  {
+    "id": "D2-0075",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "medium",
+    "stem": "A pharmaceutical company must keep clinical trial records for twenty-five years. Records from the late 1990s sit on tape formats for which working drives are now scarce, and several tapes fail on read attempts. What does this situation BEST illustrate?",
+    "options": [
+      "The records exceeded their retention period and should already have been destroyed under the schedule",
+      "The tapes were treated as backups rather than archives, so they lack the indexing needed for retrieval",
+      "The tapes should have been periodically degaussed and rewritten onto fresh media of the same format",
+      "Long-term retention requires planned media refresh and format migration to keep records readable"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses a retention-schedule failure with a preservation failure. Records from the late 1990s remain inside a twenty-five-year regulatory window, so the obligation is to keep them readable, not to destroy them.",
+      "This confuses the backup-versus-archive problem with media decay. Poor indexing would make records hard to locate; here the records are failing physically and the hardware to read them is disappearing, which indexing cannot fix.",
+      "This confuses refreshing media with sanitizing it. Degaussing erases magnetic media entirely, and rewriting onto the same obsolete format ignores the drive-scarcity half of the problem.",
+      "Retention is only met if records stay retrievable for the full period, so archival programs must schedule migration to current media and formats before old media degrades and reading hardware becomes unobtainable."
+    ]
+  },
+  {
+    "id": "D2-0076",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "hard",
+    "stem": "To simplify compliance, a company applies a single seven-year retention period to every record type it holds. Counsel then notes that some tax records must be kept longer, while privacy law requires certain customer data to be deleted much sooner. What should the security manager recommend?",
+    "options": [
+      "Replace the blanket period with a retention schedule that sets periods per record category according to each category's specific obligations",
+      "Extend the single period to match the longest legal requirement so that no record is ever destroyed too early",
+      "Shorten the single period to the strictest deletion requirement so privacy obligations are always satisfied",
+      "Delegate retention decisions to each department so the people closest to the records set their own periods"
+    ],
+    "answer": 0,
+    "explanations": [
+      "One uniform period cannot satisfy obligations that simultaneously demand longer keeping for some records and earlier deletion for others; a category-based schedule resolves the conflict by matching each record type to its own legal, regulatory, and business requirements.",
+      "This confuses avoiding early destruction with overall compliance. Stretching the period keeps tax records safe but directly violates deletion mandates for customer data, while enlarging breach and discovery exposure.",
+      "This confuses satisfying privacy minimization with satisfying all obligations. The shortest period would destroy tax and other records before their legally required minimums, exposing the company to penalties and spoliation claims.",
+      "This confuses local knowledge with governance. Uncoordinated departmental choices produce inconsistent, indefensible retention; departments should feed requirements into one controlled corporate schedule, not set periods independently."
+    ]
+  },
+  {
+    "id": "D2-0077",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "medium",
+    "stem": "A company's leased multifunction copiers are being returned to the leasing vendor at end of term. For four years the devices scanned contracts, HR forms, and medical claims. What MUST happen before the copiers leave the premises?",
+    "options": [
+      "Delete all stored jobs and address books using each copier's built-in on-screen file manager",
+      "Obtain the leasing vendor's written commitment to erase the devices after they arrive at its depot",
+      "Sanitize or remove the devices' internal storage in accordance with the organization's media sanitization policy",
+      "Photograph the asset tags and update the asset inventory to record the disposal of each device"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses logical deletion with sanitization. On-screen delete functions typically remove file references while recoverable images of years of scanned documents remain on the internal drive.",
+      "This confuses a contractual promise with verified sanitization before loss of custody. Once the devices ship, the data rides unprotected through transport and vendor handling, and the organization cannot confirm the erasure ever occurs.",
+      "Multifunction devices contain hard drives holding images of scanned and printed documents, so they are storage media leaving organizational control and must be sanitized, or their drives removed and retained or destroyed, under the media sanitization policy before release.",
+      "This confuses asset accountability with data protection. Updating the inventory is a proper decommissioning step, but it does nothing about the sensitive document images still resident on the internal drives."
+    ],
+    "reference": "NIST SP 800-88r1"
+  },
+  {
+    "id": "D2-0078",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "hard",
+    "stem": "An operations team overwrites decommissioned hard drives with an approved wiping tool and immediately releases them for resale. A security review flags the process as incomplete even though the tool ran successfully on every drive. What key step is missing?",
+    "options": [
+      "Running a second overwrite pass with a different vendor's tool to provide defense in depth",
+      "Verifying the sanitization results on a per-device or sampled basis and documenting the outcome for each drive",
+      "Degaussing each drive after the overwrite completes to remove any remaining magnetic remanence",
+      "Encrypting each drive's contents before the overwrite begins so residual sectors remain protected"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses adding redundancy with adding assurance. A second pass still assumes the process worked; without independent verification, tool errors, unreadable sectors, or skipped drives go undetected either way.",
+      "Sanitization is not complete until it is verified and documented: checking results and recording the method, tool, operator, and outcome per drive detects silent failures and produces the evidence needed to defend the disposal if data later surfaces.",
+      "This confuses maximal destruction with the appropriate method. Degaussing renders modern drives permanently unusable, defeating the resale purpose, and still would not supply the missing verification and records.",
+      "This confuses pre-encryption, which supports cryptographic erase strategies, with post-sanitization assurance. Encrypting just before wiping adds little, and the review's gap is proof the overwrite actually succeeded."
+    ],
+    "reference": "NIST SP 800-88r1"
+  },
+  {
+    "id": "D2-0079",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "easy",
+    "stem": "A department head argues that since records management has moved to a reputable SaaS provider, the provider is now 'responsible for security' and internal data-protection tasks can be discontinued. Which statement BEST corrects this view?",
+    "options": [
+      "Responsibility transfers to the provider only if the contract includes a right-to-audit clause",
+      "The provider is responsible for everything except the physical security of its data centers",
+      "Responsibility is fully transferred because the SaaS model includes application management",
+      "The customer always retains responsibility for classifying its data and governing who may access it"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses an assurance mechanism with the allocation of responsibility. Audit rights let the customer verify the provider's controls; they neither create nor transfer accountability for the customer's data.",
+      "This inverts the shared responsibility model. Physical data center security is one of the things the provider does own; what it never owns is the customer's data governance.",
+      "This confuses managing the application stack with governing the data in it. SaaS providers secure infrastructure and application layers, but classification, access decisions, and configuration of tenant controls remain customer duties.",
+      "Under the shared responsibility model the customer remains accountable for its information regardless of delivery model: deciding sensitivity, defining access, configuring tenant security options, and meeting its own legal obligations cannot be outsourced."
+    ]
+  },
+  {
+    "id": "D2-0080",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "hard",
+    "stem": "A European subsidiary wants to send employee personal data to an analytics processor located in a country that privacy regulators have not recognized as providing adequate data protection. Which approach BEST enables the transfer to proceed lawfully?",
+    "options": [
+      "Execute an approved transfer mechanism, such as standard contractual clauses, supported by an assessment of protections in the destination country",
+      "Encrypt the data in transit so that the cross-border transfer no longer involves readable personal data",
+      "Obtain a copy of the processor's ISO/IEC 27001 certificate as evidence of adequate protection",
+      "Route the transfer through servers located in a country that regulators have recognized as adequate"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Where no adequacy recognition exists, privacy regimes permit transfers through approved legal mechanisms such as standard contractual clauses, reinforced by an assessment of destination-country risks and any supplementary safeguards, giving the transfer a defensible legal basis.",
+      "This confuses a technical safeguard with a legal basis. Encrypted personal data is still personal data being transferred, and the processor must decrypt it to perform analytics, so encryption alone does not authorize the transfer.",
+      "This confuses a security management certification with legal adequacy. ISO/IEC 27001 attests to an ISMS, but adequacy is a regulatory determination about a jurisdiction's legal regime, which no vendor certificate can substitute for.",
+      "This confuses the transit path with the processing destination. Routing through an adequate country changes nothing legally, because the data still ends up processed in the non-adequate jurisdiction, which is what the rules govern."
+    ]
+  },
+  {
+    "id": "D2-0081",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "easy",
+    "stem": "A financial analyst queries customer account data from the corporate data warehouse every day to build reports, but has no role in administering the platform or setting data policy. Under the organization's data governance framework, what is this analyst's PRIMARY responsibility toward the data?",
+    "options": [
+      "Determining the appropriate classification level for the source data in the warehouse",
+      "Implementing and maintaining the technical controls that protect the warehouse platform",
+      "Complying with the handling and acceptable use requirements defined for the data's classification",
+      "Defining data quality standards and the approved business uses for the dataset"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses the data user with the data owner. Classification decisions belong to the owner who is accountable for the asset, not to the people who consume it day to day.",
+      "This confuses the data user with the data custodian. Custodians operate and maintain the protective controls on behalf of the owner; an analyst who merely uses the data has no such duty.",
+      "The analyst is a data user, and a user's core obligation is to handle the data in accordance with the policies, classification handling rules, and acceptable use requirements the organization has established.",
+      "This confuses the data user with the data steward, who governs quality, definitions, and appropriate business use. A consuming analyst follows those rules rather than setting them."
+    ]
+  },
+  {
+    "id": "D2-0082",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "easy",
+    "stem": "A defense contractor is mapping its government customer's markings to internal handling procedures. The customer states that unauthorized disclosure of a particular document could be expected to cause exceptionally grave damage to national security. Which government classification level corresponds to that impact statement?",
+    "options": [
+      "Top Secret",
+      "Secret",
+      "Confidential",
+      "Controlled Unclassified Information (CUI)"
+    ],
+    "answer": 0,
+    "explanations": [
+      "In the U.S. government scheme, Top Secret is defined by the expectation of exceptionally grave damage to national security upon unauthorized disclosure, which matches the customer's statement exactly.",
+      "Secret is associated with serious damage, one tier below the exceptionally grave damage standard described here. Candidates often blur the two adjacent damage phrases.",
+      "Confidential is associated with damage to national security, the lowest classified tier, well below the impact described in the scenario.",
+      "CUI is unclassified information that still requires safeguarding; it is not a classification level at all and carries no national security damage threshold."
+    ],
+    "reference": "Executive Order 13526"
+  },
+  {
+    "id": "D2-0083",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "medium",
+    "stem": "A new CISO launches a data classification program but finds it stalling: the organization maintains a meticulous hardware configuration management database, yet nobody can say what information the business actually holds, where it resides, or who is answerable for it. What should the CISO do FIRST?",
+    "options": [
+      "Deploy an enterprise DLP suite to stop sensitive data from leaving the network",
+      "Build an information asset inventory recording data sets, their locations, and accountable owners",
+      "Enrich the hardware CMDB with additional attributes such as warranty and lifecycle status",
+      "Publish the classification policy and direct business units to begin labeling documents immediately"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This jumps to a technical control before the organization knows what data it must protect. DLP policies cannot be written meaningfully without knowing which information assets exist and how sensitive they are.",
+      "Classification cannot proceed until the organization identifies its information assets, where they live, and who owns them. A hardware CMDB tracks equipment, not information; an information asset inventory is the missing foundation.",
+      "This confuses configuration management of hardware with management of information assets. More detail about servers and warranties still says nothing about the data the business holds.",
+      "Mandating labels without an inventory or assigned owners produces inconsistent, unaccountable labeling. Policy publication is necessary but cannot be effective before assets and owners are identified."
+    ]
+  },
+  {
+    "id": "D2-0084",
+    "domain": 2,
+    "objective": "2.1",
+    "difficulty": "hard",
+    "stem": "During classification workshops, a finance representative proposes valuing a proprietary customer analytics dataset at the depreciated book value of the servers that store it. The security manager objects. Which valuation basis BEST supports classification and control-selection decisions for this dataset?",
+    "options": [
+      "The original acquisition and storage cost of the infrastructure hosting the dataset",
+      "The annual operating budget of the analytics team that produced the dataset",
+      "The premium paid for cyber insurance coverage of incidents affecting the dataset",
+      "The cost to recreate the dataset plus its value to competitors and the liability its loss would create"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses the value of the container with the value of the content. Infrastructure book value ignores what the information itself is worth to the business and to adversaries.",
+      "Team budget is a cost-center figure, not an asset valuation. A small team can produce data worth far more, or far less, than its operating cost, so budget misleads control selection.",
+      "An insurance premium reflects a risk transfer price negotiated with a carrier, not the intrinsic worth of the asset. Relying on it inverts the analysis, since premiums should follow valuation, not define it.",
+      "Information asset valuation should reflect what the organization would lose if the data were compromised: the effort to recreate it, the competitive advantage it embodies, and the legal or contractual liability its exposure would trigger. These factors drive proportionate classification and controls."
+    ]
+  },
+  {
+    "id": "D2-0085",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "easy",
+    "stem": "Sales executives frequently review confidential pricing proposals on laptops during long flights and in crowded airport lounges, and company policy permits this travel work. Which control BEST reduces the MOST likely disclosure risk in this specific situation?",
+    "options": [
+      "Full-disk encryption enforced on all traveling laptops",
+      "Privacy screen filters combined with guidance on seating position and awareness of onlookers",
+      "An always-on VPN tunnel for every connection made from public networks",
+      "Multifactor authentication required at every laptop login"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Full-disk encryption protects data at rest if the laptop is lost or stolen, but the screen contents are decrypted and visible while the executive works. It does nothing about a neighboring passenger reading the display.",
+      "The dominant risk when working openly in public spaces is shoulder surfing, which is visual observation of data in use. Privacy filters narrow the viewing angle and positioning awareness addresses the residual exposure directly.",
+      "A VPN protects data in transit across untrusted networks, not information displayed on a screen. This is a classic confusion between transmission security and visual exposure of data in use.",
+      "MFA controls who can log in to the device, but the authorized executive is already logged in when the exposure occurs. Authentication strength does not stop observation of an active session."
+    ]
+  },
+  {
+    "id": "D2-0086",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "medium",
+    "stem": "A courier will carry encrypted backup drives containing Restricted data between two facilities. The media handling standard requires the drives to be sealed in a labeled inner container placed inside a plain, unmarked outer package. What is the PRIMARY reason the outer package must not display the classification label?",
+    "options": [
+      "Classification labels are only meaningful inside the organization's own facilities",
+      "Encryption already protects the drives, so labeling becomes unnecessary during transport",
+      "Visible sensitivity markings could single the package out for theft or tampering while in transit",
+      "Couriers are not cleared to know the classification of the material they carry"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Labels remain meaningful wherever authorized handlers process the media, which is exactly why the inner container is still marked. The restriction applies only to what outsiders can see, not to labeling in general.",
+      "This confuses encryption with handling requirements. Encryption protects the contents if the drives are taken, but handling rules still govern labeling, custody, and packaging, and the inner label is still required.",
+      "Advertising sensitivity on the outer wrapper tells everyone who sees the package that it is worth stealing or tampering with. Double wrapping keeps the handling label available to authorized recipients on the inner container while denying that signal to the public.",
+      "The courier never opens the package, so courier clearance is not the issue. This misapplies need-to-know; the real concern is that outer markings attract opportunistic targeting by anyone along the route."
+    ]
+  },
+  {
+    "id": "D2-0087",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "medium",
+    "stem": "An audit of the offline tape library finds several tapes that cannot be located, and staff cannot say who last removed them or when. Backup jobs and offsite rotation otherwise run correctly. Which improvement BEST addresses the audit finding?",
+    "options": [
+      "A media management process with logged check-in/check-out and periodic physical inventory reconciliation",
+      "Encryption of all future backup tapes so that any lost tape cannot be read",
+      "Migration from tape to disk-based backup to eliminate removable media entirely",
+      "A rule requiring two staff members to be present whenever the tape library is opened"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The finding is a loss of accountability for physical media. Formal check-in/check-out logging establishes custody for every movement, and periodic reconciliation detects missing media promptly, which directly closes the gap the auditors identified.",
+      "Encryption limits the disclosure impact of a lost tape but does nothing to establish who has the media or where it is. It mitigates the consequence while leaving the accountability failure untouched.",
+      "Replacing the technology sidesteps the control gap rather than fixing it, and it is a costly architectural change that exceeds what the finding requires. Any remaining removable media would still be untracked.",
+      "Dual presence is a control against a single person acting alone, but two people removing a tape without a log still leaves no record of custody. The missing element is documented tracking, not more witnesses."
+    ]
+  },
+  {
+    "id": "D2-0088",
+    "domain": 2,
+    "objective": "2.2",
+    "difficulty": "hard",
+    "stem": "A legal team published court filings as PDFs with black rectangles drawn over privileged names. A journalist recovered the hidden text simply by copying it from beneath the rectangles. The team already runs a metadata-stripping tool on all outgoing documents. What should the organization change to prevent a recurrence?",
+    "options": [
+      "Convert every outgoing PDF to a password-protected format before public release",
+      "Extend the metadata-stripping tool to also remove document properties and revision history",
+      "Apply visible watermarks to released documents so leaked copies can be traced to a source",
+      "Adopt redaction software that deletes the underlying text and verify documents before publication"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Password protection controls who can open a file, but these filings are meant for public release, so recipients legitimately open them and can still copy the hidden text. Access control does not fix content that remains embedded.",
+      "This confuses metadata with content. The recovered names were in the document's visible text layer under a drawn shape, not in properties or revision history, so a broader metadata scrub would still miss them.",
+      "Watermarking supports attribution after a leak, but nothing here was leaked; the sensitive text was shipped inside an intentionally released file. A deterrent and tracing control cannot prevent flawed redaction.",
+      "Drawing an opaque shape hides text visually without removing it from the file. True redaction tools excise the underlying text and image data, and a verification step, such as attempting to select or search the redacted regions, confirms removal before release."
+    ]
+  },
+  {
+    "id": "D2-0089",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "medium",
+    "stem": "A cloud team provisions databases using infrastructure-as-code templates stored in a shared repository. A review finds database administrator passwords embedded in plain text within the templates, and the same passwords have been reused across all environments for two years. Which remediation BEST addresses the root cause?",
+    "options": [
+      "Restrict repository permissions so only the cloud team can read the provisioning templates",
+      "Integrate a secrets management service that injects unique, regularly rotated credentials at deployment time",
+      "Enable the version control platform's storage encryption so the repository is encrypted at rest",
+      "Require peer review of every template change before it can be merged and deployed"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Narrowing who can read the templates shrinks the audience but leaves long-lived shared secrets sitting in code and in the repository's history. The root problem, credentials embedded in provisioning artifacts, remains.",
+      "The root cause is that secrets live inside provisioning artifacts. A secrets vault removes credentials from the templates entirely, supplies each deployment with unique values, and enables rotation, which securely provisions every environment going forward.",
+      "This confuses at-rest storage encryption with secret protection. The platform transparently decrypts content for every authorized user, so anyone with repository access still reads the passwords in plain text.",
+      "Peer review may catch newly added secrets, but it is a detective, human-dependent gate that does nothing about the credentials already embedded and reused for two years. It complements, but cannot replace, removing secrets from code."
+    ]
+  },
+  {
+    "id": "D2-0090",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "medium",
+    "stem": "Two data centers replicate databases containing regulated customer records over a carrier-provided MPLS circuit. The network team argues that encryption is unnecessary because the circuit is private and never touches the Internet. How should the security manager respond?",
+    "options": [
+      "Require transport encryption because the traffic crosses infrastructure the organization does not control",
+      "Accept the design, since MPLS label switching isolates each customer's traffic from other subscribers",
+      "Accept the design provided the carrier signs a nondisclosure agreement covering transported data",
+      "Require the replication to move to a site-to-site VPN over the Internet instead of the MPLS circuit"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The circuit is operated by a third party whose staff and equipment sit in the data path, and regulated records in transit outside organizational control warrant cryptographic protection. Encrypting over the existing circuit addresses the exposure without redesigning the network.",
+      "This mistakes traffic separation for confidentiality. MPLS labels steer packets but do not encrypt them; carrier personnel or a compromise of provider equipment can still expose the data in the clear.",
+      "This substitutes a legal instrument for a technical safeguard. An NDA creates recourse after a disclosure but does nothing to prevent interception or accidental exposure of unencrypted replication traffic.",
+      "This confuses the goal, encryption in transit, with one particular implementation. Nothing requires abandoning the MPLS circuit; IPsec or TLS can run over it, and moving to the public Internet could reduce availability and performance."
+    ]
+  },
+  {
+    "id": "D2-0091",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "hard",
+    "stem": "A field engineer reports a company tablet missing. The MDM console shows the remote wipe command has been queued for five days because the device has not connected to any network. Engineers routinely work at remote sites without connectivity and need local copies of sensitive schematics. Which measure BEST protects data on future lost devices?",
+    "options": [
+      "Configure the MDM to deliver wipe commands over SMS in addition to data connections",
+      "Shorten the compliance interval after which devices that fail to check in are locked",
+      "Encrypt device storage before issuance so protection does not depend on post-loss connectivity",
+      "Prohibit local copies and require engineers to access schematics only from the cloud"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Adding an SMS channel still requires the device to be powered on and reachable. A thief who keeps the tablet offline, or removes its storage, defeats any command-based wipe regardless of the delivery path.",
+      "A check-in lockout is an access gate on the operating system, and it too only takes effect on a running, policy-enforcing device. It neither reaches an offline device promptly nor protects storage that is read directly.",
+      "Encryption applied at provisioning protects the data the moment the device leaves authorized hands, with no dependency on network contact, power state, or the thief's cooperation. Remote wipe then becomes a useful supplement rather than the primary safeguard.",
+      "This conflicts with the stated operational need for offline access at remote sites. Data avoidance is attractive in principle, but a control that breaks the business process will be bypassed; encryption protects the local copies the engineers legitimately require."
+    ]
+  },
+  {
+    "id": "D2-0092",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "medium",
+    "stem": "The marketing department asks for access to detailed customer support tickets, originally collected to resolve product issues, so it can build targeted advertising profiles. The privacy notice given to customers described only support-related use of the information. What should the privacy officer advise FIRST?",
+    "options": [
+      "Approve the request, since the company already holds the data lawfully for support purposes",
+      "Approve the request on the condition that marketing pseudonymizes the tickets before analysis",
+      "Deny the request permanently, because personal data may never be used for any secondary purpose",
+      "Assess whether the new use is compatible with the stated purpose and obtain consent or updated notice if it is not"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Lawful possession for one purpose does not authorize every other use. This confuses having the data with having a legal basis for the new processing; purpose limitation binds each use to the purpose disclosed at collection.",
+      "Pseudonymized data remains personal data because the organization can re-link it, so the purpose limitation problem is not cured. This treats a risk-reduction technique as if it were a legal basis.",
+      "This overcorrects. Privacy frameworks permit secondary use when the new purpose is compatible with the original one or when a fresh basis, such as consent, is established; a blanket permanent denial is not required.",
+      "Purpose limitation requires evaluating the proposed use against what customers were told. If advertising profiling is not compatible with support-related processing, the organization must establish a new basis, typically consent or revised notice, before proceeding."
+    ]
+  },
+  {
+    "id": "D2-0093",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "medium",
+    "stem": "A records audit finds signed customer contracts stored in the contract management system and also scattered across personal drives, email attachments, and team sites, with each copy aging under different informal practices. The retention schedule requires contracts to be kept for ten years. Which approach BEST brings the organization into compliance?",
+    "options": [
+      "Designate the contract system as the authoritative record store and require destruction of convenience copies once no longer actively needed",
+      "Apply the ten-year retention period uniformly to every copy of every contract wherever it is stored",
+      "Shorten the retention period so that the scattered copies fall out of scope more quickly",
+      "Back up all storage locations nightly so no contract can be lost before its retention period ends"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Retention obligations attach to the official record, not to every duplicate. Naming a single system of record ensures the ten-year requirement is met once, reliably, while eliminating uncontrolled convenience copies that inflate breach and e-discovery exposure.",
+      "This confuses the record with its duplicates. Forcing every stray copy to live ten years multiplies storage of sensitive contracts across unmanaged locations and makes defensible disposition practically impossible.",
+      "Retention periods are set by legal, regulatory, and business requirements and cannot be trimmed to make a copy-sprawl problem easier. This adjusts the obligation to fit the failure rather than fixing the failure.",
+      "This addresses availability, not records compliance. Backing up scattered copies preserves the chaos, adds yet more uncontrolled duplicates, and does nothing to govern retention or disposition."
+    ]
+  },
+  {
+    "id": "D2-0094",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "hard",
+    "stem": "An organization deletes customer records from production databases when their retention periods expire. During litigation, opposing counsel obtains from a three-year-old monthly backup set records that the retention schedule says should no longer exist. What is the BEST way to prevent this situation from recurring?",
+    "options": [
+      "Discontinue monthly backup sets and rely solely on short-cycle daily backups",
+      "Align backup retention with the records schedule and ensure disposition procedures account for backup and archive copies",
+      "Encrypt all backup sets so that expired records within them cannot be produced in discovery",
+      "Place a permanent legal hold on all backups to provide a documented reason for keeping expired records"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Backup design should be driven by recovery objectives, and gutting it to solve a records problem trades away resilience. The issue is that disposition ignored backups, not that monthly backups exist.",
+      "Records are not truly disposed of while recoverable copies persist. Setting backup retention consistent with the disposition schedule, and including backup and archive media in destruction procedures, makes disposal complete and defensible.",
+      "This misunderstands discovery: data the organization can decrypt is still within its possession, custody, or control and remains producible. Encryption protects confidentiality from outsiders; it does not remove data from legal reach.",
+      "This inverts the legal hold concept. Holds are matter-specific, temporary suspensions of disposition; a permanent blanket hold is indefinite retention by another name and enlarges exactly the liability the schedule exists to reduce."
+    ]
+  },
+  {
+    "id": "D2-0095",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "hard",
+    "stem": "A payments application stores cardholder data in a database protected by transparent database encryption (TDE). An internal review notes that database administrators can still query cardholder data in the clear during routine work. The organization wants to remove this exposure while keeping DBAs able to maintain the platform. Which control BEST achieves this?",
+    "options": [
+      "Rotate the TDE master key more frequently and protect it within a hardware security module",
+      "Add full-disk encryption on the database servers as a second layer beneath TDE",
+      "Encrypt the sensitive columns at the application layer using keys the database platform never holds",
+      "Log and review every query DBAs execute against tables containing cardholder data"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses key management hygiene with access separation. TDE decrypts data transparently for any authorized database session regardless of how well or how often the master key is rotated, so DBAs still see plaintext.",
+      "Full-disk encryption protects against stolen physical media, the same threat class TDE already covers. Stacking another at-rest layer changes nothing about what an authenticated administrator can query.",
+      "When encryption and key custody move to the application tier, the database stores only ciphertext and its administrators have no path to the keys. DBAs retain full platform maintenance capability while losing visibility into cardholder data, which is exactly the required separation.",
+      "Query auditing is a detective control that documents exposure after it happens. The requirement is to remove the DBAs' ability to view plaintext, not merely to record when they do."
+    ]
+  },
+  {
+    "id": "D2-0096",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "medium",
+    "stem": "A securities regulator requires that certain trade records be preserved for six years in a format that cannot be overwritten or erased. The firm currently keeps these records on standard rewritable NAS volumes protected by strict permissions. Which storage approach BEST satisfies the requirement?",
+    "options": [
+      "Replicate the NAS volumes to a second site so the records survive loss of any one copy",
+      "Tighten access control lists so that only the records team can modify the trade records",
+      "Take encrypted daily snapshots of the volumes and retain them with the backup sets",
+      "Move the records to WORM-capable storage that enforces retention at the platform or media level"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Replication addresses availability and durability, not immutability. Both replicas remain rewritable, and a modification or deletion simply propagates to the second site.",
+      "Permissions are an administrative construct that privileged staff can change or bypass, so the records remain technically erasable. The regulator's standard demands a format that cannot be altered, not merely one that is unlikely to be.",
+      "Snapshots and backups can be deleted or expired by administrators and are recovery mechanisms, not compliant archives. Encryption adds confidentiality but contributes nothing to non-erasability.",
+      "Write-once-read-many storage makes records physically or logically non-rewriteable and non-erasable for the enforced retention term, which is precisely the property the regulation demands and one that permissions on rewritable media cannot provide."
+    ]
+  },
+  {
+    "id": "D2-0097",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "hard",
+    "stem": "A pharmaceutical company must retain clinical trial records for decades and expects to defend their authenticity in future regulatory proceedings. The archive team already plans periodic media refresh and format migration cycles. Which additional measure BEST preserves the records' evidentiary integrity across those cycles?",
+    "options": [
+      "Generate cryptographic hashes with trusted timestamps at ingest and re-verify them after every migration",
+      "Encrypt the archive so that no one can read the records without proper authorization",
+      "Maintain two copies of the archive in geographically separate storage vaults",
+      "Restrict all archive access to a small, vetted records management team"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Hashing each record at ingest, anchoring the hashes with trusted timestamps, and re-verifying after every refresh or migration produces continuing, demonstrable proof that decades of copying never altered the content, which is what an authenticity defense requires.",
+      "This confuses confidentiality with integrity. Encryption controls who can read the records but provides no ongoing evidence that their content has remained unchanged through repeated migrations.",
+      "A second copy protects against loss and disaster, an availability concern. If both copies were altered, or one silently corrupted, redundancy alone cannot show which version is authentic.",
+      "Limiting access reduces the opportunity for tampering but is preventive only. Years later it cannot demonstrate to a regulator that no authorized insider or migration error changed the records; verifiable integrity evidence can."
+    ]
+  },
+  {
+    "id": "D2-0098",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "medium",
+    "stem": "When a senior procurement manager resigns, the IT service desk follows its standard checklist and schedules the departed employee's mailbox for deletion 30 days after the exit date. The records manager intervenes to stop the deletion. What is the BEST justification for the intervention?",
+    "options": [
+      "Mailboxes of senior staff should be retained indefinitely in case questions arise about their decisions",
+      "The mailbox may contain business records subject to retention schedules or active legal holds that must be reviewed first",
+      "Deleting the mailbox would violate the former employee's right of access to their personal data",
+      "Thirty days is too short a window for IT to copy the mailbox onto the backup tape rotation"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Indefinite retention is not a records practice; it enlarges breach exposure and discovery burden without a defined legal basis. Seniority does not exempt a mailbox from the disposition schedule.",
+      "A procurement manager's mailbox likely holds contract negotiations, approvals, and supplier correspondence that qualify as business records. Those items must be identified and preserved per the retention schedule, and any applicable legal hold honored, before a blanket deletion is defensible.",
+      "This confuses the organization's records obligations with data subject rights. Access rights belong to the individual and do not obligate the employer to preserve a mailbox; the genuine constraint is the company's own retention and hold duties.",
+      "This treats backups as an archive, a common confusion. Backup rotations exist for operational recovery and cycle out; they are not a compliant mechanism for retaining records, so copying to tape would not resolve the problem."
+    ]
+  },
+  {
+    "id": "D2-0099",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "medium",
+    "stem": "A company is moving its HR records to a SaaS provider. The vendor's sales material claims bank-grade security, and the contract includes confidentiality clauses. The security manager wants reasonable assurance that the provider's controls over customer data actually operate effectively. Which action BEST provides that assurance?",
+    "options": [
+      "Obtain the provider's signed confidentiality and data processing agreements",
+      "Run an authenticated vulnerability scan against the provider's production environment",
+      "Ask the provider to complete a security self-assessment questionnaire",
+      "Review the provider's current independent audit report, such as a SOC 2 Type II, against the company's requirements"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Contracts allocate liability and set obligations, but a signature is not evidence that controls exist or function. This confuses legal recourse after a failure with assurance that failures are being prevented.",
+      "Customers generally have no authorization to scan a multi-tenant SaaS environment, and a scan would reveal only technical exposures at one moment, not whether governance and data-handling controls operate over time.",
+      "Self-assessments are unverified statements by the party with the incentive to look good. They are useful for scoping questions but sit well below independent examination on the assurance ladder.",
+      "A Type II attestation reports an independent auditor's testing of control operating effectiveness over a period, not just design at a point in time. Mapping its scope and exceptions to the company's own requirements is the standard, practical means of vendor assurance."
+    ]
+  },
+  {
+    "id": "D2-0100",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "hard",
+    "stem": "An organization plans to replace badge readers with a facial recognition system that will collect biometric templates from employees in several countries, some with strict privacy statutes. The project is funded and a vendor has been selected. From a data protection standpoint, what should the organization do FIRST?",
+    "options": [
+      "Publish an updated employee privacy notice describing the biometric collection",
+      "Encrypt the biometric template database and restrict access to the physical security team",
+      "Conduct a privacy impact assessment evaluating the necessity, proportionality, and risks of the processing",
+      "Collect each employee's signed consent form during the badge replacement rollout"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Notice describes processing that has already been justified; it cannot substitute for the analysis of whether the processing should occur at all. Transparency is a later step, not the first.",
+      "This jumps straight to safeguards before establishing whether large-scale biometric processing is lawful and proportionate in each jurisdiction. Strong controls on an impermissible system do not make it permissible.",
+      "Biometric identification of employees at scale is high-risk processing, and privacy frameworks expect a documented impact assessment before deployment. The assessment tests necessity and proportionality, surfaces less intrusive alternatives, and defines the safeguards and legal bases each country requires.",
+      "This treats consent as a universal fix. In the employment context consent is often deemed invalid because of the power imbalance, and gathering signatures before assessing the processing gets the sequence backwards."
+    ],
+    "reference": "GDPR Article 35"
+  },
+  {
+    "id": "D2-0101",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "easy",
+    "stem": "A review of offsite backup procedures finds that encrypted tapes are shipped to the storage vendor in transport cases that also contain a printed copy of the decryption passphrase, included so that recovery is never delayed. What is the PRIMARY problem with this practice?",
+    "options": [
+      "Anyone who obtains the case gains both the ciphertext and the means to decrypt it, defeating the encryption",
+      "Printed passphrases violate the principle that keys may only ever exist inside hardware security modules",
+      "The passphrase should instead be split between the tape case and the courier's shipment records",
+      "The passphrase should be documented in the storage vendor's contract rather than in the case"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Encryption only protects media when the key travels and rests separately from the ciphertext. Packing the passphrase with the tapes collapses the two factors into one container, so a lost or stolen case is equivalent to shipping the data in the clear.",
+      "This overstates a preference into an absolute rule. HSMs are excellent for key protection, but keys can legitimately exist in software vaults or documented escrow; the actual failure here is co-locating the key with the media.",
+      "This misapplies the idea of secret splitting. Distributing the passphrase along the same shipment chain still keeps key material traveling with the media; proper practice keeps keys entirely within the organization's separate key management process.",
+      "Writing the passphrase into a vendor contract hands the key to the third party holding the ciphertext, recreating the same co-location problem in paperwork. Custody of keys should remain with the data owner's organization, apart from the media."
+    ]
+  },
+  {
+    "id": "D2-0102",
+    "domain": 2,
+    "objective": "2.6",
+    "difficulty": "hard",
+    "stem": "A multinational's security team retains detailed authentication and web proxy logs, which include user identifiers, for 18 months to support incident investigations. The privacy office demands the logs be deleted after 30 days, citing data minimization and regulatory exposure. As the risk manager mediating the dispute, what is the BEST resolution?",
+    "options": [
+      "Adopt the privacy office's position and purge all security logs after 30 days",
+      "Set a retention period justified by documented security need, minimize the identifiers captured, and tightly restrict access and use",
+      "Strip all user identifiers from the logs at collection so that retention limits no longer apply",
+      "Retain the logs indefinitely, since security monitoring is a legitimate interest that overrides privacy rules"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This lets one obligation silently defeat another. Many intrusions are discovered months after the fact, and a 30-day horizon would cripple investigations; the organization has a defensible security purpose that deserves weight in the balance.",
+      "Privacy and security duties are reconciled, not ranked: retain for a period the organization can justify against documented investigative need, capture no more personal data in logs than that need requires, and bind the retained data with strict access, purpose, and disclosure controls.",
+      "Removing every identifier destroys the attribution investigators need, making the logs nearly useless for their stated purpose. Minimization means collecting proportionate data, not eliminating it, and even de-identified logs may still be regulated if re-linkable.",
+      "Legitimate interest is not a trump card; it still requires necessity, proportionality, and a balancing test. Indefinite retention fails all three and compounds breach and discovery exposure over time."
+    ]
+  },
+  {
+    "id": "D2-0103",
+    "domain": 2,
+    "objective": "2.5",
+    "difficulty": "medium",
+    "stem": "A company is scanning twenty years of paper personnel files into a document management system to free warehouse space. Operations wants each box of paper shredded as soon as it is scanned to keep the project moving. Which condition MUST be satisfied before the paper originals are destroyed?",
+    "options": [
+      "Each box is shredded by a bonded destruction vendor that issues a certificate of destruction",
+      "The scanned images have been captured onto the nightly backup set at least one time",
+      "The organization confirms no cheaper offsite warehouse is available for continued paper storage",
+      "Image quality and completeness are verified and the digital copies are confirmed to meet retention and legal admissibility requirements"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This addresses how to destroy, not when destruction is permissible. A certificate from a bonded vendor documents proper disposal but cannot compensate for destroying records whose replacements were never validated.",
+      "This confuses backup with verification. A backup faithfully copies whatever was captured, including missed pages and unreadable images, and backup rotations are not a records-grade substitute for the originals.",
+      "Storage economics is what motivated the project, not a precondition for lawful disposition. Cost comparisons have no bearing on whether the digital copies can legally replace the paper records.",
+      "Once the paper is shredded, the scans become the only record. Destruction is defensible only after quality control confirms every page was captured legibly and the organization has established that the digital versions satisfy applicable retention rules and will be accepted as evidence."
+    ]
+  },
+  {
+    "id": "D2-0104",
+    "domain": 2,
+    "objective": "2.3",
+    "difficulty": "medium",
+    "stem": "A software vendor sends an audit demand letter, and the IT director discovers the organization has no reliable record of what software is installed, which licenses were purchased, or which departments deployed extra copies. Beyond responding to the immediate audit, which program BEST prevents this exposure in the future?",
+    "options": [
+      "An annual penetration test that identifies unauthorized applications running on the network",
+      "A policy prohibiting employees from installing any software without written approval",
+      "A software asset management program that reconciles discovered installations against license entitlements",
+      "A capital budgeting process that routes all software purchases through central procurement"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses a penetration test's purpose, finding exploitable weaknesses, with asset discovery. A yearly exercise focused on attack paths is neither designed nor scheduled to maintain a continuous software inventory.",
+      "Policy without measurement is unenforceable; the organization would still have no way to know what is actually installed. An administrative rule alone cannot reconcile deployments against purchases.",
+      "Software is an intangible asset that must be inventoried like any other. Continuous discovery of installations, matched against purchased entitlements, reveals both compliance gaps and unused licenses, which is exactly the visibility a vendor audit tests.",
+      "Procurement records capture only one side of the ledger, what was bought. Without discovering what is deployed, the organization still cannot demonstrate that installations match entitlements."
+    ]
+  },
+  {
+    "id": "D2-0105",
+    "domain": 2,
+    "objective": "2.4",
+    "difficulty": "easy",
+    "stem": "Before donating old desktop computers to a school, a technician deletes all user folders and empties the recycle bin on each machine. A month later, the school's IT club recovers hundreds of the company's documents using freely available tools. What BEST explains why the files were recoverable?",
+    "options": [
+      "Deleting files removes file-system references but leaves the underlying data on disk until it is overwritten",
+      "The recycle bin keeps hidden copies of emptied files inside a protected system partition",
+      "The documents were synchronized back onto the machines by a cloud backup service",
+      "The drives used wear leveling, which preserves deleted data in spare flash cells"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Ordinary deletion only marks the space as available and removes directory pointers; the data blocks remain intact and trivially recoverable. This residual information is data remanence, and media must be properly sanitized before leaving the organization's control.",
+      "This is a misconception about how the recycle bin works. Emptying it removes the last file-system reference; nothing is squirreled away in a protected partition, yet the data blocks themselves still persist on disk.",
+      "This invents an external cause for a well-understood local phenomenon. No synchronization is needed to explain recovery, because deletion never removed the data from the drives in the first place.",
+      "Wear leveling explains why overwriting flash media is unreliable as a sanitization method, not why simply deleted files are recoverable. The recovery here stems from basic remanence that affects magnetic and flash media alike."
+    ],
+    "reference": "NIST SP 800-88r1"
   }
 ]
