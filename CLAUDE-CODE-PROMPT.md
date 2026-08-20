@@ -88,6 +88,13 @@ Write `schema/question.schema.json` as a real JSON Schema (draft 2020-12) encodi
 
 **IDs are permanent.** User progress is keyed on them. Never renumber, never reuse a retired ID.
 
+**Syllabus mapping (added 20 Aug 2026).** The repository carries the ISC2 exam outline as data:
+`content/syllabus.json` lists every domain's numbered objectives with their official titles, sourced
+from the published outline effective 15 April 2024. Each question's `objective` must exist in the
+syllabus — the build fails otherwise, and bare parent-domain placeholders are no longer allowed once
+the syllabus lands. The UI shows the linked syllabus section (number and title) for each question so
+the user can read/re-read the right material.
+
 ## 5. Build script — `tools/build.mjs`
 
 Reads `content/`, validates, writes `data/domain-N.json` and `data/manifest.json`.
@@ -239,11 +246,14 @@ Build in this order. **Stop and report at the end of each phase; wait for my go-
 2. **Engine.** `index.html`, `styles.css`, `app.js` — full two-attempt logic, shuffle, storage,
    filters, scoreboard, keyboard. Author a throwaway handful of items just to drive the UI. Test the
    flow in a browser, screenshot desktop and mobile, then commit.
-3. **Seed content.** 500 real questions distributed by weight: D1=8, D2=5, D3=7, D4=6, D5=7, D6=6,
-   D7=6, D8=5. Build clean, no warnings. Commit.
+3. **Seed content.** Begin authoring the **5,000 real questions** distributed by exam weight
+   (full targets per the §2 table: D1=800, D2=500, D3=650, D4=650, D5=650, D6=600, D7=650,
+   D8=500). Seed in weighted batches of 50 (per batch: D1=8, D2=5, D3=7, D4=6, D5=7, D6=6, D7=6,
+   D8=5) until 500 are in, then deploy (phase 4). Build clean, no warnings. Commit per batch.
 4. **Deploy.** Push, enable Pages, confirm the live URL loads and grades correctly. Report the URL.
-5. **Scale.** Author in batches of 50 within a single domain, one commit per batch with a message
-   like `content(d1): items 0009-0058`. After each batch, report the running count against target.
+5. **Scale.** Continue authoring toward the full 5,000 in batches of 50 within a single domain, one
+   commit per batch with a message like `content(d1): items 0009-0058`. After each batch, report
+   the running count against target.
 
 ## 11. `CLAUDE.md`
 
