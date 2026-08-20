@@ -138,5 +138,1012 @@
       "MAC compares clearance labels to classification labels; it does not evaluate contextual conditions like time or device.",
       "ACLs are static lists of identities per document; they cannot express dynamic conditions at all."
     ]
+  },
+  {
+    "id": "D5-0008",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "easy",
+    "stem": "A finance employee resigns without notice after a heated dispute with management and leaves the building immediately. From an identity and access management perspective, what should the security team do FIRST?",
+    "options": [
+      "Archive the employee's mailbox and home directory to satisfy data retention requirements",
+      "Schedule an exit interview to recover the employee's badge, laptop, and other company assets",
+      "Disable all of the employee's accounts, tokens, and remote access immediately",
+      "Delete the employee's accounts so that no entitlements remain in any system"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Archiving supports retention and any later investigation, but it does not stop a disgruntled ex-employee from logging in; it follows access revocation rather than preceding it.",
+      "Asset recovery matters, but it addresses physical property while the accounts remain live; a hostile departure makes immediate logical access cutoff the priority.",
+      "In an unfriendly termination the greatest immediate risk is retaliatory use of still-active credentials, so disabling every account and remote access path comes before any other step.",
+      "Deletion is often confused with disabling, but it can destroy data, audit trails, and evidence that may later be needed; accounts should be disabled and preserved, then removed per policy."
+    ]
+  },
+  {
+    "id": "D5-0009",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "easy",
+    "stem": "A security architect must select an authentication design that combines two genuinely different factor categories. Which combination satisfies the requirement for multifactor authentication?",
+    "options": [
+      "A hardware one-time-password token paired with a fingerprint scan",
+      "A password paired with answers to preset security questions",
+      "A numeric PIN paired with a long passphrase",
+      "A fingerprint scan paired with facial recognition"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The token is something you have and the fingerprint is something you are, so two distinct factor categories are combined, which is the definition of multifactor authentication.",
+      "Security questions are often mistaken for a second factor, but both a password and question answers are something you know, so this is two instances of a single category.",
+      "A PIN and a passphrase are both knowledge factors; stacking two secrets increases total length, not factor diversity.",
+      "Two biometrics are both something you are; multiple measurements of one category remain single-factor authentication."
+    ]
+  },
+  {
+    "id": "D5-0010",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "medium",
+    "stem": "A defense contractor's document system assigns classification labels to every file and clearance levels to every user. The operating system enforces the access comparison, and users cannot alter permissions even on files they created themselves. Which access control model is in use?",
+    "options": [
+      "Discretionary access control",
+      "Mandatory access control",
+      "Role-based access control",
+      "Rule-based access control"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Under DAC the owner or creator of a file may grant access at their discretion; the scenario explicitly removes that ability, which rules DAC out.",
+      "System-enforced labels and clearances that even a file's creator cannot override are the defining features of mandatory access control.",
+      "RBAC grants permissions through job roles rather than classification labels, and role assignment does not involve a system-enforced clearance-to-label comparison.",
+      "Rule-based control applies uniform rules, such as firewall filters, to all subjects; it does not compare a user's clearance against a resource's classification label."
+    ]
+  },
+  {
+    "id": "D5-0011",
+    "domain": 5,
+    "objective": "5.3",
+    "difficulty": "medium",
+    "stem": "A retailer is building a consumer mobile application backed by REST APIs and wants customers to sign in through external identity providers. The team needs a federation protocol whose tokens the APIs can parse easily on every call. Which choice is MOST appropriate?",
+    "options": [
+      "SAML 2.0 with the HTTP POST browser binding",
+      "Kerberos with cross-realm trust between the parties",
+      "OAuth 2.0 using the client credentials grant",
+      "OpenID Connect issuing signed JSON Web Tokens"
+    ],
+    "answer": 3,
+    "explanations": [
+      "SAML federates well for browser-based enterprise SSO, but its XML assertions and browser-redirect bindings are cumbersome for native mobile apps and REST APIs.",
+      "Kerberos cross-realm trust suits internal networks that share key distribution infrastructure; it is impractical across the public internet with consumer identity providers.",
+      "The client credentials grant authenticates an application to an API with no user involved at all, so it cannot represent a customer signing in.",
+      "OpenID Connect layers user authentication on OAuth 2.0 and issues compact, signed JWTs that mobile clients and REST APIs can validate easily, matching the scenario's needs."
+    ]
+  },
+  {
+    "id": "D5-0012",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "medium",
+    "stem": "A network operations team wants centralized AAA for administering routers and switches, including authorization of individual configuration commands and encryption of the entire AAA packet payload between device and server. Which protocol BEST meets these requirements?",
+    "options": [
+      "TACACS+",
+      "RADIUS",
+      "Diameter",
+      "Kerberos"
+    ],
+    "answer": 0,
+    "explanations": [
+      "TACACS+ separates authentication, authorization, and accounting, supports per-command authorization for device administration, and encrypts the full packet body, matching every stated requirement.",
+      "RADIUS is frequently confused with TACACS+ for AAA, but it encrypts only the password attribute, combines authentication with authorization, and lacks granular per-command control.",
+      "Diameter is the successor to RADIUS built for telecom and roaming scenarios; it is not the standard choice for per-command administration of network devices.",
+      "Kerberos provides ticket-based authentication within a realm; it offers no accounting service or per-command authorization for network equipment."
+    ]
+  },
+  {
+    "id": "D5-0013",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "An employee moved from accounts payable to procurement three months ago. An audit now finds the employee can both create vendor records and approve payments, a combination policy forbids. Which practice would have BEST prevented this situation?",
+    "options": [
+      "Requiring multifactor authentication for both financial applications",
+      "Running an annual recertification campaign across all entitlements",
+      "A transfer workflow that revokes prior-role access when an employee changes duties",
+      "Applying immediate deprovisioning procedures for terminated employees"
+    ],
+    "answer": 2,
+    "explanations": [
+      "MFA strengthens proof of identity but has no effect on what an authenticated user is authorized to do, so the forbidden combination would remain.",
+      "Annual recertification is a detective control that could leave the conflicting access in place for up to a year; the accumulation happened at transfer and should have been stopped there.",
+      "Authorization creep at role change is prevented by treating the transfer as a lifecycle event: old entitlements are removed as the new role's access is granted, so conflicting rights never coexist.",
+      "Termination deprovisioning applies only when employment ends; this employee is still active, so that procedure would never have been triggered."
+    ]
+  },
+  {
+    "id": "D5-0014",
+    "domain": 5,
+    "objective": "5.1",
+    "difficulty": "medium",
+    "stem": "A colocation facility's server hall is protected by badge readers, but a recent assessment observed employees holding the door open for people behind them. Which control would BEST prevent unauthorized individuals from entering the hall?",
+    "options": [
+      "Monitor the entrance with recorded CCTV coverage",
+      "Install an access control vestibule requiring badge and PIN to pass",
+      "Deliver security awareness training on tailgating",
+      "Review badge logs weekly for entries outside business hours"
+    ],
+    "answer": 1,
+    "explanations": [
+      "CCTV is a detective and deterrent control; it records tailgating after it occurs but does not physically stop anyone from entering.",
+      "A vestibule, or mantrap, admits one authenticated person at a time, physically defeating tailgating rather than merely observing or discouraging it; it is the preventive control the goal demands.",
+      "Awareness training reduces the likelihood that staff hold doors open, but it is an administrative control that cannot guarantee prevention.",
+      "Log review is detective and after the fact; it also would not reveal tailgaters, who generate no badge record of their own at all."
+    ]
+  },
+  {
+    "id": "D5-0015",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "A bank is launching fully online account opening. The security officer notes that strong login controls are useless if a fraudster can enroll under a stolen identity in the first place. Which process addresses this concern?",
+    "options": [
+      "Enrolling every new customer in multifactor authentication",
+      "Federating customer logins through a social identity provider",
+      "Enforcing strict password length and complexity at registration",
+      "Identity proofing that validates evidence such as government-issued documents before enrollment"
+    ],
+    "answer": 3,
+    "explanations": [
+      "MFA strengthens authentication of an already-enrolled identity; it cannot establish that the person enrolling is who they claim to be.",
+      "Federation delegates authentication to another provider, but the social account itself may have been created under a false identity, so no proofing is gained.",
+      "Password rules protect the secret used at login; they say nothing about the real-world identity of the person who registered it.",
+      "Identity proofing establishes that a claimed identity exists and belongs to the applicant before credentials are issued, closing the enrollment-fraud gap the officer described."
+    ],
+    "reference": "NIST SP 800-63A"
+  },
+  {
+    "id": "D5-0016",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "easy",
+    "stem": "A perimeter firewall evaluates every packet against an ordered list of conditions such as source address, destination port, and protocol, applying the same list to all traffic regardless of who sent it. Which access control model does this illustrate?",
+    "options": [
+      "Rule-based access control",
+      "Role-based access control",
+      "Discretionary access control",
+      "Attribute-based access control"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Rule-based access control applies a global set of if-then rules uniformly to every subject, which is exactly how a firewall access control list operates.",
+      "Role-based access control shares an abbreviation with rule-based control and is easily confused, but it grants permissions according to a user's job role, whereas the firewall ignores user identity entirely.",
+      "Discretionary access control lets resource owners grant access to identified users at their discretion; a firewall rule set involves no owners or per-user grants.",
+      "ABAC evaluates rich combinations of subject, object, and environment attributes through policy; a static ordered filter list applied identically to everyone is simple rule-based control."
+    ]
+  },
+  {
+    "id": "D5-0017",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "medium",
+    "stem": "After a maintenance window, workstations at a branch office drift more than five minutes from the domain's key distribution center, and Kerberos authentication begins failing with invalid-ticket errors. What security purpose does this strict time requirement serve?",
+    "options": [
+      "It enforces idle session timeout policies consistently across the domain",
+      "It ensures X.509 certificate validity periods are evaluated correctly",
+      "It keeps password expiration dates synchronized between realms",
+      "It bounds ticket lifetimes so captured tickets cannot be replayed later"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Idle timeouts are a session management setting; they are unrelated to the timestamps embedded in Kerberos tickets and authenticators.",
+      "Certificate validity checking belongs to PKI, not Kerberos; tickets are symmetric-key structures, and confusing the two technologies is a common error.",
+      "Password expiration is enforced by directory policy and replication, not by the clock comparison performed during ticket validation.",
+      "Kerberos embeds timestamps in tickets and authenticators so that a captured ticket quickly becomes stale; clocks outside the allowed skew make this replay defense reject legitimate requests too."
+    ]
+  },
+  {
+    "id": "D5-0018",
+    "domain": 5,
+    "objective": "5.3",
+    "difficulty": "hard",
+    "stem": "A SaaS provider will let each enterprise customer authenticate its own users through the customer's identity provider and send assertions to the platform. The provider's security manager worries about account takeover. Which concern is MOST important to address in the federation agreements?",
+    "options": [
+      "Customer directories will transmit user passwords to the platform during each login",
+      "Weak authentication practices at any customer identity provider become the platform's account-takeover exposure",
+      "The customer identity providers will gain the ability to read all data the platform stores",
+      "Single sign-on will prevent the platform from generating its own audit logs of user activity"
+    ],
+    "answer": 1,
+    "explanations": [
+      "A common misconception: federation exchanges signed assertions, not passwords, so customer credentials never reach the platform; that is a benefit of federation, not the risk.",
+      "The relying party inherits the assurance level of each identity provider it trusts, so the agreements must mandate minimum authentication strength, such as MFA and credential hygiene, at every customer IdP.",
+      "Federation trust flows one way for authentication; asserting a user's identity does not grant the IdP any access to the relying party's stored data.",
+      "The platform still observes and logs every action inside its own application; SSO changes who authenticates the user, not the relying party's ability to audit."
+    ]
+  },
+  {
+    "id": "D5-0019",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "An audit finds that 40 system administrators hold standing domain administrator rights, although each uses them only a few times per month. Which approach BEST reduces the associated risk while preserving the team's ability to operate?",
+    "options": [
+      "Rotate the administrators' passwords on a monthly schedule",
+      "Consolidate the rights into one shared administrator account",
+      "Grant elevated rights just-in-time through a privileged access checkout with time limits",
+      "Forward all administrator activity to the SIEM for monitoring"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Password rotation shortens credential exposure windows but leaves 40 standing high-privilege accounts for an attacker to target every day.",
+      "A shared account is sometimes proposed to shrink the account count, but it destroys individual accountability and makes credential control harder, increasing overall risk.",
+      "Just-in-time privileged access removes standing privilege: elevated rights exist only during an approved, time-boxed checkout, dramatically shrinking the attack surface without blocking operations.",
+      "SIEM monitoring is detective; it may catch abuse after it happens but does nothing to reduce the standing privilege itself."
+    ]
+  },
+  {
+    "id": "D5-0020",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "A CISO is modernizing the corporate password standard to align with current NIST guidance on memorized secrets. Which change is consistent with that guidance?",
+    "options": [
+      "Screen new passwords against known-compromised lists and drop routine forced expiration",
+      "Mandate composition rules requiring all four character classes in every password",
+      "Shorten the maximum password age so users must rotate passwords every 30 days",
+      "Add knowledge-based security questions as a mandatory secondary verification step"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Current guidance favors blocklisting compromised and common passwords and changing them only on evidence of compromise, because forced periodic change drives predictable weak patterns.",
+      "Composition rules are legacy practice; NIST found they push users toward predictable substitutions and recommends length plus breach screening instead.",
+      "Aggressive rotation is the opposite of current guidance, which advises against routine expiration absent evidence of compromise.",
+      "Knowledge-based questions are weak shared secrets that are easily researched or guessed, and current guidance deprecates them as verifiers."
+    ],
+    "reference": "NIST SP 800-63B"
+  },
+  {
+    "id": "D5-0021",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "hard",
+    "stem": "Reviewing an authorization design, an architect sees that each subject carries its own list naming the objects it may use and the rights held on each. Auditors complain that answering 'who can access this file?' requires examining every subject in the system. Which statement BEST describes the design?",
+    "options": [
+      "It uses access control lists, which attach permission entries to each object",
+      "It uses security labels, which require clearance-to-classification comparison",
+      "It uses capability tables, which bind permission entries to each subject",
+      "It stores a complete access control matrix with every subject-object pairing"
+    ],
+    "answer": 2,
+    "explanations": [
+      "An ACL is the reverse of what is described: it hangs off the object and lists authorized subjects, which is why the auditors' per-object question would be trivial under ACLs.",
+      "Labels belong to mandatory access control and involve no per-subject lists of objects; nothing in the scenario mentions classifications or clearances.",
+      "A capability list is the row view of the access matrix, attached to the subject; determining all subjects with access to one object then requires scanning every subject's list, exactly the audit pain described.",
+      "The full matrix is a conceptual model that is rarely stored whole because it is sparse; the scenario describes only per-subject rows, which are capabilities."
+    ]
+  },
+  {
+    "id": "D5-0022",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "hard",
+    "stem": "A development team proposes letting a new internal portal authenticate users by accepting any valid OAuth 2.0 access token presented to it. During architecture review, the security architect rejects the design. What is the MOST accurate basis for the objection?",
+    "options": [
+      "OAuth cannot be used for federation, so the tokens must be replaced with SAML assertions",
+      "An access token conveys delegated authorization, so possessing one does not prove the user's identity",
+      "Bearer tokens cannot be replayed when sent over TLS, so the design is already acceptable",
+      "The design fails only because the access token lifetime is too long and should be shortened"
+    ],
+    "answer": 1,
+    "explanations": [
+      "OAuth-family protocols federate perfectly well; the flaw is not the protocol family but using an authorization artifact as authentication proof.",
+      "OAuth 2.0 is an authorization framework: an access token shows permission to call a resource, possibly obtained by another client for another purpose, so identity must come from an authentication layer such as OpenID Connect ID tokens.",
+      "TLS protects tokens in transit, but bearer tokens are usable by whoever holds them; this option mistakes transport protection for proof of the presenter's identity.",
+      "Shortening lifetimes is token hygiene; it narrows the exposure window but does not fix the categorical error of treating authorization evidence as authentication."
+    ]
+  },
+  {
+    "id": "D5-0023",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "A DevOps review discovers batch jobs that log in with service-account passwords embedded in plaintext within the scripts; the passwords have not changed in four years. What is the BEST remediation?",
+    "options": [
+      "Move the passwords into an encrypted spreadsheet shared with the operations team",
+      "Rewrite the jobs to run under each administrator's personal user account",
+      "Configure the service accounts to require interactive multifactor authentication",
+      "Store the credentials in a secrets vault that rotates them and serves them to jobs via API"
+    ],
+    "answer": 3,
+    "explanations": [
+      "An encrypted spreadsheet is still a static shared secret store; credentials must be decrypted for use, get copied around, and rotation remains manual and rare.",
+      "Tying automation to personal accounts breaks accountability for the jobs, violates least privilege, and causes outages whenever that person changes roles or leaves.",
+      "MFA is designed for interactive human logins; a non-interactive batch process cannot answer a second-factor challenge, so this control cannot be applied here.",
+      "A secrets management vault removes credentials from code, enforces automatic rotation, restricts and logs retrieval, and lets jobs fetch short-lived secrets at run time."
+    ]
+  },
+  {
+    "id": "D5-0024",
+    "domain": 5,
+    "objective": "5.1",
+    "difficulty": "easy",
+    "stem": "An intelligence analyst holds a Secret clearance but is denied access to a Secret-classified file belonging to a program she is not assigned to support. Which principle is being applied?",
+    "options": [
+      "Need to know",
+      "Least privilege",
+      "Separation of duties",
+      "Implicit deny"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Need to know restricts access to information required for one's current duties, so even a properly cleared subject is denied data from programs outside her assignment.",
+      "Least privilege is the broader principle of granting minimal rights and permissions of every kind; the clearance-versus-assignment distinction in this scenario is the classic signature of need to know.",
+      "Separation of duties divides a critical process among multiple people to prevent fraud or error; nothing in the scenario involves splitting a task.",
+      "Implicit deny means access is refused when no rule permits it; here an explicit policy about program assignment, not the absence of a rule, drives the denial."
+    ]
+  },
+  {
+    "id": "D5-0025",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "hard",
+    "stem": "A bank's mobile app authenticates customers with a password typed on the phone plus an approval prompt delivered to an authenticator app installed on the same phone. A risk assessment flags the design. What is the MOST significant weakness?",
+    "options": [
+      "Push approval prompts do not qualify as a valid authentication factor",
+      "Push notifications travel across the internet and can be read in transit",
+      "A compromise of the single device can defeat both factors at once, undermining their independence",
+      "Customers must re-enroll the authenticator whenever they replace their phones"
+    ],
+    "answer": 2,
+    "explanations": [
+      "A push approval bound to an enrolled device is a legitimate possession factor; the factor classification is not the problem with this design.",
+      "Push challenges ride over TLS-protected channels to the enrolled device; interception in transit is not the realistic weakness here.",
+      "Multifactor strength assumes the factors fail independently; when malware on or theft of one phone exposes the typed password and the approval mechanism together, the design degrades toward a single point of compromise.",
+      "Re-enrollment on device replacement is an operational inconvenience, not a security weakness in the authentication design."
+    ]
+  },
+  {
+    "id": "D5-0026",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "An enterprise with hundreds of SaaS subscriptions finds that account creation and removal lag weeks behind HR joiner and leaver events. The IAM team wants an open standard to automate provisioning and deprovisioning from the central directory to the SaaS providers. Which should they adopt?",
+    "options": [
+      "SCIM",
+      "SAML 2.0",
+      "OAuth 2.0",
+      "LDAP"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The System for Cross-domain Identity Management defines REST and JSON operations for creating, updating, and deleting user accounts across domain boundaries, which is exactly the automation sought.",
+      "SAML asserts authentication at sign-in and can at best create accounts just-in-time on first login; it cannot deactivate accounts when a leaver event occurs.",
+      "OAuth 2.0 delegates authorization to APIs; while SCIM traffic is often protected by OAuth, OAuth itself defines no account lifecycle operations.",
+      "LDAP is the access protocol for an internal directory; SaaS providers rarely expose LDAP across the internet, which is why a cross-domain provisioning standard is needed."
+    ]
+  },
+  {
+    "id": "D5-0027",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "hard",
+    "stem": "While engineering roles for a new ERP system, the design team must guarantee that no single user can ever hold the ability both to create a vendor and to approve payments to that vendor. Which mechanism BEST enforces this within the authorization model?",
+    "options": [
+      "Dual control requiring two people to jointly execute payment approvals",
+      "Job rotation moving staff between procurement positions periodically",
+      "Least privilege provisioning of each user's individual entitlements",
+      "Mutually exclusive role constraints so the two roles can never be assigned to one user"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Dual control makes one sensitive action require two people acting together; it is often confused with separation of duties but does not stop one person from being granted both conflicting roles.",
+      "Job rotation is a deterrent and detective measure that can surface fraud over time; it does not prevent a user from holding a toxic combination today.",
+      "Least privilege minimizes what each user receives but sets no rule about combinations: a user could legitimately receive each role separately and still hold both.",
+      "Static separation-of-duties constraints in the role model make the conflicting roles mutually exclusive, so the toxic combination is blocked at assignment time by the authorization system itself."
+    ]
+  },
+  {
+    "id": "D5-0028",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "medium",
+    "stem": "A CIO proposes enterprise-wide single sign-on to reduce helpdesk password resets and user friction. The CISO supports the project but insists a specific risk be mitigated first. Which risk is MOST significant with SSO?",
+    "options": [
+      "Users will need to remember more passwords, encouraging weak choices",
+      "One compromised credential or session can open every connected application",
+      "Single sign-on is incompatible with multifactor authentication",
+      "Application owners lose the ability to log the actions of signed-on users"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This reverses the effect: SSO reduces the number of passwords users manage; password fatigue is the problem SSO solves, not one it creates.",
+      "SSO concentrates trust in one credential and session, the classic keys-to-the-kingdom problem, so a phished login or hijacked token yields broad access; strong MFA and session protections at the identity provider must come first.",
+      "SSO and MFA are complementary: a single strong multifactor login is the standard mitigation for SSO risk, so incompatibility is a misconception.",
+      "Applications still see and log each user's authenticated actions; SSO changes how the session is established, not application-level auditing."
+    ]
+  },
+  {
+    "id": "D5-0029",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "hard",
+    "stem": "During a quarterly review, an analyst discovers an enabled account belonging to a contractor whose engagement ended six months ago. The account's last successful logon was three days ago. What should the organization do FIRST?",
+    "options": [
+      "Delete the account to eliminate the exposure permanently",
+      "Perform root cause analysis of the deprovisioning control failure",
+      "Disable the account and preserve it while the recent activity is investigated",
+      "Contact the contractor's former sponsor to confirm the engagement status"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Deletion is easily confused with containment, but it can destroy logs, mailbox content, and other evidence needed to investigate who generated the recent logons.",
+      "Root cause analysis of the lifecycle failure is essential, but it comes after the immediate threat of an active, unauthorized account has been contained.",
+      "An orphaned account showing recent logons may indicate active compromise; disabling it halts any ongoing unauthorized access while keeping the account intact as evidence for the investigation.",
+      "Verifying status adds delay while the account remains usable; with logon activity occurring after a confirmed end date, containment should not wait on correspondence."
+    ]
+  },
+  {
+    "id": "D5-0030",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "hard",
+    "stem": "A trading firm plans to roll out fingerprint authentication. The privacy officer asks the architect to explain the MOST important way biometric credentials differ from passwords when designing storage and breach response. Which response is accurate?",
+    "options": [
+      "Biometric matching is exact, so stored templates require no special protection",
+      "A compromised biometric cannot be reissued, so template protection and fallback revocation options are essential",
+      "Fingerprints are classified as something you have, so adding a PIN provides no additional factor",
+      "Templates are stored as one-way hashes, so their disclosure creates no meaningful risk"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Biometric matching is probabilistic, tuned between false accepts and false rejects, and templates absolutely require protection; this option is wrong on both points.",
+      "Unlike a password, a fingerprint cannot be changed after disclosure, so a template breach is permanent; this drives requirements for protected or device-local template storage and revocable alternative authenticators.",
+      "This misclassifies the factor: a fingerprint is something you are, and pairing it with a PIN, something you know, creates genuine multifactor authentication.",
+      "Templates are feature representations, not password-style salted hashes; disclosed templates can enable presentation or matching attacks, so a breach is significant."
+    ]
+  },
+  {
+    "id": "D5-0031",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "easy",
+    "stem": "A government agency issues employees smart cards containing a private key, and each user must enter a PIN to unlock the card before it will perform authentication. Which BEST characterizes this scheme?",
+    "options": [
+      "Single-factor authentication, because the PIN is the actual credential",
+      "Two-factor authentication combining something you are with something you know",
+      "Single-factor authentication until a fingerprint reader is added to the card",
+      "Two-factor authentication combining possession of the card with knowledge of the PIN"
+    ],
+    "answer": 3,
+    "explanations": [
+      "The PIN never leaves the card and is not the credential itself; it merely unlocks the private key, so treating it as the sole factor misreads the design.",
+      "No biometric is involved; calling the card 'something you are' confuses a possession factor with an inherence factor.",
+      "The scheme already combines two categories without any biometric; a fingerprint would add a third factor, not create the second.",
+      "The card is something you have and the PIN is something you know; both are required before the private key will sign an authentication challenge, making this true two-factor authentication."
+    ]
+  },
+  {
+    "id": "D5-0032",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "hard",
+    "stem": "In a centralized attribute-based access control deployment, an application gateway intercepts each user request, forwards the request context to a central policy engine, receives a permit or deny verdict, and then allows or blocks the request. In this architecture, what is the gateway?",
+    "options": [
+      "The policy enforcement point",
+      "The policy decision point",
+      "The policy administration point",
+      "The policy information point"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The policy enforcement point sits in the request path, intercepts access attempts, and carries out the decision returned to it, which is exactly the gateway's role here.",
+      "The policy decision point is the central engine that evaluates policy and renders the verdict; candidates often pick it because it does the deciding, but the gateway only asks for and enforces that decision.",
+      "The policy administration point is where policies are authored and managed, an administrative function absent from the request flow described.",
+      "The policy information point supplies additional attribute data the decision engine needs; the gateway forwards requests for decisions rather than serving attributes."
+    ],
+    "reference": "NIST SP 800-162"
+  },
+  {
+    "id": "D5-0033",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "easy",
+    "stem": "A junior engineer reviewing a new application's authorization module notices that when a user's request does not match any configured permission rule, the application grants the access and merely logs a warning. Which access control principle is the application violating?",
+    "options": [
+      "Least privilege",
+      "Separation of duties",
+      "Implicit deny",
+      "Defense in depth"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Least privilege limits users to the minimum rights they need, but the flaw described concerns the system's default decision when no rule matches, which is governed by implicit deny rather than the scope of granted rights.",
+      "Separation of duties splits sensitive tasks among multiple people to prevent fraud; nothing in the scenario involves dividing a transaction between individuals.",
+      "Implicit deny requires that any request not explicitly authorized be refused by default; granting unmatched requests inverts the principle and creates dangerous fail-open behavior.",
+      "Defense in depth concerns layering multiple independent controls; the issue here is the default verdict of a single authorization mechanism, not the number of protective layers."
+    ]
+  },
+  {
+    "id": "D5-0034",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "During a design review for a new customer portal, the security architect is asked how account passwords should be protected in the credential database. Which approach BEST protects the passwords against offline cracking if the database is stolen?",
+    "options": [
+      "Hash each password with a unique salt using a deliberately slow adaptive function such as bcrypt or a memory-hard function such as Argon2",
+      "Encrypt all passwords with AES-256 using a key stored in a hardware security module",
+      "Hash all passwords with a single fast cryptographic hash such as SHA-256 to preserve performance",
+      "Require all passwords to be at least sixteen characters so that cracking becomes impractical"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Salted hashing with a deliberately slow adaptive function (bcrypt) or a memory-hard function (Argon2) makes each stolen record expensive to attack and defeats precomputed tables, which is exactly the threat model of a stolen credential store where verification must remain one-way.",
+      "Encryption is reversible: anyone who obtains or abuses the key can recover every plaintext password. This confuses protecting stored data confidentiality with one-way credential verification, which should never be recoverable.",
+      "A fast unsalted hash is the classic mistake: GPUs test billions of SHA-256 candidates per second and identical passwords produce identical digests, enabling rainbow-table and bulk cracking attacks.",
+      "Length policy is a user-side control that helps but cannot compensate for weak storage; users choose predictable long passwords, and strong storage must not depend on every user choosing well."
+    ],
+    "reference": "NIST SP 800-63B"
+  },
+  {
+    "id": "D5-0035",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "An audit finds that 14 employees who left the company during the past year still had active directory accounts because their managers forgot to submit termination tickets. Which remediation BEST prevents this failure from recurring?",
+    "options": [
+      "Require all managers to complete annual training on the termination checklist",
+      "Integrate the directory with the HR system so employment status changes automatically trigger account deprovisioning",
+      "Increase the frequency of user access reviews from annually to quarterly",
+      "Configure all accounts to expire automatically every 90 days unless renewed"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Training addresses the human step but leaves the process dependent on the same manual action that already failed; awareness does not remove the single point of failure.",
+      "Making the HR system the authoritative source removes reliance on manual tickets: the event that ends employment becomes the same event that disables access, closing the gap by design rather than by diligence.",
+      "More frequent access reviews are detective and would still leave departed users with active access for up to a quarter; the goal is to prevent the orphaned account, not merely to find it later.",
+      "Blanket expiration disrupts thousands of active users, renewals would likely be rubber-stamped, and a terminated user could still retain access until the next expiry date arrives."
+    ]
+  },
+  {
+    "id": "D5-0036",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "hard",
+    "stem": "Incident responders determine that attackers extracted the secret of the Kerberos key distribution center's krbtgt account and have been forging ticket-granting tickets for arbitrary users. Password resets for all user accounts have already been completed. What MUST the team do to invalidate the forged tickets?",
+    "options": [
+      "Reduce the maximum ticket-granting ticket lifetime so the forged tickets expire much sooner",
+      "Force all users to re-authenticate so that fresh session keys are issued to everyone",
+      "Rebuild every domain controller in the forest from known-good installation media",
+      "Reset the krbtgt account credential twice so no ticket signed with the stolen secret is honored"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Forged golden tickets can embed arbitrary validity periods that ignore domain lifetime policy, so shortening the configured maximum lifetime does not expire tickets the attacker mints. This confuses policy-bound tickets with attacker-forged ones.",
+      "Re-authentication issues fresh tickets to legitimate users but does nothing to stop the attacker, who never authenticates: forged tickets are created directly with the stolen krbtgt secret.",
+      "Rebuilding domain controllers may address other persistence, but the restored systems still trust the same krbtgt secret unless it is changed, so ticket forgery continues to succeed.",
+      "The KDC validates tickets against the current and the previous krbtgt credential; resetting it twice flushes the compromised value from both slots, so every ticket forged with the stolen secret is rejected."
+    ]
+  },
+  {
+    "id": "D5-0037",
+    "domain": 5,
+    "objective": "5.3",
+    "difficulty": "hard",
+    "stem": "A company federates workforce access to 40 SaaS applications through its identity provider. During a control test, an account disabled at the identity provider could still use several SaaS applications for many hours afterward. Which control gap MOST likely explains this?",
+    "options": [
+      "The SaaS providers are caching user passwords locally instead of deferring to the identity provider",
+      "The federation trust uses weak certificate key lengths that allow assertions to be forged",
+      "The applications rely on long-lived sessions and tokens with no revocation or logout propagation from the identity provider",
+      "The deprovisioning workflow failed to remove the user's role assignments inside each application"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Federated applications do not hold user passwords at all; authentication is redirected to the identity provider, so local password caching is not the mechanism keeping access alive. This confuses local credential stores with federation.",
+      "Weak keys would concern an attacker forging assertions; here a legitimately issued session simply keeps working after disablement, which is a lifetime and revocation problem, not a cryptographic one.",
+      "Federation verifies identity at sign-in; afterward each application honors its own session and tokens until they expire. Without short lifetimes, token revocation, or single logout, disablement at the identity provider is not felt until the next re-authentication.",
+      "Role assignments govern what the user may do inside an application; even with entitlements intact, the user could not get in if the session had been terminated, so entitlements are not what preserved access."
+    ]
+  },
+  {
+    "id": "D5-0038",
+    "domain": 5,
+    "objective": "5.1",
+    "difficulty": "easy",
+    "stem": "A hardware vendor's technician needs one-time access to a server room to replace a failed drive under warranty. Which approach BEST controls this physical access?",
+    "options": [
+      "Issue the technician a temporary badge carrying the same access profile as data-center staff",
+      "Log the visit and have an authorized employee escort the technician for the entire time on site",
+      "Have the technician sign a nondisclosure agreement before being allowed to enter the room",
+      "Verify the technician's government identification at reception and then allow unescorted access"
+    ],
+    "answer": 1,
+    "explanations": [
+      "A staff-equivalent badge grants far more standing access than a one-time repair requires, violating least privilege for physical access and creating a credential that must later be remembered and revoked.",
+      "Escorting plus a visitor log provides continuous supervision and an audit trail while granting no standing credentials, which is the proportional control for a brief, one-time task performed by a non-employee.",
+      "A nondisclosure agreement is an administrative control over information disclosure; it does nothing to supervise or restrict the technician's physical movement inside the facility.",
+      "Identity verification proves who the technician is but not what they do once inside; unescorted access leaves organizational assets unsupervised, confusing identification with supervision."
+    ]
+  },
+  {
+    "id": "D5-0039",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "A bank uses SMS one-time codes as the second factor for customer logins. Fraud investigators report a spike in account takeovers in which attackers ported victims' phone numbers to new SIM cards. What is the BEST strategic response?",
+    "options": [
+      "Migrate customers to an authenticator app or hardware token so codes no longer travel over the carrier network",
+      "Increase the length of the SMS one-time code from six digits to eight digits",
+      "Require customers to change their online banking passwords more frequently",
+      "Shorten the validity window of each SMS one-time code to thirty seconds"
+    ],
+    "answer": 0,
+    "explanations": [
+      "SIM-swap attacks exploit the delivery channel rather than the code itself; generating codes on a device or token the customer physically controls removes the mobile carrier from the trust chain entirely.",
+      "Longer codes resist guessing, but in a SIM swap the attacker receives the code intact on the ported number, so its length is irrelevant. This confuses brute-force resistance with channel compromise.",
+      "Password rotation does not address interception of the second factor; in these takeovers the first factor was already compromised and the attack defeats the layer meant to backstop it.",
+      "A shorter window limits delayed replay, but an attacker holding the victim's phone number receives the code in real time and uses it immediately, well inside any practical validity period."
+    ],
+    "reference": "NIST SP 800-63B"
+  },
+  {
+    "id": "D5-0040",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "medium",
+    "stem": "A finance application allows a user to hold both the 'create payment' and 'approve payment' roles, but the system blocks any user from approving a payment that they themselves created. Which control is being applied?",
+    "options": [
+      "Static separation of duties enforced at role assignment",
+      "Least privilege enforced through role-based access control",
+      "Two-person integrity requiring simultaneous action by two employees",
+      "Dynamic separation of duties enforced at transaction time"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Static separation of duties would prevent one person from ever being assigned both roles; here both roles coexist on one user and the restriction applies per transaction, which is the distinguishing feature.",
+      "Least privilege concerns granting only the rights a job requires; the user legitimately holds both roles, so the control at work addresses conflicting duties within a transaction, not excess rights.",
+      "Two-person integrity (dual control) requires two people acting together to complete a single operation, like turning two keys at once; here each action is performed alone, they simply must be different people.",
+      "Dynamic separation of duties permits conflicting roles to be held simultaneously but prevents them from being exercised on the same transaction, exactly matching the runtime check described."
+    ]
+  },
+  {
+    "id": "D5-0041",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "hard",
+    "stem": "Quarterly access recertifications show a 99.8 percent approval rate, and sampling reveals managers approving hundreds of entitlements within minutes, including several later confirmed to be inappropriate. As the IAM program lead, what is the BEST improvement to make?",
+    "options": [
+      "Move the recertification campaigns from quarterly to monthly so inappropriate access is caught sooner",
+      "Give reviewers risk-ranked, plain-language entitlement descriptions with peer-group outlier flags, and require justification for high-risk approvals",
+      "Reassign the review responsibility from business managers to the security operations team",
+      "Automatically revoke any entitlement the reviewer has not explicitly approved by the campaign deadline"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Increasing frequency multiplies the workload that caused rubber-stamping in the first place and is likely to make approval quality even worse rather than better.",
+      "Rubber-stamping is usually a signal-quality problem: reviewers cannot judge cryptic entitlements at volume. Risk ranking, readable descriptions, outlier comparison against peers, and mandatory justification make meaningful decisions feasible.",
+      "Security operations lacks the business context to know whether a specific analyst still needs a specific entitlement; the manager remains the right reviewer but needs decision support. This confuses moving the duty with enabling it.",
+      "Revoke-by-default sounds rigorous but in practice drives mass outages or panicked bulk approvals just before deadlines; it punishes non-response instead of improving the quality of decisions."
+    ]
+  },
+  {
+    "id": "D5-0042",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "medium",
+    "stem": "An enterprise deploys IEEE 802.1X port-based network access control. A laptop's supplicant submits credentials that are carried through the wired switch to a central server. In this architecture, which component actually decides whether the laptop is granted network access?",
+    "options": [
+      "The authentication server that evaluates the credentials against the identity store",
+      "The switch acting as the authenticator on the access port",
+      "The supplicant software running on the connecting laptop",
+      "The DHCP server that issues the laptop its network configuration"
+    ],
+    "answer": 0,
+    "explanations": [
+      "In 802.1X the authentication server, typically RADIUS, validates the credentials and returns the accept or reject decision, often with authorization attributes such as a VLAN assignment for the port.",
+      "The authenticator is commonly mistaken for the decision maker because it physically opens the port, but it only relays EAP traffic and enforces the server's verdict; it never evaluates the credentials itself.",
+      "The supplicant asserts an identity on behalf of the device or user; it is the party being authenticated, not the component rendering the access decision.",
+      "DHCP hands out addressing only after network access has been granted; it plays no part in the authentication decision and is a post-admission service."
+    ]
+  },
+  {
+    "id": "D5-0043",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "hard",
+    "stem": "An agency is designing digital identity requirements for three online services: viewing public park hours, filing personal tax information, and approving high-value grant disbursements. The CISO rejects a proposal to require in-person identity proofing and hardware authenticators for all three. Which principle supports the CISO's position?",
+    "options": [
+      "Defense in depth requires layered controls rather than strong authentication alone",
+      "Usability must always take precedence over security in citizen-facing services",
+      "Identity and authenticator assurance levels should be selected per service based on the risk and impact of a failure",
+      "Strong authentication is unnecessary because the sensitive services already encrypt data in transit"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Defense in depth argues for multiple layers of control, not against tailoring assurance; it does not explain why the public-information service should be treated differently from the disbursement service.",
+      "Usability is a factor to balance against risk, not an absolute trump; asserting that it always overrides security misstates risk management and would undermine the high-impact services.",
+      "Assurance levels are meant to be chosen per transaction from the consequences of a proofing or authentication failure: a public lookup needs essentially none while grant disbursement justifies the strongest, so uniform maximums waste money and burden users needlessly.",
+      "Encryption protects data in transit and is orthogonal to verifying who the user is; this confuses confidentiality controls with identity and authentication assurance."
+    ],
+    "reference": "NIST SP 800-63-3"
+  },
+  {
+    "id": "D5-0044",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "easy",
+    "stem": "A project manager creates a folder on the collaboration platform and personally decides which colleagues receive read or edit rights, adding and removing people as she sees fit. Which access control model is the platform implementing?",
+    "options": [
+      "Mandatory access control",
+      "Discretionary access control",
+      "Role-based access control",
+      "Attribute-based access control"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Mandatory access control uses labels and clearances set by the organization, and resource creators cannot override the policy, which is the opposite of an owner deciding access herself.",
+      "In discretionary access control the owner of a resource decides at her own discretion who may access it and can change those grants at will, which is exactly what the scenario describes.",
+      "Role-based access control derives permissions from centrally administered job roles, not from ad hoc grant decisions made by individual resource owners.",
+      "Attribute-based access control evaluates policies over subject, object, and environment attributes; no attribute-driven policy engine appears anywhere in the scenario."
+    ]
+  },
+  {
+    "id": "D5-0045",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "A hospital maintains a 'break-glass' administrator account so clinicians and engineers can obtain emergency access if the identity system fails during a patient-safety event. Which set of controls BEST governs this account?",
+    "options": [
+      "Disable the account entirely and require the on-call director to create a fresh one during each emergency",
+      "Distribute the account password to all senior staff so that an emergency never delays access",
+      "Protect the account with the same multifactor authentication required for routine administrator logins",
+      "Store the credential sealed, alert on any use, and review then rotate it after every activation"
+    ],
+    "answer": 3,
+    "explanations": [
+      "If the identity infrastructure is down, creating an account mid-crisis may be impossible; a break-glass credential exists precisely because provisioning cannot be assumed to work during the emergency.",
+      "Wide distribution destroys accountability and makes silent compromise likely; the value of sealing is that use is rare, deliberate, and attributable to a specific retrieval event.",
+      "Tying the emergency account to the normal multifactor infrastructure defeats its purpose, since the scenario it exists for is exactly that infrastructure failing. This confuses hardening a routine account with designing a contingency one.",
+      "Sealed storage, alerting on any use, and mandatory post-use review with credential rotation keep the account available for genuine emergencies while ensuring every use is detected, justified, and cannot be silently repeated."
+    ]
+  },
+  {
+    "id": "D5-0046",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "hard",
+    "stem": "A red team reports that any authenticated domain user can request Kerberos service tickets for accounts with registered service principal names and crack the encrypted tickets offline, recovering several service-account passwords. What is the MOST effective remediation?",
+    "options": [
+      "Replace the vulnerable accounts with managed service accounts or long, random, machine-generated passwords",
+      "Configure account lockout to block accounts after a small number of failed logon attempts",
+      "Restrict the ability to request service tickets to members of a dedicated service operators group",
+      "Shorten the service ticket lifetime so that any cracked ticket expires within a few hours"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The attack succeeds because ticket material is encrypted with a key derived from a weak, human-chosen password; managed service accounts or long random machine-generated secrets make offline cracking computationally infeasible.",
+      "Account lockout counters online guessing at the logon interface; this cracking happens offline against captured ticket material and generates no failed logons to count. This confuses online and offline attack surfaces.",
+      "Requesting service tickets is inherent to normal Kerberos operation for every authenticated user; restricting it would break legitimate access to services and is not how the protocol is secured.",
+      "The attacker cracks the ticket to recover the account's password, which remains valid long after the ticket expires; ticket lifetime does nothing to protect the underlying credential."
+    ]
+  },
+  {
+    "id": "D5-0047",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "Auditors find that six database administrators all log in to production servers using one shared 'dbadmin' account, making it impossible to attribute changes to individuals. Which remediation BEST restores accountability?",
+    "options": [
+      "Require the shared password to be changed every 30 days and immediately after any administrator departs",
+      "Enable verbose logging of every command executed under the shared dbadmin account",
+      "Issue each administrator a unique privileged account requiring elevation, and remove direct shared logins",
+      "Require administrators to record each use of dbadmin in a sign-out spreadsheet"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Rotation limits how long a departed administrator retains the credential, but during any given period the six users remain indistinguishable from one another, so attribution is still impossible.",
+      "Logging captures what the account did, but every entry still resolves to 'dbadmin'; without unique identification, audit records cannot be tied to a person. This confuses auditing with the identification it depends on.",
+      "Accountability requires unique identification before authentication and auditing can attribute actions; individual privileged accounts with controlled elevation link every logged action to exactly one person.",
+      "A manual sign-out sheet is easily forgotten or falsified and cannot be reliably reconciled with system activity; it is weak compensating paperwork rather than a structural fix."
+    ]
+  },
+  {
+    "id": "D5-0048",
+    "domain": 5,
+    "objective": "5.3",
+    "difficulty": "hard",
+    "stem": "During a penetration test of a SAML-federated procurement portal, testers modify the username inside an intercepted assertion, replay it to the service provider, and are logged in as the altered user. What is the ROOT cause of this vulnerability?",
+    "options": [
+      "The identity provider issued the assertion over an unencrypted transport channel",
+      "The service provider fails to properly validate the digital signature covering the assertion",
+      "The assertion validity lifetime is too long, allowing it to be replayed after it should have expired",
+      "The identity provider did not require multifactor authentication before issuing the assertion"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Transport encryption protects the assertion in transit, but the testers already possess it; channel protection cannot detect that the message content was altered afterward. This confuses transport security with message integrity.",
+      "A signed assertion whose signature is correctly verified cannot be modified without detection; accepting an altered username means the service provider is skipping or mishandling signature validation, which is the integrity anchor of SAML federation.",
+      "Lifetime governs how long a genuine assertion is honored; the flaw here is acceptance of a tampered assertion, which no validity window would prevent.",
+      "Multifactor authentication strengthens the original login event, but even an MFA-backed assertion can be tampered with successfully if the relying party never checks its integrity."
+    ]
+  },
+  {
+    "id": "D5-0049",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "easy",
+    "stem": "A retail website lets customers reset forgotten passwords by answering their mother's maiden name and the name of their first pet. Why is this design considered weak?",
+    "options": [
+      "The answers are too difficult for legitimate customers to remember accurately over time",
+      "Security questions count as a biometric factor and therefore can never be changed",
+      "The reset process fails to notify customers by email whenever it has been used",
+      "The answers are often discoverable from social media and public records, so they rest on knowledge attackers can obtain"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Memorability is a usability drawback, but the security weakness at issue is that other people can learn the answers, not that legitimate owners forget them.",
+      "Security questions are a knowledge factor, not a biometric 'something you are'; this misclassifies the factor, although exposed answers are indeed difficult to rotate.",
+      "Notification is a useful detective addition, but it is not the core defect; even with alerts, the account takeover has already succeeded by the time the customer reads the message.",
+      "Static personal facts are widely published, shared, or sold in breach dumps, so they fail the basic requirement that a knowledge factor be a secret known only to the user."
+    ]
+  },
+  {
+    "id": "D5-0050",
+    "domain": 5,
+    "objective": "5.5",
+    "difficulty": "medium",
+    "stem": "A managed services provider needs system accounts for a nine-month implementation project. Historically, similar third-party accounts have remained active for years after their projects ended. Which provisioning practice BEST addresses this risk?",
+    "options": [
+      "Create the accounts with expiration dates tied to the contract end and require a named sponsor to renew them",
+      "Grant the provider one shared account so there is only a single credential to remember to remove",
+      "Add the provider's accounts to the population covered by the quarterly access review",
+      "Require the provider to commit contractually to reporting its staff departures promptly"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Time-bounded accounts fail safe: when the engagement ends, access ends automatically unless a sponsor consciously renews it, converting cleanup from a task someone must remember into the default outcome.",
+      "A shared account eliminates individual accountability across the provider's staff and is no more likely to be deactivated on time; it trades one lifecycle risk for a worse accountability one.",
+      "Reviews are detective and periodic; a finished engagement could retain access for up to a quarter, and the historical failure pattern shows that relying on after-the-fact checks has not worked.",
+      "Contract clauses depend on the vendor's diligence and address staff churn rather than the end of the engagement itself; they provide recourse after a failure, not prevention of one."
+    ]
+  },
+  {
+    "id": "D5-0051",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "easy",
+    "stem": "A network capture during an internal assessment shows several applications sending user credentials to the corporate directory as LDAP simple binds in cleartext. What should the security team require?",
+    "options": [
+      "Replace the directory service entirely with a Kerberos key distribution center",
+      "Move the directory server into a separate VLAN so packet captures become harder",
+      "Require LDAPS or StartTLS so that all binds occur over an encrypted channel",
+      "Hash each password on the client before it is sent in the bind request"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Kerberos is an authentication protocol, not a directory replacement; the applications still need LDAP for lookups and binds, so the correct fix is protecting that traffic rather than swapping the service.",
+      "Segmentation shrinks the population able to sniff the segment, but any compromised host or insider on it still sees cleartext credentials; it reduces exposure without fixing the protocol weakness.",
+      "Wrapping the bind in TLS via LDAPS or StartTLS encrypts the credential in transit, directly eliminating the cleartext exposure using standard directory capability.",
+      "A client-side hash simply becomes the effective password: capturing it lets an attacker replay it in a bind, so this is replay-prone theater rather than genuine transport protection."
+    ]
+  },
+  {
+    "id": "D5-0052",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "A global firm wants stronger login security, but the workforce complains that entering a one-time code at every single login is burdensome. Which authentication strategy BEST balances risk reduction and user friction?",
+    "options": [
+      "Drop the second factor entirely for all users and compensate by forcing password changes every 30 days",
+      "Adopt risk-based authentication that steps up to additional factors only when signals such as device, location, or behavior look anomalous",
+      "Require the one-time code only for administrators and IT staff, exempting the general workforce from a second factor",
+      "Extend the session and token lifetimes so that each user only has to authenticate about once per month"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Frequent forced rotation encourages predictable password patterns while removing the control that actually stops credential stuffing; it trades a strong control for a weak, deprecated one.",
+      "Adaptive authentication concentrates friction where risk is elevated, such as unfamiliar devices, impossible travel, or odd hours, preserving strong assurance while routine logins from known contexts stay smooth, which is exactly the balance sought.",
+      "Ordinary users are the primary phishing targets and their accounts reach sensitive data; limiting the second factor to IT leaves most of the attack surface unprotected. This confuses privileged hardening with workforce-wide assurance.",
+      "Rare authentication means stolen sessions and credentials remain usable for weeks; it lowers friction by lowering assurance across the board instead of targeting friction at risk."
+    ]
+  },
+  {
+    "id": "D5-0053",
+    "domain": 5,
+    "objective": "5.4",
+    "difficulty": "hard",
+    "stem": "Five years after deploying role-based access control, an enterprise has 11,000 roles for 9,000 employees; many roles have a single member, and administrators create a new role for nearly every access request. What is the BEST course of action?",
+    "options": [
+      "Run a role engineering effort combining top-down business analysis with bottom-up entitlement mining to consolidate roles, using attributes for exceptions",
+      "Freeze all new role creation immediately and maintain the freeze until the total role count falls below the number of employees",
+      "Abandon the role model entirely and grant all future access through direct, individual user-level permission assignments",
+      "Migrate every existing role unchanged into a new identity governance platform so the roles can at least be centrally reported"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Role explosion signals that roles no longer abstract real job functions; disciplined role engineering rebuilds a maintainable model, and handling fine-grained edge cases with attributes stops one-off roles from re-accumulating.",
+      "A freeze halts the symptom but blocks legitimate business access requests and does nothing to repair the unusable model already in place; it is a moratorium, not a remediation.",
+      "Direct assignments are precisely what RBAC exists to prevent; the organization would trade role sprawl for unauditable per-user permission sprawl, which is far worse at 9,000 users.",
+      "Re-platforming the same broken catalog merely automates the mess; tooling cannot compensate for a role model that no longer maps to the business. This confuses a technology swap with a model redesign."
+    ]
+  },
+  {
+    "id": "D5-0054",
+    "domain": 5,
+    "objective": "5.1",
+    "difficulty": "medium",
+    "stem": "A terminated engineer's network accounts were disabled within minutes, yet he entered the office with his badge three days later because the physical access system is administered separately by the facilities team. What is the BEST long-term correction?",
+    "options": [
+      "Post security guards at every entrance to visually verify that each entrant is a current employee",
+      "Require the facilities team to reconcile the badge holder list against HR records once each month",
+      "Shorten badge validity so that every employee badge must be re-enabled at reception each week",
+      "Manage badge credentials through the same identity lifecycle processes that drive logical account deprovisioning"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Guards add a compensating layer but cannot reliably recognize the employment status of thousands of workers by sight; this substitutes ongoing labor for the missing lifecycle linkage.",
+      "Monthly reconciliation is detective and leaves a window of up to a month, the very kind of gap that allowed this incident, rather than tying badge revocation to the termination event itself.",
+      "Weekly re-enablement creates enormous friction for the whole workforce while still leaving days of exposure after a termination; it rations the symptom instead of connecting the systems.",
+      "Physical and logical access are both entitlements of a single identity; driving badge issuance and revocation from the same authoritative joiner-mover-leaver process ensures one termination event ends both kinds of access at once."
+    ]
+  },
+  {
+    "id": "D5-0055",
+    "domain": 5,
+    "objective": "5.6",
+    "difficulty": "medium",
+    "stem": "Employees connecting to corporate Wi-Fi have had credentials harvested by rogue access points broadcasting the corporate network name. The current design uses username and password over a protocol where clients frequently ignore server certificate warnings. What is the BEST fix?",
+    "options": [
+      "Hide the SSID broadcast and filter wireless connections by client MAC address",
+      "Deploy certificate-based mutual authentication such as EAP-TLS so clients verify the network before presenting anything",
+      "Require employees to change their Wi-Fi passwords whenever a rogue access point is detected nearby",
+      "Increase the wireless encryption strength from AES-128 to AES-256 on all corporate access points"
+    ],
+    "answer": 1,
+    "explanations": [
+      "SSID hiding and MAC filtering are trivially bypassed: clients reveal hidden networks when probing, and MAC addresses are observable and spoofable, so neither stops an evil twin from impersonating the network.",
+      "The root problem is one-way authentication, where clients prove themselves to an unverified network; mutual certificate authentication makes the client cryptographically validate the server first, and with EAP-TLS there is no password to surrender at all.",
+      "Rotation after each detection is reactive and endless; credentials are recaptured at the next rogue access point, and detection will always lag behind the attack.",
+      "Link-layer cipher strength protects traffic on the legitimate network; the harvesting occurs because users associate with an attacker's network, before encryption strength ever matters."
+    ]
+  },
+  {
+    "id": "D5-0056",
+    "domain": 5,
+    "objective": "5.3",
+    "difficulty": "medium",
+    "stem": "A mid-sized company plans to move all workforce authentication to a cloud identity-as-a-service provider fronting every business application. From a risk-management perspective, which consideration is MOST important to evaluate before committing?",
+    "options": [
+      "Whether the provider's login interface can be rebranded with the company's logo and color scheme",
+      "Whether the provider supports importing the company's existing password hashes during migration",
+      "The provider's availability history, contractual service levels, and the company's contingency plan if the service is unreachable",
+      "Whether the per-user subscription cost is lower than operating the current on-premises directory"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Branding affects user experience and phishing-awareness consistency at the margin, but it is a cosmetic concern beside the operational dependency being created.",
+      "Hash migration is a one-time implementation detail with workarounds such as staged password resets; it does not shape the organization's ongoing risk position.",
+      "Concentrating authentication in one external service makes its outage an outage of every application; the availability track record, enforceable service levels, and a tested fallback determine whether the business can tolerate that dependency.",
+      "Cost matters to the business case, but a cheaper service that can strand the entire workforce fails risk-benefit analysis; price cannot be the primary criterion for a new single point of failure."
+    ]
+  },
+  {
+    "id": "D5-0057",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "hard",
+    "stem": "After enabling a policy that locks accounts for 24 hours after three failed logins, a trading firm suffers an attack in which someone deliberately fails logins against hundreds of known usernames, locking most traders out during market hours. Which redesign BEST balances the competing risks?",
+    "options": [
+      "Keep the hard lockout policy in place but reduce the lockout duration from 24 hours to one hour",
+      "Remove the failed-login limit entirely and rely on password complexity rules to resist guessing attacks",
+      "Suppress all username hints and error details so attackers cannot confirm which accounts actually exist",
+      "Replace hard lockout with progressive delays and risk-based blocking of suspicious sources, backed by MFA and monitoring"
+    ],
+    "answer": 3,
+    "explanations": [
+      "A shorter lockout shrinks each outage, but the attacker simply re-triggers it continuously; the denial-of-service lever remains entirely in the adversary's hands.",
+      "With no throttling at all, attackers can guess at machine speed; complexity rules alone are insufficient against modern online spraying, so this swaps one risk for a larger one.",
+      "Obscuring valid usernames raises attacker effort slightly, but usernames are usually derivable from email address formats; it does not remove the ability to lock accounts once names are known.",
+      "Progressive delays and source-based throttling make online guessing impractically slow without letting attackers freeze legitimate users, while MFA and monitoring cover the residual credential-guessing risk, mitigating both threats at once."
+    ],
+    "reference": "NIST SP 800-63B"
   }
 ]
