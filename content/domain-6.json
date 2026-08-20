@@ -2141,5 +2141,410 @@
       "Validating findings is good practice in general, but the same scanner is producing normal results at every other site, making a systematic tool error an unlikely explanation for a single-site spike.",
       "Removing the outlier makes the trend chart look better while hiding exactly the signal the analysis exists to surface; metrics should drive the investigation, not be edited around it."
     ]
+  },
+  {
+    "id": "D6-0107",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "medium",
+    "stem": "A CISO has been directed to achieve ISO/IEC 27001 certification within 12 months. The ISMS was established only recently and has never been formally evaluated. Before engaging an accredited certification body, which activity would BEST prepare the organization?",
+    "options": [
+      "Commission a SOC 2 Type II examination to demonstrate operating effectiveness of the controls",
+      "Submit a self-assessment declaration of conformity to the certification body for review",
+      "Conduct an internal gap assessment against the standard's requirements and remediate the shortfalls",
+      "Schedule the Stage 2 certification audit immediately so it can identify any nonconformities"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses two assurance frameworks: a SOC 2 examination reports on trust services criteria for service organizations and neither maps to ISO/IEC 27001 clauses nor advances certification readiness.",
+      "This confuses self-attestation with certification: a self-declared claim of conformity carries no certification weight, and the body will still audit every requirement regardless of what the organization declares about itself.",
+      "A readiness or gap assessment measures the young ISMS against every clause and applicable control before the formal audit, giving the organization time to close deficiencies so the certification audit does not surface avoidable major nonconformities.",
+      "This misuses the certification audit as a discovery tool: Stage 2 follows a Stage 1 documentation review, and walking into it unprepared risks major nonconformities and a failed initial certification."
+    ],
+    "reference": "ISO/IEC 27001"
+  },
+  {
+    "id": "D6-0108",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "After several successful parallel tests of its disaster recovery plan, a hospital's continuity manager proposes a full-interruption test that shuts down the primary data center. What MUST occur before this test is scheduled?",
+    "options": [
+      "Senior management formally accepts the operational risk and approves the test in writing",
+      "The recovery site undergoes a vulnerability scan to confirm it is safe to activate",
+      "The tabletop exercise cycle is repeated to revalidate staff familiarity with the plan",
+      "An independent auditor is retained to observe the failover and attest to the results"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A full-interruption test deliberately halts production processing and can become a real outage; in a hospital that risk touches patient care, so documented executive risk acceptance and approval is a precondition before any scheduling.",
+      "This confuses assessing the recovery site's security posture with authorizing the test itself; a scan may be prudent preparation, but it does not address the governance decision to accept a deliberate production outage.",
+      "This reverses the exercise maturity progression: tabletops are a lower-fidelity method already surpassed by the successful parallel tests, and repeating them does not authorize a live shutdown.",
+      "This confuses independent observation with authorization; an auditor witnessing the failover strengthens the evidence collected but cannot substitute for management's acceptance of the outage risk."
+    ],
+    "reference": "NIST SP 800-84"
+  },
+  {
+    "id": "D6-0109",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "A development team complains that static analysis floods them with false positives while their dynamic scanner cannot show which line of code causes each finding. The security manager wants runtime confirmation of exploitable flaws mapped directly to source code during QA testing. Which technique BEST meets this need?",
+    "options": [
+      "Software composition analysis integrated into the nightly build pipeline",
+      "Interactive application security testing using agents instrumented inside the running application",
+      "Mutation testing that seeds artificial faults to measure the suite's detection power",
+      "Manual penetration testing of each release candidate in the staging environment"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses dependency analysis with application flaw detection: software composition analysis identifies known CVEs in third-party libraries but says nothing about flaws in the team's own code paths.",
+      "IAST instruments the application from within while functional tests exercise it, so findings are confirmed at runtime with far fewer false positives than SAST and traced to the exact code location that DAST cannot see.",
+      "This confuses assessing the test suite with assessing the application: mutation testing measures whether existing tests catch injected faults; it does not find security vulnerabilities or map them to code.",
+      "This confuses depth with fit: a penetration test confirms exploitability but is a periodic manual effort that does not automatically tie findings to source lines during every QA cycle as the manager requires."
+    ]
+  },
+  {
+    "id": "D6-0110",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "A vulnerability management review shows that laptops used by a fully remote sales force appear in scan results only a few times per year, because network scans target the VPN address pool and most users rarely connect. What is the MOST effective way to restore assessment coverage?",
+    "options": [
+      "Require every salesperson to connect to the VPN during the monthly scan window",
+      "Increase the frequency of network scans launched against the VPN address pool",
+      "Substitute the endpoint protection platform's malware telemetry for vulnerability data",
+      "Deploy local scanning agents on the laptops that report findings whenever devices are online"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses a policy mandate with a technical fix: compliance would depend on thousands of users remembering to connect at the right time, leaving coverage unreliable and unenforceable.",
+      "This intensifies a method that structurally cannot work: however often the pool is scanned, devices that are not connected at scan time remain invisible, so the blind spot persists.",
+      "This confuses malware detection with vulnerability assessment: endpoint protection telemetry reports threats it observed, not missing patches or configuration weaknesses on the device.",
+      "Agent-based assessment moves the scan onto the endpoint itself, so each laptop evaluates its own patch and configuration state and reports over the internet regardless of VPN connectivity, closing the coverage gap for a roaming fleet."
+    ]
+  },
+  {
+    "id": "D6-0111",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "Midway through an authorized penetration test, the testers discover trust relationships leading into a subsidiary's network that was not listed in the statement of work. Exploiting the path would likely yield domain administrator access. What should the testers do FIRST?",
+    "options": [
+      "Stop at the scope boundary and request written approval before touching the subsidiary's systems",
+      "Proceed, because the trust relationship makes the subsidiary a logical extension of the approved scope",
+      "Document the path as a finding and continue exploiting it to demonstrate the full business impact",
+      "Suspend the entire engagement and issue the final report containing the results gathered so far"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Testing authority extends only to systems the engagement documents name; the subsidiary may have separate legal ownership, regulators, or operations, so testers must halt at the boundary and obtain explicit written scope expansion before proceeding.",
+      "This confuses technical connectivity with legal authorization: a trust relationship does not confer permission, and attacking systems outside the written scope is unauthorized access regardless of how the networks connect.",
+      "This confuses proving impact with authorization to act: impact can be described analytically in the report, but continuing to exploit out-of-scope systems exceeds the engagement's legal cover.",
+      "This overcorrects by killing the whole engagement: only the out-of-scope path must pause pending a decision, while authorized testing of in-scope targets can and should continue."
+    ]
+  },
+  {
+    "id": "D6-0112",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "easy",
+    "stem": "An organization achieved ISO/IEC 27001 certification eight months ago. The IT director assumes no further external audits will occur until the certificate expires in three years. Why is this assumption incorrect?",
+    "options": [
+      "The certificate must be renewed through a new Stage 1 documentation audit every year",
+      "The certification body conducts periodic surveillance audits throughout the certification cycle",
+      "ISO/IEC 27001 requires an annual SOC 2 bridge letter to keep the certificate valid",
+      "Internal audits by the compliance team replace all external review until recertification"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses surveillance visits with restarting certification: Stage 1 is the initial documentation review, not an annually repeated step within an existing certificate's life.",
+      "Certification is not a one-time event; the certification body returns for surveillance audits, typically each year of the three-year cycle, to confirm the ISMS continues to conform before full recertification.",
+      "This imports a concept from the SOC reporting world: bridge letters cover gaps after a SOC examination period and have no role in maintaining an ISO/IEC 27001 certificate.",
+      "This confuses the two audit programs: internal audits are a mandatory ISMS activity, but they supplement rather than replace the certification body's external surveillance visits."
+    ]
+  },
+  {
+    "id": "D6-0113",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "medium",
+    "stem": "During an annual technical control assessment, a reviewer compares the perimeter firewall's active rule base with the approved change requests on file. Dozens of permissive rules have no corresponding approved request. What does this comparison BEST demonstrate?",
+    "options": [
+      "That the undocumented rules are exploitable and the perimeter has already been breached",
+      "That the firewall's logging function failed to record legitimate administrative activity",
+      "That change management over the rule base is not operating effectively",
+      "That the assessment scope should be expanded to include a full penetration test"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses an unauthorized change with a proven compromise: rules lacking approvals show a process failure, but concluding a breach occurred requires separate evidence of malicious activity.",
+      "This confuses missing change tickets with missing logs: the rules are plainly visible in the configuration; what is absent is the documented authorization trail, which is a process artifact, not a logging one.",
+      "Reconciling the implemented configuration against approved requests is a classic operating-effectiveness test; widespread unapproved rules show changes reach production without authorization, meaning the change control process has failed for this device.",
+      "This confuses evidence types: a penetration test measures exploitability, but the control being assessed is change governance, and the reconciliation already provides sufficient evidence that it is broken."
+    ]
+  },
+  {
+    "id": "D6-0114",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "hard",
+    "stem": "Leadership wants assurance that employee passwords would actually withstand attack, not merely that the directory service enforces the configured complexity rules. With legal approval and strict evidence-handling controls in place, which method provides the MOST direct evidence?",
+    "options": [
+      "Review the directory's password policy objects against the corporate password standard",
+      "Survey a representative sample of users about how they create and store their passwords",
+      "Run an authenticated configuration scan to verify lockout, history, and length settings",
+      "Perform authorized offline cracking against a securely handled extract of the password hashes"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses design review with effectiveness testing: comparing policy objects to the standard shows the control is configured as intended, not whether the passwords users actually chose resist attack.",
+      "This relies on inquiry, the weakest form of evidence: self-reported habits are unverifiable and often inaccurate, so a survey cannot demonstrate real resistance to cracking.",
+      "This is still configuration verification by another means: an authenticated scan confirms the settings exist but, like the policy review, never touches the actual password choices those settings permit.",
+      "Controlled offline cracking tests the real artifact the attacker would target; the proportion of hashes recovered within a defined effort directly measures whether the policy produces passwords that withstand attack in practice."
+    ],
+    "reference": "NIST SP 800-115"
+  },
+  {
+    "id": "D6-0115",
+    "domain": 6,
+    "objective": "6.2",
+    "difficulty": "easy",
+    "stem": "Servers pass monthly vulnerability scans with no findings, yet an assessor later discovers weak cipher suites, default administrative shares, and disabled audit logging on the same hosts. Which activity would have detected these weaknesses?",
+    "options": [
+      "Configuration compliance scanning against an approved hardening benchmark",
+      "Unauthenticated external scanning from an internet-based scan engine",
+      "Software composition analysis of the applications installed on the servers",
+      "Fuzz testing of the network services listening on the servers"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Vulnerability scanners keyed to known CVEs can report a host clean while its settings still violate policy; compliance scanning compares each configuration item against a hardening baseline such as a CIS benchmark, which is exactly what these deviations are.",
+      "This confuses perspective with content: an external unauthenticated scan shows the attacker's view of exposed services but has even less visibility into host settings than the credentialed scans that already missed them.",
+      "This confuses target types: software composition analysis inventories third-party components for known vulnerable versions and does not evaluate operating system hardening settings.",
+      "This confuses testing techniques: fuzzing probes how services handle malformed input to find implementation flaws, not whether ciphers, shares, and logging comply with a baseline."
+    ]
+  },
+  {
+    "id": "D6-0116",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "medium",
+    "stem": "A quarterly scan across 8,000 hosts returns more than 3,000 findings rated critical or high by CVSS base score, far exceeding the remediation teams' capacity. As the analyst preparing the remediation plan, how should you prioritize MOST effectively?",
+    "options": [
+      "Order the queue strictly by CVSS base score, completing all criticals before starting any highs",
+      "Address the findings that require the fewest change windows first to show rapid progress",
+      "Weight each finding by evidence of active exploitation in the wild and by the affected asset's exposure and value",
+      "Distribute the findings evenly across system owners so that every team carries a fair share"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses technical severity with risk: base scores ignore whether an exploit is being used and what the asset is worth, so a strict CVSS ordering wastes scarce capacity on flaws unlikely to ever be attacked.",
+      "This confuses activity with risk reduction: optimizing for easy wins produces impressive closure counts while the genuinely dangerous, harder-to-fix items remain open the longest.",
+      "Only a small fraction of published vulnerabilities are ever exploited, so enriching findings with threat intelligence on active exploitation and with each asset's exposure and business value concentrates limited remediation capacity where breach likelihood and impact are greatest.",
+      "This confuses workload fairness with prioritization: spreading effort evenly ignores where the risk actually sits and delays the fixes on the most threatened, most valuable systems."
+    ]
+  },
+  {
+    "id": "D6-0117",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "An incident response plan has been validated through two consecutive tabletop exercises with no significant issues identified. To continue maturing the program's assurance, what is the MOST appropriate next step?",
+    "options": [
+      "Repeat the tabletop annually with the identical scenario to confirm results stay consistent",
+      "Conduct a functional exercise in which responders actually perform response and recovery tasks in a simulated environment",
+      "Declare the plan fully validated and proceed directly to a surprise full-interruption test",
+      "Replace exercises with an internal audit documentation review to add independence to the program"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses consistency with progression: rerunning the same discussion-based scenario yields diminishing insight once the team handles it cleanly, and it never tests whether people can execute the plan.",
+      "Exercise programs mature from discussion-based to operations-based events; after clean tabletops, a functional exercise makes teams execute real procedures under simulated conditions, revealing gaps in tooling, timing, and coordination that discussion alone cannot expose.",
+      "This skips the intermediate rungs of the exercise ladder: jumping from talk-through validation to a deliberate production outage takes on major operational risk before hands-on capability has ever been demonstrated.",
+      "This confuses independence with fidelity: an audit's document review adds objective oversight but is a lower-fidelity assessment method and cannot substitute for exercising the plan."
+    ],
+    "reference": "NIST SP 800-84"
+  },
+  {
+    "id": "D6-0118",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "hard",
+    "stem": "A defense contract for a flight-control system requires that verification and validation be performed by a party technically, managerially, and financially independent of the development effort. Which arrangement satisfies this requirement?",
+    "options": [
+      "The developer's own QA department executes the test plan and reports results to the program office",
+      "The development team performs formal Fagan-style inspections of all safety-critical code modules",
+      "The program office reviews the developer's self-reported test summaries at each contract milestone",
+      "A separate contractor with no stake in the development performs independent verification and validation"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses organizational separation with true independence: a QA department inside the developer shares its management chain and financial interest in delivery, failing the managerial and financial independence tests.",
+      "This confuses rigor with independence: Fagan inspections are a disciplined review technique, but when the developing team performs them the self-review threat remains and no independence criterion is met.",
+      "This confuses oversight with assessment: reviewing summaries the developer wrote about its own testing is reliance on self-attestation, not independent execution of verification and validation activities.",
+      "Independent verification and validation (IV&V) places the assessment in the hands of an organization with no technical, managerial, or financial ties to the developer, which is precisely the independence the contract clause demands for a safety-critical system."
+    ]
+  },
+  {
+    "id": "D6-0119",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "hard",
+    "stem": "A CISO with a limited testing budget notes that the last three external penetration tests each spent most of the engagement failing to breach the hardened perimeter, yielding little insight into internal detection and response. How should next year's engagement be redesigned to deliver the MOST value?",
+    "options": [
+      "Start the testers from an assumed-breach foothold inside the network to evaluate lateral movement, escalation, and detection",
+      "Extend the engagement's duration so the testers finally have enough time to defeat the perimeter defenses",
+      "Convert the testing budget into additional quarterly external vulnerability scans of the perimeter",
+      "Narrow the scope to social engineering only, since that is how real attackers usually get inside"
+    ],
+    "answer": 0,
+    "explanations": [
+      "An assumed-breach design concedes what history already shows attackers may eventually achieve, and spends the budget answering the unanswered questions: how far an intruder could move, what they could reach, and whether defenders would notice.",
+      "This confuses persistence with value: buying more days of perimeter assault re-tests a control that repeatedly passed, while the untested internal detection and response capabilities remain unexamined.",
+      "This confuses scanning with penetration testing: scans enumerate known weaknesses in exposed services but cannot emulate an adversary's post-compromise behavior or exercise the response capability at all.",
+      "This narrows to a single initial-access vector: even a successful phish only establishes the foothold, and a scope limited to gaining entry still leaves the internal objectives untested."
+    ]
+  },
+  {
+    "id": "D6-0120",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "hard",
+    "stem": "A vendor due-diligence review finds that a critical SaaS provider's latest SOC 2 Type II report carries a qualified opinion. As the risk manager relying on this report, what does the qualification mean and what should you do FIRST?",
+    "options": [
+      "The auditor found pervasive failures across the system; treat it as an adverse opinion and plan to exit the contract",
+      "The auditor could not obtain sufficient evidence, so the report offers no assurance and should be discarded",
+      "Specific criteria had exceptions; review those exceptions to determine whether they affect the services your organization relies on",
+      "The provider passed with only minor observations; file the report and proceed with the standard renewal"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses a qualified opinion with an adverse one: adverse means failures are pervasive and the description or controls are not fairly presented overall, whereas a qualification is limited to identified areas.",
+      "This confuses a qualification with a disclaimer of opinion: a disclaimer arises when the auditor cannot gather sufficient evidence; a qualified report still expresses assurance outside the excepted areas.",
+      "A qualified opinion means the controls met the criteria except in the specific areas the auditor identifies, so the disciplined first step is to read those exceptions and assess whether they touch the services and data flows you depend on before deciding on further action.",
+      "This underreads the opinion: a qualification is a formal modification signaling control failures against stated criteria, not routine commentary, and renewing without analysis ignores a documented assurance gap."
+    ]
+  },
+  {
+    "id": "D6-0121",
+    "domain": 6,
+    "objective": "6.3",
+    "difficulty": "medium",
+    "stem": "After two years of monthly phishing simulations, the organization's click rate has plateaued near four percent, and executives question the program's continued value. Which change would make the collected data MOST useful for judging the human detection control?",
+    "options": [
+      "Switch to progressively harder lures until the click rate rises enough to justify the program",
+      "Pause simulations for a year and redirect the savings toward a new secure email gateway",
+      "Publish each department's click rate so that managers can address repeat clickers directly",
+      "Measure the rate at which employees report the simulated messages, not merely whether they click"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses managing the metric with measuring the control: tuning difficulty to manufacture a target click rate produces numbers about lure design rather than about workforce behavior.",
+      "This confuses preventive tooling with measurement: a gateway may block more phish, but abandoning simulations eliminates the process data that shows how people behave when a message gets through.",
+      "This confuses measurement with enforcement: publicizing results for disciplinary pressure discourages honest engagement and self-reporting, degrading the very data the program exists to collect.",
+      "Reporting rate captures the positive behavior that actually feeds incident response: employees who recognize and escalate a phish become a detection capability, and that signal keeps differentiating program value long after click rates flatten."
+    ]
+  },
+  {
+    "id": "D6-0122",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "easy",
+    "stem": "During a controlled test of a new intrusion detection deployment, the assessment team replays twenty recorded attack sequences against a monitored segment. The console raises alerts for fourteen and stays silent for six. The six silent cases are BEST classified as what?",
+    "options": [
+      "False positives that will inflate the analysts' daily alert triage workload",
+      "False negatives, meaning real attacks that the control failed to detect",
+      "True negatives, since the sensor correctly ignored traffic it was not tuned to inspect",
+      "Duplicate events suppressed by the correlation engine's deduplication rules"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This inverts the error type: a false positive is an alert raised on benign activity; here genuine attack traffic produced no alert at all, which is the opposite failure.",
+      "Each replayed sequence was a genuine attack, so every silent case is a missed detection — a false negative — and in a detection control these are the dangerous errors because real intrusions would proceed unnoticed.",
+      "This misapplies the true negative definition: a true negative is correctly staying silent on benign traffic, and known-malicious replays that draw no alert are detection failures, not correct outcomes.",
+      "This confuses alert-pipeline behavior with detection capability: deduplication collapses repeated alerts for the same event, but these sequences generated no alert to suppress in the first place."
+    ]
+  },
+  {
+    "id": "D6-0123",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "medium",
+    "stem": "Three days into a four-week web application assessment, a tester confirms an unauthenticated flaw that exposes the full customer database to anyone on the internet. The final report is not due for a month. What is the MOST appropriate action?",
+    "options": [
+      "Notify the client's designated contact immediately through the escalation path defined in the engagement terms",
+      "Hold the finding for the final report so all results are validated together with consistent severity ratings",
+      "Apply a temporary fix to the application so that customer data is protected while testing continues",
+      "Alert the vendor of the underlying application framework so a patch can be developed and released"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A confirmed critical exposure changes the client's live risk today; professional engagements define an out-of-band escalation channel precisely so the client can act on such findings without waiting for the reporting cycle.",
+      "This confuses reporting discipline with risk management: consistency in the final document does not justify leaving customer data exposed for a month when the escalation process exists for exactly this case.",
+      "This confuses the tester's role with the operator's: assessors are not authorized to change client production systems, and an improvised fix could break the application or destroy evidence of prior exploitation.",
+      "This confuses coordinated vendor disclosure with client notification: the immediate duty runs to the engaging client whose data is exposed; any upstream framework disclosure is a later decision made with the client."
+    ]
+  },
+  {
+    "id": "D6-0124",
+    "domain": 6,
+    "objective": "6.1",
+    "difficulty": "medium",
+    "stem": "An external penetration test compromises the company through a forgotten cloud-hosted marketing site that appeared in no asset inventory and had never been assessed. The CISO wants to prevent this entire class of blind spot. Which strategy change BEST addresses the root cause?",
+    "options": [
+      "Increase the frequency of vulnerability scanning across all subnets already recorded in the inventory",
+      "Require the marketing department to complete secure web development training before future launches",
+      "Add the compromised site to the asset inventory and schedule it for quarterly vulnerability scans",
+      "Establish continuous discovery of internet-facing assets that feeds newly found systems into the inventory and assessment program"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses scan frequency with scan coverage: assets absent from the inventory are never targeted no matter how often the known estate is scanned, so the blind spot survives untouched.",
+      "This confuses a development-quality control with an asset-governance failure: better-built shadow sites would still launch outside the inventory and remain invisible to the assessment program.",
+      "This fixes the single instance rather than the class: registering one discovered site does nothing about the next unsanctioned deployment that bypasses inventory processes tomorrow.",
+      "The root cause is that unknown internet-facing assets exist outside the inventory entirely; continuous external attack-surface discovery finds such systems from the outside and routes them into inventory and testing, closing the gap for future shadow deployments as well."
+    ]
+  },
+  {
+    "id": "D6-0125",
+    "domain": 6,
+    "objective": "6.5",
+    "difficulty": "easy",
+    "stem": "An external audit team arrives on site to begin a scheduled ISMS audit. Before any evidence is gathered, the lead auditor convenes a meeting with the auditee's management team. What is the PRIMARY purpose of this opening meeting?",
+    "options": [
+      "To present preliminary findings so that management can begin remediation work early",
+      "To confirm the audit scope, criteria, schedule, and communication channels with the auditee",
+      "To negotiate with management which potential findings will be excluded from the final report",
+      "To collect signed attestations from management that all controls are operating effectively"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses the opening meeting with the closing meeting: findings are presented at the end of fieldwork once evidence supports them; nothing has been examined yet when the audit opens.",
+      "The opening meeting aligns both parties before fieldwork begins: it confirms the audit plan, scope, and criteria, introduces the team, sets the schedule and logistics, and establishes how questions and issues will be communicated during the audit.",
+      "This describes a violation of audit independence: findings follow the evidence, and pre-negotiating exclusions with the auditee would compromise the objectivity of the entire engagement.",
+      "This confuses audit evidence with management assertion gathering: auditors form conclusions from their own testing, and blanket effectiveness attestations are neither requested nor relied upon at the opening meeting."
+    ],
+    "reference": "ISO 19011"
+  },
+  {
+    "id": "D6-0126",
+    "domain": 6,
+    "objective": "6.4",
+    "difficulty": "hard",
+    "stem": "A penetration test draft lists three findings each rated low: usernames can be enumerated at the login page, error output reveals account lockout is disabled, and the password policy allows short dictionary words. How should the analyst reviewing the draft treat these results?",
+    "options": [
+      "Leave the ratings unchanged, because severity must reflect each vulnerability in isolation to stay consistent",
+      "Remove them from the report, since low-severity findings distract leadership from the issues that matter",
+      "Assess and report the combined attack path, since together the findings enable password-guessing account takeover at a higher severity",
+      "Reclassify each individual finding as critical so the remediation teams treat all three with urgency"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses scoring consistency with risk analysis: individual ratings can stand, but analysis that stops at isolated scores hides the realistic attack chain the combination creates, which is what leadership needs to see.",
+      "This confuses brevity with insight: suppressing lows discards exactly the pieces whose combination constitutes a serious exposure, and the report would then understate the application's true risk.",
+      "Aggregate risk analysis is a core part of interpreting test output: enumeration supplies valid usernames, absent lockout permits unlimited guesses, and weak passwords make guesses succeed, so the chained path warrants its own elevated-severity finding with the combined scenario explained.",
+      "This inflates individual ratings dishonestly: each flaw alone is genuinely low impact, and misstating them as critical undermines the report's credibility; the elevated rating belongs to the documented combination, not to each part."
+    ]
   }
 ]

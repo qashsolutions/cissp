@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:25.584Z",
-  "total": 800,
+  "generatedAt": "2026-08-20T20:01:25.662Z",
+  "total": 820,
   "domains": [
     {
       "n": 1,
@@ -47,7 +47,7 @@
       "name": "Security Assessment and Testing",
       "weight": 12,
       "target": 600,
-      "count": 106,
+      "count": 126,
       "file": "domain-6.json"
     },
     {
