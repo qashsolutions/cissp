@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:24.922Z",
-  "total": 410,
+  "generatedAt": "2026-08-20T20:01:24.998Z",
+  "total": 440,
   "domains": [
     {
       "n": 1,
@@ -23,7 +23,7 @@
       "name": "Security Architecture and Engineering",
       "weight": 13,
       "target": 650,
-      "count": 107,
+      "count": 137,
       "file": "domain-3.json"
     },
     {

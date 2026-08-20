@@ -2152,5 +2152,609 @@
       "This puts validation before analysis and in the wrong environment. Testing scope should be driven by the impact analysis, and probing new authentication code first in production would itself introduce unassessed risk."
     ],
     "reference": "NIST SP 800-37"
+  },
+  {
+    "id": "D3-0108",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "medium",
+    "stem": "A fintech startup's platform team allows the same engineers to write application code, approve their own merge requests, and deploy directly to the production environment. An architecture review flags this workflow. Which secure design principle is MOST directly violated?",
+    "options": [
+      "Least privilege, because engineers hold more system permissions than their daily tasks require",
+      "Defense in depth, because a single compromised workstation could affect production systems",
+      "Separation of duties, because no independent party must concur before a change reaches production",
+      "Economy of mechanism, because the deployment pipeline contains too many complex steps"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Least privilege concerns limiting the permissions a subject holds, and it overlaps here, but the core defect is that one person can complete a sensitive change end to end; that is a duty-separation failure, not merely excess permission.",
+      "Defense in depth addresses layering multiple safeguards against a single point of technical failure; the flagged issue is procedural — one individual controls every step of a change — not a lack of layered technical controls.",
+      "Separation of duties requires that no single individual be able to author, approve, and release a change unilaterally; splitting these roles forces collusion before malicious or careless code can reach production.",
+      "Economy of mechanism argues for simple, verifiable designs; the review is not objecting to pipeline complexity but to one person holding every step of a sensitive process."
+    ]
+  },
+  {
+    "id": "D3-0109",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "hard",
+    "stem": "In a multilevel system enforcing Bell-LaPadula, an administrator downgrades a document's label from Secret to Confidential while several Secret-cleared users still have it open, and the system permits the relabel without further checks. Which model concept does this operation put at risk?",
+    "options": [
+      "The tranquility principle, which constrains changing security labels on active subjects and objects",
+      "The simple security property, which prevents subjects from reading objects above their clearance",
+      "The *-property, which prevents subjects from writing information into lower-classified objects",
+      "Discretionary access via the access matrix, which lets owners grant permissions to other subjects"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Bell-LaPadula's strong tranquility principle holds that labels must not change while the system operates, and weak tranquility permits changes only when they cannot violate policy; relabeling a live Secret document on the fly is exactly the situation tranquility exists to control.",
+      "No-read-up governs a subject's ability to open higher-classified objects; here the object's own label is being altered mid-use, which the read rule does not address.",
+      "The star property governs write-down by subjects; the risk here comes from an administrative relabel of the object itself, not from any subject writing to a lower level.",
+      "The discretionary access-matrix layer of Bell-LaPadula covers need-to-know permission grants; it says nothing about mandatory labels being mutated during operation."
+    ]
+  },
+  {
+    "id": "D3-0110",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "medium",
+    "stem": "An analyst merges extracts from two compartmented datasets — one labeled Secret//ALPHA and one labeled Secret//BRAVO — into a single report. Under a lattice-based access control model, what label must the combined report receive?",
+    "options": [
+      "Secret with no compartments, since the compartment markings cancel out when data is merged",
+      "The least upper bound of the two labels, Secret//ALPHA,BRAVO, which dominates both sources",
+      "Top Secret, because combining compartments always raises the classification one level",
+      "The greatest lower bound of the two labels, so any reader of either compartment can access it"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Dropping the compartments would let readers without ALPHA or BRAVO access see the derived content; compartment markings constrain the merged product rather than canceling out.",
+      "A lattice orders labels by dominance, and derived data must carry the least upper bound of its inputs — the lowest label that dominates every source — so the report is Secret//ALPHA,BRAVO and readable only by subjects cleared for both compartments.",
+      "This confuses aggregation risk with lattice mathematics: combining compartments joins the category sets but does not automatically elevate the hierarchical level to Top Secret.",
+      "The greatest lower bound is the label that both sources dominate and serves as a shared read floor; applying it to derived data would leak each compartment to the other's readers."
+    ]
+  },
+  {
+    "id": "D3-0111",
+    "domain": 3,
+    "objective": "3.3",
+    "difficulty": "medium",
+    "stem": "A new payroll application will run in the organization's existing data center, which already provides badge access, environmental monitoring, and fire suppression managed by the facilities team. When selecting the application's control baseline, how should the architect treat these physical and environmental controls?",
+    "options": [
+      "Scope them out of the baseline as not applicable to an application-layer system",
+      "Re-implement them within the application project so the system owner controls them directly",
+      "Replace them with compensating controls documented in the application's security plan",
+      "Designate them as common controls inherited from the facility provider and document the inheritance"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Scoping removes controls that genuinely do not apply, such as wireless controls on a system with no radios; physical protection absolutely applies to the servers hosting this application, so it cannot be scoped out.",
+      "Duplicating facility safeguards at the project level wastes resources and creates conflicting ownership; baseline frameworks exist precisely so every system does not rebuild shared protections.",
+      "Compensating controls substitute alternate safeguards when a required control is infeasible; here the required controls already exist and function, so no substitution is needed.",
+      "Controls implemented once and relied upon by many systems are common controls; the application inherits them from the common control provider, and the security plan records the inheritance along with any system-specific gaps."
+    ],
+    "reference": "NIST SP 800-37r2"
+  },
+  {
+    "id": "D3-0112",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "medium",
+    "stem": "Executives travel with laptops that have external high-speed ports supporting direct memory access. A security assessment warns that an attacker with brief physical access could use a malicious peripheral to read encryption keys straight from RAM. Which platform capability BEST addresses this threat?",
+    "options": [
+      "Enabling the input-output memory management unit to restrict peripheral access to system memory",
+      "Turning on full-disk encryption so data stored on the drive remains protected",
+      "Enforcing data execution prevention so injected code pages cannot run",
+      "Requiring a BIOS/UEFI password so firmware settings cannot be changed"
+    ],
+    "answer": 0,
+    "explanations": [
+      "An IOMMU with kernel DMA protection remaps and restricts device-initiated memory access, so a hot-plugged peripheral can no longer read arbitrary RAM, including the keys protecting mounted encrypted volumes.",
+      "Full-disk encryption protects data at rest, but while the machine is running the volume key sits in RAM — exactly what a DMA-capable peripheral reads — so disk encryption alone does not stop this attack.",
+      "DEP marks memory pages non-executable to defeat code injection by software exploits; it does not govern what physical devices can read over the bus.",
+      "A firmware password protects boot configuration from tampering; DMA attacks operate against a running system's memory and never need to enter firmware setup."
+    ]
+  },
+  {
+    "id": "D3-0113",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "hard",
+    "stem": "A cloud-hosted web application fetches preview images from user-supplied URLs. A penetration test shows the feature can be pointed at the cloud provider's instance metadata endpoint, returning temporary credentials for the server's role. Which remediation BEST addresses the architectural weakness?",
+    "options": [
+      "Deploy a web application firewall with signatures that block known malicious inbound payloads",
+      "Encrypt the application's data stores so stolen credentials cannot expose readable records",
+      "Require session-oriented, hop-limited metadata requests and restrict the fetcher's outbound destinations to an allow-list",
+      "Rotate the exposed role credentials immediately and shorten their validity period going forward"
+    ],
+    "answer": 2,
+    "explanations": [
+      "A WAF inspects inbound traffic for attack signatures, but this exploit consists of the server making outbound requests on the attacker's behalf; filtering what comes in does not constrain where the fetcher can go.",
+      "Encryption at rest does not help when the attacker holds valid role credentials, because the platform will happily decrypt data for any caller presenting authorized credentials.",
+      "This is server-side request forgery: hardening the metadata service so simple unauthenticated requests cannot retrieve credentials, and confining the URL fetcher to an egress allow-list, removes the internal endpoints the forgery can reach and fixes the design flaw rather than one symptom.",
+      "Rotating credentials and shortening lifetimes reduce the value of what was already stolen, but the forgery path remains and will surrender fresh credentials on demand."
+    ],
+    "reference": "OWASP Top 10"
+  },
+  {
+    "id": "D3-0114",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "medium",
+    "stem": "Employees increasingly read corporate email and documents on personally owned phones. Legal objects to seizing or fully wiping personal devices, while security worries about corporate data leaking through personal apps and cloud backups. Which approach BEST balances these concerns?",
+    "options": [
+      "Prohibit all corporate data access from personally owned devices until company phones are issued",
+      "Deploy managed containers that isolate corporate apps and data and support selective wipe of only the work profile",
+      "Require full-device enrollment giving the organization remote wipe over the entire handset",
+      "Mandate VPN connections from personal devices so traffic to corporate services is encrypted"
+    ],
+    "answer": 1,
+    "explanations": [
+      "An outright ban ignores the business demand that created BYOD and typically drives shadow workarounds such as personal email forwarding, which are far harder to govern than a managed program.",
+      "Application-level containerization separates the corporate workspace from personal apps and cloud backups, enforces policy inside the container, and lets the organization erase only corporate data — closing the leak path without claiming control of the user's personal property.",
+      "Full-device control answers the security concern but tramples the privacy objection: remote-wiping an employee's photos and personal accounts creates exactly the legal exposure the scenario raises.",
+      "A VPN protects data in transit but does nothing about data at rest on the device or leakage into personal apps and backups, which are the stated worries."
+    ]
+  },
+  {
+    "id": "D3-0115",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "hard",
+    "stem": "On a shared server, a low-privilege process is observed inferring data from a sensitive partition it cannot read. Investigation shows a cooperating high-side process varies its CPU consumption in a coded rhythm that the low-side process measures through system responsiveness. No shared files or memory are involved. What has been discovered?",
+    "options": [
+      "A covert storage channel, because the CPU scheduler is being used as a shared writable object",
+      "A side-channel attack, because the receiver passively exploits unintended physical leakage",
+      "Steganography, because the message is hidden inside apparently innocent system activity",
+      "A covert timing channel, because information is signaled through modulation of observable timing behavior"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Storage channels signal by writing to and reading a shared attribute such as a file name, lock, or disk-full flag; here nothing is stored — the signal exists only in when things happen, which defines a timing channel.",
+      "Side channels involve an attacker unilaterally extracting secrets from the unintentional emissions of a victim that is not trying to communicate; this scenario has two colluding processes deliberately communicating, the hallmark of a covert channel.",
+      "Steganography hides content inside a legitimate carrier object such as an image or document; no carrier object exists here, only manipulated timing.",
+      "A covert timing channel transfers information by modulating the timing of system-visible events such as CPU load and response latency so a conspirator below the boundary can decode it; countermeasures include noise injection and scheduler partitioning."
+    ]
+  },
+  {
+    "id": "D3-0116",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "medium",
+    "stem": "An engineer proposes that remote telemetry units establish session keys with the control server using anonymous Diffie-Hellman, arguing that the exchange never transmits the secret key over the network. What is the MOST significant weakness of this design?",
+    "options": [
+      "An active on-path attacker can substitute their own parameters and establish separate keys with each side",
+      "The shared secret is transmitted in a recoverable form during the exchange",
+      "Diffie-Hellman keys are inherently too short to resist modern brute-force attacks",
+      "Captured sessions can be replayed later to issue duplicate control commands"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Unauthenticated key agreement cannot tell a legitimate party from an impostor: a man-in-the-middle runs one exchange with the unit and another with the server, transparently decrypting and re-encrypting all traffic; the fix is authenticating the exchange with certificates or signed parameters.",
+      "This repeats the misconception the engineer already avoided — Diffie-Hellman never transmits the secret; each side derives it from private values, so eavesdropping alone does not recover it.",
+      "Key size is a parameter choice, not an inherent flaw; appropriately sized groups or elliptic-curve variants resist brute force yet remain fully vulnerable to impersonation when unauthenticated.",
+      "Replay is a real protocol concern but is handled by nonces and freshness checks within the protocol; it is secondary to an attacker silently sitting inside every new session from the start."
+    ]
+  },
+  {
+    "id": "D3-0117",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "hard",
+    "stem": "A storage platform holds hundreds of millions of encrypted objects, each encrypted under its own data key. Policy requires the ability to rotate cryptographic material regularly without re-processing petabytes of stored data. Which key architecture BEST satisfies the requirement?",
+    "options": [
+      "Extend the cryptoperiod of a single storage key so that rotation is needed less frequently",
+      "Wrap each object's data key with a master key-encrypting key, so rotation re-wraps the small key records instead of the data",
+      "Re-encrypt the full object store with a fresh key at every scheduled rotation window",
+      "Derive every object's key on demand from a static passphrase combined with the object identifier"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Stretching a cryptoperiod to avoid operational pain inverts the control's purpose: longer key lifetimes enlarge the compromise window, which is the exposure rotation exists to limit.",
+      "A key hierarchy separates bulk data encryption from key protection: rotating the key-encrypting key means unwrapping and re-wrapping kilobytes of stored data keys rather than petabytes of ciphertext, and a suspect KEK can be retired without touching the objects themselves.",
+      "Wholesale re-encryption technically satisfies rotation but is precisely the petabyte-scale reprocessing the requirement rules out, making it operationally unworkable at every window.",
+      "Deterministic derivation from a static secret ties every object to one unrotatable value; changing the passphrase changes every derived key at once and still forces full re-encryption of the store."
+    ],
+    "reference": "NIST SP 800-57 Part 1"
+  },
+  {
+    "id": "D3-0118",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "easy",
+    "stem": "Outside counsel must exchange privileged case files with the legal department by email. Messages traverse several intermediate mail relays operated by third parties. Which solution BEST protects the confidentiality of message content across the full path?",
+    "options": [
+      "Enforce TLS on every server-to-server mail connection along the route",
+      "Sign all outgoing messages with the organization's domain keys",
+      "Encrypt messages end-to-end with S/MIME using the recipients' certificates",
+      "Store mailbox databases on encrypted volumes at both organizations"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Transport encryption protects each hop's connection, but every intermediate relay decrypts and can read the message while processing it; hop-by-hop TLS is not end-to-end confidentiality.",
+      "Domain signing provides origin authentication and integrity so recipients can detect spoofing and tampering, but signatures leave the content readable by everyone who handles it.",
+      "S/MIME encrypts the message body under the recipient's public key at the sender's client, so relays carry only ciphertext and only the certificate holder can decrypt — confidentiality survives every intermediate hop.",
+      "Encrypting mailbox storage protects data at rest against media theft; it does nothing for messages while they transit third-party relays."
+    ]
+  },
+  {
+    "id": "D3-0119",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "hard",
+    "stem": "Researchers find that thousands of a vendor's network appliances share factorable TLS private keys. Analysis shows each unit generated its key pair automatically within seconds of its very first power-on. What is the MOST likely root cause?",
+    "options": [
+      "The chosen key length is too small for the algorithm to resist factoring",
+      "The appliances default to a weak export-grade cipher suite during the handshake",
+      "A hash collision during certificate issuance produced duplicate key material",
+      "Key generation drew from an entropy pool that was barely seeded at first boot"
+    ],
+    "answer": 3,
+    "explanations": [
+      "If key length were the flaw, every key would be uniformly weak but still distinct; shared and common factors across many devices point to duplicated random inputs, not short moduli.",
+      "Cipher-suite downgrade is a handshake negotiation problem affecting individual sessions; it has nothing to do with how a device generates its long-term private key.",
+      "Hash collisions concern digest functions used in signing, not the randomness used to create key pairs, and would not cause thousands of devices to produce related primes.",
+      "Freshly booted embedded devices have accumulated almost no unpredictable events, so a deterministic PRNG seeded from a near-empty entropy pool emits similar streams on many units, yielding shared or common-factor primes; deferring generation until sufficient entropy exists, or using a hardware RNG, is the remedy."
+    ]
+  },
+  {
+    "id": "D3-0120",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A laptop in sleep mode is stolen from a conference room. Forensic reconstruction shows the thief chilled the memory modules, force-restarted the machine into a minimal operating system from USB, and dumped RAM contents to recover the full-disk encryption key. Which attack does this describe?",
+    "options": [
+      "A cold boot attack exploiting DRAM data remanence after power interruption",
+      "An evil maid attack that tampers with the bootloader to capture credentials",
+      "A power-analysis side channel measuring consumption during decryption",
+      "A brute-force attack against the pre-boot authentication password"
+    ],
+    "answer": 0,
+    "explanations": [
+      "DRAM cells retain their contents for seconds to minutes after power loss, and cooling extends that window; rebooting into attacker-controlled code lets the memory image, including resident volume keys, be harvested. Mitigations include shutting down or hibernating instead of sleeping and using memory encryption.",
+      "An evil maid attack covertly modifies boot components and returns the device so the victim later types secrets into the tampered stack; here the device was never returned and no bootloader was altered — memory was read directly.",
+      "Power analysis infers secrets from electrical consumption patterns during cryptographic operations on a running device; this attacker read key material verbatim from memory rather than inferring it from a physical side channel.",
+      "No password guessing occurred; the key was lifted from RAM, bypassing pre-boot authentication entirely, which is exactly why sleep mode is riskier than a full shutdown."
+    ]
+  },
+  {
+    "id": "D3-0121",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A cryptanalyst attacks a block cipher by submitting large numbers of chosen plaintext pairs that differ in carefully selected bit positions, then studies how those input differences propagate through the rounds into statistical patterns in the ciphertext. Which technique is being applied?",
+    "options": [
+      "Linear cryptanalysis, approximating the cipher's behavior with probable linear equations",
+      "Differential cryptanalysis, tracing the propagation of controlled input differences",
+      "Frequency analysis, matching ciphertext symbol distributions to language statistics",
+      "A meet-in-the-middle attack, computing forward and backward to a common intermediate state"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Linear cryptanalysis also targets block ciphers statistically, but it builds linear approximations relating plaintext, ciphertext, and key bits from known plaintexts; it does not revolve around chosen input-pair differences.",
+      "Differential cryptanalysis is defined by exactly this method: choose plaintext pairs with a fixed difference, follow how the difference evolves through each round, and use biased output differentials to recover key bits — the reason modern ciphers are explicitly designed for differential resistance.",
+      "Frequency analysis defeats simple substitution ciphers by counting symbol occurrences; it has no purchase on a modern block cipher's diffusion and involves no chosen plaintext pairs.",
+      "Meet-in-the-middle attacks exploit layered encryption constructions by matching intermediate values computed from both ends; they attack construction shortcuts, not the propagation of input differences."
+    ]
+  },
+  {
+    "id": "D3-0122",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A legacy API authenticates requests with a tag computed as Hash(secret || message) using an iterated Merkle-Damgard hash. A tester demonstrates forging valid tags for messages with attacker-chosen data appended, without ever learning the secret. Which weakness enables this, and what fixes it?",
+    "options": [
+      "Weak collision resistance of the digest; move to a hash with a larger output size",
+      "Predictable secrets; enforce longer keys so tags cannot be guessed",
+      "Length extension of the secret-prefix construction; replace it with HMAC's nested keyed design",
+      "Missing transport protection; wrap the API in TLS so tags cannot be observed"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Collision attacks find two different inputs with equal digests and would not let an attacker extend one specific authenticated message; enlarging the output does not change the iterated construction's extendability.",
+      "The forgery never guesses or recovers the secret — it continues the hash computation from the published tag — so the length of the key is irrelevant to this flaw.",
+      "Iterated hashes expose their internal state in the final digest, letting anyone resume hashing with appended blocks and mint a valid tag for message-plus-suffix; HMAC keys the hash twice in a nested structure so the outer computation seals the state, which is why message authentication should use HMAC or an equivalent rather than a bare secret-prefix hash.",
+      "TLS hides tags from eavesdroppers, but every legitimate API consumer still receives tags and can perform the extension; the flaw lies in the tag construction itself, not in transport exposure."
+    ]
+  },
+  {
+    "id": "D3-0123",
+    "domain": 3,
+    "objective": "3.8",
+    "difficulty": "medium",
+    "stem": "A facility assessment finds that couriers delivering packages walk through the main operations corridor, passing the network operations center and an unlocked storage room, to reach a receiving desk deep inside the building. Which redesign BEST addresses the exposure?",
+    "options": [
+      "Install additional cameras along the corridor to record all delivery traffic",
+      "Require couriers to sign a visitor log and wear temporary badges while inside",
+      "Run background screening on the courier companies' delivery personnel",
+      "Relocate receiving to a segregated dock area with a controlled hand-off point at the building edge"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Cameras record intrusions for later review but do not prevent an outsider from traversing sensitive space; the underlying flaw is a circulation path, which detection does not fix.",
+      "Logs and badges identify who entered, yet still place untrusted outsiders adjacent to critical rooms; administrative tracking cannot substitute for keeping them out of the zone entirely.",
+      "Screening reduces risk from the couriers themselves but cannot cover every substitute driver, and it leaves the design flaw — deliveries routed through operational space — completely untouched.",
+      "Good site design keeps delivery and visitor circulation at the perimeter of the secure envelope: a dedicated dock with a monitored transfer area lets goods enter without any outsider crossing operational zones, eliminating the exposure through layout rather than supervision."
+    ]
+  },
+  {
+    "id": "D3-0124",
+    "domain": 3,
+    "objective": "3.8",
+    "difficulty": "easy",
+    "stem": "A company builds a new primary data center beside a highway and plans large exterior signs carrying the company logo and the words 'National Data Center.' From a facility security standpoint, what is the BEST guidance?",
+    "options": [
+      "Omit signs identifying the building's purpose, keeping the facility deliberately low-profile",
+      "Keep the signs, since visible ownership markings provide territorial reinforcement",
+      "Keep the signs, because hiding a facility's purpose is security through obscurity, which adds no value",
+      "Replace the signs with warning placards describing prosecution for trespassing"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A critical facility should not advertise that it concentrates high-value systems; an anonymous, low-profile exterior reduces the likelihood of being deliberately targeted for attack, protest, or theft, which outweighs any branding benefit.",
+      "Territorial reinforcement uses borders, landscaping, and modest ownership cues to signal that a space is controlled and watched; it does not require broadcasting that the building houses critical infrastructure, which attracts determined adversaries rather than deterring casual ones.",
+      "This misapplies the argument against obscurity: obscurity is inadequate as a system's only safeguard, but reducing a facility's visibility as a target is a legitimate layer on top of real physical controls.",
+      "Trespass warnings are useful at fence lines, but the building would still be announcing its value; the primary correction is removing purpose-identifying signage, not rewording it."
+    ]
+  },
+  {
+    "id": "D3-0125",
+    "domain": 3,
+    "objective": "3.8",
+    "difficulty": "medium",
+    "stem": "In a headquarters building, any employee badge that opens the lobby turnstiles also opens every interior door, including the server room and the executive records vault. Which design change BEST corrects this weakness?",
+    "options": [
+      "Upgrade the perimeter with taller fencing and additional exterior guard patrols",
+      "Establish concentric security zones with progressively stricter access as spaces become more sensitive",
+      "Add cameras covering the server room and vault doors with motion-triggered recording",
+      "Issue visitor badges in a distinct color so staff can challenge unfamiliar persons"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Strengthening the outermost layer does nothing about the flaw inside it: once past the lobby, every space is equally open, so the perimeter is not the weak point here.",
+      "Layered physical design places sensitive assets within nested zones — site, building, floor, room, cabinet — each with its own authorization list, so lobby access grants nothing beyond common areas and no single credential tier opens the innermost spaces.",
+      "Cameras add detection at the sensitive doors, but the doors still unlock for every badge; surveillance without differentiated authorization leaves the exposure intact.",
+      "Distinct visitor badges support challenge procedures for outsiders, yet the scenario's problem is that legitimate employee badges are over-privileged inside the building."
+    ]
+  },
+  {
+    "id": "D3-0126",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "medium",
+    "stem": "A distribution company must add sprinkler coverage to an unheated loading dock and attached storage bay in a region with sub-freezing winters. Which suppression design is MOST appropriate?",
+    "options": [
+      "A wet-pipe system, because water at every head gives the fastest possible discharge",
+      "A deluge system, so all heads flood the area at once when smoke is detected",
+      "A dry-pipe system, keeping pipes charged with air until a head activates",
+      "A pre-action system, requiring both detection and head activation before water flows"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Wet-pipe systems hold water in the piping at all times; in an unheated space the lines can freeze and burst, causing water damage and leaving the system inoperative when it is actually needed.",
+      "Deluge designs use open heads that discharge everywhere simultaneously and suit high-hazard occupancies such as fuel handling; they are excessive for a dock and do not address the freezing problem.",
+      "Dry-pipe systems fill the distribution piping with pressurized air or nitrogen and hold water back at a riser valve located in heated space, releasing it only when a fused head opens — the standard choice where piping runs through areas subject to freezing.",
+      "Pre-action systems exist to prevent accidental discharge in spaces like data centers by demanding an independent detection event first; the dock's constraint is temperature, not discharge sensitivity."
+    ]
+  },
+  {
+    "id": "D3-0127",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "easy",
+    "stem": "During a walkthrough, an assessor finds that the telecommunications closets on each floor are unlocked and double as storage for cleaning supplies, with switches and patch panels openly accessible. What is the BEST corrective action?",
+    "options": [
+      "Encrypt all network traffic so physical access to the switches yields nothing useful",
+      "Mount cameras in the corridors outside each closet to record who enters",
+      "Label all cabling and patch panels so unauthorized changes are easier to spot",
+      "Dedicate the closets to network equipment and secure them with controlled, logged access"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Encryption limits what a wiretapper can read but does not stop rogue devices, pulled cables, or outages caused by anyone with hands on the hardware; the infrastructure's integrity and availability still depend on physical control.",
+      "Corridor cameras provide after-the-fact evidence yet leave the doors open to everyone; detection without a locked boundary does not prevent tampering.",
+      "Labeling aids change management and troubleshooting, but tidy documentation is no barrier to a person standing at the panel.",
+      "Wiring closets and distribution frames are part of the security perimeter: restricting them to authorized technicians, removing unrelated uses, and logging entry protects the cable plant against tapping, rogue equipment, and accidental disruption."
+    ]
+  },
+  {
+    "id": "D3-0128",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "medium",
+    "stem": "After a weekend break-in through a side door, management is surprised that the intrusion was discovered only when staff reviewed camera footage on Monday. They believed the extensive CCTV system 'prevented' such events. What should the security architect clarify?",
+    "options": [
+      "Unmonitored CCTV is a deterrent and forensic tool; timely response requires pairing it with monitored alarms or live surveillance",
+      "CCTV is a preventive control, and the system failed because camera coverage of the side door was insufficient",
+      "Retention length was the failure; keeping recordings longer would have caught the intrusion sooner",
+      "Higher-resolution cameras would have prevented the entry by improving identification quality"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Cameras deter some intruders and supply evidence afterward, but recording alone detects nothing in real time; coupling video with intrusion alarms, analytics, or a monitored guard station is what turns it into a control that can trigger response during the event.",
+      "Classifying CCTV as preventive is the exact misunderstanding on display: a camera does not physically stop entry, and adding coverage would still have left the event unnoticed until playback.",
+      "Retention determines how long evidence remains available for review, not how quickly an event is noticed; the footage already existed and was simply not being watched.",
+      "Resolution affects the evidentiary value of images for identifying suspects; it has no bearing on whether anyone learns of an intrusion while it is happening."
+    ]
+  },
+  {
+    "id": "D3-0129",
+    "domain": 3,
+    "objective": "3.10",
+    "difficulty": "medium",
+    "stem": "A department head asks IT to decommission a retired case-management system next week and to wipe its storage immediately so the racks can be reused. What should the security team do FIRST?",
+    "options": [
+      "Sanitize the drives with a verified method appropriate to the media type",
+      "Confirm records retention schedules and any legal holds that apply to the system's data",
+      "Remove the system from the asset inventory and revoke its credentials and certificates",
+      "Archive a full image of the system to tape in case something is needed later"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Verified sanitization is essential, but it is destruction; performing it before retention and hold obligations are checked can irreversibly destroy records the organization is legally required to keep.",
+      "Disposal decisions begin with data governance: retention schedules, regulatory mandates, and litigation holds determine what must be preserved or migrated before any destructive step, so this review gates everything else in decommissioning.",
+      "Inventory cleanup and credential revocation belong on the decommissioning checklist, but they follow the decision about what happens to the data, which has not yet been made.",
+      "Archiving everything indefinitely is the opposite error: retaining data beyond its required period increases breach and legal-discovery exposure rather than managing it."
+    ]
+  },
+  {
+    "id": "D3-0130",
+    "domain": 3,
+    "objective": "3.10",
+    "difficulty": "medium",
+    "stem": "Security requirements were formally approved at project initiation, but at the pre-release gate the test team cannot demonstrate which requirements were implemented or verified, and several appear to have been silently dropped during design changes. Which practice would BEST prevent this situation?",
+    "options": [
+      "Commission an independent penetration test before every production release",
+      "Increase the frequency of peer code reviews during the implementation phase",
+      "Maintain a requirements traceability matrix linking each security requirement through design, build, and test",
+      "Require the change advisory board to approve all modifications to project scope"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Penetration testing samples the finished product for exploitable weaknesses; it cannot confirm that every approved requirement was implemented, and it arrives too late to prevent silent drops.",
+      "Code review examines the quality of what was built; it does not reveal requirements that never made it into the design at all.",
+      "A traceability matrix maps every requirement to the design elements, code, and test cases that satisfy it, so any requirement lacking a downstream artifact becomes visible immediately and verification coverage can be demonstrated at each lifecycle gate.",
+      "Change-board approval governs whether scope changes are authorized, but without traceability the board cannot see which security requirements a given design change quietly orphans."
+    ]
+  },
+  {
+    "id": "D3-0131",
+    "domain": 3,
+    "objective": "3.3",
+    "difficulty": "easy",
+    "stem": "A hospital's bed-management system has modest confidentiality needs but must remain operational around the clock, because outages directly delay patient care. The proposed control set consists almost entirely of encryption, multifactor authentication, and data loss prevention. What is the BEST critique?",
+    "options": [
+      "The controls are adequate because protecting confidentiality automatically protects the other security objectives",
+      "The design needs stronger encryption to meet the healthcare sector's regulatory expectations",
+      "DLP should be replaced by database activity monitoring for clinical systems",
+      "The selection ignores the dominant availability requirement, which calls for redundancy, failover, and backup power"
+    ],
+    "answer": 3,
+    "explanations": [
+      "The security objectives are distinct: encryption and access controls do nothing to keep a system running through hardware failure or power loss, so confidentiality controls cannot stand in for availability ones.",
+      "Stronger encryption addresses a requirement the scenario describes as modest; regulatory framing does not change the system's stated dominant need.",
+      "Swapping one confidentiality-oriented tool for another still leaves the entire control set aimed at the wrong security objective.",
+      "Controls must be selected against the system's actual security requirements; when availability dominates, the baseline should emphasize clustering, redundant infrastructure, tested failover, and recovery capability alongside proportionate confidentiality measures."
+    ]
+  },
+  {
+    "id": "D3-0132",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "easy",
+    "stem": "An architect is choosing a virtualization platform for hosting regulated workloads and wants the smallest practical attack surface between guest machines and the hardware. Which option BEST meets that goal?",
+    "options": [
+      "A Type 1 hypervisor running directly on the hardware without a general-purpose host OS",
+      "A Type 2 hypervisor, because the underlying host OS adds an extra defensive layer",
+      "OS-level containers, because sharing one kernel reduces the amount of code involved",
+      "Application emulation, because translated instructions cannot touch real hardware"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A bare-metal hypervisor is a comparatively small, purpose-built layer, so guests are separated by far less code than a full operating system; fewer components in the trusted computing base mean fewer exploitable flaws between workloads and hardware.",
+      "This mistakes an extra software layer for defense in depth: the host OS beneath a Type 2 hypervisor is a large general-purpose attack surface whose compromise undermines every guest running above it.",
+      "Containers share the host kernel, so isolation depends on one large kernel's correctness; a kernel exploit in any container exposes all the others, giving weaker separation than hardware-backed virtualization.",
+      "Emulation still executes within a host process on a full operating system and is chosen for compatibility, not isolation strength; its translation layer adds complexity rather than shrinking the trusted base."
+    ]
+  },
+  {
+    "id": "D3-0133",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "medium",
+    "stem": "A design review finds that device drivers, the graphics stack, and several vendor utilities can all bypass the operating system's access control enforcement. The architect recommends restructuring so that only a minimal, well-defined set of components retains that ability. Which concept is she applying?",
+    "options": [
+      "Minimizing the trusted computing base",
+      "Enforcing the principle of least privilege",
+      "Applying defense in depth through layered controls",
+      "Implementing process isolation between components"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The trusted computing base is the set of hardware, firmware, and software that must be trusted to enforce policy; shrinking it means fewer components must be verified, reducing the chance that an unevaluated flaw silently undermines enforcement.",
+      "Least privilege limits the rights granted to subjects during operation; candidates confuse it with this scenario, but the issue is how many components sit inside the enforcement boundary itself, not how much authority individual users are granted.",
+      "Defense in depth stacks multiple overlapping controls so one failure is caught by another; it says nothing about how many components are trusted to enforce policy, which is the weakness the architect is correcting.",
+      "Process isolation separates address spaces so one process cannot tamper with another; components that can already bypass access control enforcement defeat isolation rather than being contained by it."
+    ]
+  },
+  {
+    "id": "D3-0134",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "medium",
+    "stem": "A DLP gateway that flags encrypted archives and keyword matches failed to detect an insider who exfiltrated a customer list. Forensics shows the data was embedded in the low-order pixel bits of vacation photos uploaded to a public gallery. Which technique did the insider use?",
+    "options": [
+      "Digital watermarking",
+      "Steganography",
+      "A covert timing channel",
+      "A transposition cipher"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Watermarking also embeds data in media, which is why the two are confused, but its purpose is marking provenance or ownership, often detectably; it is not designed to smuggle an arbitrary secret payload past inspection.",
+      "Steganography hides the very existence of a message inside innocuous cover data, such as an image's least significant bits, so inspection tools looking for ciphertext or keywords see only ordinary photographs.",
+      "A covert timing channel signals information by modulating the timing of observable events; here the stolen data traveled inside file content, not in the timing of any activity.",
+      "A transposition cipher rearranges characters to obscure content, but its scrambled output is still visibly a message; it hides meaning, whereas the insider needed to hide that any message existed at all."
+    ]
+  },
+  {
+    "id": "D3-0135",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "easy",
+    "stem": "A technician discovers a small fire inside an energized power distribution unit in a server rack and reaches for a portable extinguisher. Which extinguisher class is designed for this type of fire?",
+    "options": [
+      "Class A",
+      "Class B",
+      "Class C",
+      "Class D"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Class A agents are for ordinary combustibles such as wood and paper, and many are water-based; discharging a conductive agent onto energized equipment risks electric shock and further damage.",
+      "Class B extinguishers target flammable liquids such as fuels and solvents; candidates often mix this up with electrical fires because both arise in equipment spaces, but the burning material here is energized gear, not liquid fuel.",
+      "Class C extinguishers use non-conductive agents rated for fires in energized electrical equipment, making them the appropriate choice for a burning powered distribution unit.",
+      "Class D extinguishers handle combustible metals such as magnesium and lithium, a specialty industrial hazard, not fires involving live electrical circuits."
+    ],
+    "reference": "NFPA 10"
+  },
+  {
+    "id": "D3-0136",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "hard",
+    "stem": "An operating system stores authorizations as an access control list on each object. During an incident, enumerating everything a compromised account can reach requires scanning every object's list. Which representation of the access control matrix makes that per-subject query efficient?",
+    "options": [
+      "Storing the complete access control matrix, including all empty cells",
+      "Rule-based access control entries applied globally to all subjects",
+      "Mandatory access control labels compared at each access attempt",
+      "Capability lists that record each subject's rights with the subject"
+    ],
+    "answer": 3,
+    "explanations": [
+      "The full matrix is mostly empty cells and does not scale, which is exactly why real systems store only its rows or columns; candidates who recall the matrix as the parent model may pick it, but keeping the whole matrix is not a practical design.",
+      "Rule-based schemes apply one global rule set to everyone, so determining a single subject's reachable objects still means evaluating rules against every object rather than reading a per-subject record.",
+      "MAC labels answer an allow-or-deny question at access time by comparing clearance and classification; they maintain no stored enumeration of the specific objects a given subject can reach.",
+      "A capability list is the row view of the access control matrix: each subject carries its own list of objects and rights, so answering what one account can access is a single-list lookup, the mirror image of an ACL's column view."
+    ]
+  },
+  {
+    "id": "D3-0137",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A legacy wireless protocol derives each session key by combining a static master key with a predictable, incrementing value sent in the clear. A cryptanalyst exploits the known mathematical relationship among the resulting keys to recover the master key. Which attack class does this represent?",
+    "options": [
+      "Meet-in-the-middle attack",
+      "Related-key attack",
+      "Birthday attack",
+      "Chosen-ciphertext attack"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Meet-in-the-middle attacks work inward from both ends of a multiple-encryption construction to match an intermediate value; they exploit cascaded encryption stages, not relationships among derived session keys.",
+      "In a related-key attack the adversary observes ciphertext produced under multiple keys whose mathematical relationship is known, such as a master key combined with a predictable public value, and uses that structure to recover key material, a weakness famously present in early Wi-Fi protection.",
+      "A birthday attack exploits collision probability among random values or hash outputs; candidates may reach for it because repeating public values also cause collisions, but the described exploit leverages known key relationships, not collisions.",
+      "A chosen-ciphertext attack requires the adversary to submit ciphertexts for decryption and study the results; here the analyst only passively observes traffic encrypted under mathematically related keys."
+    ]
   }
 ]
