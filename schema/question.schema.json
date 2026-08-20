@@ -20,8 +20,8 @@
     },
     "objective": {
       "type": "string",
-      "pattern": "^[1-8](\\.\\d+)?$",
-      "description": "Task statement from the published outline, e.g. '1.10'. Must start with the domain number. Use the bare domain number if the sub-objective is uncertain — never invent one."
+      "pattern": "^[1-8]\\.\\d{1,2}$",
+      "description": "Syllabus section from the published outline, e.g. '1.10'. Must exist in content/syllabus.json and belong to `domain` — the build enforces both. Bare domain numbers are not allowed."
     },
     "difficulty": {
       "type": "string",

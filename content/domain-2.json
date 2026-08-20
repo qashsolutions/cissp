@@ -2,7 +2,7 @@
   {
     "id": "D2-0001",
     "domain": 2,
-    "objective": "2",
+    "objective": "2.4",
     "difficulty": "medium",
     "stem": "An organization is decommissioning self-encrypting SSDs that held confidential data. The drives will be resold to a third party. Which sanitization method is MOST appropriate?",
     "options": [

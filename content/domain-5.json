@@ -22,7 +22,7 @@
   {
     "id": "D5-0002",
     "domain": 5,
-    "objective": "5",
+    "objective": "5.4",
     "difficulty": "easy",
     "stem": "A hospital wants access rights assigned through job functions such as nurse or pharmacist, so that transfers between departments only require changing a user's role membership. Which access control model fits BEST?",
     "options": [

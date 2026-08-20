@@ -2,7 +2,7 @@
   {
     "id": "D8-0001",
     "domain": 8,
-    "objective": "8",
+    "objective": "8.2",
     "difficulty": "medium",
     "stem": "A security team wants developers to find SQL injection and buffer overflow flaws in source code automatically on every commit, before the application is deployed to any environment. Which technique BEST fits?",
     "options": [

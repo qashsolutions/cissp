@@ -47,8 +47,8 @@ CSS library, or npm package. Everything uses relative paths so the site works fr
 - Every distractor is a real concept a candidate could plausibly confuse with the answer; its
   explanation names that specific confusion and corrects it. No filler options.
 - Keep the four option lengths comparable.
-- Map each item to a genuine task statement from the published outline. If unsure a sub-objective
-  exists, look it up or use the parent domain number — never invent one.
+- Map each item to a real syllabus section in `content/syllabus.json` (the ISC2 outline as data;
+  62 objectives). The build fails unknown objectives; bare domain numbers are not allowed.
 - Difficulty mix: roughly 25% easy, 50% medium, 25% hard.
 - **Original questions only.** Never reproduce ISC2 items or copy from commercial banks, Quizlet,
   dumps, or copyrighted guides. Derive from public standards and the public outline.

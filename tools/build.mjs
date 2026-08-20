@@ -34,6 +34,38 @@ if (targetSum !== 5000) {
   process.exit(1);
 }
 
+// Syllabus: the ISC2 exam outline as data. Every question's objective must
+// exist here — no invented sub-objectives, no bare parent-domain placeholders.
+let syllabus;
+try {
+  syllabus = JSON.parse(readFileSync(join(ROOT, 'content', 'syllabus.json'), 'utf8'));
+} catch (e) {
+  console.error(`FATAL: content/syllabus.json missing or invalid — ${e.message}`);
+  process.exit(1);
+}
+const objectives = syllabus.objectives ?? {};
+{
+  const perDomain = new Array(9).fill(0);
+  for (const [num, title] of Object.entries(objectives)) {
+    const m = num.match(/^([1-8])\.\d{1,2}$/);
+    if (!m) {
+      console.error(`FATAL: syllabus objective "${num}" is not a valid objective number.`);
+      process.exit(1);
+    }
+    if (typeof title !== 'string' || title.trim().length < 5) {
+      console.error(`FATAL: syllabus objective ${num} has no usable title.`);
+      process.exit(1);
+    }
+    perDomain[Number(m[1])] += 1;
+  }
+  for (const dom of DOMAINS) {
+    if (perDomain[dom.n] === 0) {
+      console.error(`FATAL: syllabus has no objectives for domain ${dom.n}.`);
+      process.exit(1);
+    }
+  }
+}
+
 const ID_RE = /^D([1-8])-(\d{4})$/;
 const DIFFICULTIES = new Set(['easy', 'medium', 'hard']);
 const BANNED_OPTION_RE = /^(all|none) of the above/i;
@@ -99,11 +131,11 @@ for (const dom of DOMAINS) {
       err(`domain ${JSON.stringify(q.domain)} does not match file domain ${dom.n}.`);
     }
 
-    // objective
-    if (typeof q.objective !== 'string' || !/^[1-8](\.\d+)?$/.test(q.objective)) {
-      err(`objective ${JSON.stringify(q.objective)} is not a valid objective string.`);
+    // objective — must be a real syllabus section in this domain
+    if (typeof q.objective !== 'string' || !(q.objective in objectives)) {
+      err(`objective ${JSON.stringify(q.objective)} is not in content/syllabus.json.`);
     } else if (Number(q.objective.split('.')[0]) !== dom.n) {
-      err(`objective ${q.objective} does not start with domain number ${dom.n}.`);
+      err(`objective ${q.objective} does not belong to domain ${dom.n}.`);
     }
 
     if (!DIFFICULTIES.has(q.difficulty)) {
@@ -204,6 +236,12 @@ const manifestDomains = DOMAINS.map((dom) => {
   writeFileSync(join(dataDir, file), JSON.stringify(items) + '\n');
   return { n: dom.n, name: dom.name, weight: dom.weight, target: dom.target, count: items.length, file };
 });
+
+writeFileSync(join(dataDir, 'syllabus.json'), JSON.stringify({
+  source: syllabus.source ?? null,
+  url: syllabus.url ?? null,
+  objectives,
+}) + '\n');
 
 writeFileSync(join(dataDir, 'manifest.json'), JSON.stringify({
   generatedAt: new Date().toISOString(),

@@ -71,6 +71,7 @@ function decodeKey(item) {
 // ---------- State ----------
 
 let manifest = null;
+let syllabus = null;
 const domainCache = new Map(); // n -> runtime items
 const filter = { domain: 0, unansweredOnly: false }; // 0 = all domains
 let queue = [];
@@ -388,15 +389,17 @@ function reveal(key, rec) {
   else if (rec.correctOn === 2) setFeedback('is-good', 'Correct — second attempt.');
   else setFeedback('is-bad', 'Not correct. Both attempts used — review the explanations below.');
 
+  const syl = el('p', 'q-ref');
+  const objTitle = syllabus?.objectives?.[item.o];
+  syl.append('Syllabus ');
+  const sylLink = el('a', '', objTitle ? `${item.o} — ${objTitle}` : `${item.o}`);
+  sylLink.href = syllabus?.url ?? 'https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline';
+  sylLink.target = '_blank';
+  sylLink.rel = 'noopener';
+  syl.append(sylLink);
   const refs = el('p', 'q-ref');
-  if (key.r) refs.append(`Reference: ${key.r} · `);
-  refs.append('Study: ');
-  const link = el('a', '', `ISC2 CISSP exam outline — Domain ${item.d}`);
-  link.href = 'https://www.isc2.org/certifications/cissp/cissp-certification-exam-outline';
-  link.target = '_blank';
-  link.rel = 'noopener';
-  refs.append(link);
-  view.feedback.after(refs);
+  if (key.r) refs.append(`Reference: ${key.r}`);
+  view.feedback.after(syl, ...(key.r ? [refs] : []));
 
   view.checkBtn.disabled = true;
 }
@@ -466,11 +469,15 @@ document.addEventListener('keydown', (e) => {
 // ---------- Init ----------
 
 async function init() {
-  let res;
   try {
-    res = await fetch('data/manifest.json');
-    if (!res.ok) throw new Error(`manifest fetch: HTTP ${res.status}`);
-    manifest = await res.json();
+    const [mRes, sRes] = await Promise.all([
+      fetch('data/manifest.json'),
+      fetch('data/syllabus.json'),
+    ]);
+    if (!mRes.ok) throw new Error(`manifest fetch: HTTP ${mRes.status}`);
+    if (!sRes.ok) throw new Error(`syllabus fetch: HTTP ${sRes.status}`);
+    manifest = await mRes.json();
+    syllabus = await sRes.json();
   } catch (err) {
     renderFailure(err);
     return;

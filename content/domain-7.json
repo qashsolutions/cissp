@@ -2,7 +2,7 @@
   {
     "id": "D7-0001",
     "domain": 7,
-    "objective": "7",
+    "objective": "7.6",
     "difficulty": "medium",
     "stem": "Monitoring confirms an active ransomware infection that is currently encrypting shares on a file server. According to incident management practice, what should the response team do FIRST?",
     "options": [
