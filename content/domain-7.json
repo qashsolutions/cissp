@@ -2142,5 +2142,615 @@
       "Cutting access early tips off the engineer, may itself provoke the retaliation, and leaves an angry, still-employed administrator with insider knowledge and physical presence but a grievance.",
       "Synchronizing access revocation with the notification meeting closes the window for retaliatory action, while the escort and immediate recovery of equipment address the physical dimension of a hostile departure."
     ]
+  },
+  {
+    "id": "D7-0107",
+    "domain": 7,
+    "objective": "7.1",
+    "difficulty": "hard",
+    "stem": "A security manager at a U.S.-headquartered firm is investigating suspected data theft by an employee based at the company's German subsidiary. The team wants to image the employee's workstation, export the mailbox, and send everything to U.S. investigators. What should the security manager do FIRST?",
+    "options": [
+      "Image the workstation immediately to preserve evidence before the employee becomes aware",
+      "Request the evidence through a mutual legal assistance treaty between the two governments",
+      "Consult legal counsel on local privacy and cross-border data-transfer requirements before collecting anything",
+      "Obtain written authorization from the employee's direct manager to search company-owned equipment"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses preservation urgency with authority to collect. In many jurisdictions, employee data is protected by privacy law even on company equipment; collecting first can itself be unlawful and can render the evidence unusable.",
+      "A mutual legal assistance treaty is a government-to-government mechanism for criminal matters; it does not apply to an internal corporate investigation and would not authorize the company's own collection.",
+      "Employee monitoring, works-council rules, and data-transfer restrictions vary by country, and violating them can expose the company to liability and taint the evidence. Legal review of what may be collected and moved must precede any collection in a cross-border investigation.",
+      "This confuses internal management approval with legal authority. A manager can authorize use of company assets, but managerial sign-off cannot override national privacy and labor-law protections that govern employee data."
+    ]
+  },
+  {
+    "id": "D7-0108",
+    "domain": 7,
+    "objective": "7.1",
+    "difficulty": "medium",
+    "stem": "During an internal fraud inquiry, an investigator must question a payroll clerk who is not a suspect but likely observed relevant activity. Which approach is MOST appropriate?",
+    "options": [
+      "Conduct a non-accusatory interview with a second person present and document the statements offered",
+      "Conduct an interrogation designed to obtain an admission, since fraud occurred in her department",
+      "Have the clerk complete only a sworn written questionnaire to avoid face-to-face influence",
+      "Defer all questioning until law enforcement is engaged so police conduct every discussion"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A witness is questioned through an interview: voluntary, non-accusatory fact-finding. A second person witnesses the exchange and contemporaneous documentation preserves the statements' value if the matter later escalates.",
+      "This confuses an interrogation with an interview. Interrogation techniques aimed at extracting admissions are reserved for suspects; using them on a cooperative witness is coercive and can compromise both the witness and the inquiry.",
+      "This confuses documentation with interviewing. A written questionnaire removes the ability to ask follow-up questions, clarify answers, and pursue unexpected leads, which is the core value of a witness interview.",
+      "This confuses criminal and internal investigations. An organization may lawfully conduct its own administrative inquiry; waiting for police is unnecessary for an internal matter and surrenders control of timing and scope."
+    ]
+  },
+  {
+    "id": "D7-0109",
+    "domain": 7,
+    "objective": "7.2",
+    "difficulty": "medium",
+    "stem": "A SOC collects logs from firewalls, Windows servers, Linux hosts, and SaaS applications, but analysts cannot build cross-source correlation rules because each source records users, addresses, and actions with different formats and field names. All sources already use synchronized time. Which SIEM capability BEST resolves this?",
+    "options": [
+      "Increasing log retention so analysts have a longer history available to search",
+      "Normalizing events from all sources into a common schema during ingestion",
+      "Forwarding all sources to a write-once storage tier to guarantee log integrity",
+      "Enabling verbose debug logging on every source to capture additional attributes"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses retention with correlation. Keeping data longer extends how far back you can search, but it does nothing to make differently formatted fields comparable across sources.",
+      "Correlation requires that equivalent data — user, source address, action — be expressed in consistent fields regardless of origin. Parsing and normalizing events into a common schema is the capability that makes cross-source rules possible; time is already synchronized here.",
+      "This confuses integrity protection with analyzability. Write-once storage defends logs against tampering but leaves each source's format just as inconsistent as before.",
+      "This confuses volume with consistency. Verbose logging adds more attributes in the same incompatible formats, increasing storage and noise without aligning field names or structures."
+    ],
+    "reference": "NIST SP 800-92"
+  },
+  {
+    "id": "D7-0110",
+    "domain": 7,
+    "objective": "7.2",
+    "difficulty": "hard",
+    "stem": "A CISO has received funding to build a security monitoring capability from scratch, and several vendors are already proposing SIEM platforms. What should the organization do FIRST?",
+    "options": [
+      "Select the SIEM platform with the broadest log-source support so no source is missed",
+      "Begin ingesting every available log source immediately to build a data lake for future analysis",
+      "Hire and train additional analysts so the platform is fully staffed on day one",
+      "Define the detection use cases — the threats, assets, and events that matter — and derive logging requirements from them"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This is tool-first thinking. Without defined requirements there is no basis for evaluating platforms; breadth of source support says nothing about whether the capability will detect the threats that matter to this organization.",
+      "This confuses collection with monitoring. Ingesting everything without defined use cases produces cost and noise, and the organization ends up with data it never reviews rather than detections it needs.",
+      "This puts staffing before requirements. Analyst headcount cannot be sized, and analysts cannot be effective, until the organization knows what it is trying to detect.",
+      "Requirements come before technology and staffing. Identifying the assets, threats, and events the organization must detect defines what to log, what to correlate, and what to buy — every subsequent decision flows from those use cases."
+    ]
+  },
+  {
+    "id": "D7-0111",
+    "domain": 7,
+    "objective": "7.3",
+    "difficulty": "medium",
+    "stem": "A company suffered a data exposure when a developer made a cloud storage bucket publicly readable. An internal review finds hundreds of cloud accounts whose configurations change daily with no oversight. Which control BEST prevents a recurrence at this scale?",
+    "options": [
+      "Continuously evaluate cloud configurations against approved policy using automated posture management",
+      "Commission an annual penetration test covering the cloud environment",
+      "Encrypt all cloud-stored data using customer-managed encryption keys",
+      "Require all developers to complete annual secure cloud configuration training"
+    ],
+    "answer": 0,
+    "explanations": [
+      "With hundreds of accounts changing daily, only continuous automated comparison of actual configurations against approved policy can detect and flag or revert dangerous misconfigurations quickly enough — cloud security posture management operationalizes configuration management at cloud scale.",
+      "This confuses point-in-time assessment with continuous assurance. An annual test would leave misconfigurations exposed for up to a year in an environment that changes every day.",
+      "This confuses protecting content with preventing misconfiguration. Server-side encryption still returns plaintext to anyone the bucket policy allows, so a publicly readable bucket remains an exposure, and encryption addresses none of the other misconfiguration classes.",
+      "This confuses an administrative control with scalable enforcement. Training reduces error rates but humans still make mistakes daily; it provides no detection or correction when a misconfiguration actually occurs."
+    ]
+  },
+  {
+    "id": "D7-0112",
+    "domain": 7,
+    "objective": "7.5",
+    "difficulty": "easy",
+    "stem": "A storage administrator asks who should decide the classification level and backup retention requirements for a new HR benefits database that the operations team will maintain. According to standard resource-protection roles, who makes this decision?",
+    "options": [
+      "The storage administrator, as the data custodian who runs the backup jobs",
+      "The security manager, who writes the organization's security policies",
+      "The head of HR, as the owner accountable for the information",
+      "The database vendor, who best understands the platform's capabilities"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses the custodian with the owner. The custodian implements protection — running backups, applying controls — according to requirements the owner sets, but does not decide classification or retention.",
+      "This confuses policy authorship with data ownership. The security function defines the classification framework, but the business owner of a specific dataset decides where that data falls within it.",
+      "The data owner — the business executive accountable for the information — determines its classification and protection requirements, including retention; custodians then implement those requirements operationally.",
+      "This confuses technical capability with accountability. A vendor can advise on what the platform supports, but has no accountability for the business value or regulatory obligations of the data."
+    ]
+  },
+  {
+    "id": "D7-0113",
+    "domain": 7,
+    "objective": "7.4",
+    "difficulty": "medium",
+    "stem": "A service desk keeps missing its four-hour customer commitment for restoring priority incidents because the internal network team, which handles most escalations, has no defined response times. Which mechanism BEST addresses this gap?",
+    "options": [
+      "A stricter service level agreement negotiated with the customer",
+      "Operational level agreements defining the internal teams' response and resolution commitments",
+      "An underpinning contract executed with the internal network team",
+      "A memorandum of understanding between the CIO and the customer"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses the external promise with its internal supports. Tightening the customer-facing SLA does nothing to bind the internal team whose undefined response times are causing the misses.",
+      "The customer-facing SLA can only be met if the internal teams it depends on commit to compatible targets. Operational level agreements are the instrument that defines those internal support commitments.",
+      "This confuses the instrument for external suppliers with the one for internal groups. Underpinning contracts bind third-party vendors; commitments between internal teams are documented in operational level agreements.",
+      "This confuses an informal statement of intent with a service commitment. A memorandum of understanding neither defines measurable internal targets nor addresses the network team at all."
+    ]
+  },
+  {
+    "id": "D7-0114",
+    "domain": 7,
+    "objective": "7.5",
+    "difficulty": "easy",
+    "stem": "An auditor finds backup cartridges containing regulated customer data stacked openly on an operator's desk. The operator explains that nothing on the cartridges indicated they were sensitive. Which control failure does this MOST directly indicate?",
+    "options": [
+      "Backup media were not encrypted before being written",
+      "The media rotation and reuse schedule was not being followed",
+      "The cartridges were not stored offsite with a third-party vault provider",
+      "Media were not labeled with their classification to drive correct handling"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses protecting content with governing handling. Encryption would limit the damage if a cartridge were lost, but the failure described is that the operator had no way to know the media required careful handling at all.",
+      "This confuses rotation with handling. Rotation schedules govern when media are reused or retired; they do not tell staff how sensitively a given cartridge must be treated.",
+      "This confuses disaster recovery placement with day-to-day handling. Offsite vaulting protects against site loss; these cartridges were mishandled on site because their sensitivity was invisible.",
+      "The operator's own explanation points to the failure: without classification markings, staff cannot apply the handling, storage, and transport rules the data requires. Labeling media with classification is the control that connects sensitivity to correct treatment."
+    ]
+  },
+  {
+    "id": "D7-0115",
+    "domain": 7,
+    "objective": "7.6",
+    "difficulty": "easy",
+    "stem": "A monitoring team logs thousands of routine events daily. Overnight it recorded: a successful scheduled backup, a user's single failed login followed by a success, a spike in messages blocked by the spam filter, and a database administrator account created outside change control that nobody recognizes. Which entry should be handled as a security incident?",
+    "options": [
+      "The successful completion of the scheduled backup job",
+      "The unrecognized administrator account created outside change control",
+      "The single failed login attempt followed by a successful login",
+      "The spike in messages blocked by the spam filter"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This is a routine operational event with no adverse impact — the distinction between an event and an incident is exactly that an incident carries actual or imminent harm or policy violation.",
+      "An unexplained privileged account created outside authorized process is an actual or imminent violation with potential adverse impact, which is the definition of a security incident requiring investigation and response.",
+      "This confuses a common benign pattern with an attack indicator. A single mistyped password followed by success is everyday user behavior, not an adverse occurrence requiring incident response.",
+      "This confuses a control working as intended with a compromise. Blocked spam shows the filter succeeding; volume changes alone are an event to note, not an incident to declare."
+    ],
+    "reference": "NIST SP 800-61r2"
+  },
+  {
+    "id": "D7-0116",
+    "domain": 7,
+    "objective": "7.6",
+    "difficulty": "medium",
+    "stem": "The help desk forwards a user's report that a 'hacker popup' appeared briefly on her workstation an hour ago. No monitoring alerts corroborate the report and the workstation is behaving normally. As the incident handler, what should you do FIRST?",
+    "options": [
+      "Analyze the workstation and available telemetry to verify whether an incident actually occurred",
+      "Immediately disconnect the workstation from the network as a containment measure",
+      "Escalate to the CSIRT leader and formally declare a security incident",
+      "Reimage the workstation to eliminate any malware that may be present"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Detection and analysis precede containment: an unverified, uncorroborated report must first be validated and scoped so the response matches reality. Examining the host and telemetry determines whether this is a false alarm, a nuisance popup, or a genuine compromise.",
+      "This confuses the response to a confirmed compromise with the response to an unverified report. Containment follows validation; reflexively isolating machines on every unconfirmed user report disrupts the business without evidence of an incident.",
+      "This confuses reporting with declaration. Formal incident declaration and escalation depend on validation and severity assessment, neither of which has happened yet.",
+      "This jumps to eradication before analysis. Reimaging destroys any evidence needed to determine what happened and whether other systems are affected, and may be wholly unnecessary."
+    ],
+    "reference": "NIST SP 800-61r2"
+  },
+  {
+    "id": "D7-0117",
+    "domain": 7,
+    "objective": "7.7",
+    "difficulty": "hard",
+    "stem": "More than 95% of traffic on a corporate network is now TLS-encrypted, and after a privacy review, legal counsel has prohibited bulk decryption of employee traffic. The network IDS detection rate has collapsed. What is the BEST way to restore threat-detection coverage?",
+    "options": [
+      "Increase the frequency of network IDS signature updates",
+      "Deploy a TLS-inspection proxy to decrypt and inspect all user traffic",
+      "Deploy endpoint detection and response agents where content is processed after decryption",
+      "Block all outbound connections that the network IDS cannot classify"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses signature currency with visibility. No matter how fresh the signatures are, the sensor cannot match patterns inside payloads it cannot decrypt.",
+      "This proposes exactly what legal counsel has prohibited. A risk-aware manager works within the legal and privacy constraint rather than overriding it, and bulk interception of employee traffic was ruled out for cause.",
+      "When network content inspection is legally constrained, the detection point moves to the endpoint, where data is processed in the clear. EDR restores behavioral and content visibility without intercepting encrypted traffic in transit.",
+      "This confuses enforcement with detection and would be operationally catastrophic: since nearly all legitimate traffic is encrypted and unclassifiable to the IDS, blanket blocking would break the business."
+    ]
+  },
+  {
+    "id": "D7-0118",
+    "domain": 7,
+    "objective": "7.7",
+    "difficulty": "medium",
+    "stem": "Visitors and contractors routinely plug personal laptops into live network jacks in conference rooms and reach the internal LAN. Staff need the rooms' wired connectivity for daily work. Which control BEST prevents unauthorized devices from joining the network?",
+    "options": [
+      "Disabling all conference room network ports at the switch",
+      "Filtering by registered MAC address on each conference room switch port",
+      "Placing a network intrusion detection sensor on the conference room VLAN",
+      "Port-based network access control that authenticates each device before granting access"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This treats prevention as denial of service to everyone. Staff legitimately need those ports, so disabling them fails the stated business requirement rather than solving the control problem.",
+      "This confuses device identification with authentication. MAC addresses are trivially observed and spoofed, so MAC filtering stops only casual connections, not anyone minimally determined.",
+      "This confuses detection with prevention. An IDS can report that a rogue device connected, but by then the unauthorized device already has LAN access.",
+      "Port-based NAC (such as 802.1X) requires each connecting device to authenticate before the port grants network access, allowing staff devices to work normally while unauthorized laptops are denied or shunted to a guest segment."
+    ]
+  },
+  {
+    "id": "D7-0119",
+    "domain": 7,
+    "objective": "7.8",
+    "difficulty": "hard",
+    "stem": "A critical remote-code-execution flaw is announced in an open-source library embedded in countless commercial and in-house products. The vulnerability team cannot say which of the organization's roughly 900 applications include the library. What should the organization do FIRST?",
+    "options": [
+      "Apply the vendor's patch to every internet-facing server immediately",
+      "Query software inventories and component lists (SBOMs) to determine which applications contain the library",
+      "Deploy perimeter IPS signatures that block known exploit patterns for the flaw",
+      "Open an emergency change to upgrade the library in the next scheduled release"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses host patching with component remediation. The flaw lives inside applications that embed the library, not in a single server package, and no one yet knows which of the 900 applications are affected — there is nothing coherent to patch yet.",
+      "Response cannot be scoped, prioritized, or verified until the organization knows where the vulnerable component exists. Software inventories and SBOMs answer the essential first question — where are we exposed — which then drives patching, mitigation, and monitoring priorities.",
+      "This confuses a stopgap with the first step. Exploit-pattern blocking is evadable and covers only perimeter paths; without knowing the exposure footprint the organization cannot judge what the signatures do and do not protect.",
+      "This confuses initiating remediation with scoping it. An upgrade cannot be targeted at applications no one has identified, and waiting for release cycles is far too slow for an actively exploited critical flaw."
+    ],
+    "reference": "NIST SP 800-40r4"
+  },
+  {
+    "id": "D7-0120",
+    "domain": 7,
+    "objective": "7.8",
+    "difficulty": "medium",
+    "stem": "A vendor announces that the operating system running 200 branch-office servers will reach end of support in 14 months, after which no security patches will be issued. The servers currently receive patches normally. What is the BEST course of action?",
+    "options": [
+      "Begin planning and budgeting the migration or replacement now, well before support ends",
+      "Wait until support ends and then isolate the servers on tightly segmented networks",
+      "Purchase extended support contracts from the vendor as the permanent strategy",
+      "Rely on the intrusion prevention system and antivirus to protect the servers after patches stop"
+    ],
+    "answer": 0,
+    "explanations": [
+      "With 14 months of lead time, the risk-managed answer is to eliminate the coming exposure: plan, budget, and schedule migration of 200 servers before the patch stream ends, rather than accepting an unpatchable estate and compensating afterward.",
+      "This confuses a compensating fallback with a plan. Segmentation is what you do when unpatchable systems cannot be replaced in time; deliberately choosing it while ample migration time remains accepts avoidable permanent risk.",
+      "This confuses a bridge with a destination. Extended support is a costly temporary hedge for migrations that slip; adopting it indefinitely just rents the problem forever at increasing cost.",
+      "This confuses detection-layer controls with patchability. IPS and antivirus mitigate some exploit paths but cannot substitute long-term for an operating system that will never be fixed again."
+    ]
+  },
+  {
+    "id": "D7-0121",
+    "domain": 7,
+    "objective": "7.9",
+    "difficulty": "medium",
+    "stem": "An audit finds that changes are approved, implemented, and then closed automatically. Several changes later proved to have failed or introduced security regressions that went unnoticed for weeks. Which addition to the change process BEST addresses this?",
+    "options": [
+      "Additional senior approvers on the change advisory board for high-risk changes",
+      "A documented backout plan required before any change can be approved",
+      "A post-implementation review verifying each change met its objective without adverse effects",
+      "Restricting all changes to a single monthly maintenance window"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses approval rigor with outcome verification. The failures occurred after implementation; adding approvers strengthens the front of the process while leaving the closure gap untouched.",
+      "This confuses recovery planning with verification. A backout plan enables reversal when a failure is noticed during implementation, but these changes were closed as successful with nobody checking the result.",
+      "The missing step is verification at closure: a post-implementation review confirms the change achieved its intent, introduced no security regressions, and can legitimately be closed — turning silent failures into immediately visible ones.",
+      "This confuses scheduling with quality control. Batching changes into one window changes when they happen, not whether anyone verifies that they worked."
+    ]
+  },
+  {
+    "id": "D7-0122",
+    "domain": 7,
+    "objective": "7.9",
+    "difficulty": "hard",
+    "stem": "A change audit finds that application developers push their own code directly to production and approve their own change tickets 'to keep releases fast.' Management wants the risk reduced without abandoning frequent releases. What should the organization implement?",
+    "options": [
+      "Full change advisory board review and approval of every production release",
+      "A rule permitting developers to deploy only during off-peak maintenance windows",
+      "Quarterly reviews of production deployments performed by internal audit",
+      "Pipeline-enforced separation of duties where an independent reviewer approves and the pipeline, not the author, deploys"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses control with ceremony. Routing every routine release through a full CAB destroys the release velocity management wants to keep; standard changes and automated controls exist precisely to avoid this.",
+      "This confuses scheduling with separation of duties. Deploying at 2 a.m. instead of 2 p.m. does nothing about the actual failure: authors approving and shipping their own changes unchecked.",
+      "This confuses detective assurance with preventive control. Quarterly audits would surface self-approved changes months later, after any bad change has long been in production.",
+      "Encoding separation of duties into the pipeline — a reviewer other than the author must approve, and the automated pipeline performs the deployment — removes self-approval and direct production access while preserving fast, frequent releases."
+    ]
+  },
+  {
+    "id": "D7-0123",
+    "domain": 7,
+    "objective": "7.10",
+    "difficulty": "medium",
+    "stem": "Threat intelligence shows ransomware crews targeting the organization's industry now delete or encrypt online backup repositories before detonating. The organization's backups replicate continuously to a second disk repository that is reachable from the production domain. What is the BEST improvement?",
+    "options": [
+      "Maintain backup copies that are offline or immutable and cannot be altered from the production environment",
+      "Increase backup frequency to reduce the amount of data at risk between jobs",
+      "Add a third continuously replicated online repository in another geographic region",
+      "Extend the backup retention period from thirty days to ninety days"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The threat is destruction of the backups themselves, so the strategy must place at least one copy beyond the attacker's reach — air-gapped media or immutable storage that credentials stolen from the production domain cannot modify or delete.",
+      "This confuses recovery-point improvement with backup survivability. More frequent backups reduce potential data loss, but frequency is irrelevant if the attacker destroys the repository holding every copy.",
+      "This confuses geographic redundancy with isolation. A third repository reachable through the same replication and credential fabric inherits the same fate — deletions and encryption replicate too.",
+      "This confuses depth of history with protection. Ninety days of backups that the attacker can wipe protects no better than thirty."
+    ]
+  },
+  {
+    "id": "D7-0124",
+    "domain": 7,
+    "objective": "7.10",
+    "difficulty": "medium",
+    "stem": "A business impact analysis notes that only one engineer knows how to recover the firm's core storage arrays, and the recovery knowledge exists 'in his head.' He is nearing retirement. Which risk treatment BEST addresses this single point of failure?",
+    "options": [
+      "Offering the engineer a retention bonus so he delays his retirement date",
+      "Cross-training additional staff and producing tested, documented recovery procedures",
+      "Purchasing a premium support contract with the storage vendor",
+      "Migrating the storage platform to a fully managed cloud storage service"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses postponing a risk with treating it. A bonus delays the loss date but the organization remains one resignation, illness, or accident away from being unable to recover its storage.",
+      "The dependency is on undocumented individual knowledge, so the treatment is to institutionalize it: train multiple people and capture procedures that are validated through test recoveries, removing the single point of failure regardless of who leaves.",
+      "This confuses external expertise with organizational capability. Vendor support helps with product issues but lacks the site-specific configuration knowledge and guaranteed availability the recovery scenario requires.",
+      "This confuses re-architecture with risk treatment. A platform migration is a major program undertaken for many reasons, but it is a disproportionate and slow answer to a knowledge-transfer gap that training and documentation solve directly."
+    ]
+  },
+  {
+    "id": "D7-0125",
+    "domain": 7,
+    "objective": "7.11",
+    "difficulty": "easy",
+    "stem": "A flood forces a company to run operations from its warm site. While the recovery team keeps critical systems running there, which team is responsible for repairing the damaged primary data center so normal operations can eventually return?",
+    "options": [
+      "The incident response team",
+      "The emergency response team",
+      "The salvage team",
+      "The business continuity steering committee"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses security incident handling with disaster recovery roles. The incident response team addresses security events such as intrusions, not the physical restoration of a flooded facility.",
+      "This confuses the immediate-reaction role with restoration. The emergency response team acts during the event itself — life safety, evacuation, initial damage limitation — not the weeks of repair that follow.",
+      "The salvage (reconstitution) team's mission is to assess, repair, and restore the damaged primary facility to operational condition, enabling the eventual orderly return from the alternate site.",
+      "This confuses governance with execution. The steering committee sets policy, priorities, and funding for the continuity program; it does not perform facility recovery work."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D7-0126",
+    "domain": 7,
+    "objective": "7.12",
+    "difficulty": "medium",
+    "stem": "After last year's disaster recovery exercise, the final report stated only that 'the test was successful.' During a real outage this year, recovery took three times longer than the business could tolerate. What should be added to future tests to make them meaningful?",
+    "options": [
+      "Participation by every employee across the entire company",
+      "A full-interruption test conducted against the live production environment",
+      "Rotation of the exercise date so recovery teams cannot prepare in advance",
+      "Predefined, measurable success criteria tied to the business's RTO and RPO requirements"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses scale with rigor. Adding participants makes an exercise bigger, not more meaningful; without defined measures a larger test still cannot say whether recovery meets business needs.",
+      "This confuses test severity with test quality. A full-interruption exercise carries maximum risk, and without measurable criteria its outcome would be just as unquantified as last year's.",
+      "This confuses realism with measurement. Surprise timing tests readiness, but an unannounced exercise judged without objective criteria still yields an unsupported 'successful' verdict.",
+      "A test is meaningful only against defined targets: recovery must be measured against the RTOs and RPOs the business requires. Had last year's exercise been timed against those objectives, the three-fold shortfall would have surfaced then, not during a real outage."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D7-0127",
+    "domain": 7,
+    "objective": "7.13",
+    "difficulty": "easy",
+    "stem": "A newly appointed business continuity coordinator asks a consultant what single factor will MOST determine whether the continuity program succeeds across the organization. What is the best answer?",
+    "options": [
+      "Visible senior management commitment to and sponsorship of the program",
+      "Selection of an industry-leading continuity planning software suite",
+      "The technical depth of the IT team's system recovery procedures",
+      "The number of continuity exercises the program schedules each year"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Continuity planning succeeds or fails on executive backing: senior management provides the authority, funding, business-unit cooperation, and cultural priority without which plans are neither built, maintained, nor followed.",
+      "This confuses tooling with commitment. Planning software organizes a program that leadership supports; it cannot compel business units to participate or sustain funding on its own.",
+      "This confuses one component with the program. IT recovery procedures address technology restoration, but business continuity spans people, processes, and facilities and depends on organization-wide engagement.",
+      "This confuses activity with support. Exercises are essential, but without management commitment they are poorly attended rituals whose findings are never funded or fixed."
+    ]
+  },
+  {
+    "id": "D7-0128",
+    "domain": 7,
+    "objective": "7.13",
+    "difficulty": "hard",
+    "stem": "A pandemic tabletop exercise reveals that all of the organization's continuity plans assume a facility or system loss with staff available to relocate; none address 40% of employees being simultaneously unavailable. Which improvement BEST addresses the exposed gap?",
+    "options": [
+      "Contracting for a second fully equipped hot site farther from the headquarters campus",
+      "Extending plan scenarios to loss of workforce, including cross-training, succession, and remote-work provisions",
+      "Increasing system redundancy and automated failover across both existing data centers",
+      "Purchasing business interruption insurance that includes pandemic-related coverage"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses facility redundancy with workforce continuity. A second recovery site solves the scenario the plans already cover; it stands empty when the problem is that the people are unavailable.",
+      "The exercise exposed a scenario class the plans omit: operations without a large fraction of the workforce. Extending the plans to loss-of-personnel scenarios — cross-training, succession depth, remote operations, minimum staffing models — addresses the actual gap the tabletop revealed.",
+      "This confuses technology resilience with process continuity. Automated failover keeps systems up, but the business processes those systems support still require people the scenario removes.",
+      "This confuses risk transfer with operational continuity. Insurance compensates financial loss after the fact; it does not keep critical functions running while staff are unavailable."
+    ]
+  },
+  {
+    "id": "D7-0129",
+    "domain": 7,
+    "objective": "7.14",
+    "difficulty": "medium",
+    "stem": "A company is replacing the decommissioned legacy suppression system in a continuously staffed, equipment-dense data center. Which fire suppression approach is MOST appropriate for this occupied room?",
+    "options": [
+      "A wet-pipe sprinkler system charged with pressurized water at all times",
+      "A carbon dioxide total-flooding system covering the entire room",
+      "Handheld extinguishers positioned at each aisle as the sole suppression measure",
+      "A clean-agent gas system with pre-discharge alarms and an abort capability"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses general building protection with data center suitability. Constantly charged water pipes above live electronics create severe accidental-discharge and water-damage exposure for the equipment the room exists to protect.",
+      "This confuses effective suppression with occupant safety. CO2 at fire-suppressing concentrations displaces oxygen and is lethal; total flooding is unsuited to a continuously staffed room.",
+      "This confuses supplementary equipment with a suppression system. Handheld extinguishers depend entirely on a person being present and able to act, provide no automatic response, and cannot serve as a room's sole protection.",
+      "Clean-agent systems suppress fire at concentrations safe for people and leave no residue on electronics; pre-discharge alarms and an abort switch let staff evacuate or cancel a false activation, balancing life safety with equipment protection."
+    ]
+  },
+  {
+    "id": "D7-0130",
+    "domain": 7,
+    "objective": "7.15",
+    "difficulty": "hard",
+    "stem": "An employee tells HR that a former partner has made violent threats and may appear at the office, and that she has obtained a protective order. What is the MOST appropriate organizational response?",
+    "options": [
+      "Advise the employee that domestic disputes are personal matters outside the employer's responsibility",
+      "Circulate the individual's photograph and full details of the threats to all staff company-wide",
+      "Convene security, HR, and legal to assess the threat, brief front-desk staff on a need-to-know basis, and adjust access controls",
+      "Rely on the protective order and instruct the employee to call police if the individual appears on site"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses the threat's origin with its impact. A domestic dispute becomes a workplace violence risk the moment it may follow the employee to the workplace, and the employer's duty of care to her and to coworkers applies.",
+      "This confuses awareness with need-to-know. Broadcasting the employee's situation company-wide violates her privacy and dignity; notification should be limited to those who control access and can act, such as reception and security staff.",
+      "Workplace violence risk calls for a coordinated threat-management response: a multidisciplinary assessment, targeted briefing of those controlling entry, tightened access measures, and liaison with law enforcement — protecting the employee and coworkers while respecting privacy.",
+      "This confuses a legal instrument with physical protection. A protective order does not stop a determined person at the door, and delegating the response entirely to the employee abandons the organization's duty of care."
+    ]
+  },
+  {
+    "id": "D7-0131",
+    "domain": 7,
+    "objective": "7.11",
+    "difficulty": "hard",
+    "stem": "During a disaster recovery activation at the warm site, application teams restored their servers within their RTOs, yet the applications remained down for hours because directory services, DNS, and the storage network had not yet been recovered. Which plan improvement BEST prevents a recurrence?",
+    "options": [
+      "Map application and infrastructure interdependencies and sequence recovery so foundational services restore first",
+      "Shorten every application's recovery time objective so restoration teams begin their work sooner",
+      "Assign additional staff to each of the application recovery teams",
+      "Replace the warm site arrangement with a fully provisioned hot site"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The failure was ordering, not speed: applications came up before the services they depend on existed. Documenting dependencies and building the recovery sequence around them — network, storage, DNS, and directory services before dependent applications — is the structural fix.",
+      "This confuses target aggressiveness with recovery order. Teams already met their RTOs; starting even sooner would have produced the same failure faster, because the prerequisite services still would not exist.",
+      "This confuses resourcing with sequencing. More hands on application restoration cannot make an application function when the directory, name resolution, and storage it requires are absent.",
+      "This confuses site readiness with recovery coordination. A hot site reduces provisioning time, but interdependent services still must be brought up in the correct order — buying a hotter site treats the symptom at great cost and leaves the planning defect intact."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D7-0132",
+    "domain": 7,
+    "objective": "7.4",
+    "difficulty": "medium",
+    "stem": "A hospital's clinical systems must remain accessible even if the central identity provider fails, so the operations team maintains emergency 'break-glass' administrator accounts. An audit finds the accounts share one password known to the entire on-call team, and there is no record of when they were used. Which improvement should the security manager recommend?",
+    "options": [
+      "Delete the break-glass accounts and require all emergency access to flow through the standard identity provider",
+      "Convert the accounts to just-in-time privileged access provisioned dynamically by the identity platform",
+      "Seal individually assigned credentials with a checkout process, alert on every use, and rotate each password after use",
+      "Require every on-call team member to sign an acceptable use agreement covering emergency account usage"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Eliminating the accounts restores dependence on the identity provider whose failure they exist to survive; it trades away the availability requirement instead of controlling the accountability risk.",
+      "Just-in-time provisioning is strong for routine administrative work, but it relies on the very identity platform whose outage break-glass accounts are designed to bridge, so it cannot replace them.",
+      "Sealed, individually attributable credentials with checkout logging, alerting on every use, and post-use password rotation preserve emergency availability while restoring individual accountability and detection — the standard control set for break-glass access.",
+      "An acceptable use agreement is a directive administrative control; it neither attributes a given use to an individual nor detects misuse, so both audit findings would remain uncorrected."
+    ]
+  },
+  {
+    "id": "D7-0133",
+    "domain": 7,
+    "objective": "7.6",
+    "difficulty": "hard",
+    "stem": "During response to an ongoing intrusion, a senior engineer identifies the attacker's command-and-control server, finds an exploitable flaw on it, and proposes 'hacking back' to delete the company's stolen data before it spreads. What is the MOST appropriate position for the incident response manager to take?",
+    "options": [
+      "Reject the proposal because accessing systems the organization does not own is unlawful, and continue containment while referring attacker details to law enforcement",
+      "Approve the action but restrict it to deleting only the organization's own stolen files from the attacker's server",
+      "Approve the action if legal counsel documents that the attacker struck first, establishing a self-defense justification",
+      "Reject the proposal because the server is likely a compromised third-party host, but permit the action if the engineer confirms the attacker owns the infrastructure"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Unauthorized access to any system the organization does not own or control is a criminal offense in most jurisdictions regardless of provocation; the defensible course is containment within the organization's own environment and referral of attacker information to law enforcement.",
+      "Owning the stolen data confers no right to access someone else's system to retrieve or delete it; the unauthorized access itself is the offense, so limiting the scope of the intrusion does not make it lawful.",
+      "There is no recognized self-defense doctrine authorizing offensive cyber operations by private organizations; counsel documenting who attacked first would not create legal authority to intrude on another system.",
+      "Harming an innocent third party whose server was compromised is a real added risk, but resolving attribution would not cure the legal problem — accessing infrastructure the attacker genuinely owns is still unauthorized access."
+    ],
+    "reference": "NIST SP 800-61r2"
+  },
+  {
+    "id": "D7-0134",
+    "domain": 7,
+    "objective": "7.7",
+    "difficulty": "medium",
+    "stem": "An audit of a perimeter firewall finds dozens of overly permissive rules, including several 'temporary' any-to-any entries created years ago for troubleshooting and never removed. Which practice would BEST prevent this condition from recurring?",
+    "options": [
+      "Migrate the perimeter to a next-generation firewall that inspects traffic at the application layer",
+      "Periodic rule-base reviews that recertify each rule against a documented business justification, with automatic expiry dates on temporary rules",
+      "Configure the firewall to log all permitted connections and forward the logs to the SIEM for analysis",
+      "Restrict firewall administration rights to a single senior engineer to ensure consistent rule hygiene"
+    ],
+    "answer": 1,
+    "explanations": [
+      "A next-generation firewall changes inspection capability, not rule-base governance; stale and overly broad rules accumulate on any platform that lacks a rule lifecycle process.",
+      "Recurring recertification ties every rule to a current business justification and an accountable owner, and expiry dates keep temporary exceptions from becoming permanent — a lifecycle control aimed at exactly this failure mode.",
+      "Logging permitted connections is a detective measure for suspicious traffic; it says nothing about whether a rule should exist and would neither remove nor prevent unjustified entries.",
+      "Concentrating administration in one person creates a key-person dependency and removes peer oversight; the deficiency here is a missing review process, not too many administrators."
+    ]
+  },
+  {
+    "id": "D7-0135",
+    "domain": 7,
+    "objective": "7.10",
+    "difficulty": "easy",
+    "stem": "A small firm stores every nightly backup on a NAS appliance located in the same server room as the systems it protects. A consultant warns that a single fire or theft could destroy both production data and all backups. Which recommendation BEST addresses this risk?",
+    "options": [
+      "Increase the backup frequency so that more restore points accumulate on the NAS appliance",
+      "Enable filesystem snapshots on the NAS to provide faster point-in-time recovery options",
+      "Encrypt all backup data stored on the NAS appliance using strong cryptography",
+      "Maintain multiple backup copies on different media, with at least one copy stored at an offsite location"
+    ],
+    "answer": 3,
+    "explanations": [
+      "More frequent backups improve the achievable recovery point, but every copy still sits in the same room, so the site-level threat the consultant identified remains untreated.",
+      "Snapshots reside on the same appliance they protect; a fire or theft that destroys the NAS destroys the snapshots along with the backups.",
+      "Encryption protects the confidentiality of backup data; it does nothing for availability when the only copies are physically destroyed or stolen.",
+      "Keeping multiple copies on different media with at least one offsite — the 3-2-1 principle — ensures no single site-level event such as fire or theft can eliminate production data and every backup at once."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D7-0136",
+    "domain": 7,
+    "objective": "7.13",
+    "difficulty": "medium",
+    "stem": "After the IT department completes and successfully tests a disaster recovery plan covering all data-center systems, the CIO reports to the board that the company is now 'fully prepared for any disruption.' Why should the CISO challenge this claim?",
+    "options": [
+      "Disaster recovery restores IT services only; continuity of the business also depends on plans for personnel, workspace, suppliers, and manual workarounds for critical processes",
+      "No preparedness claim is valid until the plan has been proven in a full-interruption exercise rather than lesser test types",
+      "The test results must first be validated against board-approved recovery time objectives before success can be reported upward",
+      "Declaring organizational readiness is the prerogative of the business continuity steering committee, not the CIO"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A disaster recovery plan is the IT-restoration subset of business continuity; the organization could restore every server yet still fail if people, facilities, supply chains, and critical business processes have no continuity arrangements.",
+      "A full-interruption exercise is the most rigorous test type but is not a prerequisite for a reasonable preparedness claim, and it carries its own operational risk; the flaw in the statement is its scope, not the test method used.",
+      "Validating results against recovery time objectives strengthens the evidence for IT recovery, but even perfectly met RTOs would not prepare the organization for disruptions outside the data center.",
+      "Governance over who declares readiness matters, but the substantive problem is that an IT-only plan cannot cover 'any disruption,' regardless of who makes the announcement."
+    ],
+    "reference": "NIST SP 800-34r1"
   }
 ]
