@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qashsolutions.github.io/cissp/schema/question.schema.json",
+  "title": "CISSP practice question (authoring form)",
+  "description": "One question as authored in content/domain-N.json. Each content file is a JSON array of these objects. Cross-field rules that JSON Schema cannot express cleanly (the id digit must equal `domain`, the objective prefix must equal `domain`, ids must be unique across the whole corpus) are enforced by tools/build.mjs.",
+  "type": "object",
+  "required": ["id", "domain", "objective", "difficulty", "stem", "options", "answer", "explanations"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^D[1-8]-\\d{4}$",
+      "description": "Permanent identifier. The digit after 'D' must equal `domain`. Never renumbered, never reused: user progress is keyed on it."
+    },
+    "domain": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8,
+      "description": "CISSP domain number per the ISC2 exam outline effective 15 April 2024."
+    },
+    "objective": {
+      "type": "string",
+      "pattern": "^[1-8](\\.\\d+)?$",
+      "description": "Task statement from the published outline, e.g. '1.10'. Must start with the domain number. Use the bare domain number if the sub-objective is uncertain — never invent one."
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "stem": {
+      "type": "string",
+      "minLength": 30,
+      "description": "Scenario-framed question text. Qualifiers are capitalised: BEST, MOST, FIRST, LEAST."
+    },
+    "options": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Exactly four distinct options of comparable length. 'All of the above' / 'None of the above' are forbidden."
+    },
+    "answer": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "description": "Index into `options` of the correct answer. Display order is shuffled at runtime, so authored position carries no signal."
+    },
+    "explanations": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "type": "string", "minLength": 20 },
+      "description": "One per option, same order. The entry at the `answer` index explains why it is correct; each other entry names the specific confusion behind that distractor and corrects it."
+    },
+    "reference": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional citation to a public standard or the exam outline, e.g. 'NIST SP 800-88r1'."
+    }
+  }
+}
