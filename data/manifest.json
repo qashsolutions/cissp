@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:24.998Z",
-  "total": 440,
+  "generatedAt": "2026-08-20T20:01:25.071Z",
+  "total": 490,
   "domains": [
     {
       "n": 1,
@@ -31,7 +31,7 @@
       "name": "Communication and Network Security",
       "weight": 13,
       "target": 650,
-      "count": 6,
+      "count": 56,
       "file": "domain-4.json"
     },
     {
