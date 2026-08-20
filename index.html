@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CISSP Question Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <h1>CISSP Question Bank</h1>
+    <p class="tagline">ISC2 exam outline · 15 April 2024 · two attempts per question</p>
+  </div>
+  <dl class="scoreboard" aria-label="Your progress">
+    <div class="stat"><dt>Answered</dt><dd id="stat-answered">0</dd></div>
+    <div class="stat stat-good"><dt>First try</dt><dd id="stat-first">0</dd></div>
+    <div class="stat stat-warn"><dt>Second try</dt><dd id="stat-second">0</dd></div>
+    <div class="stat stat-bad"><dt>Missed</dt><dd id="stat-missed">0</dd></div>
+  </dl>
+</header>
+
+<div class="layout">
+  <main class="stage">
+    <article class="card" id="card">
+      <p class="loading">Loading question bank…</p>
+    </article>
+    <p class="kbd-hints">1–4 select &nbsp;·&nbsp; Enter check / continue &nbsp;·&nbsp; N next</p>
+  </main>
+
+  <aside class="rail" aria-label="Filters">
+    <h2 class="rail-title">Domains</h2>
+    <nav id="rail-domains" class="rail-domains" aria-label="Filter by domain"></nav>
+    <div class="rail-tools">
+      <button id="toggle-unanswered" type="button" aria-pressed="false">Unanswered only</button>
+      <div id="clear-zone" class="clear-zone">
+        <button id="clear-progress" type="button" class="danger-link">Clear my progress</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
