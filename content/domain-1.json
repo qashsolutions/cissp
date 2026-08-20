@@ -160,5 +160,1015 @@
       "A hash proves the document has not changed since hashing; it says nothing about who committed to it.",
       "Audit logs support accountability but are operator-maintained records a determined signer can dispute; they lack the cryptographic binding that defeats denial."
     ]
+  },
+  {
+    "id": "D1-0009",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "A data center asset valued at $400,000 has an exposure factor of 25% for a flood that historical records show occurs about once every 10 years. What annualized loss expectancy (ALE) should the risk analyst report for this threat?",
+    "options": [
+      "$100,000",
+      "$40,000",
+      "$10,000",
+      "$1,000,000"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This is the single loss expectancy (SLE = $400,000 x 0.25); reporting it as the ALE ignores the annualized rate of occurrence entirely.",
+      "This multiplies asset value by the ARO ($400,000 x 0.1) but skips the exposure factor, which limits the loss to the portion of the asset actually destroyed.",
+      "SLE is $400,000 x 0.25 = $100,000, and with an ARO of 0.1 (one occurrence per 10 years) the ALE is $100,000 x 0.1 = $10,000 per year.",
+      "This multiplies the SLE by the 10-year interval instead of using the annualized rate; an event expected once every 10 years has an ARO of 0.1, not 10."
+    ]
+  },
+  {
+    "id": "D1-0010",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "After purchasing a cyber insurance policy covering ransomware losses, a CFO tells the board that the ransomware risk 'is now the insurer's problem.' What should the CISO clarify about this risk treatment?",
+    "options": [
+      "The risk has been avoided, so the organization no longer needs ransomware-specific controls",
+      "Part of the financial impact is transferred, but accountability and uninsured impacts such as reputational damage remain with the organization",
+      "The risk has been fully mitigated because insurance operates as a compensating control",
+      "The risk has been accepted, because a premium was knowingly paid in place of deploying controls"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Avoidance means eliminating the activity that creates the risk; insurance is transference, and controls are still needed because the threat still applies to ongoing operations.",
+      "Insurance transfers part of the financial consequence, but legal accountability, uninsured costs, and reputational harm cannot be transferred, so the organization still owns and must manage the residual risk.",
+      "Mitigation reduces likelihood or impact through controls; insurance changes neither the likelihood nor the technical impact of an attack, only who pays some of the cost afterward.",
+      "Acceptance means tolerating a risk without shifting it anywhere; paying a premium to move financial loss onto a third party is the definition of transference, not acceptance."
+    ]
+  },
+  {
+    "id": "D1-0011",
+    "domain": 1,
+    "objective": "1.3",
+    "difficulty": "medium",
+    "stem": "Ahead of an acquisition, a security director commissions research into the target company's breach history, audits its control environment, and reviews its outstanding regulatory findings before integration begins. Which principle is the director demonstrating?",
+    "options": [
+      "Due diligence",
+      "Due care",
+      "The prudent person rule",
+      "Compliance management"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Due diligence is the investigation and verification that ensures risks are understood, such as researching and auditing an acquisition target before integration; due care is then acting reasonably on what is found.",
+      "Due care is taking the protective and corrective actions a reasonable manager would take; the scenario describes investigation and verification activity, which is due diligence.",
+      "The prudent person rule is the legal yardstick used to judge whether due care was exercised; it describes how conduct is evaluated after the fact, not the investigative activity itself.",
+      "Reviewing regulatory findings supports compliance, but compliance management is conformance to defined obligations; the scenario's investigative research to understand risk is due diligence."
+    ]
+  },
+  {
+    "id": "D1-0012",
+    "domain": 1,
+    "objective": "1.1",
+    "difficulty": "medium",
+    "stem": "A CISSP consultant discovers that a client's water-treatment control system has a safety flaw that could endanger the public. The client, who pays the consultant's fees, instructs them to omit the finding and tell no one. Under the ISC2 Code of Ethics, why can the consultant not simply comply?",
+    "options": [
+      "The canon to advance and protect the profession forbids concealing findings from fellow practitioners",
+      "The canon to act honorably requires the consultant to resign the engagement immediately",
+      "The duty of diligent and competent service to principals requires disclosure directly to the client's regulator",
+      "The canons are applied in priority order, and protecting society and the public trust outweighs duties owed to the client"
+    ],
+    "answer": 3,
+    "explanations": [
+      "The profession canon governs conduct toward the profession and other practitioners; it is not the canon that overrides a paying client's instruction when public safety is at stake.",
+      "Acting honorably, honestly, justly, responsibly, and legally guides conduct, but that canon does not mandate resignation; the conflict here is resolved by canon priority, not by exiting the engagement.",
+      "Diligent and competent service is the duty owed to principals, and it is precisely the duty being overridden in this conflict; it does not itself create an obligation to report to regulators.",
+      "The ISC2 canons are listed in priority order, so the first canon — protect society, the common good, necessary public trust and confidence, and the infrastructure — takes precedence over the duty to principals when the two conflict."
+    ]
+  },
+  {
+    "id": "D1-0013",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "hard",
+    "stem": "A multinational plans to consolidate all HR records into a single cloud region in the United States. Counsel warns that several countries where employees reside have data localization statutes. What is the MOST significant risk-management implication for the consolidation plan?",
+    "options": [
+      "The plan automatically violates GDPR because HR records are special-category personal data",
+      "Some employee records may be legally required to remain in-country, so the design must support per-jurisdiction storage or lawful transfer mechanisms",
+      "Under the cloud shared responsibility model, cross-border compliance obligations shift to the provider hosting the data",
+      "Encrypting the records in transit and at rest satisfies localization requirements because plaintext never leaves the country"
+    ],
+    "answer": 1,
+    "explanations": [
+      "GDPR restricts transfers made without safeguards but does not generally mandate in-country storage, and ordinary HR records are not automatically special-category data; the issue raised here is localization statutes.",
+      "Data localization laws can require certain records to be stored or processed within national borders, so a single-region design may be unlawful for those employee populations; the architecture needs jurisdiction-aware storage or approved transfer mechanisms before consolidation proceeds.",
+      "Shared responsibility divides operational security duties between customer and provider; legal accountability for where regulated data resides stays with the organization and cannot be outsourced to the cloud vendor.",
+      "Encryption protects confidentiality, but the ciphertext is still the regulated data; localization statutes govern where data is stored or processed, which encryption alone does not change."
+    ]
+  },
+  {
+    "id": "D1-0014",
+    "domain": 1,
+    "objective": "1.5",
+    "difficulty": "hard",
+    "stem": "An employee's suspected data theft could lead either to termination under HR policy or to criminal prosecution. The CISO asks why the investigation approach must be decided early. What is the BEST answer?",
+    "options": [
+      "Criminal cases use the preponderance-of-evidence standard, so less rigorous collection is generally acceptable",
+      "Administrative investigations require law enforcement involvement from the outset",
+      "A criminal case demands proof beyond a reasonable doubt, so evidence handling must meet the strictest standard from the outset",
+      "Civil and criminal matters cannot arise from the same underlying incident, so a single path must be chosen now"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This reverses the standards: preponderance of the evidence applies to civil matters, while criminal conviction requires proof beyond a reasonable doubt, the most demanding burden.",
+      "Administrative investigations are conducted under company authority to enforce internal policy and normally need no law enforcement; police involvement is characteristic of criminal referrals, not administrative ones.",
+      "Because beyond-a-reasonable-doubt is the highest burden of proof, evidence gathered without forensic rigor and chain of custody may be unusable in court; if prosecution is possible, collection must meet that standard from the beginning.",
+      "The same incident can proceed simultaneously as an administrative action, a civil suit, and a criminal prosecution; the paths differ in burden of proof, not in mutual exclusivity."
+    ]
+  },
+  {
+    "id": "D1-0015",
+    "domain": 1,
+    "objective": "1.5",
+    "difficulty": "medium",
+    "stem": "A financial regulator opens an inquiry and formally demands five years of transaction logs. The operations team notes that the retention policy requires only three years, though older logs still exist on backup tapes. What should the organization do FIRST?",
+    "options": [
+      "Issue a legal hold suspending routine destruction of all potentially responsive records, including the tapes",
+      "Destroy the logs older than three years because the retention policy authorizes their disposal",
+      "Produce only the three years of logs the policy requires, since the policy defines the legal obligation",
+      "Negotiate the scope of the demand with the regulator before preserving anything"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Once a regulatory demand is received, a legal hold overrides routine retention schedules; preserving everything potentially responsive prevents spoliation before any scoping or production decisions are made.",
+      "Following the retention schedule after notice of an inquiry is spoliation; destruction that would have been routine beforehand becomes unlawful once the duty to preserve attaches.",
+      "An internal retention policy does not limit a regulator's lawful demand; if responsive records still exist on any medium, they are generally producible regardless of what the policy required.",
+      "Scope can be negotiated later, but preservation must come first; records destroyed while negotiating cannot be recovered and expose the organization to sanctions."
+    ]
+  },
+  {
+    "id": "D1-0016",
+    "domain": 1,
+    "objective": "1.7",
+    "difficulty": "easy",
+    "stem": "A newly hired business continuity manager is launching the organization's first formal continuity program. Which element is MOST critical to obtain before any other work begins?",
+    "options": [
+      "A completed inventory of the organization's critical business processes",
+      "Signed contracts with an alternate processing site provider",
+      "A tested disaster recovery plan for the primary data center",
+      "Documented senior management commitment and a chartered scope for the program"
+    ],
+    "answer": 3,
+    "explanations": [
+      "The process inventory is part of the business impact analysis, which follows project initiation; without a charter and resources, the analysis has no mandate or cooperation.",
+      "Selecting alternate sites is a recovery strategy decision that depends on impact analysis results; contracting first risks buying the wrong capability for the wrong processes.",
+      "Disaster recovery planning addresses IT restoration and is a later, narrower deliverable; it cannot precede the continuity program that defines its requirements.",
+      "Continuity programs succeed or fail on executive sponsorship: documented management commitment, policy, and scope authorize the funding, staff time, and cross-departmental cooperation every later phase depends on."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D1-0017",
+    "domain": 1,
+    "objective": "1.7",
+    "difficulty": "medium",
+    "stem": "A BIA sets the maximum tolerable downtime (MTD) for the order-processing system at 24 hours. The DR team proposes a significantly cheaper recovery solution with a recovery time objective (RTO) of 30 hours. How should the continuity manager respond?",
+    "options": [
+      "Accept the proposal, because RTO measures data loss while MTD measures downtime",
+      "Reject it, because an RTO longer than the MTD means unacceptable harm occurs before recovery completes",
+      "Accept it, provided the recovery point objective stays under 24 hours",
+      "Reject it, and set the RTO exactly equal to the MTD so no recovery budget is wasted"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This swaps the definitions: RTO is the target time to restore service; tolerance for data loss is the recovery point objective (RPO), a different measure entirely.",
+      "MTD is the ceiling on total outage the business can survive, so the RTO must fit inside it with margin for detection and declaration; a 30-hour RTO against a 24-hour MTD guarantees the tolerance is exceeded.",
+      "RPO governs acceptable data loss, not restoration speed; a compliant RPO does not fix a recovery time that overruns the maximum tolerable downtime.",
+      "Setting RTO equal to MTD leaves zero margin for the time consumed by detection, declaration, and escalation before restoration even starts; RTO should sit comfortably below MTD, not equal it."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D1-0018",
+    "domain": 1,
+    "objective": "1.8",
+    "difficulty": "easy",
+    "stem": "An accounts-payable clerk has not taken a vacation in three years and resists all cross-training. Internal audit suspects the clerk may be concealing fraudulent transactions that require daily maintenance. Which personnel security control is designed to surface this kind of scheme?",
+    "options": [
+      "Separation of duties",
+      "Least privilege",
+      "Mandatory vacations",
+      "Nondisclosure agreements"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Separation of duties prevents one person from controlling an entire transaction by design; it is a preventive structure and would not by itself expose a scheme already operating inside a single role.",
+      "Least privilege limits access rights to what the job requires; it constrains what the clerk can touch but does not force the absence that reveals ongoing manipulation.",
+      "Mandatory vacations force an absence during which someone else performs the duties, so schemes needing continuous daily tending — like concealing fraudulent entries — tend to unravel and become visible to the substitute.",
+      "Nondisclosure agreements protect confidential information from being revealed; they have no detective effect on fraudulent transaction handling."
+    ]
+  },
+  {
+    "id": "D1-0019",
+    "domain": 1,
+    "objective": "1.8",
+    "difficulty": "medium",
+    "stem": "An organization is about to notify a systems administrator of involuntary termination. The administrator holds privileged credentials across production systems. From a personnel security standpoint, when should the administrator's access be revoked?",
+    "options": [
+      "At or immediately before the moment of notification, coordinated between HR and IT",
+      "At the end of the administrator's final scheduled shift, to allow for knowledge transfer",
+      "After the exit interview concludes and all company equipment has been returned",
+      "Within 24 hours of notification, per the standard deprovisioning service levels"
+    ],
+    "answer": 0,
+    "explanations": [
+      "For involuntary termination of privileged users, revocation must coincide with notification so there is no window in which a newly aggrieved administrator retains production access; HR and IT coordinate the timing in advance.",
+      "Winding down through a final shift may suit a cooperative voluntary departure, but leaving privileged access active after adverse notice creates an insider-sabotage window.",
+      "The exit interview and property recovery belong in the process, but revocation cannot wait for them; the risk peaks the moment the employee learns of the termination.",
+      "Routine deprovisioning SLAs address normal role changes and departures; a 24-hour lag after adverse notification is exactly the high-risk window the involuntary process exists to eliminate."
+    ]
+  },
+  {
+    "id": "D1-0020",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "easy",
+    "stem": "After a risk assessment, a hospital cancels a pilot program that would have let clinicians access patient records from personal phones, because the exposure cannot be reduced to an acceptable level. Which risk response does this decision represent?",
+    "options": [
+      "Risk transference",
+      "Risk mitigation",
+      "Risk acceptance",
+      "Risk avoidance"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Transference shifts consequences to a third party, such as through insurance or contract terms; cancelling the activity shifts nothing — it removes the exposure entirely.",
+      "Mitigation applies controls to reduce likelihood or impact while the activity continues; here the activity itself was discontinued rather than controlled.",
+      "Acceptance means proceeding while knowingly tolerating the residual risk; the hospital explicitly declined to proceed at all.",
+      "Avoidance eliminates a risk by not undertaking — or by discontinuing — the activity that creates it, which is exactly what cancelling the personal-phone pilot does."
+    ]
+  },
+  {
+    "id": "D1-0021",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "A CISO must present emerging AI-related threats to the board next week. No credible loss history or actuarial data exists for these threats, but the board wants the risks ranked to guide funding decisions. Which analysis approach is MOST appropriate?",
+    "options": [
+      "Quantitative analysis, because board funding decisions require monetary ALE figures",
+      "Qualitative analysis using expert judgment to rate likelihood and impact on defined scales",
+      "Deferring the analysis until enough incident data accumulates to compute reliable annualized rates",
+      "A Monte Carlo simulation seeded with published industry breach-cost averages"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Quantitative analysis is only as good as its inputs; without credible frequency and magnitude data, ALE figures are false precision, and boards can prioritize perfectly well from structured qualitative ratings.",
+      "When reliable numerical data is unavailable and a ranked view is needed quickly, qualitative analysis — knowledgeable staff rating scenarios on defined likelihood and impact scales — is the fitting technique and directly supports prioritization.",
+      "Waiting for loss history leaves the board uninformed exactly when direction is needed; risk management must operate under uncertainty rather than postpone decisions until certainty arrives.",
+      "A simulation seeded with borrowed industry averages produces numbers that look rigorous but do not reflect this organization's exposure; it adds modeling complexity without adding validity."
+    ],
+    "reference": "NIST SP 800-30r1"
+  },
+  {
+    "id": "D1-0022",
+    "domain": 1,
+    "objective": "1.10",
+    "difficulty": "hard",
+    "stem": "A security architect wants a threat-modeling methodology that begins from business objectives and impact, connects technical threats to business risk through seven defined stages, and produces output executives can use to prioritize spending. Which methodology BEST fits?",
+    "options": [
+      "STRIDE",
+      "DREAD",
+      "PASTA",
+      "VAST"
+    ],
+    "answer": 2,
+    "explanations": [
+      "STRIDE is a threat categorization scheme — spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege; it classifies threats against system elements but is not a staged, business-risk-driven process.",
+      "DREAD is a rating scheme for scoring threats that have already been identified (damage, reproducibility, exploitability, affected users, discoverability); it ranks findings rather than driving analysis from business objectives.",
+      "PASTA (Process for Attack Simulation and Threat Analysis) is a seven-stage, risk-centric methodology that starts with business objectives and ends with impact-based risk prioritization, aligning technical threat analysis with executive decisions.",
+      "VAST emphasizes scalable, automation-friendly modeling across agile development and operational teams; its distinguishing focus is enterprise scalability, not a staged progression from business impact to attack simulation."
+    ]
+  },
+  {
+    "id": "D1-0023",
+    "domain": 1,
+    "objective": "1.10",
+    "difficulty": "hard",
+    "stem": "During threat modeling, an analyst breaks an application into its components to identify trust boundaries, data flow paths, input points, and privileged operations before any threats are enumerated. What is this activity called?",
+    "options": [
+      "Reduction analysis",
+      "Root cause analysis",
+      "Attack tree construction",
+      "Gap analysis"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Reduction analysis, also called decomposition, breaks a system into components to locate trust boundaries, data flows, input points, and privileged operations, giving subsequent threat enumeration a precise map to work against.",
+      "Root cause analysis works backward from an incident that has already occurred to find its underlying cause; threat-model decomposition is proactive and precedes any event.",
+      "Attack trees model how an adversary could reach a goal through branching attack paths; they are built after decomposition has identified what can be targeted.",
+      "Gap analysis compares current controls against a desired standard or framework; it evaluates control coverage, not the internal structure of a system."
+    ]
+  },
+  {
+    "id": "D1-0024",
+    "domain": 1,
+    "objective": "1.11",
+    "difficulty": "medium",
+    "stem": "An organization is negotiating with a SaaS vendor that will process regulated customer data. The vendor offers its marketing security whitepaper as evidence of strong controls. Which contract provision gives the organization the STRONGEST ongoing assurance about the vendor's control environment?",
+    "options": [
+      "A confidentiality clause obligating the vendor to protect customer data from disclosure",
+      "A service level agreement guaranteeing 99.9% platform availability",
+      "An indemnification clause covering losses arising from a vendor breach",
+      "A right-to-audit clause with an obligation to furnish independent assessments such as SOC 2 Type II reports"
+    ],
+    "answer": 3,
+    "explanations": [
+      "A confidentiality clause creates a legal duty but provides no visibility into whether controls actually operate; it is a promise, not verification.",
+      "An availability SLA measures uptime, a single narrow outcome; it says nothing about the confidentiality and integrity controls protecting regulated data.",
+      "Indemnification allocates financial consequences after a failure has occurred; it compensates for harm rather than providing assurance that controls are working.",
+      "Audit rights combined with independent attestations — a SOC 2 Type II tests control operating effectiveness over a period — give recurring, verifiable insight into the vendor's environment rather than self-reported marketing claims."
+    ]
+  },
+  {
+    "id": "D1-0025",
+    "domain": 1,
+    "objective": "1.11",
+    "difficulty": "hard",
+    "stem": "A defense contractor discovers that network interface cards bought through a discount broker may be counterfeit and carry unknown firmware. Beyond replacing the suspect cards, which change MOST directly addresses the root supply chain failure?",
+    "options": [
+      "Requiring firmware integrity scanning of all devices at deployment time",
+      "Procuring only through authorized distributors with a verifiable chain of provenance from the original manufacturer",
+      "Adding the broker to the vendor risk register and raising its assigned risk rating",
+      "Imaging and penetration-testing a sample of every future hardware lot before deployment"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Firmware scanning is a useful detective control at the endpoint, but it inspects goods that have already entered the environment; the failure occurred upstream in how the hardware was sourced.",
+      "The root failure was acquiring components through an unverifiable gray-market channel; restricting procurement to authorized channels with documented provenance keeps counterfeit or tampered goods from entering the supply chain at all.",
+      "Recording the broker in a risk register documents the exposure but changes nothing about sourcing practice; a register entry is an input to risk treatment, not the treatment itself.",
+      "Lot sampling can catch some counterfeits but is probabilistic and occurs after purchase; it manages the symptoms of an untrusted channel rather than replacing the channel."
+    ],
+    "reference": "NIST SP 800-161"
+  },
+  {
+    "id": "D1-0026",
+    "domain": 1,
+    "objective": "1.12",
+    "difficulty": "medium",
+    "stem": "A year after launching a security awareness program, the CISO must show the board whether the program is actually working. Which measure BEST demonstrates the program's effectiveness?",
+    "options": [
+      "The percentage of employees who completed the annual training module",
+      "Average scores on the knowledge quiz taken immediately after training",
+      "The trend in employee click and reporting rates across periodic simulated phishing campaigns",
+      "The number of awareness posters, newsletters, and events delivered during the year"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Completion rates show reach and policy compliance, not whether behavior changed; every employee can finish the module and still click a malicious link.",
+      "Immediate post-training quizzes measure short-term knowledge retention, which decays and does not reliably translate into on-the-job behavior.",
+      "Trends in simulated-phishing click rates and, especially, user reporting rates measure actual security behavior over time — the outcome the program exists to change — making them the strongest evidence of effectiveness.",
+      "Counting deliverables is an activity metric; it shows effort expended, not any resulting change in employee behavior or organizational risk."
+    ],
+    "reference": "NIST SP 800-50"
+  },
+  {
+    "id": "D1-0027",
+    "domain": 1,
+    "objective": "1.12",
+    "difficulty": "easy",
+    "stem": "A security program includes short monthly videos reminding all staff to lock screens and report suspicious email, role-based courses teaching administrators secure configuration skills, and tuition support for security degrees. What distinguishes the monthly videos from the other two components?",
+    "options": [
+      "They are awareness activities meant to keep security present in everyone's mind rather than to build job-specific skills",
+      "They are training, because they teach staff how to perform specific security tasks",
+      "They are education, because they build long-term security understanding across the workforce",
+      "They are social engineering exercises that test staff behavior rather than inform it"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Awareness reaches the entire population with brief, repeated messages that keep secure behavior top of mind; it shapes attention and habits, while training builds role-specific skills and education builds deep, career-level understanding.",
+      "Training conveys the skills a particular role needs to perform its tasks, like the administrators' configuration courses; broad behavioral reminders do not teach a job skill.",
+      "Education is in-depth conceptual learning, typically through formal study such as the degree program; short reminder videos sit at the opposite end of that spectrum.",
+      "Exercises such as simulated phishing test behavior under realistic conditions; reminder videos deliver messages and test nothing."
+    ],
+    "reference": "NIST SP 800-50"
+  },
+  {
+    "id": "D1-0028",
+    "domain": 1,
+    "objective": "1.2",
+    "difficulty": "medium",
+    "stem": "A utility is defining protection goals for the SCADA system that manages a regional power grid; customer billing runs on a separate platform. When tailoring the CIA triad for the SCADA environment, which emphasis is MOST appropriate?",
+    "options": [
+      "Confidentiality first, because leaked grid telemetry would help attackers plan intrusions",
+      "Equal weighting of confidentiality, integrity, and availability, since the triad requires balance",
+      "Confidentiality and nonrepudiation, so that operator commands remain provable afterward",
+      "Availability and integrity first, because the grid must keep operating and its control data must be trustworthy"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Telemetry secrecy has some value, but confidentiality is typically the least critical property in industrial control; an unavailable or corrupted grid is a direct safety and service failure.",
+      "The triad is an analytical framework, not a mandate for equal weighting; each environment prioritizes the properties by mission impact, and control systems weight availability and integrity heavily.",
+      "Nonrepudiation supports accountability for operator actions, which is useful but secondary; it does not address the primary hazards of outage or falsified control data.",
+      "Industrial control environments prioritize availability (continuous safe operation) and integrity (trustworthy commands and sensor readings), because losing either can cause outages or physical harm, while most SCADA data has limited confidentiality value."
+    ]
+  },
+  {
+    "id": "D1-0029",
+    "domain": 1,
+    "objective": "1.3",
+    "difficulty": "easy",
+    "stem": "After a major breach, the board asks who bears ultimate accountability for the organization's information security program. What is the BEST answer?",
+    "options": [
+      "The chief information security officer, as the designated security executive",
+      "Senior management and the board, who own enterprise risk and answer for the organization's direction",
+      "The IT department, which implements and operates the technical controls",
+      "Each data owner, since accountability follows ownership of the affected assets"
+    ],
+    "answer": 1,
+    "explanations": [
+      "The CISO is responsible for building and running the program day to day, but responsibility can be delegated while accountability cannot; the CISO acts on authority granted from above.",
+      "Ultimate accountability for security rests with senior management, with the board in its oversight role: they set risk appetite, allocate resources, and answer to shareholders and regulators for outcomes, and delegation never transfers that accountability.",
+      "IT operates controls as a custodian; custodial duties are operational responsibilities, not enterprise-level accountability for the program.",
+      "Data owners are accountable for classifying and protecting specific assets within the program, but the program itself — and the enterprise risk position — is owned above them."
+    ]
+  },
+  {
+    "id": "D1-0030",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "medium",
+    "stem": "A global firm's monitoring policy requires recording all employee chat messages. Counsel in a newly entered country advises that such recording violates that country's employee privacy law, but security leadership insists the policy must apply uniformly. What is the BEST course of action?",
+    "options": [
+      "Apply the policy uniformly, since internal policy takes precedence inside a private company",
+      "Obtain blanket employee consent forms so the recording can lawfully continue",
+      "Comply with the local law and adapt the policy for that jurisdiction, documenting the exception through governance channels",
+      "Suspend all monitoring worldwide until the policy and every country's laws are harmonized"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Internal policy never supersedes applicable law; enforcing an unlawful practice exposes the firm to penalties and its officers to personal liability.",
+      "In many jurisdictions employee consent is not considered freely given because of the employment power imbalance, and statutory privacy protections cannot be waived by a form; consent would not cure the violation.",
+      "Legal requirements set the floor that security policy must respect in each jurisdiction; adapting the policy locally through a documented, approved exception keeps the firm compliant while preserving governance discipline everywhere else.",
+      "Halting monitoring globally abandons a lawful, risk-reducing control in every other jurisdiction to resolve a conflict that exists in only one; the response is disproportionate to the problem."
+    ]
+  },
+  {
+    "id": "D1-0031",
+    "domain": 1,
+    "objective": "1.6",
+    "difficulty": "hard",
+    "stem": "A business unit cannot meet the corporate encryption standard on a legacy platform scheduled for retirement in 18 months, and remediation would cost more than the platform's remaining value. What is the BEST way to handle the noncompliance?",
+    "options": [
+      "Grant a formal, time-bound exception approved by the risk owner, with compensating controls and a review date",
+      "Rewrite the standard so that legacy platforms of this type fall outside its scope",
+      "Reclassify the platform's data at a lower sensitivity level so the standard no longer applies",
+      "Leave the standard unmet but undocumented, since the retirement date makes the issue self-resolving"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A documented exception process preserves the integrity of the standard while acknowledging a justified, temporary deviation; risk-owner approval, compensating controls, and an expiry date keep the residual risk visible and managed.",
+      "Carving systems out of a standard to excuse noncompliance weakens the standard for everyone and hides the risk; exceptions should be explicit and temporary, not baked permanently into the rule.",
+      "Classification must reflect the data's actual sensitivity and the impact of its loss; downgrading it to dodge a control requirement misstates risk and corrupts the classification scheme.",
+      "Undocumented noncompliance is risk acceptance by default: no one with authority approved it, no compensating controls exist, and the exposure vanishes from governance oversight for 18 months."
+    ]
+  },
+  {
+    "id": "D1-0032",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "hard",
+    "stem": "A regulation requires unique user authentication on a hospital's clinical system, but the vendor's software supports only a shared login and cannot be modified. The system is essential to patient care. Which approach BEST reflects sound risk management?",
+    "options": [
+      "Accept the risk, since the requirement is technically impossible to satisfy on this product",
+      "Remove the system from service until the vendor adds support for unique logins",
+      "Declare the regulation inapplicable because the vendor, not the hospital, controls the software design",
+      "Apply documented compensating controls, such as individual OS-level authentication and monitored access logs, that meet the requirement's intent"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Acceptance is appropriate only when no reasonable treatment exists or is justified; here the requirement's intent can still be achieved another way, so accepting the gap outright is premature.",
+      "Avoidance would close the compliance gap by eliminating patient-care capability; risk decisions must serve the mission rather than sacrifice it to the letter of a control.",
+      "Regulatory obligations attach to the regulated entity and cannot be disclaimed because a supplier's product is deficient; the hospital remains accountable for achieving the required protection.",
+      "When a prescribed control cannot be implemented as written, compensating controls that achieve the same protective intent — individual accountability for access — documented and approved by the risk owner, are the recognized way to satisfy the requirement while keeping the mission running."
+    ]
+  },
+  {
+    "id": "D1-0033",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "hard",
+    "stem": "A beverage company's competitive advantage rests on a formula it has kept secret for decades through NDAs and restricted access. An executive proposes patenting the formula for stronger protection. What is the MOST important trade-off to explain to the executive?",
+    "options": [
+      "Patents protect expressions of ideas, so the formula would need copyright protection instead",
+      "Patenting requires public disclosure and expires after a set term, while a trade secret can last indefinitely if secrecy is maintained",
+      "Trademark registration would protect the formula while still keeping it entirely secret",
+      "Trade secrets become enforceable only after formal registration of the secret with a government office"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Copyright protects original expression such as text, code, and media, not a functional formula; patents do cover inventions and processes, so the premise is wrong on both counts.",
+      "A patent trades disclosure for a limited period of exclusivity, after which anyone may use the invention; a well-guarded trade secret has no expiry, which is why some famous formulas have stayed protected for generations.",
+      "Trademarks protect brand identifiers — names, logos, slogans — against consumer confusion; they provide no protection at all for the formula itself.",
+      "Trade secret protection arises from the information's secrecy and the reasonable measures taken to guard it; there is no registration requirement, and registering would itself destroy the secrecy."
+    ]
+  },
+  {
+    "id": "D1-0034",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "The board of directors publishes a statement that the organization will pursue aggressive digital growth while accepting only minimal risk to regulatory compliance. A product manager then asks the risk team how much deviation from the approved risk level is acceptable for her specific product line before escalation is required. Which concept BEST describes what the product manager is asking about?",
+    "options": [
+      "Risk appetite",
+      "Risk capacity",
+      "Risk tolerance",
+      "Residual risk"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Risk appetite is the broad, board-level statement of how much risk the organization is willing to pursue overall; it is what the board already published, not the per-initiative variance the manager is asking about.",
+      "Risk capacity is the absolute maximum amount of risk the organization could absorb and remain viable; it is an objective limit, not the permitted deviation for a specific initiative.",
+      "Risk tolerance is the acceptable variance around the stated appetite for a specific objective or initiative, and it defines the thresholds at which escalation is required, which is exactly what the manager wants defined.",
+      "Residual risk is the risk that remains after controls are applied; it describes a measured outcome, not a management-defined boundary for acceptable deviation."
+    ]
+  },
+  {
+    "id": "D1-0035",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "A risk analyst is instructed to evaluate the exposure of a new payment platform under the assumption that no safeguards or countermeasures are in place, so leadership can understand the worst-case exposure before selecting controls. Which value is the analyst calculating?",
+    "options": [
+      "Inherent risk",
+      "Residual risk",
+      "Secondary risk",
+      "Acceptable risk"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Inherent (total) risk is the level of risk that exists before any controls are applied, which is precisely what an assessment assuming no safeguards measures.",
+      "Residual risk is the risk remaining after controls have been implemented; candidates confuse the two because both describe risk levels, but residual explicitly assumes controls are in place.",
+      "Secondary risk is a new risk created by implementing a risk response; nothing here involves the side effects of a treatment decision.",
+      "Acceptable risk is the level of risk management chooses to retain; it is a governance decision, not a measurement performed under a no-controls assumption."
+    ]
+  },
+  {
+    "id": "D1-0036",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "hard",
+    "stem": "An enterprise risk register lists the CISO as the owner of every one of its 45 entries, including risks to manufacturing uptime, financial reporting accuracy, and third-party logistics. A maturity assessment flags this arrangement as a weakness. What is the BEST recommendation?",
+    "options": [
+      "Retain the CISO as owner of all entries because the security function has the deepest expertise in evaluating and treating risk",
+      "Reassign each risk to the manager accountable for the affected business process, with the security team acting as an advisor",
+      "Transfer ownership of the register to internal audit so that risk decisions are overseen by an independent function",
+      "Assign ownership of all entries collectively to the enterprise risk committee so treatment decisions are made by consensus"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses subject-matter expertise with accountability; the CISO can advise on treatment, but cannot legitimately accept or fund risk decisions for processes such as manufacturing that the security function does not control.",
+      "Risk owners must be the individuals with authority over the affected business process, because only they can accept the risk, fund treatment, and be held accountable for the outcome; security supports them with analysis and advice.",
+      "This confuses the assurance role with ownership; internal audit must remain independent of the risks it reviews and would compromise that independence by owning them.",
+      "Collective ownership diffuses accountability so that no one is answerable for any single risk; committees provide governance and oversight, but each risk still needs a named individual owner."
+    ]
+  },
+  {
+    "id": "D1-0037",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "hard",
+    "stem": "A CISO wants a forward-looking metric that will warn leadership when the organization's backlog of unremediated critical vulnerabilities is trending toward a level that could breach the board's stated risk thresholds, so treatment can begin before an incident occurs. Which type of metric BEST fits this need?",
+    "options": [
+      "A key performance indicator",
+      "A key goal indicator",
+      "A return on security investment calculation",
+      "A key risk indicator"
+    ],
+    "answer": 3,
+    "explanations": [
+      "A key performance indicator measures how well a process is performing against its objectives and is largely retrospective; candidates confuse the two because both are 'key' metrics, but KPIs track performance rather than rising exposure.",
+      "A key goal indicator reports whether a defined outcome was ultimately achieved, which is an after-the-fact measure rather than an early warning.",
+      "Return on security investment compares the cost of a control to the losses it avoids in order to justify spending; it does not signal that exposure is approaching a threshold.",
+      "A key risk indicator is a leading metric tied to defined risk thresholds, designed to trigger escalation and treatment before the organization's tolerance is exceeded, which is exactly the early-warning function described."
+    ]
+  },
+  {
+    "id": "D1-0038",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "easy",
+    "stem": "An organization posts prominent signs stating that all warehouse areas are under continuous video surveillance and that violators will be prosecuted. The signs are intended to discourage theft before it is attempted. From a functional perspective, what type of control are the signs?",
+    "options": [
+      "Deterrent",
+      "Preventive",
+      "Detective",
+      "Corrective"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A deterrent control influences a potential violator's decision by raising the perceived likelihood of being caught and punished, which is the entire purpose of the warning signage.",
+      "Preventive controls are confused with deterrents because both operate before an incident, but a preventive control physically or logically stops the act, such as a lock, rather than discouraging the intent.",
+      "A detective control identifies a violation during or after it occurs; the cameras themselves serve that function, but the signs announcing them do not detect anything.",
+      "A corrective control restores systems or processes after an incident has occurred, which is unrelated to discouraging theft in advance."
+    ]
+  },
+  {
+    "id": "D1-0039",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "hard",
+    "stem": "To reduce ransomware exposure, an organization deploys fully automated same-day patching to all production servers. Two weeks later, an untested vendor patch takes the order-processing cluster offline for a full business day. From a risk management perspective, the outage exposure created by the new patching process is BEST described as what?",
+    "options": [
+      "Residual risk",
+      "Control risk",
+      "Secondary risk",
+      "Inherent risk"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Residual risk is the portion of the original ransomware risk that remains after the treatment; the outage is a different, newly created exposure, not a leftover of the original threat.",
+      "Control risk is the risk that a control fails to prevent or detect the event it targets; here the patching control did not fail at its ransomware purpose, it generated an entirely distinct availability exposure.",
+      "A secondary risk is a new risk that arises directly from implementing a risk response, which is exactly what happened when the mitigation itself caused a production outage.",
+      "Inherent risk is the level of the original risk before any controls were applied; the outage exposure did not exist until the response was implemented."
+    ]
+  },
+  {
+    "id": "D1-0040",
+    "domain": 1,
+    "objective": "1.2",
+    "difficulty": "medium",
+    "stem": "A database administrator legitimately holds the schema-modification rights required for the role, but can also open and read the plaintext contents of executive compensation tables that the job never requires the administrator to view. Which security principle is MOST directly violated?",
+    "options": [
+      "Least privilege",
+      "Need to know",
+      "Separation of duties",
+      "Dual control"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Least privilege concerns the breadth of system rights and permissions granted for a role, and the administrator's operational privileges are appropriate to the job; the specific problem is unnecessary access to information content.",
+      "Need to know restricts a person's access to information to only what their duties require; an administrator who can read sensitive data with no business reason to view it is the classic violation of this principle.",
+      "Separation of duties splits a critical task among multiple people to prevent fraud by one individual; no task division is at issue here.",
+      "Dual control requires two people to act together to complete a sensitive action, such as opening a vault; it does not govern which data a role may read."
+    ]
+  },
+  {
+    "id": "D1-0041",
+    "domain": 1,
+    "objective": "1.2",
+    "difficulty": "easy",
+    "stem": "An attacker bypasses an organization's perimeter firewall through a misconfigured rule, but the intrusion is contained because network segmentation, host hardening, and egress monitoring each independently limited what the attacker could reach. Which security design principle does this outcome illustrate?",
+    "options": [
+      "Defense in depth",
+      "Zero trust",
+      "Security through obscurity",
+      "Fail-safe defaults"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Defense in depth layers multiple independent, overlapping controls so that the failure of any single safeguard, such as the firewall, does not result in full compromise, which is exactly what contained this intrusion.",
+      "Zero trust is confused here because it also assumes the perimeter can fail, but it is an architectural model that removes implicit trust and verifies every request; the scenario describes redundant layers, not per-request verification.",
+      "Security through obscurity relies on keeping design details secret as the protection mechanism, which played no role in stopping this attacker.",
+      "Fail-safe defaults means a system denies access when it fails or when no rule applies; the firewall here was bypassed rather than failing closed."
+    ]
+  },
+  {
+    "id": "D1-0042",
+    "domain": 1,
+    "objective": "1.3",
+    "difficulty": "medium",
+    "stem": "A newly appointed CISO discovers that security initiatives have been selected informally by IT engineers based on technical interest, and an external review notes that security spending shows no connection to the company's strategic objectives. Which action would BEST address the root cause?",
+    "options": [
+      "Pursue ISO/IEC 27001 certification to demonstrate that a formal security program exists",
+      "Procure an integrated GRC platform to centralize the tracking of all security initiatives",
+      "Request an increased security budget so that more strategically relevant projects can be funded",
+      "Charter a cross-functional security steering committee to prioritize initiatives against business objectives"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Certification attests that a management system exists and is often mistaken for governance itself, but pursuing a certificate does not create the business-alignment mechanism that is missing.",
+      "A GRC tool automates and reports on governance processes that are already defined; buying a platform cannot substitute for the missing decision-making structure.",
+      "The root cause is how initiatives are chosen, not how much money is available; a larger budget would simply fund more misaligned projects.",
+      "The absence of a governance body linking security decisions to business strategy is the root cause, and a steering committee with business leadership creates exactly that alignment and prioritization mechanism."
+    ],
+    "reference": "ISO/IEC 27001"
+  },
+  {
+    "id": "D1-0043",
+    "domain": 1,
+    "objective": "1.3",
+    "difficulty": "medium",
+    "stem": "For three consecutive years, an organization's risk assessments identified an unsupported internet-facing server as a critical exposure, yet leadership declined to fund remediation each time. After a breach through that server, plaintiffs argue that executives were negligent. The executives' failure is BEST characterized as an absence of what?",
+    "options": [
+      "Due diligence",
+      "Due process",
+      "Due care",
+      "The prudent man rule"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Due diligence is the ongoing effort to investigate and understand risks, and the organization actually performed it through its annual assessments; the failure lay in not acting on what was learned.",
+      "Due process concerns fair and consistent legal or disciplinary proceedings for individuals, which is unrelated to remediating a known technical exposure.",
+      "Due care is taking the reasonable, prudent actions that a similarly situated organization would take in response to known risks; repeatedly declining to remediate a known critical exposure is a textbook absence of due care.",
+      "The prudent man rule is the legal standard courts use to judge whether due care was exercised; it is the yardstick applied to the conduct, not the name of the missing conduct itself."
+    ]
+  },
+  {
+    "id": "D1-0044",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "hard",
+    "stem": "A U.S.-headquartered manufacturer plans to ship network appliances containing strong cryptographic modules to a new engineering office abroad and to give developers there source-code access to the cryptographic libraries. Which legal issue MOST directly constrains this plan?",
+    "options": [
+      "Cross-border personal data transfer rules that require approved contractual safeguards",
+      "Export control regimes that restrict transferring cryptographic hardware and source code across borders",
+      "Data localization statutes that require citizens' records to remain stored in their home country",
+      "Import tariff and customs valuation requirements imposed by the destination country"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Personal data transfer rules such as GDPR transfer mechanisms govern the movement of individuals' data, and candidates conflate them with technology transfers; no personal data is being moved here.",
+      "Strong cryptography is treated as controlled dual-use technology under export control frameworks such as the Wassenaar Arrangement and national export regulations, and even granting source access to foreign nationals can constitute a controlled 'deemed export.'",
+      "Data localization laws constrain where data about a country's residents may be stored or processed; they do not regulate shipping cryptographic products or sharing code.",
+      "Customs duties and valuation affect cost and logistics of the shipment, but they do not determine whether transferring controlled cryptography is lawful at all."
+    ]
+  },
+  {
+    "id": "D1-0045",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "easy",
+    "stem": "A company discovers that a competitor is marketing services under a nearly identical logo and brand name, causing several customers to sign contracts with the wrong firm. Which form of intellectual property protection MOST directly applies to this situation?",
+    "options": [
+      "Copyright",
+      "Patent",
+      "Trade secret",
+      "Trademark"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Copyright protects the expression of creative works, and while artwork in a logo has copyright aspects, consumer confusion over brand identity in commerce is not what copyright is designed to remedy.",
+      "A patent protects novel inventions and processes; a brand name and logo are identifiers, not inventions.",
+      "Trade secret protection applies to confidential information that derives value from secrecy; a logo used publicly in the marketplace cannot be a secret.",
+      "Trademark law protects names, logos, and identifiers that distinguish goods and services in the market, and its core purpose is preventing exactly this kind of customer confusion between competing brands."
+    ]
+  },
+  {
+    "id": "D1-0046",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "medium",
+    "stem": "A SaaS provider confirms that personal data belonging to customers residing in several countries was exfiltrated, and containment is complete. Notification deadlines, thresholds, and required recipients differ across the affected jurisdictions. What should incident response leadership do FIRST regarding external disclosure?",
+    "options": [
+      "Notify every affected individual worldwide within 72 hours of confirming the breach",
+      "Engage legal counsel to map each affected jurisdiction's notification obligations, deadlines, and required content",
+      "Defer all external notification until the forensic root-cause analysis is fully complete",
+      "Notify the data protection regulator in the country where the provider is headquartered"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses GDPR's 72-hour notification to the supervisory authority with a universal rule for notifying individuals; deadlines, thresholds, and recipients genuinely differ by jurisdiction.",
+      "Because obligations vary by jurisdiction, counsel must first determine who must be notified, by when, and with what content, so the organization can meet every applicable deadline without over- or under-disclosing.",
+      "Many regimes start the notification clock at awareness of the breach, so waiting for a complete forensic investigation risks blowing statutory deadlines and compounding liability.",
+      "Notification duties attach to the jurisdictions of the affected data subjects, not merely to the provider's home country, so notifying only the home regulator leaves obligations unmet."
+    ]
+  },
+  {
+    "id": "D1-0047",
+    "domain": 1,
+    "objective": "1.5",
+    "difficulty": "medium",
+    "stem": "An organization files a lawsuit against a former contractor seeking monetary damages for misappropriating proprietary data. The security team asks what standard the collected evidence must ultimately satisfy for the organization to prevail in this proceeding. Which standard of proof applies?",
+    "options": [
+      "Beyond a reasonable doubt",
+      "Clear and convincing evidence",
+      "Probable cause",
+      "Preponderance of the evidence"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Beyond a reasonable doubt is the standard for criminal convictions, where liberty is at stake; candidates default to it because it is the most familiar, but this is a civil damages suit.",
+      "Clear and convincing evidence is a heightened intermediate standard reserved for particular claims such as fraud in some venues, not the default standard in an ordinary civil suit.",
+      "Probable cause is the threshold for obtaining warrants or making arrests, a pre-trial investigative standard rather than one used to decide the outcome of a case.",
+      "A civil suit for damages is ordinarily decided on the preponderance of the evidence, meaning the claim is more likely true than not, which is the standard the organization's evidence must meet."
+    ]
+  },
+  {
+    "id": "D1-0048",
+    "domain": 1,
+    "objective": "1.5",
+    "difficulty": "hard",
+    "stem": "After detecting repeated probing from a specific source, a security team stands up a honeypot stocked with realistic decoy data along the intruder's existing attack path. The intruder breaks in, and the recorded activity supports prosecution. The defense argues the evidence should be excluded because the team lured the attacker. Which principle BEST supports admissibility?",
+    "options": [
+      "Entrapment, because the honeypot induced an intrusion the attacker would not otherwise have attempted",
+      "Enticement, because the intruder had already demonstrated intent to attack before encountering the decoy",
+      "Exigent circumstances, because the evidence would have been destroyed without immediate collection",
+      "The plain view doctrine, because the intruder's activity was openly visible to monitoring tools"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Entrapment occurs when someone is induced to commit a crime they were not predisposed to commit, and it is a defense that defeats prosecution; invoking it would support exclusion, not admissibility.",
+      "Providing an attractive target to a party already probing and attempting intrusion is lawful enticement, because the attacker formed criminal intent independently and the honeypot merely channeled an attack that was already underway.",
+      "Exigent circumstances excuse acting without a warrant when evidence faces imminent destruction; the doctrine concerns seizure urgency, not whether luring an attacker taints evidence.",
+      "The plain view doctrine allows seizure of evidence visible during a lawful presence; it addresses discovery of evidence, not the legitimacy of decoy-based collection."
+    ]
+  },
+  {
+    "id": "D1-0049",
+    "domain": 1,
+    "objective": "1.6",
+    "difficulty": "hard",
+    "stem": "During an annual governance review, a CISO finds that the draft enterprise data protection policy mandates AES-256 for data at rest and names a specific vendor's full-disk encryption product for all laptops. What is the BEST recommendation for the CISO to make about this draft?",
+    "options": [
+      "Approve the draft as written, because naming exact technologies makes enforcement measurable and audits simpler",
+      "Move the technology mandates into a supporting standard and keep the policy as a high-level statement of intent",
+      "Reclassify the document as a guideline so business units can deviate when the named product is unsuitable",
+      "Rewrite the document as a procedure giving step-by-step instructions for deploying the encryption product"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Embedding product names and algorithms in policy is a common mistake: policies require senior-management re-approval, so every technology refresh would force a policy revision. Specific, measurable requirements belong in standards that sit beneath the policy.",
+      "Policies state management's intent and stay technology-neutral so they remain durable; standards carry the mandatory, specific technology requirements and can be updated without re-ratifying the policy itself.",
+      "This confuses standards with guidelines: guidelines are discretionary recommendations, so reclassifying would make encryption optional and weaken a control management intends to be compulsory. The requirement should remain mandatory in a standard.",
+      "This confuses standards with procedures: procedures give step-by-step operational instructions for performing a task and implement what standards require, but they are the wrong vehicle for stating the mandatory requirement itself."
+    ]
+  },
+  {
+    "id": "D1-0050",
+    "domain": 1,
+    "objective": "1.7",
+    "difficulty": "medium",
+    "stem": "A business impact analysis concludes that the order-management database can tolerate the loss of no more than 15 minutes of transactions, yet the platform is currently protected only by a nightly backup. Which continuity metric is unmet, and what change does it drive?",
+    "options": [
+      "The recovery time objective, requiring faster restoration procedures at the alternate site",
+      "The maximum tolerable downtime, requiring a shorter overall outage window",
+      "The recovery point objective, requiring near-continuous replication or transaction journaling",
+      "The mean time between failures, requiring more reliable database server hardware"
+    ],
+    "answer": 2,
+    "explanations": [
+      "The recovery time objective governs how quickly service must be restored after an interruption; the finding here concerns how much data may be lost, not restoration speed.",
+      "Maximum tolerable downtime caps the total duration of an outage the business can survive; it says nothing about the volume of transactions that can be lost.",
+      "The recovery point objective defines the maximum acceptable data loss measured in time, so a 15-minute limit requires replication or journaling far more frequent than a nightly backup can provide.",
+      "Mean time between failures is a hardware reliability statistic; it is an engineering measure, not a recovery target established by the business impact analysis."
+    ],
+    "reference": "NIST SP 800-34r1"
+  },
+  {
+    "id": "D1-0051",
+    "domain": 1,
+    "objective": "1.7",
+    "difficulty": "easy",
+    "stem": "While developing the business continuity plan for a chemical processing facility, the planning team debates what the plan's highest priority must be if a disaster strikes during working hours. Which priority MUST come first?",
+    "options": [
+      "Protecting the lives and safety of personnel and the surrounding community",
+      "Preserving the integrity of financial and operational data",
+      "Restoring revenue-generating production as quickly as possible",
+      "Meeting regulatory incident-reporting deadlines for the event"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Human life and safety take absolute precedence over every other continuity objective; no plan may trade personnel or public safety for operational or financial goals.",
+      "Data integrity is a core continuity concern and easy to overweight because BCP focuses on information assets, but it is always subordinate to protecting people.",
+      "Rapid restoration of operations is the central business goal of continuity planning, which is why candidates choose it, yet it must never be pursued at the expense of safety.",
+      "Regulatory reporting matters and has real deadlines, but compliance activities follow once people are safe and the situation is stabilized."
+    ]
+  },
+  {
+    "id": "D1-0052",
+    "domain": 1,
+    "objective": "1.8",
+    "difficulty": "easy",
+    "stem": "A regional bank periodically moves employees among accounts-payable, reconciliation, and vendor-onboarding positions. Shortly after one such move, the incoming employee uncovers a long-running invoice fraud arranged by the previous holder of the role. Which personnel security practice enabled this discovery?",
+    "options": [
+      "Separation of duties",
+      "Mandatory vacations",
+      "Job rotation",
+      "Dual control"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Separation of duties prevents fraud by splitting a critical transaction among multiple people; here the scheme lived inside a single role, and nothing about the discovery involved dividing a task.",
+      "Mandatory vacations also surface concealed fraud, which makes them a tempting choice, but they work through a temporary absence while someone else covers the duties, not a permanent reassignment between roles.",
+      "Job rotation periodically moves staff through different positions, both to cross-train them and to expose irregularities an incumbent has been concealing, which is exactly how this fraud came to light.",
+      "Dual control requires two people to act simultaneously to complete a single sensitive action, such as jointly opening a vault; it is unrelated to rotating personnel through roles."
+    ]
+  },
+  {
+    "id": "D1-0053",
+    "domain": 1,
+    "objective": "1.8",
+    "difficulty": "medium",
+    "stem": "A senior engineer with deep knowledge of proprietary algorithms resigns to join a direct competitor. Management is concerned about disclosure of trade secrets after the departure. Which offboarding measure BEST protects the organization while remaining legally defensible?",
+    "options": [
+      "Withhold the final paycheck until the engineer signs a new, broader noncompete agreement",
+      "Hold an exit interview that reviews the engineer's continuing NDA obligations and confirms return of all assets and credentials",
+      "Send the competitor formal notice that the engineer possesses the organization's trade secrets",
+      "Retain the engineer's system accounts in an active state so activity can be monitored after the departure date"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Conditioning earned wages on signing new restrictions is coercive and unlawful in many jurisdictions; new obligations generally cannot be imposed at exit without fresh consideration.",
+      "The enforceable protections already exist in the signed NDA, so the defensible move is to remind the departing employee of those continuing obligations, document the acknowledgment, and complete recovery of assets and access.",
+      "Preemptively contacting the competitor invites defamation and tortious-interference claims and broadcasts what the organization considers sensitive; it is not a recognized offboarding control.",
+      "Accounts must be disabled at separation; leaving credentials live to watch a former employee creates an unauthorized access path and serious legal exposure rather than protection."
+    ]
+  },
+  {
+    "id": "D1-0054",
+    "domain": 1,
+    "objective": "1.10",
+    "difficulty": "medium",
+    "stem": "A development team has finished enumerating threats against a new application and now needs a simple, repeatable scheme to rate each one, considering factors such as potential damage, reproducibility, exploitability, affected users, and discoverability, so the worst threats are fixed first. Which approach fits this need?",
+    "options": [
+      "PASTA",
+      "CVSS",
+      "VAST",
+      "DREAD"
+    ],
+    "answer": 3,
+    "explanations": [
+      "PASTA is a complete seven-stage, risk-centric methodology for conducting an entire threat modeling effort; it is not a per-threat scoring rubric applied after enumeration.",
+      "CVSS scores the severity of disclosed software vulnerabilities and is confused with threat rating because both yield numeric scores, but it does not rate enumerated design-level threats in a model.",
+      "VAST is a threat modeling approach built for scaling across agile enterprises using process and application diagrams; it is a modeling framework, not a five-factor rating scheme.",
+      "DREAD rates each identified threat on damage, reproducibility, exploitability, affected users, and discoverability, producing comparable scores that let the team rank and remediate the worst threats first."
+    ]
+  },
+  {
+    "id": "D1-0055",
+    "domain": 1,
+    "objective": "1.10",
+    "difficulty": "hard",
+    "stem": "A security analyst places the adversary objective 'exfiltrate the customer database' at the top of a diagram, then decomposes it into alternative branches of sub-goals connected by AND/OR logic, assigning feasibility and cost estimates to each leaf node to find the cheapest viable path. Which threat modeling technique is this?",
+    "options": [
+      "Data flow diagram decomposition",
+      "Cyber kill chain mapping",
+      "Attack tree analysis",
+      "Misuse case modeling"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Data flow diagram decomposition maps the system's processes, stores, and trust boundaries to determine where threats apply; it is system-centric, not organized around a single adversary goal at a root node.",
+      "Kill chain mapping arranges an intrusion into sequential stages from reconnaissance through actions on objectives; it is a linear progression, not a branching AND/OR decomposition of alternatives.",
+      "An attack tree places the attacker's goal at the root and decomposes it into AND/OR branches of sub-goals, with cost and feasibility values on the leaves used to identify the most likely or cheapest attack path, exactly as described.",
+      "Misuse case modeling represents hostile actors as inverted use cases during requirements work; it captures threat scenarios but does not build a hierarchical goal decomposition with weighted leaves."
+    ]
+  },
+  {
+    "id": "D1-0056",
+    "domain": 1,
+    "objective": "1.11",
+    "difficulty": "hard",
+    "stem": "A critical SaaS vendor satisfies every security term in its contract, but a breach occurs at a hosting subcontractor the vendor engaged without the customer's knowledge, and the customer finds it has no contractual recourse. Which contract change would BEST prevent a recurrence of this blind spot?",
+    "options": [
+      "Prohibit the vendor from engaging any subcontractors or third parties in delivering the contracted service",
+      "Increase the organization's cyber insurance coverage for losses arising from incidents at the vendor",
+      "Require the vendor to submit the results of its own annual penetration tests for customer review",
+      "Require security obligations to flow down to all subcontractors, with advance disclosure and approval of subprocessors"
+    ],
+    "answer": 3,
+    "explanations": [
+      "An outright ban on subcontracting is rarely commercially workable and most vendors will refuse it; the objective is visibility and enforceable control over the supply chain, not eliminating it.",
+      "Insurance transfers financial impact only; it provides no visibility into fourth parties and does nothing to prevent the next subcontractor incident.",
+      "Vendor penetration test results attest to the vendor's own environment; the failure occurred at an undisclosed subcontractor those tests never touched.",
+      "Flow-down clauses extend the same security obligations to every tier of the supply chain, and subprocessor disclosure with approval rights restores the visibility and recourse the customer lacked."
+    ],
+    "reference": "NIST SP 800-161"
+  },
+  {
+    "id": "D1-0057",
+    "domain": 1,
+    "objective": "1.12",
+    "difficulty": "medium",
+    "stem": "An organization's security education effort consists of one generic annual module taken by all staff. Developers continue to introduce injection flaws into applications, and service-desk agents keep resetting passwords for callers without verifying identity. What is the BEST improvement to the program?",
+    "options": [
+      "Deliver the same awareness module quarterly instead of annually to increase repetition",
+      "Apply disciplinary consequences to employees who fail security assessments",
+      "Add role-based training that targets the specific risks and duties of each job function",
+      "Replace the training program with stronger preventive technical controls"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Increasing frequency confuses repetition with relevance; repeating generic content still never teaches secure coding or caller-verification procedures.",
+      "Discipline without building capability punishes people for skills they were never taught; the failures stem from missing role-specific instruction, not willful noncompliance.",
+      "The observed failures are role-specific, so developers need secure-coding training and service-desk staff need identity-verification procedures; role-based curricula are exactly how a program addresses distinct job-function risks.",
+      "Technical controls belong in a layered program, but human-process failures like caller verification cannot be fully engineered away, and abandoning training removes a required program element."
+    ],
+    "reference": "NIST SP 800-50"
+  },
+  {
+    "id": "D1-0058",
+    "domain": 1,
+    "objective": "1.1",
+    "difficulty": "medium",
+    "stem": "A CISSP-credentialed consultant is engaged to produce an independent comparison of three security products and then realizes she holds a substantial equity stake in one of the vendors. Under the ISC2 Code of Ethics, what is the BEST course of action?",
+    "options": [
+      "Disclose the financial interest to the client and offer to withdraw from the engagement",
+      "Proceed with the evaluation while making a deliberate personal effort to remain objective",
+      "Quietly sell the equity stake and then continue the engagement without informing the client",
+      "Complete the comparison but silently exclude the vendor in which she holds equity"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Acting honorably, honestly, and justly and providing diligent, competent service to principals requires surfacing a material conflict of interest so the client can decide whether the consultant should continue.",
+      "This confuses good personal intent with the ethical duty of disclosure; an undisclosed conflict taints the work's independence regardless of how objective the consultant believes she is.",
+      "Divesting mid-engagement without telling the client still conceals a material fact the client was entitled to weigh, so the deception, not just the holding, is the ethical failure.",
+      "Silently narrowing the agreed scope deprives the client of the full evaluation it contracted for and still hides the conflict that motivated the change."
+    ]
   }
 ]

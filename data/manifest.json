@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-20T18:12:54.871Z",
-  "total": 50,
+  "generatedAt": "2026-08-20T20:01:24.401Z",
+  "total": 100,
   "domains": [
     {
       "n": 1,
       "name": "Security and Risk Management",
       "weight": 16,
       "target": 800,
-      "count": 8,
+      "count": 58,
       "file": "domain-1.json"
     },
     {
