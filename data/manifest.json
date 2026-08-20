@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:24.630Z",
-  "total": 210,
+  "generatedAt": "2026-08-20T20:01:24.700Z",
+  "total": 260,
   "domains": [
     {
       "n": 1,
@@ -15,7 +15,7 @@
       "name": "Asset Security",
       "weight": 10,
       "target": 500,
-      "count": 5,
+      "count": 55,
       "file": "domain-2.json"
     },
     {
