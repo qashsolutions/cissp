@@ -138,5 +138,1013 @@
       "A self-encrypting drive protects data at rest but unlocks on its password regardless of whether firmware or boot loader were tampered with.",
       "A UEFI password stops casual settings changes; it neither measures the boot chain nor gates key release on its integrity."
     ]
+  },
+  {
+    "id": "D3-0008",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "easy",
+    "stem": "During an architecture review, a security engineer finds that a company's flat internal network relies entirely on a single perimeter firewall; any host that gets past it can reach every server, including the payroll database. Which secure design principle is MOST directly violated by this architecture?",
+    "options": [
+      "Least privilege, because internal users hold more access rights than their jobs require",
+      "Separation of duties, because one firewall team controls all security decisions",
+      "Defense in depth, because a single control failure exposes every internal asset",
+      "Open design, because the security of the network depends on keeping its layout secret"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Least privilege concerns the rights granted to subjects such as users and processes; the flaw here is the absence of layered controls behind the perimeter, not excessive user permissions.",
+      "Separation of duties splits sensitive tasks among people to prevent fraud or error; it addresses administrative process design, not the lack of multiple technical control layers.",
+      "Defense in depth requires multiple overlapping controls so that no single failure is catastrophic; a lone perimeter firewall in front of a flat network means one bypass compromises everything.",
+      "Open design (Kerckhoffs's principle) says security must not depend on secrecy of the design; nothing in the scenario indicates reliance on a secret layout, so this principle is not the one violated."
+    ]
+  },
+  {
+    "id": "D3-0009",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "medium",
+    "stem": "A financial data platform ingests unverified market feeds at a low integrity level and maintains an audited general ledger at a high integrity level. The architect wants a formal model rule that stops processes handling the unverified feeds from writing into the ledger. Which rule provides this?",
+    "options": [
+      "The Biba *-integrity axiom, which forbids a subject from writing to objects at a higher integrity level",
+      "The Biba simple integrity axiom, which forbids a subject from reading objects at a lower integrity level",
+      "The Bell-LaPadula *-property, which forbids a subject from writing to objects at a lower sensitivity level",
+      "The Clark-Wilson certification rules, which require auditors to certify every transformation procedure"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The *-integrity (star integrity) axiom is Biba's no-write-up rule: a low-integrity subject cannot write to a high-integrity object, which is exactly what is needed to keep unverified feed handlers out of the audited ledger.",
+      "The simple integrity axiom is the no-read-down rule; it stops a high-integrity subject from consuming low-integrity data but does not block low-integrity processes from writing upward.",
+      "Bell-LaPadula's *-property protects confidentiality by preventing write-down; candidates often reach for it here, but the scenario concerns integrity levels, which Bell-LaPadula does not address.",
+      "Clark-Wilson enforces integrity through well-formed transactions and certification of procedures, but it is not the lattice rule that directly forbids writing across integrity levels described in the stem."
+    ]
+  },
+  {
+    "id": "D3-0010",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "medium",
+    "stem": "A consulting firm serves two competing banks. Management wants an access control model in which a consultant who opens documents belonging to one bank is dynamically barred from accessing the competitor's data for as long as the conflict exists. Which model is designed for this requirement?",
+    "options": [
+      "Bell-LaPadula, which restricts access based on hierarchical sensitivity labels and clearances",
+      "Graham-Denning, which defines rules for securely creating and transferring access rights",
+      "Biba, which restricts access based on hierarchical integrity levels assigned to subjects and objects",
+      "Brewer-Nash, which changes a subject's permissible objects based on its access history"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Bell-LaPadula uses static clearance and classification labels for confidentiality; it has no mechanism that alters permissions based on what a subject has previously accessed.",
+      "Graham-Denning specifies eight protection rules for creating subjects and objects and delegating rights; it does not address conflict-of-interest classes between competing clients.",
+      "Biba protects integrity using fixed integrity levels; like Bell-LaPadula it is static and cannot express a rule that access to one dataset forbids future access to another.",
+      "Brewer-Nash (the Chinese Wall model) was created for exactly this situation: once a consultant touches one company's dataset, all competitor datasets in the same conflict-of-interest class become off limits."
+    ]
+  },
+  {
+    "id": "D3-0011",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "hard",
+    "stem": "An architect designing a payment system requires that users can never modify account balance records directly; every change must go through certified programs that validate the transaction, and the duty to initiate and approve transfers is split between roles. Which security model formalizes these requirements?",
+    "options": [
+      "Bell-LaPadula, which mediates access using security labels and mandatory access rules",
+      "Clark-Wilson, which binds users to data through certified transformation procedures",
+      "Biba, which prevents subjects from reading down or writing up across integrity levels",
+      "Take-Grant, which models how access rights can be passed between subjects and objects"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Bell-LaPadula is a confidentiality model built on sensitivity labels; it says nothing about well-formed transactions or forcing changes through certified programs.",
+      "Clark-Wilson's access triple of subject, transformation procedure, and constrained data item forces all modifications through certified programs, and its enforcement rules embed separation of duties — precisely the stem's requirements.",
+      "Biba addresses integrity, which tempts many candidates, but it works through integrity labels; it has no concept of well-formed transactions or program-mediated access to data items.",
+      "Take-Grant analyzes how rights propagate through take and grant operations; it is a rights-transfer model, not an application-integrity model with transaction and duty-separation rules."
+    ]
+  },
+  {
+    "id": "D3-0012",
+    "domain": 3,
+    "objective": "3.3",
+    "difficulty": "medium",
+    "stem": "A security manager must select controls for a new internal scheduling application rated low impact for confidentiality, integrity, and availability. A junior engineer proposes applying every control in the organization's master catalog 'to be safe.' What is the MOST appropriate response?",
+    "options": [
+      "Approve the proposal, since applying the full catalog guarantees the system cannot be under-protected",
+      "Reject the proposal and let the development team choose whichever controls they consider practical",
+      "Select the baseline matching the system's impact level, then tailor it to the system's environment and risks",
+      "Defer control selection until a penetration test of the finished system identifies the weaknesses to address"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Applying every control regardless of need wastes resources and adds complexity that can itself cause failures; control selection must be commensurate with risk, not maximal.",
+      "Leaving selection to developer preference removes risk justification from the decision; controls must trace to security requirements and the system's categorization, not to convenience.",
+      "Choosing the baseline that corresponds to the system's impact categorization and then tailoring it — scoping controls out, supplementing, and substituting compensating controls — matches protection to actual risk and cost.",
+      "Penetration testing validates controls late in the lifecycle; waiting for test findings to pick controls means the system is designed without required protections and remediation costs far more after the fact."
+    ],
+    "reference": "NIST SP 800-53"
+  },
+  {
+    "id": "D3-0013",
+    "domain": 3,
+    "objective": "3.3",
+    "difficulty": "hard",
+    "stem": "A procurement team is comparing two firewalls. Product A is certified at EAL4 against a network device Protection Profile; Product B claims EAL2. A manager concludes that Product A 'is twice as secure.' Which statement BEST corrects this interpretation?",
+    "options": [
+      "A higher EAL means the product's security claims were evaluated with greater rigor, not that the product offers stronger protection",
+      "A higher EAL means the product includes more security functions, so Product A does provide broader protection than Product B",
+      "EAL ratings apply only to government systems, so the comparison is irrelevant for a commercial procurement decision",
+      "EAL ratings measure resistance to penetration testing, so Product A withstood roughly twice the attack effort of Product B"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Under the Common Criteria, EALs express the depth and rigor of the evaluation of the Security Target's claims; a product evaluated at EAL4 was examined more thoroughly, but its actual security functionality could be narrower than a competitor's.",
+      "This confuses assurance with functionality: security functional requirements come from the Security Target and Protection Profile, while the EAL only measures how rigorously those claims were verified.",
+      "Common Criteria is an international scheme used by commercial and government buyers alike; nothing limits the relevance of an EAL to government systems.",
+      "EALs are evaluation assurance levels, not quantified attack-resistance scores; the scale is ordinal, and no EAL equates to a measured multiple of penetration effort."
+    ],
+    "reference": "ISO/IEC 15408"
+  },
+  {
+    "id": "D3-0014",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "easy",
+    "stem": "A payments company must ensure that the private keys used to sign transactions can never be read by server administrators or exported in cleartext, even if the host operating system is fully compromised. Which capability BEST meets this requirement?",
+    "options": [
+      "Storing the keys in an encrypted software keystore protected by a strong passphrase",
+      "Generating and using the keys inside a hardware security module that never releases them",
+      "Splitting the keys among administrators using an m-of-n secret-sharing arrangement",
+      "Recording the keys in a sealed envelope kept in a bank safe-deposit box for recovery"
+    ],
+    "answer": 1,
+    "explanations": [
+      "A software keystore must decrypt the key into host memory to use it, so a compromised operating system or a privileged administrator can still capture it; candidates often overrate passphrase protection here.",
+      "An HSM performs key generation and signing inside a tamper-resistant boundary and is designed so private keys are never exportable in cleartext, protecting them even from privileged users of the attached host.",
+      "M-of-n control governs who can authorize sensitive key operations; once the key is reconstructed or used on a compromised host it is still exposed, so secret sharing alone does not meet the requirement.",
+      "Offline escrow protects a recovery copy, but the operational key still has to live somewhere to sign transactions; it does nothing to stop administrators from reading the key in use."
+    ]
+  },
+  {
+    "id": "D3-0015",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "medium",
+    "stem": "After a faulty third-party device driver repeatedly crashed an entire operating system, an architect redesigns the platform so drivers run as unprivileged user-mode processes communicating with a small kernel. Which security capability is the architect PRIMARILY applying?",
+    "options": [
+      "Trusted platform module attestation, which verifies the integrity of code before it is loaded",
+      "Data execution prevention, which stops the processor from executing writable memory pages",
+      "Full-disk encryption, which protects the confidentiality of the driver binaries stored at rest",
+      "Process isolation with reduced privilege, which confines faults so a failing driver cannot take down the kernel"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Attestation checks that code has not been altered before it runs; it would not stop a genuinely buggy but authentic driver from crashing a kernel it executes inside.",
+      "Data execution prevention blocks execution of data pages to frustrate certain memory-abuse exploits; it does not address the blast radius of a crashing privileged component.",
+      "Encryption at rest protects stored binaries from disclosure; it has no effect on runtime failures or on the privilege level at which a driver executes.",
+      "Moving drivers out of kernel space into isolated low-privilege processes applies process isolation and least privilege: a fault is contained in its own address space instead of corrupting the kernel, the core security benefit of microkernel designs."
+    ]
+  },
+  {
+    "id": "D3-0016",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "medium",
+    "stem": "A company adopts a SaaS HR platform. Months later, an audit finds that ex-employees still hold active accounts and that sensitive reports are shared through public links. The IT director argues the SaaS provider is accountable for these findings. Which response BEST reflects the cloud shared responsibility model?",
+    "options": [
+      "The customer remains responsible for identity lifecycle and data-sharing configuration even in SaaS, so these findings belong to the company",
+      "The provider is responsible because in SaaS the vendor manages the application layer, which includes all account and sharing settings",
+      "Responsibility transfers to the provider once the contract includes a security addendum covering confidentiality of customer data",
+      "Both findings are the provider's fault because public link sharing is a platform design flaw rather than a customer configuration choice"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Even in SaaS, where the provider operates the infrastructure and application, the customer always retains responsibility for its own data, user provisioning and deprovisioning, and how sharing features are configured — exactly the failures the audit found.",
+      "This confuses operating the application stack with governing the customer's use of it; the vendor patches and runs the software, but tenant account lifecycle and sharing settings are customer-controlled.",
+      "Contracts can allocate financial liability but cannot transfer operational accountability for the customer's own users and data governance; the data owner keeps that responsibility.",
+      "Public link sharing is a feature the tenant chose to enable; treating a configurable option as a design flaw misreads the model, which leaves configuration decisions with the customer."
+    ]
+  },
+  {
+    "id": "D3-0017",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "hard",
+    "stem": "A virtualization team plans to consolidate internet-facing DMZ virtual machines and internal database servers onto the same hypervisor cluster to cut hardware costs. The CISO objects to the design. Which risk MOST directly justifies the objection?",
+    "options": [
+      "VM sprawl will increase because a consolidated cluster makes it easier to create unmanaged virtual machines",
+      "Live migration of guests between hosts will move workloads without updating the configuration management database",
+      "A guest-escape or hypervisor compromise from an exposed DMZ workload would place attackers adjacent to the most sensitive systems",
+      "Resource contention between database and web workloads will degrade performance during traffic peaks"
+    ],
+    "answer": 2,
+    "explanations": [
+      "VM sprawl is a real management problem, but it stems from weak provisioning governance and occurs whether or not trust zones share hardware; it is not the core objection here.",
+      "Stale inventory after live migration is an operational hygiene issue; it does not capture the security consequence of mixing exposure levels on one hypervisor.",
+      "Collapsing different trust zones onto one hypervisor makes the isolation of the most sensitive systems depend on the hypervisor alone; a VM escape from a frequently attacked DMZ guest would bypass every network boundary between the zones.",
+      "Performance contention is a capacity-planning concern rather than a security risk, and it would not be the CISO's principal reason to object."
+    ],
+    "reference": "NIST SP 800-125"
+  },
+  {
+    "id": "D3-0018",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "hard",
+    "stem": "A water utility's PLCs run firmware that the vendor no longer updates, and a vulnerability scanner flags critical CVEs against them. The devices cannot be replaced for three years. Which mitigation BEST addresses the risk in the interim?",
+    "options": [
+      "Schedule monthly authenticated vulnerability scans of the PLCs to track whether the exposures worsen over time",
+      "Isolate the PLC network behind strict segmentation with tightly controlled, monitored conduits to the business network",
+      "Deploy host-based antivirus agents to each PLC to detect malware attempting to exploit the known flaws",
+      "Purchase cyber insurance sized to the estimated impact of a successful attack on the treatment process"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Scanning measures exposure but changes nothing; on fragile ICS equipment aggressive scanning can even disrupt operations, and the known flaws remain exploitable.",
+      "When patching is impossible, compensating controls must reduce exploitability: segmenting the control network into zones and restricting traffic through monitored conduits sharply limits an attacker's path to the vulnerable PLCs, the approach recommended for ICS environments.",
+      "PLCs are embedded devices that generally cannot host antivirus agents, and signature detection would not stop network exploitation of unpatched firmware services.",
+      "Insurance transfers some financial impact but leaves the safety-critical operational risk untreated; risk transfer is not a substitute for reducing the likelihood of compromising a physical process."
+    ],
+    "reference": "NIST SP 800-82"
+  },
+  {
+    "id": "D3-0019",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "medium",
+    "stem": "During a design review of a new order-processing platform, an architect notices that every microservice authenticates to the database with the same account, which has full read-write access to all schemas, because it 'simplifies deployment.' Which secure design principle should the reviewer cite FIRST?",
+    "options": [
+      "Fail securely, because a database outage would leave every service in an undefined state",
+      "Complete mediation, because the database should recheck authorization on every query",
+      "Defense in depth, because a single firewall should not be the only control protecting the database",
+      "Least privilege, because each service should hold only the minimum access its function requires"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Fail securely governs behavior when a control or component fails; the flaw here exists during normal operation, in the breadth of access that was granted.",
+      "Complete mediation requires that every access be checked against authority, and the database is doing that; the problem is that the authority granted is far too broad and shared.",
+      "Defense in depth concerns layering multiple controls; nothing in the stem describes reliance on a single network control, so it is not the principle most directly violated.",
+      "A shared all-schema read-write account means compromise of any one service exposes every service's data; least privilege requires distinct credentials scoped to the minimum tables and operations each microservice needs."
+    ]
+  },
+  {
+    "id": "D3-0020",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "easy",
+    "stem": "An engineer asks why a TLS connection uses asymmetric cryptography only briefly at the start of a session and then switches to a symmetric cipher for the remainder. What is the PRIMARY reason for this hybrid design?",
+    "options": [
+      "Symmetric ciphers are far faster for bulk data, while asymmetric methods solve the key distribution problem during setup",
+      "Asymmetric ciphers are more secure, so they are reserved for protecting the most sensitive part of the exchange",
+      "Symmetric ciphers provide non-repudiation, which is required for the application data but not for the handshake",
+      "Asymmetric keys wear out after limited use, so sessions must switch to symmetric keys before that limit is reached"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Hybrid cryptosystems use asymmetric techniques to authenticate the parties and establish a shared session key over an untrusted channel, then hand off to a symmetric cipher that encrypts bulk traffic orders of magnitude faster.",
+      "Security strength is not the dividing line — comparable protection is available from both families at appropriate key sizes; the trade-off driving the design is performance and key distribution, not relative strength.",
+      "This inverts the services: non-repudiation comes from asymmetric digital signatures, not from symmetric ciphers, which use shared keys and therefore cannot prove which party created a message.",
+      "Keys do not physically wear out; cryptoperiods limit key usage as a matter of policy, but that is not why protocols switch from asymmetric setup to symmetric transport."
+    ]
+  },
+  {
+    "id": "D3-0021",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "medium",
+    "stem": "A developer encrypts millions of customer records with AES, but a reviewer notices that identical plaintext fields always produce identical ciphertext blocks, letting analysts infer which customers share attributes. Which change BEST resolves this weakness?",
+    "options": [
+      "Increase the AES key length from 128 to 256 bits so the ciphertext becomes harder to brute force",
+      "Hash each field with SHA-256 before encryption so identical values no longer look alike",
+      "Use an authenticated mode such as AES-GCM with a unique nonce per record instead of ECB mode",
+      "Encrypt each record twice with two different AES keys to double the effective security margin"
+    ],
+    "answer": 2,
+    "explanations": [
+      "The leakage comes from deterministic block-by-block encryption, not key size; a 256-bit key used in ECB mode still maps identical plaintext blocks to identical ciphertext.",
+      "Deterministic hashing preserves the equality relationship — identical inputs still yield identical outputs — so the inference problem remains, and the original data becomes unrecoverable.",
+      "The flaw of ECB is that it encrypts each block independently and deterministically; a mode that mixes in a unique nonce or IV, such as AES-GCM, randomizes ciphertext for repeated plaintexts and adds integrity protection as well.",
+      "Double encryption addresses exhaustive key search, and poorly so given meet-in-the-middle results; it does nothing about deterministic patterns repeating across records."
+    ]
+  },
+  {
+    "id": "D3-0022",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "hard",
+    "stem": "A CISO is told that future quantum computers may break the public-key algorithms protecting the company's long-retention data, and that standardized post-quantum algorithms are now available. What should the organization do FIRST?",
+    "options": [
+      "Replace all TLS certificates immediately with certificates using post-quantum signature algorithms",
+      "Build an inventory of where and how cryptography is used across systems, protocols, and data retention periods",
+      "Increase all RSA key sizes to 8192 bits to extend protection until the migration is complete",
+      "Suspend encryption of archival data until the post-quantum migration plan has been approved"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Wholesale replacement before understanding dependencies risks breaking interoperability, and prioritization should be driven by exposure — especially data subject to harvest-now-decrypt-later — which requires the inventory first.",
+      "Cryptographic agility begins with discovery: an inventory of algorithms, key lengths, protocols, libraries, and the retention life of protected data lets the organization prioritize migration where quantum risk to long-lived secrets is greatest.",
+      "Larger RSA keys raise classical brute-force cost but do not materially change vulnerability to Shor's algorithm, so this spends effort without addressing the quantum threat.",
+      "Leaving archives unencrypted creates immediate, certain exposure to ordinary attackers in order to hedge against a future one; no sound migration approach starts by removing existing protection."
+    ]
+  },
+  {
+    "id": "D3-0023",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "hard",
+    "stem": "To guarantee business continuity, a compliance officer proposes escrowing copies of every private key in the enterprise PKI, including employees' digital signature keys, in a corporate key-recovery system. What is the MOST significant problem with this proposal?",
+    "options": [
+      "Escrowed keys expire on the same schedule as operational keys, so the archive provides no continuity benefit",
+      "Key-recovery systems can only store symmetric keys, so the PKI's asymmetric keys cannot be escrowed",
+      "Escrow doubles certificate issuance costs because each escrowed key requires a second certificate",
+      "Escrowing signature keys destroys non-repudiation, since signers can claim another party had access to their key"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Expiration is irrelevant to the core issue; escrowed decryption keys remain useful for recovering older ciphertext regardless of certificate validity dates.",
+      "Key-recovery systems routinely archive asymmetric private keys; this technical claim is simply wrong, and it misses the policy distinction between key types.",
+      "Escrow does not require duplicate certificates; this cost concern is fabricated and distracts from the fundamental legal weakness the proposal introduces.",
+      "Encryption keys may be escrowed so the business can recover its data, but signature keys must exist solely under the signer's control; once any other party could have used the key, a signature no longer uniquely binds the signer, undermining non-repudiation."
+    ],
+    "reference": "NIST SP 800-57 Part 1"
+  },
+  {
+    "id": "D3-0024",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "medium",
+    "stem": "A legal team signs contract hashes computed with an outdated hash function. An insider prepares two contracts with different payment terms that produce the same hash, obtains a signature on the harmless version, and later substitutes the other. Which attack does this describe, and what property failed?",
+    "options": [
+      "A birthday attack exploiting the hash function's inadequate collision resistance",
+      "A preimage attack exploiting the ability to recover the original document from its hash",
+      "A replay attack exploiting reuse of a previously captured signature in a new session",
+      "A chosen-ciphertext attack exploiting decryption of attacker-supplied messages"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Crafting two documents that collide under the same hash is the classic birthday attack; a collision can be found with effort roughly proportional to the square root of the output space (~2^(n/2) trials for an n-bit hash), so weak or truncated hashes lose collision resistance first.",
+      "A preimage attack inverts a hash to find an input matching a given digest; here the attacker generated both documents together, which is collision finding, not preimage recovery.",
+      "Replay reuses a captured message or credential in a new session; here the signature is applied to a colliding document by the victim, not captured and replayed by the attacker.",
+      "Chosen-ciphertext attacks target decryption systems by submitting ciphertexts; no decryption occurs in this scenario, which concerns hash collisions and signatures."
+    ]
+  },
+  {
+    "id": "D3-0025",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "medium",
+    "stem": "After a breach, forensics shows attackers recovered most user passwords from stolen unsalted MD5 hashes within hours by using precomputed tables. Which change would have been MOST effective at defeating this specific technique?",
+    "options": [
+      "Requiring users to choose passwords of at least ten characters with mixed character classes",
+      "Encrypting the password database with AES using a key stored in the application configuration",
+      "Hashing each password with a unique random salt using a slow, memory-hard password hashing function",
+      "Locking accounts after five failed login attempts to slow online guessing against the system"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Longer passwords raise the cost of building tables but do not break precomputation; common long passwords still appear in cracking dictionaries, and shared tables remain reusable across all users.",
+      "Database encryption helps only while the key stays secret; attackers who compromise the application tier typically obtain the key along with the data, leaving the unsalted hashes as weak as before.",
+      "A unique per-user salt makes every hash computation distinct, rendering precomputed rainbow tables useless, and a deliberately slow, memory-hard function multiplies the cost of any subsequent brute-force attempt.",
+      "Account lockout throttles online guessing against the live service; it is irrelevant to offline cracking of a stolen hash database, which is what occurred here."
+    ],
+    "reference": "NIST SP 800-63B"
+  },
+  {
+    "id": "D3-0026",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "Analysts notice that a man-in-the-middle can tamper with a client's protocol negotiation so that both endpoints, though capable of a modern cipher suite, settle on a legacy export-grade suite the attacker can break offline. Which cryptanalytic technique is being used?",
+    "options": [
+      "A meet-in-the-middle attack that trades memory for time against a double-encryption construction",
+      "A downgrade attack that forces negotiation of weaker parameters the attacker can then defeat",
+      "A side-channel attack that infers keys from timing variations in the handshake computations",
+      "A related-key attack that exploits mathematical relationships between the session keys"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Meet-in-the-middle is a cryptanalytic shortcut against cascaded ciphers such as double DES; despite the similar name, it is unrelated to a network man-in-the-middle manipulating negotiation.",
+      "Manipulating the handshake so both parties fall back to breakable export-grade parameters is a downgrade attack; the cryptography is then attacked at its weakened level, which is why disabling legacy suites and authenticating negotiation matters.",
+      "Side channels leak secrets through physical or timing observations of a legitimate computation; here the attacker changes the negotiated parameters rather than measuring leakage.",
+      "Related-key attacks require the cipher to be used under mathematically related keys; nothing in the scenario relates keys — the weakness is the negotiated suite itself."
+    ]
+  },
+  {
+    "id": "D3-0027",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A researcher testing an encrypted messaging gateway can submit arbitrary messages of her choosing and capture the resulting ciphertexts, which she analyzes to deduce information about the encryption key. Under which cryptanalytic attack model is she working?",
+    "options": [
+      "Ciphertext-only, because she ultimately works from captured ciphertext to find the key",
+      "Known-plaintext, because she knows the content of the messages that were encrypted",
+      "Chosen-ciphertext, because she chooses which captured ciphertexts to analyze in depth",
+      "Chosen-plaintext, because she selects the inputs the system encrypts and studies the outputs"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Ciphertext-only is the weakest model, where the analyst has no knowledge or control of the plaintext; her ability to pick the inputs makes her position far stronger than that.",
+      "Known-plaintext means the analyst happens to possess some plaintext-ciphertext pairs; the crucial difference here is control — she actively chooses the plaintexts, which enables targeted probing.",
+      "Chosen-ciphertext requires the ability to submit ciphertexts for decryption and observe the results; merely selecting which captured outputs to study is not decryption access.",
+      "Submitting attacker-selected plaintexts to the encryption function and analyzing the resulting ciphertexts is the definition of a chosen-plaintext attack, the model behind classic results such as differential cryptanalysis."
+    ]
+  },
+  {
+    "id": "D3-0028",
+    "domain": 3,
+    "objective": "3.8",
+    "difficulty": "medium",
+    "stem": "A campus redesign adds low trimmed hedges, wide clear sightlines from lobby desks to every entrance, and pedestrian paths routed past occupied offices. Which crime-prevention concept do these choices PRIMARILY apply?",
+    "options": [
+      "Natural surveillance, which increases the likelihood that intruders are observed by legitimate occupants",
+      "Natural access control, which uses layout to channel people through defined entry points",
+      "Territorial reinforcement, which uses design cues to signal that a space is owned and cared for",
+      "Target hardening, which strengthens physical barriers so that forced entry takes longer"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Every measure listed — clear sightlines, low landscaping, and routing foot traffic past occupied areas — maximizes opportunities for people to see and be seen, which is CPTED's natural surveillance strategy for deterring offenders who fear observation.",
+      "Natural access control shapes movement with walkways, gates, and landscaping to funnel entry; the stem's features are about visibility, not channeling people toward controlled points.",
+      "Territorial reinforcement communicates ownership through markers such as signage, borders, and visible maintenance; visibility improvements serve observation rather than signaling possession.",
+      "Target hardening adds locks, bars, and reinforced construction; nothing in the scenario strengthens barriers — the design instead relies on observation as the deterrent."
+    ]
+  },
+  {
+    "id": "D3-0029",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "medium",
+    "stem": "A facilities engineer must specify sprinkler protection for a new data hall. Leadership fears an accidental discharge destroying equipment, but the fire code still requires water-based suppression. Which system BEST balances these concerns?",
+    "options": [
+      "A wet pipe system, because water is always at the head and discharges the instant any head fuses",
+      "A deluge system, because all heads release simultaneously to overwhelm a fast-growing fire",
+      "A pre-action system, because pipes stay dry until detection and a fused head both occur before water flows",
+      "A dry pipe system alone, because compressed air in the pipes eliminates any chance of accidental water release"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Wet pipe systems are simple and reliable, but they hold pressurized water above the equipment at all times; a single damaged head or leaking joint discharges immediately, which is exactly the accident leadership fears.",
+      "Deluge systems flood the entire area through open heads on a detection signal; they are designed for high-hazard occupancies and maximize, rather than minimize, water damage.",
+      "A pre-action system keeps the piping dry and requires two independent events — supervised detection to charge the pipes and heat sufficient to fuse a head — before water is released, making inadvertent discharge far less likely while still satisfying the code.",
+      "Dry pipe systems keep water out of the pipes but still discharge whenever a single head opens or fails; without the supervising detection interlock, they lack the accidental-discharge protection of pre-action."
+    ]
+  },
+  {
+    "id": "D3-0030",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "easy",
+    "stem": "A data center design specifies that the HVAC system must maintain positive air pressurization within the server rooms relative to surrounding corridors. What is the PRIMARY purpose of this requirement?",
+    "options": [
+      "It lowers energy costs by reducing the volume of air that must be recirculated and cooled",
+      "It forces air to flow outward when doors open, keeping dust and contaminants from entering",
+      "It raises humidity levels enough to prevent static discharge from damaging server components",
+      "It slows the spread of fire by starving the flames of oxygen inside the pressurized rooms"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Energy efficiency is not the driver; maintaining positive pressure can actually consume additional conditioned air rather than saving it.",
+      "Positive pressurization means air pushes outward through any opening, so dust, smoke, and airborne contaminants in adjacent spaces are kept away from sensitive equipment — the standard rationale for pressurizing equipment rooms.",
+      "Humidity is controlled separately by the HVAC system; pressurization governs airflow direction and has no direct role in static control.",
+      "Fire control relies on detection and suppression systems; pressurized rooms are not oxygen-starved, and pressurization is not a fire suppression mechanism."
+    ]
+  },
+  {
+    "id": "D3-0031",
+    "domain": 3,
+    "objective": "3.10",
+    "difficulty": "medium",
+    "stem": "An ERP system critical to manufacturing runs on an operating system whose vendor ended all support last month; no more security patches will ever be issued. Replacement is budgeted for eighteen months out. What is the security manager's BEST course of action?",
+    "options": [
+      "Continue normal operations, since the system has run without incident and replacement is already funded",
+      "Immediately shut the system down until the replacement platform is ready for production use",
+      "Rely on the annual penetration test to reveal whether the unsupported platform is actually exploitable",
+      "Document the risk for formal acceptance by the owner and apply compensating controls such as isolation and monitoring until migration"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Silent continuation leaves a growing, untreated exposure undocumented; past stability says nothing about newly discovered vulnerabilities that will now never be patched.",
+      "Halting a system critical to manufacturing imposes certain, severe business impact to avoid a possible one; risk treatment must weigh operational consequences, and less drastic options exist.",
+      "A yearly test is a point-in-time check that cannot keep pace with vulnerabilities disclosed continuously against an unpatchable platform; it informs risk but is not a risk treatment.",
+      "End-of-life risk that cannot be removed on schedule should be formally documented, accepted at the appropriate authority level, and reduced with compensating controls — segmentation, restricted access, and enhanced monitoring — until migration retires the exposure."
+    ]
+  },
+  {
+    "id": "D3-0032",
+    "domain": 3,
+    "objective": "3.10",
+    "difficulty": "easy",
+    "stem": "A CIO asks when in the information system lifecycle security requirements should FIRST be defined in order to minimize both risk and rework cost. What is the BEST answer?",
+    "options": [
+      "During system testing, when security flaws can be found and fixed before release",
+      "During operations and maintenance, when real-world threats to the system are finally known",
+      "During initiation and requirements definition, before the architecture is designed",
+      "During disposal planning, so data destruction obligations can shape the system's design"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Testing verifies that requirements were met; discovering missing security requirements at this stage forces redesign, which is dramatically more expensive than specifying them up front.",
+      "Waiting until operations means the system was built without security engineering; retrofitting controls into a live production system is the costliest and least effective option.",
+      "Defining security requirements at initiation lets them shape architecture, design, and procurement decisions; every subsequent phase then builds security in, which costs far less than bolting it on after flaws are discovered.",
+      "Disposal requirements matter and should be considered early, but they are one part of the security requirement set, not the phase where requirements definition belongs."
+    ]
+  },
+  {
+    "id": "D3-0033",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "medium",
+    "stem": "A fintech startup's lead developer proposes protecting transaction data with an in-house cipher whose internal design will be kept strictly secret, arguing that attackers cannot break what they cannot study. Which secure design principle BEST explains why the security architect should reject this proposal?",
+    "options": [
+      "Defense in depth, because a single secret algorithm represents only one layer of protection",
+      "Least privilege, because too many developers would eventually learn the algorithm's design",
+      "Open design, because the system's security should rest on protected keys, not on keeping the mechanism itself secret",
+      "Economy of mechanism, because a custom algorithm adds unnecessary complexity to the platform"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Defense in depth concerns layering multiple independent controls; it does not speak to whether any one mechanism may rely on secrecy of its design for security.",
+      "Least privilege governs the access rights granted to subjects; limiting who knows how the cipher works is security through obscurity, not privilege management.",
+      "Open design, reflecting Kerckhoffs's principle, holds that a cryptosystem must remain secure even when everything about it except the key is public; unvetted secret ciphers routinely fail once their design leaks or is reverse engineered.",
+      "Economy of mechanism favors simple designs and is a fair secondary concern, but the fundamental flaw here is depending on design secrecy rather than key secrecy."
+    ]
+  },
+  {
+    "id": "D3-0034",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "hard",
+    "stem": "A SaaS provider learns that one tenant received query results belonging to another tenant. Investigation shows all tenants share a single in-memory cache service that keys entries by query text alone, so identical queries from different tenants can return the same cached entry. Which secure design principle was MOST directly violated?",
+    "options": [
+      "Least privilege, because the cache service was granted access to more data than any single tenant required",
+      "Least common mechanism, because a component shared across tenants became a path for data to cross trust boundaries",
+      "Fail securely, because the caching fault should have produced a denial of service instead of a disclosure",
+      "Complete mediation, because the platform should have re-validated authorization on every cache lookup"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Least privilege addresses the rights granted to subjects; the cache legitimately needed broad data access to do its job, so excessive privilege is not the root design flaw.",
+      "Least common mechanism warns against mechanisms shared among users of different trust levels precisely because shared state can carry information across boundaries, which is exactly how this leak occurred.",
+      "Fail securely describes the state a system should enter after a failure; it does not address the underlying decision to share one cache across tenant trust boundaries.",
+      "Re-checking authorization on each lookup would have masked the symptom, but the design decision that created the exposure was sharing a single mechanism across tenants without tenant-scoped keys."
+    ]
+  },
+  {
+    "id": "D3-0035",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "easy",
+    "stem": "A network appliance vendor is defining the factory configuration its product will ship with. Which approach BEST reflects the principle of secure defaults?",
+    "options": [
+      "Ship with nonessential services disabled and require administrators to explicitly enable the features they need",
+      "Ship with all features enabled so administrators can disable whatever their environment does not require",
+      "Ship with a common documented password so initial setup is simple, then prompt for hardening later",
+      "Ship with an optional wizard that recommends hardening steps the administrator may apply after installation"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Secure defaults mean the product arrives in its safest reasonable state out of the box, so exposure exists only where an administrator deliberately opts in to functionality.",
+      "Enabling everything by default is the permissive 'default allow' posture; it maximizes initial attack surface and depends on administrators finding and closing every unneeded service.",
+      "A shared documented password trades security for setup convenience and is a classic insecure default; well-known credentials are among the first things attackers try.",
+      "Optional post-installation guidance is advice, not a default; a system that remains insecure until someone follows recommendations violates the principle."
+    ]
+  },
+  {
+    "id": "D3-0036",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "hard",
+    "stem": "An evaluator is concerned that on a multilevel system, processes at a lower classification could infer what higher-level processes are doing by observing changes in response times and resource availability, even though no explicit read of protected data ever occurs. Which security model MOST directly addresses this concern?",
+    "options": [
+      "Bell-LaPadula, because its simple security property forbids lower-level subjects from reading higher-level data",
+      "Clark-Wilson, because well-formed transactions would prevent the lower-level processes from observing the system",
+      "Brewer-Nash, because it dynamically restricts access once a subject has observed related information",
+      "Noninterference, because it requires that higher-level activity have no observable effect on what lower-level subjects can see"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Bell-LaPadula constrains explicit read and write operations between levels; it does not address inference through system effects such as timing and resource contention.",
+      "Clark-Wilson is an integrity model built on well-formed transactions and separation of duties; it concerns preventing improper modification, not information flow through observable side effects.",
+      "Brewer-Nash (the Chinese Wall model) manages conflicts of interest by restricting access based on a subject's access history; it does not model covert information flow between classification levels.",
+      "Noninterference formalizes the requirement that actions of high-level subjects produce no detectable difference in the low-level view of the system, which is precisely the inference path the evaluator fears."
+    ]
+  },
+  {
+    "id": "D3-0037",
+    "domain": 3,
+    "objective": "3.2",
+    "difficulty": "medium",
+    "stem": "A security architect wants to determine whether a specific access right could ever propagate to an unauthorized subject in a collaboration platform. She models subjects and objects as nodes in a directed graph and applies rules describing how rights may be taken from or granted to other nodes. Which formal model is she applying?",
+    "options": [
+      "Graham-Denning, which defines eight protection rules for securely creating and deleting subjects, objects, and rights",
+      "Bell-LaPadula, which determines whether information can flow between sensitivity levels",
+      "Harrison-Ruzzo-Ullman, which analyzes commands that modify an access control matrix",
+      "Take-Grant, which uses graph rewriting rules to decide whether a right can reach a given subject"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Graham-Denning enumerates the eight rules a secure system needs for managing subjects, objects, and rights, but it is not the directed-graph reachability technique described here.",
+      "Bell-LaPadula is a confidentiality model constraining reads and writes across sensitivity levels; it says nothing about how discretionary rights propagate between subjects.",
+      "Harrison-Ruzzo-Ullman reasons about the safety of commands operating on an access control matrix rather than a graph with take and grant edges; the confusion is natural because both study rights leakage.",
+      "Take and grant rules applied to a directed graph of subjects and objects are the defining features of the Take-Grant protection model, which can efficiently decide whether a right can ever propagate to a given node."
+    ]
+  },
+  {
+    "id": "D3-0038",
+    "domain": 3,
+    "objective": "3.3",
+    "difficulty": "medium",
+    "stem": "A regulation requires encryption at rest for a claims database, but the legacy application cannot support it, the vendor offers no fix, and replacement is two years away. What is the security manager's BEST course of action?",
+    "options": [
+      "Formally accept the risk and note that encryption will arrive with the replacement platform",
+      "Direct the project team to replace the legacy system immediately, regardless of the migration schedule",
+      "Implement and document compensating controls of equivalent protection, such as strict access restriction and enhanced monitoring of the database",
+      "Transfer the regulatory exposure by purchasing a cyber liability insurance policy for the system"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Risk acceptance is premature when reasonable mitigation is still available; regulators and assessors generally expect compensating measures before residual risk is accepted.",
+      "Forcing an immediate replacement ignores business constraints and delivery reality; risk management balances protection with operational feasibility rather than issuing impractical mandates.",
+      "When a required control is technically infeasible, the recognized approach is compensating controls that meet the intent and rigor of the original requirement, documented so assessors can evaluate their equivalence.",
+      "Insurance can offset financial loss but does not satisfy a control requirement or reduce the likelihood of disclosure, so both the compliance gap and the data exposure remain."
+    ]
+  },
+  {
+    "id": "D3-0039",
+    "domain": 3,
+    "objective": "3.3",
+    "difficulty": "medium",
+    "stem": "A procurement specification contains two statements: the product must enforce role-based access control, and the vendor must supply independent evaluation evidence demonstrating the mechanism was built and tested correctly. How are these requirements BEST characterized?",
+    "options": [
+      "The first is a functional security requirement and the second is an assurance requirement",
+      "Both are functional requirements, because each one concerns the access control mechanism",
+      "The first is an assurance requirement and the second is a functional requirement",
+      "The first is a technical control and the second is an administrative control"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Functional requirements state what protective behavior a system must exhibit, while assurance requirements state the evidence and rigor needed to gain confidence that the behavior is implemented correctly; the two statements map to these categories in that order.",
+      "Both statements mention the same mechanism, but the second demands confidence-building evidence rather than protective behavior, which is the defining trait of assurance rather than function.",
+      "This reverses the definitions: enforcing role-based access is the security function itself, and independent evaluation evidence is what provides assurance about it.",
+      "Technical versus administrative describes how a control is implemented, not the distinction between what a product must do and how much confidence we require that it does it."
+    ]
+  },
+  {
+    "id": "D3-0040",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "hard",
+    "stem": "To improve performance, an operating system vendor proposes caching access-control decisions so repeated requests by a process for the same file bypass the security kernel after the first check. Sessions can last for days, and file permissions in the environment change frequently. Which reference monitor property does the proposal MOST endanger?",
+    "options": [
+      "Verifiability, because the caching logic would make the kernel too large to be formally analyzed",
+      "Complete mediation, because revoked permissions would not take effect while stale cached decisions are still honored",
+      "Tamperproofness, because a decision cache held in kernel memory could be altered by unprivileged processes",
+      "Economy of mechanism, because the cache introduces a second, redundant authorization code path"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Verifiability concerns keeping the monitor small enough to analyze; modest caching logic does not defeat analysis, and the scenario's real hazard is skipped checks, not evaluation difficulty.",
+      "The reference monitor must be invoked on every access; a long-lived decision cache means later accesses are granted without consulting current policy, so revocations are silently ignored and the always-invoked property fails.",
+      "Tamperproofness protects the monitor from modification by subjects; kernel memory remains isolated from unprivileged processes, so the cache does not by itself create a tampering path.",
+      "Economy of mechanism is a design simplicity ideal, but the concrete security failure in this proposal is authorization decisions surviving after the underlying permissions change."
+    ]
+  },
+  {
+    "id": "D3-0041",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "easy",
+    "stem": "A security engineer wants platform capabilities that make it harder for an attacker to execute shellcode injected through a stack buffer overflow in a running application. Which combination BEST addresses this goal?",
+    "options": [
+      "Full-disk encryption combined with pre-boot authentication of the user",
+      "Non-executable memory protection combined with address space layout randomization",
+      "File integrity monitoring combined with signed application installers",
+      "A host-based firewall combined with strict outbound traffic filtering"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Full-disk encryption protects data at rest against physical access; it provides no protection for the memory of a running process being exploited.",
+      "Marking writable memory regions non-executable blocks direct execution of injected code, and randomizing memory layout frustrates the address predictions most exploitation techniques depend on.",
+      "Integrity monitoring and signing protect stored binaries from unauthorized modification; a buffer overflow subverts a legitimate binary in memory without changing any file.",
+      "Host firewalls constrain network reachability and may hinder payload delivery or callbacks, but they do nothing to stop code execution once malicious input reaches the vulnerable process."
+    ]
+  },
+  {
+    "id": "D3-0042",
+    "domain": 3,
+    "objective": "3.4",
+    "difficulty": "medium",
+    "stem": "A laptop standard requires that a machine refuse to start the operating system at all if its bootloader has been modified, rather than merely recording the modification for later review. Which capability satisfies this requirement?",
+    "options": [
+      "Measured boot, which extends a hash of each boot component into platform configuration registers",
+      "Full-disk encryption, which prevents an attacker from reading or altering the bootloader offline",
+      "Secure Boot, which verifies digital signatures on boot components and halts the process when verification fails",
+      "Remote attestation, which lets a management server evaluate the platform's recorded boot measurements"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Measured boot records what ran by hashing components into registers, but it blocks nothing by itself; enforcement requires a separate policy decision such as attestation or conditional key release.",
+      "Full-disk encryption protects the confidentiality of stored data; boot components typically reside in an unencrypted partition or firmware, and encryption does not verify their integrity before execution.",
+      "Secure Boot enforces a signature policy at each stage of the boot chain and refuses to hand control to an unsigned or altered component, which is exactly the halt-on-modification behavior required.",
+      "Remote attestation detects tampering after boot by having another party evaluate measurements; the requirement is local prevention before the operating system loads, not later detection."
+    ]
+  },
+  {
+    "id": "D3-0043",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "medium",
+    "stem": "For the third time in a year, a development team has exposed sensitive files by setting a cloud object-storage bucket to public. Leadership asks for a response that prevents recurrence across the whole organization. Which action is BEST?",
+    "options": [
+      "Enforce organization-wide guardrail policies that block public bucket access by default and require documented exceptions",
+      "Enroll all developers in additional security awareness training on cloud data handling",
+      "Encrypt all bucket contents at rest using the provider's managed encryption keys",
+      "Schedule quarterly penetration tests focused on discovering publicly exposed storage"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A preventive technical guardrail applied at the organization level removes the misconfiguration option from individual teams, addressing the systemic cause instead of each incident.",
+      "Awareness training supports secure behavior, but a control that has already failed three times through human error needs a preventive mechanism, not another reminder.",
+      "Encryption at rest with provider-managed keys is transparent to whatever access the bucket policy grants; a public-read policy still serves readable content, so the exposure persists.",
+      "Periodic testing is detective and point-in-time; buckets exposed between test cycles would remain public until the next engagement happens to find them."
+    ]
+  },
+  {
+    "id": "D3-0044",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "hard",
+    "stem": "On a multilevel system, evaluators find that a process holding classified material alternately creates and deletes a file in a world-readable spool directory, while an uncleared process polls for the file's existence and interprets the pattern as binary data. What is this mechanism MOST accurately called?",
+    "options": [
+      "A covert timing channel, because the uncleared process must poll on a schedule to read the signal",
+      "A side-channel attack, because information leaks through a mechanism never intended for communication",
+      "An inference attack, because the uncleared process derives protected information it was never given",
+      "A covert storage channel, because information is signaled by modulating an observable attribute of a shared resource"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Timing channels convey information through variations in timing or duration; here the information rides on a stored attribute (the file's existence), so the need to poll does not change its storage-channel nature.",
+      "Side channels are unintentional emissions such as power draw or timing exploited by an observer; this scenario is deliberate signaling between cooperating processes across a policy boundary.",
+      "Inference attacks assemble sensitive conclusions from individually authorized data, typically in databases; here nothing is deduced — data is intentionally transmitted bit by bit.",
+      "The presence or absence of a file is a stored attribute of a shared resource, and modulating such an attribute to pass information in violation of policy is the classic definition of a covert storage channel."
+    ]
+  },
+  {
+    "id": "D3-0045",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "medium",
+    "stem": "A product security review finds that every unit of a shipping smart-sensor product line uses the same administrative password embedded in firmware, and field data shows customers almost never change it. Which remediation BEST addresses the underlying weakness?",
+    "options": [
+      "Publish installation guidance strongly urging customers to change the password during setup",
+      "Provision unique per-device credentials during manufacturing and force credential setup before first use",
+      "Obfuscate the firmware image so the embedded password cannot be extracted by analysis",
+      "Require TLS on the management interface so the password cannot be captured in transit"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Guidance relies on customer action that the vendor's own data shows rarely happens; the design should not depend on optional user behavior for its baseline security.",
+      "Unique credentials per device eliminate the class break in which one recovered password compromises the entire fleet, and forced first-use setup removes reliance on customer diligence.",
+      "Obfuscation only slows extraction and is security through obscurity; once any unit's password is recovered, it still unlocks every device in the field.",
+      "Transport encryption protects credentials from interception but does nothing about a shared secret that becomes public knowledge once extracted from any single device."
+    ]
+  },
+  {
+    "id": "D3-0046",
+    "domain": 3,
+    "objective": "3.5",
+    "difficulty": "hard",
+    "stem": "A review of a container platform finds that once traffic is inside the cluster, any microservice can call any other service's API; only connections arriving from the internet are authenticated at the gateway. Which change BEST mitigates the risk posed by a single compromised service?",
+    "options": [
+      "Deploy a more capable web application firewall in front of the internet-facing gateway",
+      "Consolidate the services onto a single hardened host to reduce the network attack surface",
+      "Require mutual TLS with per-service identities so every service authenticates its callers before serving requests",
+      "Terminate TLS at the gateway and re-encrypt the traffic on its way to backend services"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Strengthening the perimeter improves north-south protection but leaves east-west traffic unauthenticated, which is precisely the gap that lets a compromised service pivot freely.",
+      "Consolidation concentrates risk rather than reducing it; a single host compromise would expose every service at once, abandoning the isolation benefits of the platform.",
+      "Per-service cryptographic identity with mutual authentication applies zero-trust principles to east-west traffic, so a compromised workload can no longer impersonate or freely call its neighbors.",
+      "Re-encrypting between gateway and backends protects confidentiality in transit but does not authenticate which service is calling which, so lateral movement remains unrestricted."
+    ]
+  },
+  {
+    "id": "D3-0047",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "medium",
+    "stem": "Investigators confirm that an attacker who stole a web server's long-term private key had also been recording the site's encrypted traffic for months. Management asks the architect to ensure a future key theft cannot expose previously captured sessions. Which property should the TLS configuration provide?",
+    "options": [
+      "Forward secrecy, using ephemeral key agreement so session keys cannot be derived from the server's long-term key",
+      "Key escrow, so an independent third party retains protected copies of the session keys",
+      "Certificate pinning, so clients reject any certificate other than the one they expect",
+      "A longer server key, so recorded traffic cannot be factored within a useful timeframe"
+    ],
+    "answer": 0,
+    "explanations": [
+      "With ephemeral key agreement, each session derives keys that are discarded afterward and cannot be computed from the server's long-term key, so recorded ciphertext stays protected even after a later key compromise.",
+      "Escrow deliberately preserves the ability to decrypt past traffic, which is the opposite of the requested property and adds a third-party compromise risk.",
+      "Pinning defends against impersonation with fraudulent certificates during new connections; it has no effect on the decryptability of traffic that was already recorded.",
+      "Key length raises the cost of brute-force attacks, but the threat here is theft of the key itself, against which additional bits provide no protection."
+    ]
+  },
+  {
+    "id": "D3-0048",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "medium",
+    "stem": "A payment processor is designing the generation ceremony for its root key-encrypting key. The stated requirement is that no single employee should ever be able to reconstruct or use the key alone. Which arrangement BEST satisfies the requirement?",
+    "options": [
+      "Store the complete key in a safe under the sole custody of the most senior security officer",
+      "Subject the designated key custodian to an enhanced background check and a signed nondisclosure agreement",
+      "Keep two identical copies of the full key with two different officers in separate locations",
+      "Divide the key into components held by separate custodians and require a quorum of them to reconstitute it"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Sole custody concentrates the entire capability in one person, which is exactly the single point of trust the requirement forbids, regardless of that person's seniority.",
+      "Vetting and agreements are administrative safeguards that reduce personnel risk but leave the custodian technically able to use the key alone.",
+      "Duplicate full copies improve availability, but each officer still possesses the whole key and could act unilaterally; this confuses redundancy with split knowledge.",
+      "Splitting the key into components with a quorum requirement implements split knowledge and dual control, making unilateral reconstruction impossible while tolerating the loss of one custodian."
+    ],
+    "reference": "NIST SP 800-57 Part 1"
+  },
+  {
+    "id": "D3-0049",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "hard",
+    "stem": "Two companies authenticate settlement files exchanged between them using an HMAC computed with a single shared secret key. A dispute arises in which Company A alleges that Company B fabricated a file and its authentication tag. Which statement BEST explains why the HMAC cannot settle the dispute?",
+    "options": [
+      "HMAC provides only confidentiality, so the origin of the file was never protected",
+      "Either company could have computed a valid tag with the shared key, so the tag cannot prove which party created the file",
+      "HMAC tags are vulnerable to collision attacks that let outside parties forge files at will",
+      "The shared key was not rotated frequently enough to preserve the evidentiary value of the tags"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This inverts HMAC's purpose: it provides integrity and origin authentication between the key holders, not confidentiality, and the dispute problem stems from the key being shared.",
+      "A symmetric MAC proves only that some holder of the key produced the tag; with two key holders the tag is inherently ambiguous between them, which is why non-repudiation requires asymmetric digital signatures.",
+      "HMAC's security does not reduce to collision resistance of the underlying hash, and outsiders without the key cannot forge tags; the limitation at issue involves the insiders who share the key.",
+      "Rotation limits exposure from key compromise over time, but even a freshly rotated shared key is held by both parties, leaving the attribution problem unchanged."
+    ]
+  },
+  {
+    "id": "D3-0050",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A web application decrypts a CBC-mode encrypted cookie and returns one error message when the padding is invalid and a different one when padding is valid but the content fails a check. An attacker submits thousands of systematically modified cookies, using each response to construct the next attempt, and recovers the plaintext. Which attack model does this exemplify?",
+    "options": [
+      "An adaptive chosen-ciphertext attack, because crafted ciphertexts are submitted and each response guides the next submission",
+      "A ciphertext-only attack, because the attacker began with nothing but an encrypted cookie",
+      "A known-plaintext attack, because the differing error messages disclose fragments of the plaintext",
+      "An exhaustive key search, because thousands of attempts were required to complete the recovery"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The attacker chooses ciphertexts, submits them to a decryption oracle, and adapts each subsequent query based on the oracle's observable behavior, which defines an adaptive chosen-ciphertext (padding oracle) attack.",
+      "Ciphertext-only attackers passively analyze captured ciphertext; this attacker actively submits modified ciphertexts and learns from the system's responses, a far stronger interaction model.",
+      "Known-plaintext attacks start from possession of matching plaintext-ciphertext pairs; the error messages here leak padding validity, not plaintext fragments, and no pairs were known in advance.",
+      "Volume of attempts does not make an attack a brute-force key search; the key is never recovered at all — the plaintext is extracted byte by byte through the oracle's responses."
+    ]
+  },
+  {
+    "id": "D3-0051",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "hard",
+    "stem": "A vendor proposes strengthening a legacy 56-bit block cipher by encrypting each block twice with two independently chosen keys and markets the result as having 112 bits of effective strength. Which cryptanalytic technique MOST directly undermines this claim?",
+    "options": [
+      "A birthday attack, which finds matching outputs after roughly the square root of the keyspace is searched",
+      "A related-key attack, which exploits mathematical relationships between the two encryption keys",
+      "A meet-in-the-middle attack, which trades memory for time to reduce the effective strength to little more than one encryption",
+      "Frequency analysis, which exploits statistical patterns that survive both encryption passes"
+    ],
+    "answer": 2,
+    "explanations": [
+      "The birthday bound concerns collision probability, chiefly in hash functions; it is not the technique that defeats double encryption, though both involve square-root-style savings, which invites the confusion.",
+      "Related-key attacks require exploitable relationships between keys; here the two keys are chosen independently, so no such relationship exists to exploit.",
+      "By encrypting known plaintext under all possible first keys and decrypting the matching ciphertext under all possible second keys, an attacker meets in the middle, cutting the work to roughly 2^57 operations instead of 2^112.",
+      "Frequency analysis defeats classical substitution ciphers whose output preserves language statistics; a modern block cipher's output shows no such patterns regardless of how many passes are applied."
+    ]
+  },
+  {
+    "id": "D3-0052",
+    "domain": 3,
+    "objective": "3.7",
+    "difficulty": "medium",
+    "stem": "A telemetry radio protocol uses a stream cipher, but after every device reboot the transmitter restarts encryption with the same key and the same initialization vector. An analyst XORs two captured post-reboot transmissions together and begins recovering both messages. Which flaw enables the recovery?",
+    "options": [
+      "The cipher's key is too short, allowing the analyst to exhaust the keyspace",
+      "The protocol omits message authentication, allowing transmissions to be modified undetected",
+      "The initialization vector is sent in the clear, allowing the analyst to read the keystream",
+      "Keystream reuse: encrypting two messages with the same key and IV lets their XOR cancel the keystream entirely"
+    ],
+    "answer": 3,
+    "explanations": [
+      "No key search occurred; the analyst never learned the key, and the technique works identically regardless of key length because the keystream cancels out.",
+      "Missing authentication is a real integrity weakness, but the observed attack recovers message content, a confidentiality failure caused by keystream repetition.",
+      "IVs are normally transmitted in the clear by design, and knowing the IV does not reveal the keystream; the property an IV must have is uniqueness per key, which this protocol violates.",
+      "When the same key and IV produce the same keystream for two messages, XORing the ciphertexts removes the keystream and leaves the XOR of the plaintexts, which classic two-time-pad analysis can separate."
+    ]
+  },
+  {
+    "id": "D3-0053",
+    "domain": 3,
+    "objective": "3.8",
+    "difficulty": "easy",
+    "stem": "A company evaluating land for a new data center finds the least expensive parcel lies within a mapped flood plain and borders a rail line regularly used by chemical tank cars. What is the BEST recommendation from a security architecture perspective?",
+    "options": [
+      "Acquire the parcel and transfer the hazard exposure through comprehensive property insurance",
+      "Acquire the parcel and elevate all critical equipment above the projected flood level",
+      "Reject the parcel, because site selection is the cheapest point at which to avoid hazards later controls cannot fully offset",
+      "Acquire the parcel and plan a fully equipped disaster recovery site in another region"
+    ],
+    "answer": 2,
+    "explanations": [
+      "Insurance reimburses financial loss after an event but does nothing to preserve availability or prevent the outage, and it leaves the chemical release hazard entirely unaddressed.",
+      "Elevation partially mitigates flooding only; it does not address evacuation, access disruption, or a toxic release from the adjacent rail corridor.",
+      "Environmental and man-made hazards identified during site selection are avoided essentially for free by choosing different land, whereas every post-purchase control only partially compensates and adds recurring cost.",
+      "A recovery site limits downtime after a disaster but knowingly accepts an elevated likelihood of invoking it, with all the disruption and expense a failover entails."
+    ]
+  },
+  {
+    "id": "D3-0054",
+    "domain": 3,
+    "objective": "3.8",
+    "difficulty": "easy",
+    "stem": "A physical security assessment of a headquarters building on a busy urban street recommends protecting the lobby entrance and the queue of people outside it from an accidental or deliberate vehicle strike. Which control BEST addresses this specific threat?",
+    "options": [
+      "Continuous CCTV coverage of the street approach with monitoring by the security operations center",
+      "Crash-rated bollards establishing standoff distance between the roadway and the entrance",
+      "Uniformed guards posted outside the entrance during business hours",
+      "Full-height turnstiles controlling pedestrian access just inside the lobby"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Cameras are detective; they document an approach or impact but exert no physical force to stop a vehicle before it reaches the crowd.",
+      "Engineered vehicle barriers rated to arrest a moving vehicle are the control designed for this exact threat, and the standoff distance they create protects both the structure and the people queuing outside.",
+      "Guards provide deterrence and response against human threats but cannot physically arrest a moving vehicle and would themselves be at risk in its path.",
+      "Turnstiles regulate pedestrian throughput inside the building; they are irrelevant to a vehicle threat that terminates at or before the facade."
+    ]
+  },
+  {
+    "id": "D3-0055",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "medium",
+    "stem": "While specifying electronic locks for a data center's emergency exits, the design team debates how the doors should behave during a fire alarm or total power loss. Which approach is BEST?",
+    "options": [
+      "Configure egress doors to unlock on alarm or power loss, and compensate with local alarms and camera coverage on those doors",
+      "Configure the doors to remain locked during incidents so the equipment inside cannot be stolen amid the confusion",
+      "Require a guard in the operations center to remotely release the doors when an evacuation is confirmed",
+      "Keep the doors fail-secure and stage break-glass override keys at the main security desk"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Life safety takes precedence over asset protection, so egress paths must fail-safe; the added exposure of unlocked exits during an emergency is managed with detective controls rather than by trapping people.",
+      "Prioritizing equipment over evacuation inverts the fundamental hierarchy in which human safety outranks all other protection goals, and it typically violates fire and building codes.",
+      "Routing evacuation through a human decision adds delay and a single point of failure at exactly the moment seconds matter and the operations center itself may be evacuating.",
+      "Staged override keys assume evacuees can reach and use a distant desk amid smoke and panic; emergency egress must be immediate and require no special knowledge or tools."
+    ]
+  },
+  {
+    "id": "D3-0056",
+    "domain": 3,
+    "objective": "3.9",
+    "difficulty": "easy",
+    "stem": "A company must select fire suppression for a continuously staffed network operations bridge that shares space with critical IT equipment. The system must be able to discharge without endangering the staff on duty or destroying the electronics. Which option is BEST?",
+    "options": [
+      "A carbon dioxide total-flooding system with automatic discharge on detection",
+      "A wet-pipe sprinkler system fed from the building's main fire loop",
+      "A dry-chemical powder system positioned above the equipment racks",
+      "A clean-agent gaseous system approved for use in occupied spaces"
+    ],
+    "answer": 3,
+    "explanations": [
+      "Carbon dioxide suppresses effectively and leaves no residue, but at extinguishing concentrations it is lethally asphyxiating, making automatic discharge unacceptable where people are always present.",
+      "Water extinguishes well and is standard for general occupancies, but a discharge over energized electronics causes exactly the equipment destruction the requirement excludes.",
+      "Dry chemical agents leave corrosive, conductive residue that ruins electronics even when the fire is small, so they are unsuited to protecting IT equipment.",
+      "Clean agents rated for occupied spaces suppress fire at concentrations people can tolerate and leave no damaging residue, satisfying both the life-safety and equipment-protection requirements."
+    ]
+  },
+  {
+    "id": "D3-0057",
+    "domain": 3,
+    "objective": "3.10",
+    "difficulty": "medium",
+    "stem": "Servers leased for three years processed confidential client data and are now due to be returned to the leasing company. What is the BEST requirement for the security team to impose before the hardware leaves the facility?",
+    "options": [
+      "Delete all data volumes and reformat each drive using the operating system's standard tools",
+      "Sanitize each drive with a method matched to its media type and data sensitivity, then verify and document the results",
+      "Rely on the leasing company's contractual commitment to wipe all returned equipment",
+      "Remove and physically shred every drive before returning the remaining hardware"
+    ],
+    "answer": 1,
+    "explanations": [
+      "Formatting and file deletion remove pointers, not data; the contents remain recoverable with common forensic tools, which is why logical deletion is not sanitization.",
+      "Sanitization commensurate with media type and sensitivity, followed by verification and documented records, ensures no recoverable data leaves the organization's control and provides evidence of due care.",
+      "Contractually delegating the task does not transfer accountability for the data; the organization remains responsible if the lessor's process fails or is skipped.",
+      "Destruction is a legitimate sanitization outcome, but shredding leased assets the company must return intact creates contractual and financial consequences when purge techniques such as cryptographic erase achieve the same goal."
+    ],
+    "reference": "NIST SP 800-88r1"
   }
 ]
