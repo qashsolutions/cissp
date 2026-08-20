@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "D5-0001",
+    "domain": 5,
+    "objective": "5.2",
+    "difficulty": "medium",
+    "stem": "Attackers are bombarding employees with push-notification MFA prompts at night until someone approves one out of frustration. Which change BEST reduces this risk?",
+    "options": [
+      "Replace push approval with FIDO2 authenticators",
+      "Increase the minimum password length to sixteen",
+      "Deliver one-time codes over SMS instead of push",
+      "Require users to re-enroll their devices monthly"
+    ],
+    "answer": 0,
+    "explanations": [
+      "FIDO2 authentication is phishing-resistant and requires a local user gesture cryptographically bound to the origin — there is no remote prompt an exhausted user can blindly approve.",
+      "A longer password does not address the attack at all; the attacker is abusing the second factor's approval flow, not guessing passwords.",
+      "SMS one-time codes remove the push prompt but introduce SIM-swap and code-relay phishing weaknesses; it trades one exploitable flow for another.",
+      "Monthly re-enrollment adds user burden without changing the core failure mode of approving a prompt the user did not initiate."
+    ]
+  },
+  {
+    "id": "D5-0002",
+    "domain": 5,
+    "objective": "5",
+    "difficulty": "easy",
+    "stem": "A hospital wants access rights assigned through job functions such as nurse or pharmacist, so that transfers between departments only require changing a user's role membership. Which access control model fits BEST?",
+    "options": [
+      "Role-based access control",
+      "Discretionary access control",
+      "Mandatory access control",
+      "Rule-based access control"
+    ],
+    "answer": 0,
+    "explanations": [
+      "RBAC bundles permissions under organizational roles, so a departmental transfer is handled by reassigning role membership rather than editing individual permissions.",
+      "DAC lets each resource owner grant access at their discretion, which produces inconsistent rights and heavy administration — the opposite of what the hospital wants.",
+      "MAC enforces access through central labels and clearances; it is classification-driven rather than job-function-driven and is a poor fit here.",
+      "Rule-based control applies fixed condition rules such as time-of-day or source network to everyone; it does not bundle permissions by job function."
+    ]
+  }
+]

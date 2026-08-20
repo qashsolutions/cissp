@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "D8-0001",
+    "domain": 8,
+    "objective": "8",
+    "difficulty": "medium",
+    "stem": "A security team wants developers to find SQL injection and buffer overflow flaws in source code automatically on every commit, before the application is deployed to any environment. Which technique BEST fits?",
+    "options": [
+      "Static analysis integrated into the CI pipeline",
+      "Dynamic scanning of the staging environment",
+      "An annual external penetration test",
+      "Fuzz testing against production endpoints"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Static application security testing analyzes source code without executing it, so it can run on every commit in CI and flag injection and overflow patterns before any deployment.",
+      "Dynamic testing requires a running application in a deployed environment, so it cannot satisfy the before-deployment, per-commit requirement.",
+      "An annual penetration test is far too infrequent for per-commit feedback and examines a built, deployed system rather than source.",
+      "Fuzzing production is the latest possible point of discovery and risks disrupting live service; the goal is to catch flaws before deployment."
+    ]
+  }
+]

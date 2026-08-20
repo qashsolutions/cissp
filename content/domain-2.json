@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "D2-0001",
+    "domain": 2,
+    "objective": "2",
+    "difficulty": "medium",
+    "stem": "An organization is decommissioning self-encrypting SSDs that held confidential data. The drives will be resold to a third party. Which sanitization method is MOST appropriate?",
+    "options": [
+      "Cryptographic erase followed by verification",
+      "A single overwrite pass of the full drive",
+      "Degaussing each drive before release",
+      "Quick-formatting the drive's file system"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Destroying the media encryption key renders the ciphertext unrecoverable, and NIST SP 800-88r1 endorses cryptographic erase with verification for self-encrypting drives leaving organizational control.",
+      "Overwriting is unreliable on SSDs because wear-leveling and over-provisioned cells can leave data in areas the overwrite never reaches.",
+      "Degaussing disrupts magnetic media; it has no effect on flash memory, so the data would remain fully intact.",
+      "A quick format removes file-table entries only; the underlying data remains and is trivially recoverable with common tools."
+    ],
+    "reference": "NIST SP 800-88r1"
+  }
+]

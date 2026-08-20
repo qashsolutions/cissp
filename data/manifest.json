@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-20T14:36:39.634Z",
-  "total": 0,
+  "generatedAt": "2026-08-20T17:13:07.249Z",
+  "total": 10,
   "domains": [
     {
       "n": 1,
       "name": "Security and Risk Management",
       "weight": 16,
       "target": 800,
-      "count": 0,
+      "count": 3,
       "file": "domain-1.json"
     },
     {
@@ -15,7 +15,7 @@
       "name": "Asset Security",
       "weight": 10,
       "target": 500,
-      "count": 0,
+      "count": 1,
       "file": "domain-2.json"
     },
     {
@@ -23,7 +23,7 @@
       "name": "Security Architecture and Engineering",
       "weight": 13,
       "target": 650,
-      "count": 0,
+      "count": 2,
       "file": "domain-3.json"
     },
     {
@@ -39,7 +39,7 @@
       "name": "Identity and Access Management",
       "weight": 13,
       "target": 650,
-      "count": 0,
+      "count": 2,
       "file": "domain-5.json"
     },
     {
@@ -55,7 +55,7 @@
       "name": "Security Operations",
       "weight": 13,
       "target": 650,
-      "count": 0,
+      "count": 1,
       "file": "domain-7.json"
     },
     {
@@ -63,7 +63,7 @@
       "name": "Software Development Security",
       "weight": 10,
       "target": 500,
-      "count": 0,
+      "count": 1,
       "file": "domain-8.json"
     }
   ]

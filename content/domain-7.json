@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "D7-0001",
+    "domain": 7,
+    "objective": "7",
+    "difficulty": "medium",
+    "stem": "Monitoring confirms an active ransomware infection that is currently encrypting shares on a file server. According to incident management practice, what should the response team do FIRST?",
+    "options": [
+      "Isolate the affected server from the network",
+      "Reimage the server and restore from backup",
+      "Identify and delete the malware executable",
+      "Notify regulators of a reportable breach"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Containment comes first once an incident is verified: isolating the server stops the encryption from spreading while preserving the system state for investigation.",
+      "Reimaging and restoring is recovery; done before containment and eradication it risks reinfection and destroys forensic evidence.",
+      "Removing the malware is eradication, which follows containment — acting first on removal leaves the spread unchecked while you search.",
+      "Notification obligations are met after the incident is scoped and assessed against legal timelines; it is not the first action while damage is actively spreading."
+    ]
+  }
+]

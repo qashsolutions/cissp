@@ -1,1 +1,63 @@
-[]
+[
+  {
+    "id": "D1-0001",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "A risk assessment identifies a threat with high impact but very low likelihood. Mitigating it would cost substantially more than the expected loss. Which risk response is MOST appropriate?",
+    "options": [
+      "Accept the risk and document the decision",
+      "Transfer the risk through insurance",
+      "Mitigate the risk regardless of cost",
+      "Ignore the risk since likelihood is low"
+    ],
+    "answer": 0,
+    "explanations": [
+      "When mitigation cost exceeds the expected loss, formally accepting the risk and documenting the decision is the sound cost-benefit-based managerial choice.",
+      "Transfer suits some high-impact risks, but nothing in the scenario indicates insurance would cost less than the expected loss; formal acceptance is the direct fit.",
+      "Spending more on a control than the expected loss it prevents contradicts cost-benefit-based risk management.",
+      "Ignoring a risk is not a legitimate risk response; even accepted risks must be documented and periodically reviewed."
+    ],
+    "reference": "NIST SP 800-39"
+  },
+  {
+    "id": "D1-0002",
+    "domain": 1,
+    "objective": "1.10",
+    "difficulty": "easy",
+    "stem": "A development team is threat modeling a new payment service and wants a structured way to enumerate potential threats against each element of the data-flow diagram. Which approach BEST supports this goal?",
+    "options": [
+      "Apply STRIDE categories to each data-flow element",
+      "Score each known vulnerability using CVSS",
+      "Commission an external penetration test",
+      "Review the enterprise risk register entries"
+    ],
+    "answer": 0,
+    "explanations": [
+      "STRIDE provides a per-element taxonomy — spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege — for systematically enumerating design-time threats.",
+      "CVSS rates the severity of vulnerabilities that are already identified; it is not a method for discovering design-stage threats.",
+      "A penetration test validates a built system later in the lifecycle; it is not a structured design-stage enumeration technique.",
+      "The risk register records organizational risks already identified; it does not enumerate new threats per architectural component."
+    ]
+  },
+  {
+    "id": "D1-0003",
+    "domain": 1,
+    "objective": "1.6",
+    "difficulty": "easy",
+    "stem": "An internal document states that all company laptops MUST use AES-256 full-disk encryption. Compliance is mandatory and no exceptions are listed. Which type of document is this?",
+    "options": [
+      "A security standard",
+      "A security policy",
+      "A security guideline",
+      "A security procedure"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A standard mandates specific technologies and configurations — here, AES-256 full-disk encryption — in support of policy objectives.",
+      "A policy states management intent at a high level; it would require protecting laptop data without naming a specific algorithm or key length.",
+      "A guideline is discretionary advice; the word MUST and mandatory compliance directly contradict that character.",
+      "A procedure gives step-by-step instructions for performing a task, not a statement of a mandatory requirement."
+    ]
+  }
+]

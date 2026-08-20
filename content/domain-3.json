@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "D3-0001",
+    "domain": 3,
+    "objective": "3.1",
+    "difficulty": "easy",
+    "stem": "During an outage of the central authentication service, a badge-controlled server room falls back to denying all entry until service is restored. Which secure design principle does this illustrate?",
+    "options": [
+      "Fail securely",
+      "Least privilege",
+      "Separation of duties",
+      "Defense in depth"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Failing securely means a component defaults to a secure, denying state when an error or outage occurs — exactly what the fallback behavior shows.",
+      "Least privilege limits the rights granted during normal operation; it says nothing about how a component behaves when it fails.",
+      "Separation of duties splits sensitive tasks between people to deter fraud; it does not describe failure behavior of a control.",
+      "Defense in depth layers multiple controls so one failure is not fatal; the scenario describes a single control's failure state, not layering."
+    ]
+  },
+  {
+    "id": "D3-0002",
+    "domain": 3,
+    "objective": "3.6",
+    "difficulty": "hard",
+    "stem": "A vendor distributes firmware updates through public mirrors and must let devices confirm that each image is authentic and unmodified before installation. Which mechanism BEST meets this requirement?",
+    "options": [
+      "A digital signature over each firmware image",
+      "A SHA-256 hash published beside each image",
+      "An HMAC computed with a shared device key",
+      "TLS encryption for every download session"
+    ],
+    "answer": 0,
+    "explanations": [
+      "A signature made with the vendor's private key gives both integrity and origin authenticity, and every device can verify it with an embedded public key without sharing any secret.",
+      "A hash alone proves integrity but not origin: an attacker who replaces the image on a mirror can just as easily replace the published hash beside it.",
+      "An HMAC requires the same secret in every device; extracting the key from any one device lets an attacker forge updates for all of them.",
+      "TLS protects data only in transit; a compromised mirror serves a tampered image over a perfectly valid TLS session."
+    ]
+  }
+]
