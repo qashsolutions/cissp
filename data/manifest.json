@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:25.358Z",
-  "total": 670,
+  "generatedAt": "2026-08-20T20:01:25.431Z",
+  "total": 700,
   "domains": [
     {
       "n": 1,
@@ -39,7 +39,7 @@
       "name": "Identity and Access Management",
       "weight": 13,
       "target": 650,
-      "count": 107,
+      "count": 137,
       "file": "domain-5.json"
     },
     {
