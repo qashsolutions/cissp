@@ -3204,5 +3204,207 @@
       "The program's failure is engagement and measurement, not content. Interactive scenario-based delivery with positive reinforcement drives participation, and tracking behavioral outcomes ensures the program is judged by what it actually changes."
     ],
     "reference": "NIST SP 800-50"
+  },
+  {
+    "id": "D1-0159",
+    "domain": 1,
+    "objective": "1.1",
+    "difficulty": "hard",
+    "stem": "During a routine malware investigation on a marketing employee's workstation, a security analyst discovers files that appear to be illegal child sexual abuse material, unrelated to the original incident. What should the analyst do FIRST?",
+    "options": [
+      "Create a working copy of the suspicious files on encrypted media so the evidence is documented before it can be deleted",
+      "Complete the malware investigation as originally scoped and note the discovery in the final report for management review",
+      "Stop examining the system, preserve it in its current state, and escalate through management and legal counsel so law enforcement can be engaged",
+      "Notify human resources so the employee can be suspended and interviewed about the material"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses routine forensic duplication with handling of contraband; making additional copies of such material can itself be a criminal act, and continued handling by unauthorized staff jeopardizes any prosecution.",
+      "This confuses respecting the investigation's authorized scope with ignoring a suspected serious crime; discovery of likely criminal material creates an immediate escalation obligation that overrides the original engagement.",
+      "Suspected criminal contraband converts the matter into a potential criminal investigation; the analyst must stop, leave the system untouched, and let legal counsel bring in law enforcement, which protects both the evidence and the analyst from unlawful possession exposure.",
+      "This confuses an administrative HR process, which suits policy violations, with a criminal matter; involving HR first risks alerting the subject and mishandling evidence that law enforcement will need."
+    ]
+  },
+  {
+    "id": "D1-0160",
+    "domain": 1,
+    "objective": "1.2",
+    "difficulty": "easy",
+    "stem": "A courier loses a box of unencrypted backup tapes containing customer account records while transporting them to an offsite vault. The tapes are never recovered. Which security principle has MOST directly been violated?",
+    "options": [
+      "Confidentiality, because customer data may now be read by unauthorized parties",
+      "Integrity, because the organization can no longer verify that the records remained accurate",
+      "Availability, because the tapes can no longer be used to restore the customer data",
+      "Nonrepudiation, because the courier can now deny responsibility for losing the shipment"
+    ],
+    "answer": 0,
+    "explanations": [
+      "Unencrypted media in unknown hands means anyone who finds the tapes can read the customer records; unauthorized disclosure is precisely the harm the confidentiality principle addresses.",
+      "This confuses loss of possession with unauthorized modification; the production records themselves are unchanged and verifiable, so integrity is not the tenet most directly harmed.",
+      "This confuses losing one backup copy with losing access to the data; the production systems and other copies remain usable, so availability is only marginally affected compared with the disclosure exposure.",
+      "This confuses accountability for a shipment with nonrepudiation, which concerns a party's inability to deny performing a transaction or signing a message, not physical loss of media."
+    ]
+  },
+  {
+    "id": "D1-0161",
+    "domain": 1,
+    "objective": "1.3",
+    "difficulty": "easy",
+    "stem": "A mid-sized manufacturer wants a voluntary, flexible framework that gives executives and business partners a common language for describing its current cybersecurity posture and its improvement targets. Certification is not a goal. Which option BEST fits this need?",
+    "options": [
+      "ISO/IEC 27001, with a certification-scoped management system audit",
+      "The NIST Cybersecurity Framework, mapped to current and target profiles",
+      "PCI DSS, applied across all business processes rather than card data alone",
+      "COBIT, used to define enterprise IT governance and management objectives"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses a certifiable ISMS standard with a communication framework; ISO/IEC 27001's structure is oriented toward building and auditing a management system, and the scenario explicitly rules out certification as a goal.",
+      "The framework is explicitly voluntary and uses functions and profiles to express where an organization is today versus where it wants to be, in language executives and partners can share, which is exactly the stated need.",
+      "This confuses a well-known standard with a fitting one; PCI DSS is a prescriptive, contractually mandated standard scoped to cardholder data environments, not a voluntary posture-communication tool for the whole business.",
+      "This confuses governance of enterprise IT with cybersecurity posture description; COBIT addresses broad IT governance and management objectives rather than providing a common language for security maturity targets."
+    ],
+    "reference": "NIST Cybersecurity Framework 2.0"
+  },
+  {
+    "id": "D1-0162",
+    "domain": 1,
+    "objective": "1.4",
+    "difficulty": "medium",
+    "stem": "Investigators trace the theft of a company's trade secrets to an individual operating from a country that has no extradition treaty with the company's home nation. Executives insist the person be prosecuted. Which response reflects the MOST realistic understanding of the legal situation?",
+    "options": [
+      "File a civil suit in the company's home courts, which will compel the foreign government to surrender the suspect",
+      "Contact the foreign country's police directly and request an immediate arrest based on the company's forensic evidence",
+      "Ask Interpol to issue an international arrest warrant so the suspect can be detained in any member country",
+      "Refer the case to domestic law enforcement, recognizing that mutual legal assistance channels and jurisdictional limits will shape what is possible"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses civil remedies with criminal process; a civil judgment can award damages but has no power to force another sovereign state to surrender a suspect for prosecution.",
+      "This confuses having evidence with having standing; cross-border arrest and evidence requests flow between governments through treaties and law enforcement liaison, not from a private company to foreign police.",
+      "This reflects the common misconception that Interpol issues arrest warrants; it circulates notices only at the request of member states' authorities and has no power to order anyone detained.",
+      "Prosecution across borders depends on jurisdiction, treaties, and government-to-government cooperation; referring the matter to domestic law enforcement, which can invoke mutual legal assistance mechanisms, is the only viable path even though the outcome remains uncertain."
+    ]
+  },
+  {
+    "id": "D1-0163",
+    "domain": 1,
+    "objective": "1.5",
+    "difficulty": "hard",
+    "stem": "Immediately after a significant breach is confirmed, the general counsel of a company facing likely litigation instructs that the external forensic firm be retained by outside counsel rather than contracted directly by the IT department. What is the PRIMARY reason for structuring the engagement this way?",
+    "options": [
+      "It guarantees the forensic examiners remain independent of the IT staff whose systems failed",
+      "It positions the investigation under legal privilege so its findings are prepared in anticipation of litigation",
+      "It ensures chain of custody is preserved because attorneys are trained in evidence handling",
+      "It transfers legal liability for the breach from the company to the outside law firm"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses examiner independence with engagement structure; objectivity comes from using an external firm with its own reporting line, and does not require the contract to run through counsel.",
+      "When counsel directs a forensic investigation in anticipation of litigation, the resulting analysis may be protected by attorney-client privilege and work-product doctrine, giving the company control over how and when damaging findings are disclosed.",
+      "This confuses who manages the engagement with who handles the evidence; chain of custody depends on the examiners' documented handling procedures, and attorneys do not take custody of forensic artifacts.",
+      "This mirrors the misconception that outsourcing transfers accountability; retaining a firm through counsel shifts no responsibility for the breach, which remains with the breached organization."
+    ]
+  },
+  {
+    "id": "D1-0164",
+    "domain": 1,
+    "objective": "1.7",
+    "difficulty": "medium",
+    "stem": "A severe storm floods part of a company's primary data center. For six hours, department heads debate by phone whether the situation is bad enough to invoke the business continuity plan, while recovery windows slip away. Which improvement would BEST prevent this delay from recurring?",
+    "options": [
+      "Define objective activation criteria in the plan and designate specific roles with authority to declare a disaster",
+      "Lengthen the recovery time objectives so the plan can absorb several hours of executive deliberation",
+      "Schedule more frequent full-interruption exercises so leadership becomes comfortable invoking the plan",
+      "Delegate the invocation decision to the on-call facilities engineer who first observes the damage"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The six hours were lost to an undefined decision process, not to technical recovery; documented activation thresholds and pre-assigned declaration authority let the organization invoke the plan quickly and defensibly.",
+      "This confuses adjusting recovery metrics with fixing a governance gap; RTOs must be derived from business impact tolerances, and padding them to accommodate indecision simply raises exposure.",
+      "This confuses familiarity with authority; exercises build competence, but participants who lack defined criteria and a named declaration role would still have no mandate to make the call.",
+      "This confuses speed with appropriate authority; declaring a disaster commits major resources and affects the entire business, so the decision belongs with designated senior roles, not whoever is on shift."
+    ]
+  },
+  {
+    "id": "D1-0165",
+    "domain": 1,
+    "objective": "1.8",
+    "difficulty": "hard",
+    "stem": "A line manager reports that a systems engineer who was passed over for promotion has become withdrawn, has begun copying unusually large volumes of project files, and recently mentioned interviewing with a direct competitor. What is the MOST appropriate way for the security function to proceed?",
+    "options": [
+      "Have the manager quietly restrict the engineer's access and personally review the engineer's email",
+      "Engage the established insider-threat process so HR, legal, and security can review the indicators and coordinate a proportionate response",
+      "Terminate the engineer immediately and revoke all access before any project data leaves the organization",
+      "Wait until data loss is confirmed by monitoring alerts so any action taken rests on conclusive technical evidence"
+    ],
+    "answer": 1,
+    "explanations": [
+      "This confuses managerial concern with authority to investigate; a lone manager conducting informal surveillance risks violating monitoring policy and privacy law, and may tip off the employee.",
+      "Potential insider-threat indicators require a coordinated, cross-functional review so that any monitoring, interviews, or access changes are lawful, proportionate, and consistent with HR policy, protecting both the organization and the employee.",
+      "This confuses standard involuntary-termination hygiene with a justified response; the indicators are unverified, so firing now invites wrongful-dismissal claims and may accelerate the very theft it aims to prevent.",
+      "This confuses evidentiary certainty with sound risk management; the purpose of an insider-threat capability is to intervene before loss occurs, and credible indicators already justify a formal review."
+    ]
+  },
+  {
+    "id": "D1-0166",
+    "domain": 1,
+    "objective": "1.9",
+    "difficulty": "medium",
+    "stem": "A newly hired risk executive must build an enterprise risk management program from the ground up. Before any risks are assessed or safeguards are chosen, which activity should be completed FIRST?",
+    "options": [
+      "Conduct a quantitative assessment of the organization's highest-value information assets",
+      "Select and implement a baseline of controls mapped to a recognized control framework",
+      "Deploy dashboards that track key risk indicators across all business units",
+      "Establish the risk frame, documenting assumptions, constraints, priorities, and the organization's risk appetite"
+    ],
+    "answer": 3,
+    "explanations": [
+      "This confuses the assessment step with the starting point; assessing risk is meaningful only after the organization defines what it values, what constraints apply, and how much risk it will tolerate.",
+      "This confuses risk response with program foundation; selecting safeguards before framing and assessing risk produces controls disconnected from the organization's actual priorities and exposures.",
+      "This confuses ongoing monitoring with initial scoping; KRI dashboards sustain a mature program, and deploying them first measures activity against thresholds no one has yet defined.",
+      "Framing establishes the context — assumptions, constraints, risk appetite, and priorities — on which every subsequent assessment, response, and monitoring decision depends, which is why it precedes all other components."
+    ],
+    "reference": "NIST SP 800-39"
+  },
+  {
+    "id": "D1-0167",
+    "domain": 1,
+    "objective": "1.10",
+    "difficulty": "medium",
+    "stem": "A threat intelligence team wants to model targeted intrusions as an ordered sequence of adversary stages, from reconnaissance and weaponization through delivery, exploitation, and actions on objectives, so defenders can design controls that break the sequence as early as possible. Which model matches this description?",
+    "options": [
+      "The Cyber Kill Chain, developed by Lockheed Martin",
+      "The MITRE ATT&CK knowledge base of adversary tactics",
+      "The STRIDE threat categorization scheme",
+      "The Diamond Model of Intrusion Analysis"
+    ],
+    "answer": 0,
+    "explanations": [
+      "The kill chain frames an intrusion as ordered phases running from reconnaissance to actions on objectives, and its defensive premise is that disrupting any early link prevents the later stages from occurring.",
+      "This confuses a technique catalog with a phase model; ATT&CK organizes observed tactics and techniques into a matrix used to check defensive coverage, not a linear progression of intrusion stages.",
+      "This confuses design-time threat enumeration with intrusion modeling; STRIDE categorizes threat types such as spoofing and tampering against system elements and says nothing about the temporal stages of an attack.",
+      "This confuses event analysis with stage modeling; the Diamond Model relates the adversary, capability, infrastructure, and victim of individual intrusion events to support attribution and pivoting, not a sequential chain of phases."
+    ]
+  },
+  {
+    "id": "D1-0168",
+    "domain": 1,
+    "objective": "1.11",
+    "difficulty": "medium",
+    "stem": "A hospital's patient-scheduling operations depend entirely on a single SaaS provider. During contract renewal, the CISO notes that the agreement says nothing about what happens if the hospital ever needs to leave the platform. Which contract addition BEST reduces this supply chain risk?",
+    "options": [
+      "A source code escrow arrangement that releases the application code if the vendor becomes insolvent",
+      "Stronger service-level penalties and availability credits for unplanned platform downtime",
+      "Termination assistance and data portability clauses requiring export of the hospital's records in documented, open formats",
+      "A right-to-audit clause allowing annual review of the vendor's security control environment"
+    ],
+    "answer": 2,
+    "explanations": [
+      "This confuses a protection for licensed on-premises software with a SaaS remedy; receiving escrowed code for a multi-tenant platform gives the hospital neither its data nor a service it could realistically operate.",
+      "This confuses outage compensation with exit capability; service credits address downtime during the relationship and provide nothing when the hospital must migrate away from the platform entirely.",
+      "Vendor lock-in is reduced through contractual exit rights; guaranteed transition support and data exported in documented, open formats allow the hospital to move to another platform without losing its records or operations.",
+      "This confuses an assurance mechanism with an exit mechanism; audit rights verify the vendor's ongoing control effectiveness but do nothing to enable an orderly departure from the service."
+    ]
   }
 ]
