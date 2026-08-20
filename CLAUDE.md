@@ -54,6 +54,8 @@ CSS library, or npm package. Everything uses relative paths so the site works fr
   dumps, or copyrighted guides. Derive from public standards and the public outline.
 - Author in batches of 50 within one domain; never generate thousands in one pass; never pad with
   near-duplicates or trivial definition lookups. Fifty good questions beat five hundred filler ones.
+- Run the `question-auditor` agent (.claude/agents/question-auditor.md) on every new or edited
+  batch before committing: it verifies answer veracity, explanation accuracy, and syllabus fit.
 
 ## Do not
 
