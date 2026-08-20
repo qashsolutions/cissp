@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-20T20:01:25.662Z",
-  "total": 820,
+  "generatedAt": "2026-08-20T20:01:25.745Z",
+  "total": 870,
   "domains": [
     {
       "n": 1,
@@ -55,7 +55,7 @@
       "name": "Security Operations",
       "weight": 13,
       "target": 650,
-      "count": 6,
+      "count": 56,
       "file": "domain-7.json"
     },
     {
