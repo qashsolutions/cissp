@@ -1712,7 +1712,7 @@
     "answer": 3,
     "explanations": [
       "Longer retention preserves more history but does nothing to ensure anyone looks at it; this confuses keeping logs with monitoring them.",
-      "Encryption protects log confidentiality and tamper resistance, but the failure here was that intact logs were never analyzed; protection is not analysis.",
+      "Encryption protects log confidentiality, not integrity (that would require hashing or signing), and the failure here was that intact logs were never analyzed; protection is not analysis.",
       "A redundant copy improves availability of the same unread data; duplicating logs is a resilience measure, not a detection capability.",
       "Collection without analysis provides no detection value; automated alerting plus an assigned, documented review process turns stored events into timely warnings."
     ],

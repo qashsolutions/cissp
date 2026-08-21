@@ -615,7 +615,7 @@
     ],
     "answer": 3,
     "explanations": [
-      "The PIN never leaves the card and is not the credential itself; it merely unlocks the private key, so treating it as the sole factor misreads the design.",
+      "The PIN is not the credential itself; the user submits it to the card, which verifies it locally to unlock the private key that never leaves the card, and the PIN is never presented to the relying party, so treating it as the sole factor misreads the design.",
       "No biometric is involved; calling the card 'something you are' confuses a possession factor with an inherence factor.",
       "The scheme already combines two categories without any biometric; a fingerprint would add a third factor, not create the second.",
       "The card is something you have and the PIN is something you know; both are required before the private key will sign an authentication challenge, making this true two-factor authentication."

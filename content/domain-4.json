@@ -278,7 +278,7 @@
       "Even a static mapping still rewrites the IP addresses that AH includes in its integrity calculation, so the hash verification still fails on arrival.",
       "Mode choice does not fix this: AH authenticates immutable IP header fields in both transport and tunnel modes, so translation still invalidates the check, and AH provides no encryption in either mode.",
       "ESP does not authenticate the outer IP header and supports NAT traversal via UDP encapsulation, so it survives address translation while also supplying the encryption AH inherently lacks.",
-      "GRE is plain encapsulation with no cryptographic protection of its own, and layering AH across a translated path recreates the same header-modification failure."
+      "This confuses hiding a header from NAT with meeting the requirements: neither GRE nor AH supplies the encryption the partner demands, and GRE itself traverses NAT poorly because it is not carried over UDP or TCP."
     ],
     "reference": "NIST SP 800-77r1"
   },
@@ -737,7 +737,7 @@
     ],
     "answer": 1,
     "explanations": [
-      "This misunderstands SPAN limits. Mirror sessions share the same switch fabric and egress capacity, so adding sessions compounds oversubscription rather than relieving it.",
+      "This misunderstands SPAN's guarantees. Mirroring is best-effort, so the switch drops mirrored frames first whenever it is under load, and platforms support only a limited number of sessions; no SPAN arrangement matches a TAP's lossless line-rate copy.",
       "A passive TAP copies every frame on the link at line rate, independent of switch load, giving the sensor complete and unaltered visibility without affecting production traffic.",
       "This confuses detection architecture with prevention. Moving inline converts the sensor into a potential bottleneck and failure point, changing the risk profile instead of simply fixing visibility.",
       "This confuses flow telemetry with packet capture. NetFlow summarizes conversations as metadata and cannot reconstruct payloads the detection engine needs to inspect."
@@ -1778,7 +1778,7 @@
   {
     "id": "D4-0089",
     "domain": 4,
-    "objective": "4.2",
+    "objective": "4.1",
     "difficulty": "medium",
     "stem": "A SOC must detect unusually large outbound transfers and periodic beaconing across 200 branch offices. Full packet capture at every site has been rejected as cost-prohibitive and raising privacy concerns. Which approach BEST meets the detection goal within those constraints?",
     "options": [
@@ -2484,19 +2484,19 @@
     "domain": 4,
     "objective": "4.2",
     "difficulty": "medium",
-    "stem": "An audit finds that the senior network engineer can request, approve, and implement firewall rule changes alone, and several undocumented permissive rules are attributed to this account. No malicious intent is suspected. Which improvement should the security manager prioritize?",
+    "stem": "During an incident, responders discover that switches and routers across the campus accept SSH management connections from any workstation VLAN, and a compromised employee laptop was used to log in to a distribution switch. The network team must prevent this class of attack while preserving administrators' ability to manage devices during a production network outage. Which change BEST accomplishes this?",
     "options": [
-      "Revoke the engineer's firewall administration rights and reassign the duties to another administrator",
-      "Require rule changes to pass an independent approval workflow separating request, approval, and implementation",
-      "Configure the SIEM to raise an alert whenever the firewall rulebase is modified in any way",
-      "Contract an annual penetration test to identify overly permissive rules in the firewall estate"
+      "Move device management interfaces onto a dedicated out-of-band network reachable only from hardened administrative hosts",
+      "Enforce a password-complexity and rotation policy for the privileged accounts on every switch and router",
+      "Replace SSH with HTTPS device administration so management sessions are protected by TLS certificates",
+      "Enable port security on user access ports so unknown MAC addresses cannot join the workstation VLANs"
     ],
-    "answer": 1,
+    "answer": 0,
     "explanations": [
-      "Removing access conflates a control-design gap with individual wrongdoing and simply transfers the same unchecked capability to whoever inherits the duties.",
-      "The finding is a separation-of-duties failure in which one person controls the entire change lifecycle; splitting request, approval, and implementation with independent review prevents both error and abuse while creating accountable records.",
-      "This confuses detective monitoring with preventive process: alerting after unreviewed changes take effect does not restore the missing independent check before changes are made.",
-      "An annual test would eventually surface risky rules, but it is infrequent and detective; the process would keep generating unreviewed changes between engagements."
+      "Isolating the management plane on a dedicated out-of-band network removes in-band reachability from user segments entirely, so a compromised workstation can no longer reach device login prompts, and administrators retain access even when the production network is down.",
+      "This confuses credential strength with reachability: stronger passwords slow guessing attacks, but the compromised laptop could still reach every device's login prompt and use captured or replayed administrator credentials.",
+      "This confuses transport encryption with access control: SSH already encrypts management sessions, and swapping one encrypted protocol for another leaves the management interfaces just as reachable from any workstation VLAN.",
+      "This confuses endpoint admission with management-plane exposure: port security limits which MAC addresses may join an access port, but the attack came from a legitimately connected laptop whose traffic would still be forwarded to the management interfaces."
     ]
   },
   {

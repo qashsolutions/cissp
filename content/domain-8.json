@@ -487,7 +487,7 @@
   {
     "id": "D8-0025",
     "domain": 8,
-    "objective": "8.5",
+    "objective": "8.2",
     "difficulty": "medium",
     "stem": "A routine scan of a source code repository discovers that a database administrator password was committed eight months ago. The password is still valid, and dozens of developers and contractors have cloned the repository since then. What should the security team do FIRST?",
     "options": [
@@ -587,7 +587,7 @@
   {
     "id": "D8-0030",
     "domain": 8,
-    "objective": "8.3",
+    "objective": "8.2",
     "difficulty": "hard",
     "stem": "During a pre-release security assessment, a tester discovers an undocumented URL that bypasses authentication and was added by a developer to speed up debugging. Management asks how to prevent similar features from reaching future releases. What is the BEST recommendation?",
     "options": [

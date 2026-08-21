@@ -2531,7 +2531,7 @@
     "answer": 2,
     "explanations": [
       "Wet-pipe systems hold water in the piping at all times; in an unheated space the lines can freeze and burst, causing water damage and leaving the system inoperative when it is actually needed.",
-      "Deluge designs use open heads that discharge everywhere simultaneously and suit high-hazard occupancies such as fuel handling; they are excessive for a dock and do not address the freezing problem.",
+      "Deluge designs use open heads that flood the entire area simultaneously, a total-flood discharge intended for high-hazard occupancies such as fuel handling; for an ordinary dock and storage bay that volume of water is grossly disproportionate and would cause massive water damage.",
       "Dry-pipe systems fill the distribution piping with pressurized air or nitrogen and hold water back at a riser valve located in heated space, releasing it only when a fused head opens — the standard choice where piping runs through areas subject to freezing.",
       "Pre-action systems exist to prevent accidental discharge in spaces like data centers by demanding an independent detection event first; the dock's constraint is temperature, not discharge sensitivity."
     ]

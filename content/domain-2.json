@@ -1451,7 +1451,7 @@
   {
     "id": "D2-0073",
     "domain": 2,
-    "objective": "2.4",
+    "objective": "2.3",
     "difficulty": "medium",
     "stem": "A review finds that many employees who changed roles years ago still hold access to a sensitive research repository, even though every original grant was properly approved at the time. Which control BEST prevents this condition from recurring?",
     "options": [
@@ -1493,7 +1493,7 @@
     "domain": 2,
     "objective": "2.5",
     "difficulty": "medium",
-    "stem": "A pharmaceutical company must keep clinical trial records for twenty-five years. Records from the late 1990s sit on tape formats for which working drives are now scarce, and several tapes fail on read attempts. What does this situation BEST illustrate?",
+    "stem": "A pharmaceutical company must keep clinical trial records for twenty-five years. Records from trials completed in the mid-2000s sit on tape formats for which working drives are now scarce, and several tapes fail on read attempts. What does this situation BEST illustrate?",
     "options": [
       "The records exceeded their retention period and should already have been destroyed under the schedule",
       "The tapes were treated as backups rather than archives, so they lack the indexing needed for retrieval",
@@ -1502,7 +1502,7 @@
     ],
     "answer": 3,
     "explanations": [
-      "This confuses a retention-schedule failure with a preservation failure. Records from the late 1990s remain inside a twenty-five-year regulatory window, so the obligation is to keep them readable, not to destroy them.",
+      "This confuses a retention-schedule failure with a preservation failure. Records from trials completed in the mid-2000s remain inside a twenty-five-year regulatory window, so the obligation is to keep them readable, not to destroy them.",
       "This confuses the backup-versus-archive problem with media decay. Poor indexing would make records hard to locate; here the records are failing physically and the hardware to read them is disappearing, which indexing cannot fix.",
       "This confuses refreshing media with sanitizing it. Degaussing erases magnetic media entirely, and rewriting onto the same obsolete format ignores the drive-scarcity half of the problem.",
       "Retention is only met if records stay retrievable for the full period, so archival programs must schedule migration to current media and formats before old media degrades and reading hardware becomes unobtainable."
@@ -1938,14 +1938,14 @@
     "difficulty": "hard",
     "stem": "A pharmaceutical company must retain clinical trial records for decades and expects to defend their authenticity in future regulatory proceedings. The archive team already plans periodic media refresh and format migration cycles. Which additional measure BEST preserves the records' evidentiary integrity across those cycles?",
     "options": [
-      "Generate cryptographic hashes with trusted timestamps at ingest and re-verify them after every migration",
+      "Hash records at ingest, verify hashes at each media refresh, and on format migration verify the source and record a new baseline hash",
       "Encrypt the archive so that no one can read the records without proper authorization",
       "Maintain two copies of the archive in geographically separate storage vaults",
       "Restrict all archive access to a small, vetted records management team"
     ],
     "answer": 0,
     "explanations": [
-      "Hashing each record at ingest, anchoring the hashes with trusted timestamps, and re-verifying after every refresh or migration produces continuing, demonstrable proof that decades of copying never altered the content, which is what an authenticity defense requires.",
+      "A bit-preserving media refresh copies the identical bit stream, so the original ingest hash can be re-verified directly; a format migration rewrites the bit stream, so the old hash cannot attest the new file. Verifying the source just before migration, then computing and recording a fresh baseline hash for the migrated object with a documented transformation record, maintains an unbroken chain of fixity that supports the authenticity defense decades later.",
       "This confuses confidentiality with integrity. Encryption controls who can read the records but provides no ongoing evidence that their content has remained unchanged through repeated migrations.",
       "A second copy protects against loss and disaster, an availability concern. If both copies were altered, or one silently corrupted, redundancy alone cannot show which version is authentic.",
       "Limiting access reduces the opportunity for tampering but is preventive only. Years later it cannot demonstrate to a regulator that no authorized insider or migration error changed the records; verifiable integrity evidence can."

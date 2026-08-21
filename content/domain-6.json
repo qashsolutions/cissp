@@ -1277,21 +1277,21 @@
     "domain": 6,
     "objective": "6.1",
     "difficulty": "medium",
-    "stem": "A hospital's disaster recovery plan has passed tabletop and structured walkthrough exercises. Management now wants stronger evidence that the alternate site can genuinely run clinical workloads, but patient care cannot be put at risk. Which test type is MOST appropriate next?",
+    "stem": "A medical-device manufacturer's leadership wants two things from its audit program: frequent, candid identification of control weaknesses so teams can fix them quickly, and assurance that major customers and regulators will accept as objective. How should the CISO design the audit strategy?",
     "options": [
-      "A full interruption test that fails all production clinical systems over to the alternate site",
-      "Another structured walkthrough conducted jointly with each of the clinical departments",
-      "A simulation exercise driven by injected scenario messages to the recovery teams",
-      "A parallel test that processes workloads at the alternate site while production continues serving patients"
+      "Rely exclusively on an accredited third-party firm for all audits so every result carries full independence",
+      "Use internal audits for frequent improvement-focused reviews and engage independent third-party audits to satisfy customers and regulators",
+      "Expand the internal audit program and distribute its reports to customers and regulators as evidence of control effectiveness",
+      "Alternate each year between an internal audit and an external audit so that both perspectives are eventually represented"
     ],
-    "answer": 3,
+    "answer": 1,
     "explanations": [
-      "This confuses the strongest test with the appropriate next test; a full interruption halts production and could endanger patient care, so it is only justified after less disruptive tests have proven the site works.",
-      "This confuses repetition with progression; walkthroughs are paper-based reviews already completed and cannot demonstrate that the alternate site actually executes clinical workloads.",
-      "This confuses exercising decision-making with exercising systems; a simulation stresses team response to scenario injects but still never runs real workloads on the recovery infrastructure.",
-      "A parallel test brings the alternate site up and processes representative workloads there while production keeps running, providing genuine technical proof of recoverability with no interruption to patient care, the right rung on the testing ladder."
+      "This confuses independence with fitness for every purpose; third-party audits are costly and infrequent, and their formal, arms-length nature makes them a poor vehicle for the rapid, candid internal feedback loop leadership wants.",
+      "Matching each audit type to the assurance goal it serves, with internal audits providing frequent, low-friction improvement feedback and independent external audits providing objectivity that third parties will accept, satisfies both objectives without overspending on either.",
+      "This confuses internal assurance with external credibility; because internal auditors report within the organization, customers and regulators discount their reports as self-assessment no matter how rigorous the work is.",
+      "This confuses rotating schedules with strategy design; in each year one audit type is skipped, its assurance goal goes unmet, so improvement feedback stalls one year and independent assurance lapses the next."
     ],
-    "reference": "NIST SP 800-84"
+    "reference": "ISO 19011"
   },
   {
     "id": "D6-0065",
@@ -1460,20 +1460,21 @@
     "domain": 6,
     "objective": "6.2",
     "difficulty": "medium",
-    "stem": "To make integration tests realistic, the QA team copies the full production customer database into a test environment that lacks production-grade access controls and monitoring. What is the BEST practice to recommend?",
+    "stem": "Leadership suspects that help desk agents reset passwords for callers without truly verifying identity, even though a documented verification procedure exists. The security manager must find out whether the control actually operates when an attacker applies social pressure. Which testing approach BEST provides that evidence?",
     "options": [
-      "Use masked or synthetic data sets that preserve format and referential integrity without exposing real customer records",
-      "Encrypt the copied production database at rest for as long as it resides in the test environment",
-      "Restrict access to the test environment to members of the QA team only",
-      "Purge the copied production data at the conclusion of each testing cycle"
+      "Review the written password-reset procedure and confirm that it requires strong identity verification steps",
+      "Make authorized pretext calls in which testers pose as locked-out employees and attempt to obtain password resets",
+      "Run a simulated phishing email campaign against help desk staff and measure how many of them click the lure",
+      "Sample completed reset tickets and check that the identity-verification field is marked complete on each one"
     ],
-    "answer": 0,
+    "answer": 1,
     "explanations": [
-      "Properly masked or synthetic test data delivers the realism integration tests need while removing real records from the weakly controlled environment entirely, eliminating the exposure instead of partially mitigating it.",
-      "This confuses at-rest protection with in-use exposure; testing requires the data decrypted and queryable, so testers and test tooling still handle real customer records in a weak environment.",
-      "This confuses least privilege with data minimization; even a restricted population is processing genuine records in an environment without production-grade monitoring and hardening.",
-      "This confuses shortening the exposure window with removing the exposure; throughout every active test cycle, real customer data still sits in the weaker environment."
-    ]
+      "This confuses design review with operational testing; reading the procedure shows the control is well specified but reveals nothing about whether agents actually follow it when a persuasive caller pushes back.",
+      "Authorized pretext calling exercises the control exactly the way a real attacker would, producing direct evidence of whether agents perform verification under social pressure, which is the only way to observe the human control operating.",
+      "This confuses attack channels; a phishing simulation measures susceptibility to malicious email, not whether the voice-channel identity-verification procedure is performed during password-reset calls.",
+      "This confuses recorded compliance with performed compliance; agents can mark the verification field complete without genuinely verifying the caller, so ticket sampling validates paperwork rather than the control's operation."
+    ],
+    "reference": "NIST SP 800-115"
   },
   {
     "id": "D6-0074",
