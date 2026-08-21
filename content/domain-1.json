@@ -632,19 +632,19 @@
     "domain": 1,
     "objective": "1.9",
     "difficulty": "hard",
-    "stem": "A regulation requires unique user authentication on a hospital's clinical system, but the vendor's software supports only a shared login and cannot be modified. The system is essential to patient care. Which approach BEST reflects sound risk management?",
+    "stem": "A hospital's risk committee reviews a proposal to expose an experimental remote patient-monitoring feature to the internet. Even after every feasible safeguard is applied, the projected residual risk of patient harm still exceeds the organization's documented risk tolerance, and no current clinical service depends on the feature. Which risk response is MOST appropriate?",
     "options": [
-      "Accept the risk, since the requirement is technically impossible to satisfy on this product",
-      "Remove the system from service until the vendor adds support for unique logins",
-      "Declare the regulation inapplicable because the vendor, not the hospital, controls the software design",
-      "Apply documented compensating controls, such as individual OS-level authentication and monitored access logs, that meet the requirement's intent"
+      "Accept the residual risk, since every feasible safeguard has already been applied",
+      "Transfer the risk by purchasing cyber liability insurance sized to the projected losses",
+      "Deploy the feature with documented compensating controls that reduce the likelihood of exploitation",
+      "Avoid the risk by declining to deploy the feature until its residual risk falls within tolerance"
     ],
     "answer": 3,
     "explanations": [
-      "Acceptance is appropriate only when no reasonable treatment exists or is justified; here the requirement's intent can still be achieved another way, so accepting the gap outright is premature.",
-      "Avoidance would close the compliance gap by eliminating patient-care capability; risk decisions must serve the mission rather than sacrifice it to the letter of a control.",
-      "Regulatory obligations attach to the regulated entity and cannot be disclaimed because a supplier's product is deficient; the hospital remains accountable for achieving the required protection.",
-      "When a prescribed control cannot be implemented as written, compensating controls that achieve the same protective intent — individual accountability for access — documented and approved by the risk owner, are the recognized way to satisfy the requirement while keeping the mission running."
+      "Acceptance is legitimate only when residual risk sits within the organization's stated tolerance or a mission need justifies a formal exception; accepting harm that exceeds tolerance for a nonessential feature abandons the criteria the governance body set.",
+      "Insurance can offset financial losses, but it cannot transfer the underlying patient-safety harm or the hospital's regulatory accountability, so the residual risk to the mission remains above tolerance.",
+      "Mitigation is already exhausted: the scenario states every feasible safeguard is in place, so promising further compensating controls ignores the analysis and treats deployment as a foregone conclusion.",
+      "When a nonessential activity's residual risk still exceeds tolerance after all feasible mitigation, the sound response is to forgo the activity; avoidance eliminates an exposure the organization has formally declared unacceptable."
     ]
   },
   {
@@ -1352,8 +1352,7 @@
       "Maximizing risk reduction while ignoring cost is a common error: Option C nets ($120,000 - $20,000) - $55,000 = $45,000, which is less than Option A's net value.",
       "Safeguard value is the ALE reduction minus the annual safeguard cost. Option A yields ($120,000 - $40,000) - $30,000 = $50,000 per year, the greatest net benefit among the choices.",
       "Stacking safeguards double-counts the same expected loss: the two reductions do not simply add together, while the combined $85,000 annual cost is certain, so the pairing destroys rather than adds value."
-    ],
-    "reference": "NIST SP 800-30r1"
+    ]
   },
   {
     "id": "D1-0068",
@@ -1401,19 +1400,19 @@
     "domain": 1,
     "objective": "1.12",
     "difficulty": "medium",
-    "stem": "A security awareness program launched 3 years ago still uses its original modules. Recently, employees were targeted by AI-generated voice phishing calls impersonating executives, a technique the program never mentions, and several complied with fraudulent payment instructions. What is the BEST improvement to the program?",
+    "stem": "Four years after launch, an organization's annual awareness course still teaches staff to spot phishing by misspellings and clumsy grammar. Attackers now send flawless AI-written messages and QR-code lures, and click rates on phishing simulations have risen every quarter. What is the BEST improvement to the program?",
     "options": [
-      "Discipline the employees who complied with the fraudulent calls to reinforce accountability",
-      "Deliver the existing training modules quarterly instead of annually to increase repetition",
-      "Replace the awareness sessions with a technical control that screens inbound external calls",
-      "Establish a recurring content review so the program covers current techniques such as deepfake vishing"
+      "Run phishing simulations more frequently until click rates return to acceptable levels",
+      "License a current commercial training library and deliver it as this year's annual module",
+      "Establish a scheduled content review that updates the material to reflect current attack techniques",
+      "Require employees who click a simulated lure to retake the original awareness module"
     ],
-    "answer": 3,
+    "answer": 2,
     "explanations": [
-      "Punishing staff for falling to a technique the program never taught confuses individual accountability with a program failure, and it discourages the future incident reporting the organization needs.",
-      "Increasing the frequency of outdated material simply repeats the gap; the modules still never mention the technique employees are actually facing.",
-      "Technical controls complement awareness but cannot replace it, and call screening cannot reliably stop AI voice fraud arriving over legitimate channels.",
-      "An effective program is maintained as a living effort: periodic content reviews keep the material aligned with the current threat landscape, and the absence of that maintenance is exactly what let deepfake vishing succeed."
+      "Simulations measure behavior; they do not teach anything new. Raising test frequency without fixing the outdated lessons confuses assessment with instruction.",
+      "A one-time content purchase fixes today's gap but rebuilds the same failure mode: without a recurring review process, the new material will drift out of date just as the original did.",
+      "The program failed because its content was never maintained; institutionalizing periodic reviews keeps lessons aligned with the evolving threat landscape, which is what turns a static course into a managed, current program.",
+      "Remedial retraining with the same stale module repeats guidance that no longer matches real attacks, mistaking repetition of obsolete content for relevant instruction."
     ],
     "reference": "NIST SP 800-50"
   },
@@ -1809,21 +1808,20 @@
     "domain": 1,
     "objective": "1.5",
     "difficulty": "medium",
-    "stem": "An analyst must examine a hard drive from a workstation implicated in suspected data theft, and the matter may proceed to litigation. Which practice BEST preserves the evidentiary value of the drive during the examination?",
+    "stem": "After a former employee steals trade secrets, corporate counsel weighs suing for damages against referring the matter for criminal prosecution, and warns investigators that the criminal route imposes the most demanding evidentiary burden. Which statement BEST explains why?",
     "options": [
-      "Examine the original drive directly so all findings are drawn from the primary evidence",
-      "Photograph the drive and record its serial number, then return the workstation to service",
-      "Create a bit-for-bit image verified with matching cryptographic hashes and analyze only the copy",
-      "Copy the relevant user files to an analysis server using the operating system's file explorer"
+      "Criminal courts apply a preponderance of the evidence standard, while civil courts require clear and convincing evidence",
+      "Civil suits carry the stricter standard of proof because monetary damages must be calculated with precision",
+      "A criminal conviction must be proven beyond a reasonable doubt, a stricter standard than the preponderance of the evidence that decides most civil actions",
+      "The standards of proof are identical; criminal cases differ only because prosecutors, not the company, decide whether charges are filed"
     ],
     "answer": 2,
     "explanations": [
-      "The best evidence rule concerns presenting original or reliably duplicated evidence in court; it does not mean analysts should work on originals, and direct examination risks altering timestamps and content, undermining admissibility.",
-      "Photographs and serial numbers support chain of custody documentation, but returning the workstation to service allows the evidence to be overwritten and destroyed.",
-      "Imaging the drive bit for bit, verifying the copy with cryptographic hashes, and performing all analysis on the working copy leaves the original pristine and lets the analyst prove the examined data is identical to what was seized.",
-      "A logical file copy through the operating system misses deleted files, slack space, and unallocated areas, and it alters access metadata; this confuses an ordinary backup with a forensic acquisition."
-    ],
-    "reference": "NIST SP 800-86"
+      "This scrambles the standards: preponderance of the evidence is the ordinary civil standard and clear and convincing is an intermediate standard used in some civil matters; neither suffices for a criminal conviction.",
+      "This reverses the hierarchy: precision in calculating damages concerns the remedy, not the burden of persuasion, and civil claims are decided under the lower preponderance standard.",
+      "Because a defendant's liberty is at stake, criminal guilt must be established beyond a reasonable doubt, the law's highest standard of proof, so evidence gathered for a criminal referral must withstand the greatest scrutiny.",
+      "Prosecutorial discretion determines whether charges are brought, but it is separate from the burden of proof; the criminal route is more demanding because the conviction standard itself is higher."
+    ]
   },
   {
     "id": "D1-0091",
@@ -3208,7 +3206,7 @@
   {
     "id": "D1-0159",
     "domain": 1,
-    "objective": "1.1",
+    "objective": "1.5",
     "difficulty": "hard",
     "stem": "During a routine malware investigation on a marketing employee's workstation, a security analyst discovers files that appear to be illegal child sexual abuse material, unrelated to the original incident. What should the analyst do FIRST?",
     "options": [

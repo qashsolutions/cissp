@@ -750,19 +750,19 @@
     "domain": 3,
     "objective": "3.3",
     "difficulty": "medium",
-    "stem": "A regulation requires encryption at rest for a claims database, but the legacy application cannot support it, the vendor offers no fix, and replacement is two years away. What is the security manager's BEST course of action?",
+    "stem": "A regulation requires encryption at rest for a claims database, but the legacy application cannot encrypt the data itself and the vendor offers no fix. The security manager must select a compensating control that satisfies the requirement's intent. Which proposal comes CLOSEST to equivalent protection?",
     "options": [
-      "Formally accept the risk and note that encryption will arrive with the replacement platform",
-      "Direct the project team to replace the legacy system immediately, regardless of the migration schedule",
-      "Implement and document compensating controls of equivalent protection, such as strict access restriction and enhanced monitoring of the database",
-      "Transfer the regulatory exposure by purchasing a cyber liability insurance policy for the system"
+      "Require TLS 1.3 on every client connection so claims data is always encrypted on its way to the database",
+      "Enable transparent volume-level encryption on the database server's storage, with keys held in an external key manager",
+      "Restrict database logins to a short list of application service accounts that is reviewed each quarter",
+      "Log every query against the claims tables and alert on bulk reads that occur outside business hours"
     ],
-    "answer": 2,
+    "answer": 1,
     "explanations": [
-      "Risk acceptance is premature when reasonable mitigation is still available; regulators and assessors generally expect compensating measures before residual risk is accepted.",
-      "Forcing an immediate replacement ignores business constraints and delivery reality; risk management balances protection with operational feasibility rather than issuing impractical mandates.",
-      "When a required control is technically infeasible, the recognized approach is compensating controls that meet the intent and rigor of the original requirement, documented so assessors can evaluate their equivalence.",
-      "Insurance can offset financial loss but does not satisfy a control requirement or reduce the likelihood of disclosure, so both the compliance gap and the data exposure remain."
+      "This confuses data in transit with data at rest. TLS protects claims records moving across the network, but they still sit unencrypted on disk and backup media, which is exactly the exposure the regulation targets.",
+      "Encryption applied at the storage layer renders the stored claims data unreadable to anyone who accesses the disks, file system, or backups directly, meeting the intent of the at-rest requirement even though the application cannot encrypt; keeping the keys in an external manager prevents a stolen server from defeating it.",
+      "This substitutes access control for encryption. Limiting accounts narrows who can query through the application path, but anyone who reaches the underlying storage or a backup tape still reads plaintext.",
+      "This offers detection rather than protection. Query logging and alerting may reveal misuse after the fact, but they do nothing to make the stored data unreadable, so the at-rest exposure is unchanged."
     ]
   },
   {
@@ -2117,7 +2117,7 @@
     "domain": 3,
     "objective": "3.9",
     "difficulty": "easy",
-    "stem": "A server room's raised floor conceals power distribution whips and the chilled-water lines that feed in-row cooling units. The facilities team asks what detective control should be installed in the underfloor plenum to address the specific risk this design introduces. Which control BEST fits?",
+    "stem": "A server room's raised floor conceals power distribution whips and the chilled-water lines that feed in-row cooling units. Aspirating smoke detection already samples air from both the room and the underfloor plenum. The facilities team asks which additional detective control should be installed beneath the floor to address a hazard the existing detection would not reveal. Which control BEST fits?",
     "options": [
       "Pre-action sprinkler heads positioned beneath the raised floor tiles",
       "Positive air pressurization maintained throughout the underfloor plenum",
@@ -2128,7 +2128,7 @@
     "explanations": [
       "This confuses suppression with detection, and it targets the wrong hazard. Sprinklers respond to fire, while the underfloor water lines create a leak risk that would go unnoticed beneath the tiles without dedicated sensing.",
       "This confuses an environmental preventive measure with a detective control. Positive pressurization keeps dust and contaminants out of a space; it cannot detect water escaping from chilled-water piping.",
-      "This is a legitimate detective control but for the wrong threat. Early-warning smoke detection addresses fire, whereas the design-specific risk introduced here is water leaking from concealed piping near live power.",
+      "This duplicates coverage the room already has. The existing aspirating system already samples the plenum for the fire hazard posed by concealed power cabling; the hazard it cannot reveal is water leaking from the chilled-water piping.",
       "Water escaping hidden chilled-water lines can pool unseen beneath the floor next to energized power whips. Leak detection cable or spot sensors along the piping provide early alarm before water reaches electrical infrastructure."
     ]
   },

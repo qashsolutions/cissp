@@ -769,7 +769,7 @@
   {
     "id": "D2-0039",
     "domain": 2,
-    "objective": "2.1",
+    "objective": "2.6",
     "difficulty": "hard",
     "stem": "An analytics team stripped names and account numbers from a customer dataset, labeled it anonymized, and plans to send it to a university research group. Each record still holds full date of birth, gender, and postal code. What is the MOST important step before release?",
     "options": [
@@ -1290,7 +1290,7 @@
   {
     "id": "D2-0065",
     "domain": 2,
-    "objective": "2.2",
+    "objective": "2.6",
     "difficulty": "medium",
     "stem": "A routine scan reveals a network folder readable by all employees that contains thousands of HR files, including salary and disciplinary records, accumulated over several years. What should the security manager do FIRST?",
     "options": [
@@ -1976,19 +1976,19 @@
     "domain": 2,
     "objective": "2.6",
     "difficulty": "medium",
-    "stem": "A company is moving its HR records to a SaaS provider. The vendor's sales material claims bank-grade security, and the contract includes confidentiality clauses. The security manager wants reasonable assurance that the provider's controls over customer data actually operate effectively. Which action BEST provides that assurance?",
+    "stem": "A company is migrating employee HR records to a SaaS provider and must specify the data security controls the provider is required to apply to those records. Which requirement BEST protects the confidentiality of the HR records across their different data states?",
     "options": [
-      "Obtain the provider's signed confidentiality and data processing agreements",
-      "Run an authenticated vulnerability scan against the provider's production environment",
-      "Ask the provider to complete a security self-assessment questionnaire",
-      "Review the provider's current independent audit report, such as a SOC 2 Type II, against the company's requirements"
+      "Contractual confidentiality and data processing clauses binding all provider personnel",
+      "TLS encryption for every connection between company users and the SaaS platform",
+      "Encryption of records at rest and in transit, with role-based access control and logging governing data in use",
+      "Full-disk encryption on the storage infrastructure that hosts the HR database"
     ],
-    "answer": 3,
+    "answer": 2,
     "explanations": [
-      "Contracts allocate liability and set obligations, but a signature is not evidence that controls exist or function. This confuses legal recourse after a failure with assurance that failures are being prevented.",
-      "Customers generally have no authorization to scan a multi-tenant SaaS environment, and a scan would reveal only technical exposures at one moment, not whether governance and data-handling controls operate over time.",
-      "Self-assessments are unverified statements by the party with the incentive to look good. They are useful for scoping questions but sit well below independent examination on the assurance ladder.",
-      "A Type II attestation reports an independent auditor's testing of control operating effectiveness over a period, not just design at a point in time. Mapping its scope and exceptions to the company's own requirements is the standard, practical means of vendor assurance."
+      "This confuses an administrative safeguard with a data security control: contract clauses create obligations on people but apply no technical protection to the records in any data state.",
+      "TLS protects data only while it moves over the network; this addresses the in-transit state alone and leaves stored records and in-use access paths uncovered.",
+      "Confidentiality requires coverage of every data state: encryption protects the records at rest and in transit, while role-based access control and logging govern and account for their use, which no single-state control provides.",
+      "This confuses whole-media protection with protection across data states: full-disk encryption defends against loss or theft of physical media but decrypts transparently for the running system, leaving in-transit and in-use exposure untouched."
     ]
   },
   {
@@ -2035,7 +2035,7 @@
   {
     "id": "D2-0102",
     "domain": 2,
-    "objective": "2.6",
+    "objective": "2.4",
     "difficulty": "hard",
     "stem": "A multinational's security team retains detailed authentication and web proxy logs, which include user identifiers, for 18 months to support incident investigations. The privacy office demands the logs be deleted after 30 days, citing data minimization and regulatory exposure. As the risk manager mediating the dispute, what is the BEST resolution?",
     "options": [

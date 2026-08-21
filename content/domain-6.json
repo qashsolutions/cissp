@@ -217,13 +217,13 @@
       "Black-box testing maximizes external realism but forces testers to spend the scarce engagement window on reconnaissance, and it does not represent an attacker who already holds an account.",
       "Gray-box testing gives testers partial knowledge and a working account, mirroring a malicious authenticated customer while conserving the limited window for actual attack work rather than discovery.",
       "White-box testing is the most thorough per hour of effort, but it models an omniscient reviewer rather than the specified threat of a customer with ordinary access.",
-      "Double-blind describes whether defenders are warned, not how much knowledge testers receive; it answers a different design question about evaluating detection and response."
+      "A double-blind engagement is a zero-knowledge (blind) test in which the security staff are also not notified, so testers would receive no account or prior information and would spend the scarce two-week window on discovery instead of modeling an authenticated customer; its added focus on evaluating detection and response also differs from the stated goal."
     ]
   },
   {
     "id": "D6-0012",
     "domain": 6,
-    "objective": "6.3",
+    "objective": "6.2",
     "difficulty": "medium",
     "stem": "Security analysts cannot reconstruct an incident because timestamps in the firewall, directory, and application logs disagree by several minutes, making event ordering unreliable. Which improvement should the organization make FIRST?",
     "options": [
@@ -446,7 +446,7 @@
   {
     "id": "D6-0023",
     "domain": 6,
-    "objective": "6.3",
+    "objective": "6.2",
     "difficulty": "medium",
     "stem": "A security review notes that server administrators hold sufficient privileges to alter or delete the local logs that record their own activity. Which control BEST preserves the evidentiary value of those logs?",
     "options": [
@@ -831,7 +831,7 @@
   {
     "id": "D6-0042",
     "domain": 6,
-    "objective": "6.2",
+    "objective": "6.4",
     "difficulty": "medium",
     "stem": "An outside security researcher emails a company's support address describing a serious flaw in its customer portal and offers 90 days before publishing details. The company has no bug bounty program. What is the BEST initial response?",
     "options": [
@@ -2107,7 +2107,7 @@
     "domain": 6,
     "objective": "6.5",
     "difficulty": "easy",
-    "stem": "As permitted by their services contract, a retailer sends its own audit team to examine the security controls of the logistics provider that processes its shipment data. From the logistics provider's perspective, what type of audit is being performed?",
+    "stem": "As permitted by their services contract, a retailer sends its own audit team to examine the security controls of the logistics provider that processes its shipment data. Using the ISO 19011 audit-type definitions, what type of audit is being performed from the logistics provider's perspective?",
     "options": [
       "A first-party audit",
       "A third-party audit",
@@ -2117,9 +2117,9 @@
     "answer": 3,
     "explanations": [
       "A first-party audit is an organization auditing itself through its own internal audit function; here the examiners come from an outside organization, the customer.",
-      "Third-party audits are performed by independent bodies with no business stake in the auditee, such as certification bodies; a customer auditing its supplier has a direct contractual interest, so it is not independent in that sense.",
+      "Under ISO 19011, a third-party audit is performed by an independent auditing organization with no business stake in the auditee, such as a certification body or regulator; some texts, including the CISSP Official Study Guide, apply 'third-party' broadly to audits conducted on behalf of another organization, but in the ISO 19011 scheme named by the stem a customer auditing its supplier is second-party, not third-party.",
       "A self-assessment is performed by the organization's own staff evaluating their own compliance; this examination is conducted by an external party.",
-      "An audit performed by an external party with a business interest in the auditee, most commonly a customer auditing a supplier, is the definition of a second-party audit."
+      "In ISO 19011 terms, an audit performed by an external party with a business interest in the auditee, most commonly a customer auditing a supplier under contract, is the definition of a second-party audit."
     ]
   },
   {

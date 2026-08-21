@@ -173,7 +173,7 @@
     ],
     "answer": 0,
     "explanations": [
-      "WPA3-Personal replaces the WPA2 four-way handshake, whose captures can be brute-forced offline, with SAE, a password-authenticated key exchange that forces active per-guess interaction and adds forward secrecy.",
+      "WPA3-Personal replaces WPA2's passphrase-derived pairwise master key establishment with SAE, a password-authenticated key exchange run before the four-way handshake, so a captured handshake can no longer be brute-forced offline: each password guess requires live interaction, and forward secrecy is added.",
       "Per-user credentials with a RADIUS back end describe WPA3-Enterprise built on 802.1X; WPA3-Personal still uses a shared passphrase.",
       "WPA2 already mandated AES-CCMP; it was WPA and WEP that relied on RC4-based protection, so AES is not new in WPA3.",
       "SSID cloaking is an unrelated and largely cosmetic setting; the network name is still exposed in probe and association traffic regardless of WPA version."
@@ -318,7 +318,7 @@
     "explanations": [
       "DMARC ties SPF and DKIM results to the From domain the user actually sees and publishes the owner's instruction to reject failures, which is precisely what defeats display-From spoofing at scale.",
       "SPF, even with a hard fail, evaluates the envelope sender (MAIL FROM), which attackers can set to a domain they control while still forging the visible From header the user reads.",
-      "S/MIME authenticates individual senders to recipients who validate signatures, but receiving servers will not reject the forged mail, and external counterparties rarely check such signatures.",
+      "S/MIME authenticates individual senders to recipients who validate signatures, but receiving servers will not reject forged mail on its account, and signing finance employees' outbound messages does nothing to authenticate or block the forged inbound mail those staff are receiving.",
       "TLS between gateways protects messages from eavesdropping in transit; it makes no assertion about who the sender is and cannot cause forged mail to be rejected."
     ],
     "reference": "RFC 7489"
@@ -557,7 +557,7 @@
     ],
     "answer": 2,
     "explanations": [
-      "Filtering protocol 41 stops only one encapsulation method (6in4); tunnels over UDP such as Teredo, tunnels inside HTTPS, and rogue-RA traffic on the LAN itself are all unaffected.",
+      "Filtering protocol 41 stops only protocol-41-based tunnels (6in4, 6to4, ISATAP); tunnels over UDP such as Teredo, tunnels inside HTTPS, and rogue-RA traffic on the LAN itself are all unaffected.",
       "Private IPv4 addressing is no barrier here: hosts obtained routable IPv6 configuration directly from the rogue advertisements, and address translation applies only to the IPv4 path.",
       "The root cause is a protocol that is active by default on endpoints but absent from security policy; RA Guard blocks rogue advertisements at the switch port, and managing IPv6 under the same egress and monitoring controls as IPv4 closes the blind spot.",
       "Signatures detect known tools after the fact; the underlying design gap, an unmanaged protocol outside all security controls, remains open for the next technique."
@@ -892,7 +892,7 @@
     "difficulty": "medium",
     "stem": "Twice this month the network went down after employees plugged unmanaged desktop switches into wall jacks, triggering spanning tree recalculations and a bridging loop. Which control BEST prevents a recurrence at the access layer?",
     "options": [
-      "Increase the core switches' spanning tree priority so they always remain the root bridge",
+      "Lower the core switches' bridge priority value so they always remain the root bridge",
       "Enable BPDU Guard on access ports so any port receiving bridge protocol messages is shut down",
       "Enable port security so ports that learn more than one MAC address are disabled",
       "Deploy DHCP snooping so devices behind rogue switches cannot obtain addresses"
@@ -939,7 +939,7 @@
     ],
     "answer": 3,
     "explanations": [
-      "This treats the symptom. Rotation still leaves one shared secret for every user, each rotation remains disruptive, and between rotations departed staff retain working access.",
+      "This treats the symptom. Rotation still leaves one shared secret for every user, devices outside MDM management must still be updated by hand at every rotation, and between rotations departed staff retain working access.",
       "This confuses hiding the network with revoking access. Former employees already know the SSID, and hidden networks are trivially rediscovered from client probe traffic.",
       "This confuses device identification with authentication. MAC addresses are easily observed over the air and spoofed, and maintaining the list for hundreds of devices is unmanageable.",
       "Enterprise mode uses 802.1X to authenticate each user or device with individual directory credentials, so offboarding automatically ends wireless access without reconfiguring anyone else's device."
@@ -1639,21 +1639,20 @@
     "domain": 4,
     "objective": "4.2",
     "difficulty": "medium",
-    "stem": "An architect must place a gateway between internal clients and an untrusted network. Requirements state that internal hosts must never connect directly to external systems, that dozens of different application protocols must be supported without building a protocol-specific inspection module for each, and that per-packet payload inspection latency is unacceptable. Which technology BEST satisfies these requirements?",
+    "stem": "A budget review finds the data center's core switches passed the vendor's end-of-support date eight months ago. They run reliably, and the network team argues the replacement money is better spent elsewhere. From a security standpoint, what is the MOST important reason to retire or replace them?",
     "options": [
-      "Application-level proxy",
-      "Stateful packet-filtering firewall",
-      "Circuit-level gateway",
-      "Next-generation firewall with deep packet inspection"
+      "Spare parts become scarce after end of support, so recovery from a hardware failure will take longer",
+      "The lapsed warranty means any repair or replacement must now be funded entirely by the organization",
+      "Vulnerabilities disclosed from now on will never receive vendor patches, leaving permanently unfixable flaws in the network core",
+      "The aging hardware will be unable to keep pace with growing traffic volumes on the backbone"
     ],
     "answer": 2,
     "explanations": [
-      "Candidates confuse the two proxy types: an application-level proxy also relays sessions, but it requires a protocol-specific module for each application and inspects payloads, which violates both the multi-protocol and latency requirements.",
-      "A stateful firewall tracks connections but forwards packets between the endpoints directly; it does not relay sessions on the client's behalf, so internal hosts would still connect straight to external systems.",
-      "A circuit-level gateway (such as a SOCKS proxy) relays TCP sessions at the session layer on behalf of internal clients after validating the handshake, hiding internal endpoints while remaining application-agnostic and avoiding payload inspection overhead.",
-      "NGFW deep packet inspection is precisely the payload examination the requirement rules out, and an NGFW in routed mode still lets endpoints communicate directly rather than through a relayed session."
-    ],
-    "reference": "NIST SP 800-41r1"
+      "This confuses maintainability with security: scarce spares lengthen repair time after a physical failure but say nothing about whether the running devices can be exploited.",
+      "This confuses financial exposure with security exposure; paying out of pocket for repairs is a budgeting consequence of lapsed warranty and does not change the network's attack surface.",
+      "Once vendor support ends, security fixes stop while vulnerability research continues, so every flaw disclosed after that date stays exploitable forever on devices carrying all of the organization's traffic — the core security rationale for hardware lifecycle replacement.",
+      "This confuses capacity planning with security: the stem states the switches run reliably, and a future throughput shortfall degrades performance rather than creating an exploitable weakness."
+    ]
   },
   {
     "id": "D4-0083",
@@ -2382,7 +2381,7 @@
   {
     "id": "D4-0119",
     "domain": 4,
-    "objective": "4.1",
+    "objective": "4.2",
     "difficulty": "hard",
     "stem": "An investigation reveals that a developer's docked laptop was connected to the wired corporate LAN while its Wi-Fi adapter was associated with the developer's personal phone hotspot, and traffic flowed on both interfaces. Web filtering and DLP saw none of the hotspot traffic. Which control MOST directly addresses this exposure?",
     "options": [
@@ -2615,7 +2614,7 @@
     "answer": 3,
     "explanations": [
       "This confuses data authentication with service abuse: DNSSEC signs the zone data and actually enlarges responses, making an open resolver a more potent amplifier while doing nothing to limit who may query recursively.",
-      "Blocking all inbound DNS would also silence legitimate authoritative answers the server must provide and is overbroad; the problem is open recursion, not DNS service itself.",
+      "Perimeter blocking treats one ingress path instead of the flaw: the open-recursion misconfiguration remains on the server and stays abusable from any other network path, whereas the fix belongs in the server's own configuration.",
       "The source addresses in the abusive queries belong to the victims being attacked, not the perpetrators, so reporting them misdirects effort and changes nothing on the server.",
       "The server is abusable because it performs recursion for the entire Internet; limiting recursive service to authorized internal clients removes its value as a reflector while preserving its legitimate functions."
     ],

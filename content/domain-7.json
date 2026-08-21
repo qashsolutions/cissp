@@ -2490,7 +2490,7 @@
   {
     "id": "D7-0124",
     "domain": 7,
-    "objective": "7.10",
+    "objective": "7.11",
     "difficulty": "medium",
     "stem": "A business impact analysis notes that only one engineer knows how to recover the firm's core storage arrays, and the recovery knowledge exists 'in his head.' He is nearing retirement. Which risk treatment BEST addresses this single point of failure?",
     "options": [

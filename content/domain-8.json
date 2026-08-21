@@ -1333,7 +1333,7 @@
   {
     "id": "D8-0067",
     "domain": 8,
-    "objective": "8.2",
+    "objective": "8.1",
     "difficulty": "medium",
     "stem": "An architect is defining the logging requirements for a new loan-origination application. Which requirement would BEST support future security investigations while limiting the new risk the logs themselves introduce?",
     "options": [
@@ -1533,7 +1533,7 @@
   {
     "id": "D8-0077",
     "domain": 8,
-    "objective": "8.2",
+    "objective": "8.5",
     "difficulty": "easy",
     "stem": "Shortly after a public product-search API launches, scripted clients begin sending thousands of requests per second, degrading service for legitimate integration partners. Which control MOST directly addresses this abuse?",
     "options": [
@@ -1819,7 +1819,7 @@
   {
     "id": "D8-0091",
     "domain": 8,
-    "objective": "8.2",
+    "objective": "8.5",
     "difficulty": "hard",
     "stem": "In a containerized platform, the internal payments service accepts any request originating inside the cluster network without authentication because \"only trusted services run there.\" A compromise of one low-value service allowed testers to invoke payment operations directly. Which design change BEST corrects the underlying weakness?",
     "options": [
@@ -1935,7 +1935,7 @@
       "Password policy hardens individual credentials but leaves an isolated credential silo outside central MFA, monitoring, and automated deprovisioning — which are the larger access risks.",
       "Quarterly recertification is a periodic detective control; a departed employee's local account could remain usable for up to three months between review cycles.",
       "Nightly synchronization narrows the gap but still leaves a separate credential store, a same-day orphaned-access window, and a batch process that can fail silently.",
-      "Federation ties the application to the authoritative identity lifecycle: disablement in the identity provider immediately revokes access, and enterprise MFA and conditional access apply without app-specific administration."
+      "Federation ties the application to the authoritative identity lifecycle: disablement in the identity provider immediately blocks any new sign-in, closing the orphaned-account window that local stores leave open, and enterprise MFA and conditional access apply without app-specific administration."
     ]
   },
   {
@@ -2003,41 +2003,41 @@
     "domain": 8,
     "objective": "8.2",
     "difficulty": "easy",
-    "stem": "A cloud function that resizes uploaded images runs under an execution role with read-write access to every storage bucket and database in the account, because that role \"already existed.\" What should the security team require?",
+    "stem": "Developers routinely install third-party extensions into their IDEs directly from a public marketplace, and one popular extension was recently found stealing source code and locally cached credentials. What is the BEST way for the organization to manage this risk?",
     "options": [
-      "Relocate the function into a dedicated cloud account while continuing to use the existing role",
-      "Enable detailed logging of every API call that the function's execution role makes to cloud services",
-      "Scan each uploaded image for malware before the resizing function is allowed to process it",
-      "Assign the function a purpose-built role scoped to only the specific buckets and operations it needs"
+      "Direct each developer to personally review an extension's source code before installing it",
+      "Rely on the marketplace's publishing checks, since extensions are screened before they are listed",
+      "Ban all IDE extensions outright, because productivity tooling has no place on development workstations",
+      "Permit installation only of extensions the organization has vetted and placed on an approved allowlist"
     ],
     "answer": 3,
     "explanations": [
-      "Account isolation shrinks some blast radius but transplants the same excessive grants; within the new account the function still holds rights far beyond its task.",
-      "Logging records what the over-privileged role does; it is a detective measure that leaves the underlying excessive authority fully exploitable.",
-      "Malware scanning addresses hostile file content, a different threat; even with clean inputs, a bug or injection flaw in the function exposes everything its role can reach.",
-      "Least privilege applies to service identities as much as to humans; a narrowly scoped execution role means exploitation of the image-processing code yields access only to the resources the task genuinely requires."
+      "This pushes a specialized supply-chain assessment onto every individual developer; few have the time or skill to audit obfuscated extension code, and hundreds of personal judgments replace one accountable, central review.",
+      "This confuses a publisher's screening with the organization's own due diligence; malicious and trojanized extensions have repeatedly passed public marketplace checks, and the marketplace cannot weigh any one company's risk tolerance.",
+      "A blanket ban ignores the legitimate productivity value of the toolchain and typically drives unmanaged workarounds, such as coding on personal machines, that remove the activity from the organization's visibility entirely.",
+      "IDE extensions are part of the development toolchain and handle source code and credentials, so they warrant the same control as any other software source: central vetting and an enforced allowlist ensure only assessed, trusted tooling reaches developer workstations."
     ]
   },
   {
     "id": "D8-0101",
     "domain": 8,
     "objective": "8.2",
-    "difficulty": "hard",
-    "stem": "While refactoring the payroll system, a developer discovers code that will corrupt payment records if a particular employee identifier ever disappears from the HR feed — apparently planted by a developer who left last year. The developer offers to simply delete the block and redeploy. What should the application security manager direct FIRST?",
+    "difficulty": "medium",
+    "stem": "While refactoring the payroll system, a developer discovers code that will corrupt payment records if a particular employee identifier ever disappears from the HR feed — apparently planted by a developer who left last year. The security team must now identify everything else that person changed across the organization's software. Which development-ecosystem capability BEST supports that effort?",
     "options": [
-      "Invoke the incident response process, preserving the code, repository history, and build records as evidence before any cleanup",
-      "Delete the malicious block immediately and redeploy so that the trigger condition can never fire",
-      "Add an automated test asserting the trigger condition is handled safely, then schedule the fix in the next sprint",
-      "Refer the matter to law enforcement and take no internal action until investigators respond"
+      "A version control system that ties every commit to an authenticated individual and preserves tamper-evident history",
+      "Static analysis of the current codebase to flag any insecure coding patterns that remain",
+      "Restoring last year's production backups and comparing the files with the running system",
+      "Interviews with the former developer's teammates about the projects the person worked on"
     ],
     "answer": 0,
     "explanations": [
-      "A planted logic bomb is a security incident, not a defect: evidence must be preserved for forensics and potential legal action, and the response process must determine whether other implants or lingering access remain before the code quietly changes.",
-      "Immediate deletion feels safest but destroys evidentiary context and skips scoping; if the insider planted more than one implant, silently removing the discovered one leaves the rest in place.",
-      "Treating sabotage as an ordinary bug misclassifies the event; a test wrapped around malicious code neither preserves evidence nor investigates how the code got there or what else the author touched.",
-      "External referral may well follow, but waiting on law enforcement before any internal containment leaves a destructive trigger live in production; the organization's own response process acts first and engages authorities through it."
+      "Code repositories under configuration management record who changed what, when, and where; authenticated, tamper-evident commit history lets investigators enumerate every change the departed developer made and review each one for further sabotage.",
+      "This confuses vulnerability patterns with authorship: static analysis flags insecure constructs regardless of who wrote them, and deliberately planted logic built from ordinary operations often matches no insecure pattern at all.",
+      "Backups capture deployed snapshots, not attribution; comparing images shows that files differ but cannot tie any difference to an individual, and changes made between snapshot dates are invisible.",
+      "Human recollection is incomplete and unverifiable a year after the fact; teammates can suggest where to look but cannot produce the authoritative, file-level change record the investigation needs."
     ],
-    "reference": "NIST SP 800-61r2"
+    "reference": "NIST SP 800-218"
   },
   {
     "id": "D8-0102",
